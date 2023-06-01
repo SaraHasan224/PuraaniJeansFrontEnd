@@ -1,0 +1,25 @@
+:root {
+    --theme-deafult: #E10202;
+    --theme-deafult-lighter: #FA4729;
+    // This gradient color only for gym layout
+    --theme-gradient1: #01effc;
+    --theme-gradient2: #485ff2;
+  }
+
+
+@import '~bootstrap-scss/bootstrap.scss';
+@import '../scss/landing_page.scss';
+@import '../scss/animate.scss';
+@import '~react-image-lightbox/style.css';
+@import '~react-toastify/dist/ReactToastify.css';
+@import 'font-awesome.scss';
+@import 'theme/variables';
+@import 'theme/_shop_filters';
+@import 'theme/_breadcrumb';
+@import 'theme/style';
+@import 'theme/menu';
+@import 'theme/responsive';
+// @import 'theme/dark';
+@import "./slick.scss";
+@import "./slick-theme.scss";
+@import '../../my-assets/css/search-navigation.scss'
