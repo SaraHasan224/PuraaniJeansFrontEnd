@@ -19,11 +19,14 @@ const Size = () => {
   const filterChecked = context.filterChecked;
   const toggle = () => setIsOpen(!isOpen);
 
-  var { loading, data } = useQuery(GET_SIZE, {
-    variables: {
-      type: context.state,
-    },
-  });
+  // var { loading, data } = useQuery(GET_SIZE, {
+  //   variables: {
+  //     type: context.state,
+  //   },
+  // });
+
+  var loading = '';
+  var data = '';
 
   return (
     <div className="collection-collapse-block border-0 open">

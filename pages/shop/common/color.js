@@ -16,12 +16,14 @@ const Color = () => {
     const context = useContext(FilterContext);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
-    var { loading, data } = useQuery(GET_COLOR, {
-        variables: {
-            type: context.state
-        }
-    })
+    // var { loading, data } = useQuery(GET_COLOR, {
+    //     variables: {
+    //         type: context.state
+    //     }
+    // })
 
+    var loading = '';
+    var data = '';
     return (
         <div className="collection-collapse-block open">
             <h3 className="collapse-block-title" onClick={toggle}>colors</h3>

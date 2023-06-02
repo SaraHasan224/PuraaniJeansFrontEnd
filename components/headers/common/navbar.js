@@ -16,7 +16,7 @@ const NavBar = () => {
     if (window.innerWidth < 750) {
       setNavClose({ right: "-410px" });
     }
-    if (window.innerWidth < 1199) {
+    if (window.innerWidth < 990) {
       setNavClose({ right: "-300px" });
     }
   }, []);

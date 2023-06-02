@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Media, Col, Container, Row } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 
 
 const HomeSlider = () => {

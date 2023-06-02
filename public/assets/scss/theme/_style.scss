@@ -1123,6 +1123,18 @@ button {
     margin-bottom: 0;
     position: relative;
     margin-top: -5px;
+    
+    h4 {
+      padding-bottom: 25px;
+      margin-bottom: 0;
+      position: relative;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      text-align: center;
+    }
   }
 
   .line {
@@ -1569,8 +1581,8 @@ header {
     padding-top: 35px;
     padding-bottom: 35px;
     text-align: left;
+    margin-left: 3%;
     float: left;
-    margin-right: auto;
   }
 
   .menu-left {
@@ -1618,7 +1630,8 @@ header {
     }
   }
 
-  .menu-right {
+  .menu-right,
+  .menu-left {
     // display: flex;
     // float: right;
 
@@ -3210,20 +3223,6 @@ header {
 
       &:nth-last-child(-n + 5) {
         margin: 0 15px 0;
-      }
-    }
-  }
-}
-
-.bag-product {
-  ~.gym-product {
-    .product-box {
-      .img-wrapper {
-        .cart-info {
-          i {
-            background: linear-gradient(180deg, var(--theme-deafult) 0%, var(--theme-deafult) 99%);
-          }
-        }
       }
     }
   }
@@ -5746,243 +5745,457 @@ header {
 /*=====================
     16.look-book demo CSS start
 ==========================*/
-.lookbook-section {
-  // padding-left: 25px;
-  // padding-right: 25px;
-  padding-bottom: 25px;
-  padding-left: 0px;
-  padding-right: 0px;
-  .row {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-
-    // padding-left: 0px;
-    // padding-right: 0px;
-    // margin-left: 0px;
-    // margin-right: 0px;
-  }
-  .row > * {
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-  .center-img {
-    margin: 0 auto;
-  }
-  .lookbook-img {
-    >div {
-      +div {
-        img {
-          margin-top: 25px;
-        }
-      }
-    }
-  }
-}
-
-/*=====================
-    17.1.lookbook CSS start
-==========================*/
 .lookbook {
-  .lookbook-block {
-    position: relative;
-    &.central {
-      // width: 400px;
-      // height: 360px;
+  .lookbook-parent {
+    margin-bottom: 7% !important;
+    .lookbook-block {
       position: relative;
-      display: inline-block;
-      overflow: hidden;
-      margin: 0;
-      border-radius: 7px; 
-      width: 100%;
-      height: 100%; 
-      img{
-        height: 91% !important;
-        width: 100% !important;
-        // display: block;
-        // position: absolute;
-        // min-height: 100%;
-        // min-width: 100%;
+      &.central {
+        // width: 400px;
+        // height: 360px;
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        margin: 0;
+        border-radius: 7px; 
+        width: 100%;
+        height: 100%; 
+        img{
+          height: 91% !important;
+          width: 100% !important;
+          // display: block;
+          // position: absolute;
+          // min-height: 100%;
+          // min-width: 100%;
+        }
       }
-    }
-    .lookbook-dot {
-      cursor: pointer;
-      position: absolute;
-      z-index: 2;
-      width: 29px;
-      height: 29px;
-      line-height: 29px;
-      border-radius: 50%;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      top: 50%;
-      left: 12%;
-      background-color: $white;
-
-      &.dot2 {
-        top: 70%;
-        left: 27%;
-      }
-
-      &.dot3 {
-        top: 28%;
-        left: 30%;
-      }
-
-      &.dot4 {
-        top: 67%;
-        left: 8%;
-      }
-
-      &.dot5 {
-        top: 40%;
-        left: 35%;
-      }
-
-      &.dot6 {
-        top: 80%;
-        left: 58%;
-      }
-
-      &.dot7 {
-        top: 67%;
-        left: 45%;
-      }
-
-      &.dot8 {
-        top: 43%;
-        left: 39%;
-      }
-
-      &.dot9 {
-        top: 32%;
-        left: 50%;
-      }
-
-      &.dot10 {
-        top: 60%;
-        left: 50%;
-      }
-
-      &.dot11 {
-        top: 50%;
-        left: 45%;
-      }
-
-      &.dot12 {
-        top: 75%;
-        left: 45%;
-      }
-
-      &.dot13 {
-        top: 40%;
-        left: 45%;
-      }
-
-      &.dot14 {
-        top: 76%;
-        left: 45%;
-      }
-
-      &.dot15 {
-        top: 50%;
-        left: 15%;
-      }
-
-      &:before {
+      .lookbook-dot {
+        cursor: pointer;
         position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        content: "";
-        background-color: $white;
-        background-color: rgba(255, 255, 255, 0.5);
-        zoom: 1;
-        background-color: transparent\9;
-        z-index: -1;
+        z-index: 2;
+        width: 29px;
+        height: 29px;
+        line-height: 29px;
         border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
-      }
-
-      span {
-        text-align: center;
-        justify-content: center;
-        display: flex;
-      }
-
-      .dot-showbox {
-        visibility: hidden;
-        top: -98px;
-        left: 150%;
-        position: absolute;
-        width: 130px;
+        top: 50%;
+        left: 12%;
         background-color: $white;
-        box-shadow: -3px -3px 13px rgba(48, 54, 61, 0.1);
 
-        img {
-          margin-top: 0;
+        &.dot2 {
+          top: 70%;
+          left: 27%;
         }
 
-        .dot-info {
-          padding: 5px;
-          text-align: center;
+        &.dot3 {
+          top: 28%;
+          left: 30%;
+        }
 
-          h5 {
-            margin-bottom: 0;
-            text-transform: capitalize;
-            line-height: 20px;
+        &.dot4 {
+          top: 67%;
+          left: 8%;
+        }
 
-            &.title {
-              font-weight: 700;
-            }
-          }
+        &.dot5 {
+          top: 40%;
+          left: 35%;
+        }
 
-          h6 {
-            text-transform: uppercase;
-            color: var(--theme-deafult);
-            margin-bottom: 0;
-          }
+        &.dot6 {
+          top: 80%;
+          left: 58%;
+        }
+
+        &.dot7 {
+          top: 67%;
+          left: 45%;
+        }
+
+        &.dot8 {
+          top: 43%;
+          left: 39%;
+        }
+
+        &.dot9 {
+          top: 32%;
+          left: 50%;
+        }
+
+        &.dot10 {
+          top: 60%;
+          left: 50%;
+        }
+
+        &.dot11 {
+          top: 50%;
+          left: 45%;
+        }
+
+        &.dot12 {
+          top: 75%;
+          left: 45%;
+        }
+
+        &.dot13 {
+          top: 40%;
+          left: 45%;
+        }
+
+        &.dot14 {
+          top: 76%;
+          left: 45%;
+        }
+
+        &.dot15 {
+          top: 50%;
+          left: 15%;
         }
 
         &:before {
           position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
           content: "";
-          width: 0;
-          height: 0;
-          border-top: 8px solid transparent;
-          border-right: 8px solid $white;
-          border-bottom: 8px solid transparent;
-          top: 41%;
-          left: -8px;
-        }
-      }
-
-      &:hover {
-        background-color: var(--theme-deafult);
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
-        z-index: 10;
-
-        .dot-showbox {
-          animation: fadeInUp 400ms ease-in-out;
-          visibility: visible;
-          transition: all 0.5s ease;
+          background-color: $white;
+          background-color: rgba(255, 255, 255, 0.5);
+          zoom: 1;
+          background-color: transparent\9;
+          z-index: -1;
+          border-radius: 50%;
+          transition: all 0.3s ease;
         }
 
         span {
-          color: $white;
+          text-align: center;
+          justify-content: center;
+          display: flex;
         }
 
-        &:before {
-          -webkit-transform: scale(1.3);
+        .dot-showbox {
+          visibility: hidden;
+          top: -98px;
+          left: 150%;
+          position: absolute;
+          width: 130px;
+          background-color: $white;
+          box-shadow: -3px -3px 13px rgba(48, 54, 61, 0.1);
+
+          img {
+            margin-top: 0;
+          }
+
+          .dot-info {
+            padding: 5px;
+            text-align: center;
+
+            h5 {
+              margin-bottom: 0;
+              text-transform: capitalize;
+              line-height: 20px;
+
+              &.title {
+                font-weight: 700;
+              }
+            }
+
+            h6 {
+              text-transform: uppercase;
+              color: var(--theme-deafult);
+              margin-bottom: 0;
+            }
+          }
+
+          &:before {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-right: 8px solid $white;
+            border-bottom: 8px solid transparent;
+            top: 41%;
+            left: -8px;
+          }
         }
+
+        &:hover {
+          background-color: var(--theme-deafult);
+          box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+          z-index: 10;
+
+          .dot-showbox {
+            animation: fadeInUp 400ms ease-in-out;
+            visibility: visible;
+            transition: all 0.5s ease;
+          }
+
+          span {
+            color: $white;
+          }
+
+          &:before {
+            -webkit-transform: scale(1.3);
+          }
+        }
+      }
+      .lookbook-img-section{
+          position: absolute;
+          padding: 5px;
+          &.img-1 {
+            top: 10px;
+            left: 10px; 
+          }
+          &.img-2 {
+            bottom: 12%;
+            left: 10px; 
+          }
+          &.img-3 {
+            top: 50%;
+            margin: 0 30%;
+            text-align: center;
+          }
+          &.img-4 {
+            bottom: 3%;
+            margin: 0 30%;
+            text-align: center;
+          }
+          h2 {
+            color: #FFF;
+          }
+          .btn-outline {
+            padding: 4px 6px;
+            border-radius: 14px;
+            // background-color: #232323;
+            border: 2px solid #232323;
+            background-image: linear-gradient(30deg, #232323 50%, transparent 50%);
+            background-size: 540px;
+            background-repeat: no-repeat;
+            background-position: 0;
+            transition: background 500ms ease-in-out;
+            color: #FFF;
+            font-size: 11px;
+            font-weight: 500;
+            &:hover {
+              background-position: 100%;
+              color: #FFF !important;
+              border: 2px solid var(--theme-deafult);
+              background-color: var(--theme-deafult);
+              background-image: linear-gradient(30deg, var(--theme-deafult) 50%, transparent 50%);
+              background-size: 540px;
+              background-repeat: no-repeat;
+              background-position: 0;
+              transition: background 200ms ease-in-out !important;
+            }
+          }
       }
     }
   }
 }
+
+// .lookbook {
+//   .lookbook-block {
+//     &.central {
+//       // width: 400px;
+//       // height: 360px;
+//       position: relative;
+//       display: inline-block;
+//       overflow: hidden;
+//       margin: 0;
+//       border-radius: 7px; 
+//       width: 100%;
+//       height: 100%; 
+//       img{
+//         height: 91% !important;
+//         width: 100% !important;
+//         // display: block;
+//         // position: absolute;
+//         // min-height: 100%;
+//         // min-width: 100%;
+//       }
+//     }
+//     .lookbook-dot {  
+//       cursor: pointer;
+//       position: absolute;
+//       z-index: 2;
+//       width: 29px;
+//       height: 29px;
+//       line-height: 29px;
+//       border-radius: 50%;
+//       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//       transition: all 0.3s ease;
+//       top: 50%;
+//       left: 12%;
+//       background-color: $white;
+
+//       &.dot2 {
+//         top: 70%;
+//         left: 27%;
+//       }
+
+//       &.dot3 {
+//         top: 28%;
+//         left: 30%;
+//       }
+
+//       &.dot4 {
+//         top: 67%;
+//         left: 8%;
+//       }
+
+//       &.dot5 {
+//         top: 40%;
+//         left: 35%;
+//       }
+
+//       &.dot6 {
+//         top: 80%;
+//         left: 58%;
+//       }
+
+//       &.dot7 {
+//         top: 67%;
+//         left: 45%;
+//       }
+
+//       &.dot8 {
+//         top: 43%;
+//         left: 39%;
+//       }
+
+//       &.dot9 {
+//         top: 32%;
+//         left: 50%;
+//       }
+
+//       &.dot10 {
+//         top: 60%;
+//         left: 50%;
+//       }
+
+//       &.dot11 {
+//         top: 50%;
+//         left: 45%;
+//       }
+
+//       &.dot12 {
+//         top: 75%;
+//         left: 45%;
+//       }
+
+//       &.dot13 {
+//         top: 40%;
+//         left: 45%;
+//       }
+
+//       &.dot14 {
+//         top: 76%;
+//         left: 45%;
+//       }
+
+//       &.dot15 {
+//         top: 50%;
+//         left: 15%;
+//       }
+
+//       &:before {
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         bottom: 0;
+//         right: 0;
+//         content: "";
+//         background-color: $white;
+//         background-color: rgba(255, 255, 255, 0.5);
+//         zoom: 1;
+//         background-color: transparent\9;
+//         z-index: -1;
+//         border-radius: 50%;
+//         transition: all 0.3s ease;
+//       }
+
+//       span {
+//         text-align: center;
+//         justify-content: center;
+//         display: flex;
+//       }
+
+//       .dot-showbox {
+//         visibility: hidden;
+//         top: -98px;
+//         left: 150%;
+//         position: absolute;
+//         width: 130px;
+//         background-color: $white;
+//         box-shadow: -3px -3px 13px rgba(48, 54, 61, 0.1);
+
+//         img {
+//           margin-top: 0;
+//         }
+
+//         .dot-info {
+//           padding: 5px;
+//           text-align: center;
+
+//           h5 {
+//             margin-bottom: 0;
+//             text-transform: capitalize;
+//             line-height: 20px;
+
+//             &.title {
+//               font-weight: 700;
+//             }
+//           }
+
+//           h6 {
+//             text-transform: uppercase;
+//             color: var(--theme-deafult);
+//             margin-bottom: 0;
+//           }
+//         }
+
+//         &:before {
+//           position: absolute;
+//           content: "";
+//           width: 0;
+//           height: 0;
+//           border-top: 8px solid transparent;
+//           border-right: 8px solid $white;
+//           border-bottom: 8px solid transparent;
+//           top: 41%;
+//           left: -8px;
+//         }
+//       }
+
+//       &:hover {
+//         background-color: var(--theme-deafult);
+//         box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+//         z-index: 10;
+
+//         .dot-showbox {
+//           animation: fadeInUp 400ms ease-in-out;
+//           visibility: visible;
+//           transition: all 0.5s ease;
+//         }
+
+//         span {
+//           color: $white;
+//         }
+
+//         &:before {
+//           -webkit-transform: scale(1.3);
+//         }
+//       }
+//     }
+//   }
+// }
+
+/*=====================
+    17.1.lookbook CSS start
+==========================*/
 
 /*=====================
     17.2. Beauty Demo css
@@ -6122,64 +6335,6 @@ header {
 
   to {
     background-position: 0 500px;
-  }
-}
-
-/*=====================
-      17.4.pets demo CSS start
-==========================*/
-.pets-box {
-  .product-box {
-    .img-wrapper {
-      .cart-info {
-        position: relative;
-        padding: 10px;
-        border: none;
-        transform: perspective(500px) rotateX(90deg);
-        bottom: 0;
-        z-index: 1;
-
-        &:after {
-          position: absolute;
-          content: "";
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background-color: var(--theme-deafult);
-          opacity: 0.3;
-          z-index: -1;
-        }
-
-        i {
-          padding: 5px;
-          margin: 0 3px;
-          background-color: $white;
-        }
-
-        a {
-          border-left: none;
-        }
-      }
-    }
-
-    .product-detail {
-      text-align: center;
-      background-color: #fafafa;
-
-      .rating {
-        margin-top: 0;
-        padding-top: 15px;
-      }
-    }
-
-    &:hover {
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
-
-      .cart-info {
-        transform: perspective(500px) rotateX(0deg);
-      }
-    }
   }
 }
 
@@ -6553,250 +6708,6 @@ header {
   }
 }
 
-/*=====================
-   17.6. GYM layout  CSS start
-==========================*/
-.gym-slider {
-  .home-slider {
-    .home {
-      height: 85vh;
-
-      .slider-contain {
-        height: 85vh;
-
-        h4,
-        h1 {
-          color: $white;
-        }
-      }
-    }
-  }
-}
-
-.gym-parallax {
-  .title-borderless {
-    color: $white;
-  }
-
-  .title1 {
-    h2 {
-      color: $white;
-    }
-  }
-
-  .product-para {
-    p {
-      color: $white;
-    }
-  }
-
-  .instagram-box {
-    .overlay {
-      background: linear-gradient(-180deg,
-          var(--gradient1) 0%,
-          var(--gradient2) 99%);
-    }
-  }
-}
-
-.gym-product {
-  text-align: center;
-
-  .product-box {
-    background-color: $white;
-    padding: 15px;
-    box-shadow: 0 0 8px 0 $round-border;
-    margin: 5px 0;
-    transition: all 0.5s ease;
-
-    .img-wrapper {
-      position: unset;
-
-      .cart-info {
-        z-index: 1;
-        display: flex;
-        left: 0;
-        height: 100%;
-        align-items: center;
-        bottom: 0;
-        top: 0;
-
-        i {
-          background: linear-gradient(180deg,
-              var(--gradient1) 0%,
-              var(--gradient2) 99%);
-          color: rgba($white, 0.6);
-          border-radius: 100%;
-          margin: 0 5px;
-          transition: all 0.5s ease;
-        }
-
-        button,
-        a {
-          &:hover {
-            i {
-              color: $white;
-            }
-          }
-        }
-      }
-    }
-
-    .br {
-      &.br-default {
-        display: flex;
-        justify-content: center;
-      }
-    }
-
-    &:hover {
-      transform: scale(1.02);
-      transition: all 0.5s ease;
-
-      .img-wrapper {
-        .cart-info {
-          opacity: 1;
-          transition: all 0.5s ease;
-
-          button {
-            animation: fadeInUp 300ms ease-in-out;
-          }
-
-          a {
-            &:nth-child(2) i {
-              animation: fadeInUp 500ms ease-in-out;
-            }
-
-            &:nth-child(3) i {
-              animation: fadeInUp 700ms ease-in-out;
-            }
-
-            &:nth-child(4) i {
-              animation: fadeInUp 1000ms ease-in-out;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  &.partition-cls {
-    .row {
-      >div {
-        &:nth-child(-n + 4) {
-          margin-bottom: 30px;
-        }
-      }
-    }
-  }
-}
-
-.gym-blog {
-  .blog-details {
-    text-align: left;
-    padding-left: 0;
-
-    p {
-      margin-bottom: 3px;
-    }
-  }
-
-  hr.style1 {
-    display: none;
-  }
-}
-
-.gym-banner {
-  .collection-banner {
-    .contain-banner {
-
-      h4,
-      h2 {
-        color: $white;
-      }
-    }
-  }
-}
-
-.bg-img-gym {
-  background-image: url("#{$assetspath}/gym/bg.jpg");
-}
-
-.bg-img-game {
-  background-image: url("#{$assetspath}/parallax/27.jpg");
-}
-
-.bg-img-gym,
-.bg-img-game {
-  background-size: cover;
-  background-position: center center;
-
-  &.overlay-cls {
-    background-blend-mode: overlay;
-    background-color: rgba($black, 0.85);
-  }
-
-  .dark-layout {
-    background-color: transparent;
-  }
-
-  .sub-footer {
-    &.darker-subfooter {
-      background-color: $black;
-
-      p {
-        color: $white;
-      }
-    }
-  }
-}
-
-.tap-top {
-  &.gradient-top {
-    background: linear-gradient(180deg,
-        var(--gradient1) 0%,
-        var(--gradient2) 99%);
-  }
-}
-
-.banner-furniture {
-  padding-left: 15px;
-  padding-right: 15px;
-
-  .collection-banner {
-    .contain-banner {
-      &.banner-3 {
-        h2 {
-          color: #FFF;
-          // color: $dark-font;
-          margin-bottom: 0;
-        }
-
-        h4 {
-          color: var(--theme-deafult);
-        }
-      }
-    }
-  }
-}
-
-.gym-slider {
-  .home-slider {
-    .home {
-      height: 85vh;
-
-      .slider-contain {
-        height: 85vh;
-
-        h4,
-        h1 {
-          color: $white;
-        }
-      }
-    }
-  }
-}
-
 .main-nav-center {
   display: flex;
   align-items: center;
@@ -6831,7 +6742,6 @@ header {
 
     .header-dropdown {
 
-      .mobile-wishlist,
       .mobile-account {
         img {
           display: block;
@@ -9361,10 +9271,6 @@ footer {
       border-radius: 10px;
       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
       background-color: var(--theme-deafult);
-    }
-
-    .color-selector {
-      margin-top: 30px;
     }
 
     .collection-brand-filter {
@@ -14837,7 +14743,7 @@ table {
   }
 
   &.right {
-    right: -300px;
+    // right: -300px;
     height: 100vh;
     width: 300px;
     top: 0;
@@ -15251,142 +15157,6 @@ table {
   }
 }
 
-/*=====================
-    17.14. Christmas demo CSS start
-==========================*/
-.product-christmas {
-  .product-box {
-    position: relative;
-    transition: all 0.5s ease;
-
-    .cart-info,
-    .cart-wrap {
-      position: absolute;
-      bottom: -26px;
-      text-align: center;
-      margin: 0 auto;
-      right: 0;
-      left: 0;
-      justify-content: center;
-      opacity: 0;
-      transition: all 0.5s ease;
-      display: flex;
-
-      a {
-
-        [class^="icon-"],
-        [class*=" icon-"] {
-          display: inline-block;
-        }
-      }
-
-      button {
-        background: none;
-        box-shadow: none;
-        border: none;
-        padding: 0;
-        color: $white;
-      }
-
-      i {
-        color: $white;
-        font-size: 18px;
-        padding-right: 10px;
-        padding-left: 10px;
-        cursor: pointer;
-      }
-    }
-
-    .cart-wrap {
-      bottom: -26px;
-      text-align: right;
-      left: 0;
-
-      i {
-        display: block;
-        padding-bottom: 10px;
-        padding-top: 10px;
-      }
-
-      &.cart-effect-left {
-        left: 0;
-        right: unset;
-      }
-    }
-
-    .product-detail,
-    .product-info {
-      padding-left: 0;
-      text-align: center;
-
-      .rating {
-        i {
-          &:nth-child(-n + 4) {
-            color: var(--theme-deafult);
-          }
-
-          &:last-child {
-            color: #878787;
-          }
-        }
-      }
-
-      h6 {
-        line-height: 1;
-        margin-bottom: 3px;
-        padding-top: 7px;
-        padding-bottom: 5px;
-        transition: all 0.5s ease;
-        font-size: 16px;
-        color: $grey4;
-        font-weight: 700;
-      }
-
-      h4 {
-        font-size: 18px;
-        color: var(--theme-deafult);
-        font-weight: 700;
-        margin-bottom: 0;
-        transition: all 0.5s ease;
-      }
-    }
-
-    &:hover {
-      .cart-info {
-        bottom: 0;
-        background-color: var(--theme-deafult);
-        opacity: 1;
-        transition: all 0.5s ease;
-
-        button {
-          animation: none !important;
-        }
-
-        a {
-          i {
-            animation: none !important;
-          }
-        }
-      }
-
-      .product-info {
-        .add-btn {
-          opacity: 1;
-          transition: all 0.2s ease;
-          animation: fadeInUp 500ms ease-in-out;
-        }
-      }
-
-      .img-wrapper {
-        .cart-box {
-          opacity: 1;
-          transition: all 0.2s ease;
-          animation: fadeInUp 400ms ease-in-out;
-        }
-      }
-    }
-  }
-}
 
 .overflow-cls {
   overflow: visible !important;

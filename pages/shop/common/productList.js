@@ -9,7 +9,6 @@ import ProductItem from "../../../components/common/product-box/ProductBox1";
 import PostLoader from "../../../components/common/PostLoader";
 import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
 import FilterContext from "../../../helpers/filter/FilterContext";
-import { WishlistContext } from "../../../helpers/wishlist/WishlistContext";
 import CartContext from "../../../helpers/cart";
 import ShopBreadcrumb from "./breadcrumb";
 import ALink from "../../../features/alink";
@@ -492,7 +491,6 @@ const GET_PRODUCTS = {
 const ProductList = ({ colClass, layoutList, openSidebar, title, parent, subTitle }) => {
   const cartContext = useContext(CartContext);
   const quantity = cartContext.quantity;
-  const wishlistContext = useContext(WishlistContext);
   const router = useRouter();
   const [limit, setLimit] = useState(8);
   const curContext = useContext(CurrencyContext);
@@ -743,9 +741,6 @@ const ProductList = ({ colClass, layoutList, openSidebar, title, parent, subTitl
                               product={product}
                               symbol={symbol}
                               cartClass="cart-info cart-wrap"
-                              addWishlist={() =>
-                                wishlistContext.addToWish(product)
-                              }
                               addCart={() =>
                                 cartContext.addToCart(product, quantity)
                               }

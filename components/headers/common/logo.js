@@ -6,7 +6,7 @@ const Logo = ({ logo }) => {
         <Fragment>
             <Link href={'/'} >
                 <a>
-                    <img src={`/my-assets/images/icons/${logo?logo:'logo.png'}`} alt="" className="img-fluid" />
+                    <img src={logo} alt="" className="img-fluid" />
                 </a>
             </Link>
         </Fragment>

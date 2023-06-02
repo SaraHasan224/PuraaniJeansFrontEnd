@@ -9,6 +9,9 @@ import search from "../../public/assets/images/icon/search.png";
 import SearchNavigation from "./common/search-nav";
 
 const Header = (props) => {
+  const {
+    logoName,
+  } = props;
   /*=====================
          Pre loader
     ==========================*/
@@ -52,18 +55,15 @@ const Header = (props) => {
             <Col>
               <div className="main-menu border-section border-top-0">
                 <div className="brand-logo layout2-logo">
-                  <Logo logo={props.logoName} />
+                  <Logo logo={logoName} />
                 </div>
                 <div>
                   <SearchNavigation />
                 </div>
-                <div className="menu-right pull-right">
+                <div className="menu-left pull-right">
                   <div>
                     <div className="icon-nav">
                       <ul>
-                        <li className="onhover-div create-closet">
-                          <a href={`/page/closet/create-closet`} className="btn btn-solid black-btn " tabindex="0">Create Closet</a>
-                        </li>
                         <li className="onhover-div mobile-search">
                           <div>
                             <Media
@@ -76,6 +76,9 @@ const Header = (props) => {
                         </li>
                         {/*Header Cart Component */}
                         <CartContainer icon={cart.src} />
+                        <li className="onhover-div create-closet">
+                          <a href={`/page/closet/create-closet`} className="btn btn-solid black-btn " tabindex="0">Create Closet</a>
+                        </li>
                       </ul>
                     </div>
                   </div>

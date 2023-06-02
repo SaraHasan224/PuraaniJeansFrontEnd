@@ -374,7 +374,7 @@
 
     .inner-form {
         background: #F5F5F5;
-        // display: flex;
+        display: flex;
         width: 100%;
         justify-content: space-between;
         align-items: center;
@@ -384,22 +384,66 @@
 
         .input-field {
             // height: 68px
-        }
-
-        .input-field input {
-            height: 100%;
-            background: 0 0;
-            border: 0;
-            display: block;
-            width: 100%;
-            // padding: 10px 32px;
-            font-size: 16px;
-            color: #555
-        }
-
-        .input-field input.placeholder {
-            color: #888;
-            font-size: 16px
+            input {
+                height: 100%;
+                background: 0 0;
+                border: 0;
+                display: block;
+                width: 100%;
+                // padding: 10px 32px;
+                font-size: 16px;
+                color: #555;
+                .placeholder {
+                    color: #888;
+                    font-size: 16px;
+                }
+            }
+            &.first-wrap {
+                width: 32% !important;
+                // width: 150px;
+                // border-right: 1px solid rgba(0, 0, 0, .1)
+                // width: 30%;
+                // display: flex;
+                align-items: center;
+                .choices__inner {
+                    background: 0 0;
+                    border-radius: 0;
+                    border: 0;
+                    height: 100%;
+                    color: #fff;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -ms-flex-align: center;
+                    align-items: center;
+                    .choices__list.choices__list--single {
+                        display: -ms-flexbox;
+                        display: flex;
+                        padding: 0;
+                        -ms-flex-align: center;
+                        align-items: center;
+                        height: 100%;
+                        .choices__item {
+                            display: -ms-flexbox;
+                            display: flex;
+                            -ms-flex-align: center;
+                            align-items: center;
+                            height: 100%;
+                            color: #555
+                        }
+                    }
+                    .choices__item.choices__item--selectable {
+                        .choices__placeholder {
+                            display: -ms-flexbox;
+                            display: flex;
+                            -ms-flex-align: center;
+                            align-items: center;
+                            height: 100%;
+                            opacity: 1;
+                            color: #888
+                        }
+                    }
+                }
+            }
         }
 
         .input-field input:-moz-placeholder {
@@ -419,53 +463,6 @@
             border-color: #fff
         }
 
-        .input-field.first-wrap {
-            // width: 150px;
-            // border-right: 1px solid rgba(0, 0, 0, .1)
-            width: 30%;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-field.first-wrap .choices__inner {
-            background: 0 0;
-            border-radius: 0;
-            border: 0;
-            height: 100%;
-            color: #fff;
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-align: center;
-            align-items: center;
-        }
-
-        .input-field.first-wrap .choices__inner .choices__list.choices__list--single {
-            display: -ms-flexbox;
-            display: flex;
-            padding: 0;
-            -ms-flex-align: center;
-            align-items: center;
-            height: 100%
-        }
-
-        .input-field.first-wrap .choices__inner .choices__item.choices__item--selectable.choices__placeholder {
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-align: center;
-            align-items: center;
-            height: 100%;
-            opacity: 1;
-            color: #888
-        }
-
-        .input-field.first-wrap .choices__inner .choices__list--single .choices__item {
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-align: center;
-            align-items: center;
-            height: 100%;
-            color: #555
-        }
 
         .input-field.first-wrap .choices[data-type*=select-one]:after {
             right: 30px;

@@ -4,13 +4,13 @@ import { gql } from "@apollo/client";
 import { Collapse, Input } from "reactstrap";
 import FilterContext from "../../../helpers/filter/FilterContext";
 
-const GET_BRAND = gql`
-  query getBrands($type: String) {
-    getBrands(type: $type) {
-      brand
-    }
-  }
-`;
+// const GET_BRAND = gql`
+//   query getBrands($type: String) {
+//     getBrands(type: $type) {
+//       brand
+//     }
+//   }
+// `;
 
 const Brand = () => {
   const context = useContext(FilterContext);
@@ -19,11 +19,13 @@ const Brand = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleBrand = () => setIsOpen(!isOpen);
 
-  var { loading, data } = useQuery(GET_BRAND, {
-    variables: {
-      type: context.state,
-    },
-  });
+  var loading = '';
+  var data = '';
+  // var { loading, data } = useQuery(GET_BRAND, {
+  //   variables: {
+  //     type: context.state,
+  //   },
+  // });
 
   return (
     <div className="collection-collapse-block open">

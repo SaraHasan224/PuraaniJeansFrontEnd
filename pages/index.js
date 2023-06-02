@@ -16,22 +16,27 @@ import ALink from '../features/alink';
 
 export default function Home(props){
   console.log(props)
-  const { recommended, brands, featured_categories} = props;
-  // console.log(banners, recommended, brands, featured_categories)
+  const {
+    banners,
+    metaData
+  } = props;
+  
   return (
     <>
         <Helmet>
-          {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
-          {/* <link rel="icon" type="image/x-icon" href={"/my-assets/images/icons/favicon.png"} /> */}
-          {/* <title>{process.env.NEXT_PUBLIC_APP_NAME} - {process.env.NEXT_PUBLIC_APP_SUB_TITLE}</title> */}
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" type="image/x-icon" href={ metaData?.favicon } />
+          <title>
+            { metaData?.app_title }
+          </title>
         </Helmet>
         {/* <InternetConnection /> */}
         {/* HEADER */}
         <ALink href="/">
-          <Header logoName={"logo.png"} topClass="top-header" />
+          <Header logoName={metaData?.logo} topClass="top-header" />
         </ALink>
         {/* HEADER Carousel */}
-        <HeaderCarousel />
+        <HeaderCarousel banners={banners} />
         {/* Search By Tags */}
         <SearchByTags />
         {/* Services We Offer */}
@@ -64,10 +69,14 @@ export default function Home(props){
 };
 
 export async function getStaticProps() {
+  const metaApiResponse = await fetch(`http://puranijeans.test/api/meta-data`);
+  const metaJsonApiResponse = await metaApiResponse.json();
   const apiResponse = await fetch(`${process.env.NEXT_API_BASE_URL}api/homepage`);
   const jsonApiResponse = await apiResponse.json();
   return {
     props: {
+      metaData: metaJsonApiResponse?.body?.metadata,
+      banners: metaJsonApiResponse?.body?.banners,
       recommended: jsonApiResponse?.body?.recommended,
       brands: jsonApiResponse?.body?.brands,
       featured_categories: jsonApiResponse?.body?.featured_categories,

@@ -1,263 +1,360 @@
-import React, { useState, useEffect, Fragment } from "react";
-import Link from "next/link";
-import { MENUITEMS } from "../../constant/menu";
-import { Container, Row } from "reactstrap";
+import React, { Fragment } from "react";
+import { Row, Col, Media } from "reactstrap";
+import fashion from "../../../public/assets/images/mega-menu/fashion.jpg";
 
-const SideMenu = (props) => {
-  const [navClose, setNavClose] = useState({ right: "0px" });
-
-  useEffect(() => {
-    if (window.innerWidth < 750) {
-      setNavClose({ right: "-410px" });
-    }
-    if (window.innerWidth < 1199) {
-      setNavClose({ right: "-300px" });
-    }
-  }, []);
-
-  const openNav = () => {
-    setNavClose({ right: "0px" });
-  };
-
+const SideBar = () => {
   const closeNav = () => {
-    setNavClose({ right: "-410px" });
-  };
-  // eslint-disable-next-line
-  const onMouseEnterHandler = () => {
-    if (window.innerWidth > 1199) {
-      document.querySelector("#main-menu").classList.add("hover-unset");
-    }
+    var closemyslide = document.getElementById("mySidenav");
+    if (closemyslide) closemyslide.classList.remove("open-side");
   };
 
   const handleSubmenu = (event) => {
-    if (event.target.classList.contains("sub-arrow"))
-      if (event.target.nextElementSibling.classList.contains("opensubmenu"))
-        event.target.nextElementSibling.classList.remove("opensubmenu");
-      else {
-        document.querySelectorAll(".nav-submenu").forEach(function (value) {
-          value.classList.remove("opensubmenu");
-        });
-        document
-          .querySelector(".mega-menu-container")
-          .classList.remove("opensubmenu");
-        event.target.nextElementSibling.classList.add("opensubmenu");
-      }
+    if (event.target.classList.contains("sub-arrow")) {
+      return;
+    }
+
+    if (event.target.nextElementSibling.classList.contains("opensub1"))
+      event.target.nextElementSibling.classList.remove("opensub1");
+    else {
+      document.querySelectorAll(".opensub1").forEach(function (value) {
+        value.classList.remove("opensub1");
+      });
+      event.target.nextElementSibling.classList.add("opensub1");
+    }
   };
 
-  const [mainmenu, setMainMenu] = useState(MENUITEMS);
-  const openMblNav = (event) => {
+  const handleSubTwoMenu = (event) => {
     if (event.target.classList.contains("sub-arrow")) return;
 
-    if (event.target.nextElementSibling.classList.contains("opensubmenu")) {
-      event.target.nextElementSibling.classList.remove("opensubmenu");
-      document.getElementById("arrow").classList.remove("minus-arrow");
-    } else {
-      document.querySelectorAll(".nav-submenu").forEach(function (value) {
-        value.classList.remove("opensubmenu");
+    if (event.target.nextElementSibling.classList.contains("opensub2"))
+      event.target.nextElementSibling.classList.remove("opensub2");
+    else {
+      document.querySelectorAll(".opensub2").forEach(function (value) {
+        value.classList.remove("opensub2");
       });
-      document
-        .querySelector(".mega-menu-container")
-        .classList.remove("opensubmenu");
-      event.target.nextElementSibling.classList.add("opensubmenu");
-      document.getElementById("arrow").classList.add("minus-arrow");
+      event.target.nextElementSibling.classList.add("opensub2");
+    }
+  };
+  const handleSubThreeMenu = (event) => {
+    if (event.target.classList.contains("sub-arrow")) return;
+
+    if (event.target.nextElementSibling.classList.contains("opensub3"))
+      event.target.nextElementSibling.classList.remove("opensub3");
+    else {
+      document.querySelectorAll(".opensub3").forEach(function (value) {
+        value.classList.remove("opensub3");
+      });
+      event.target.nextElementSibling.classList.add("opensub3");
     }
   };
 
-  useEffect(() => {
-    const currentUrl = location.pathname;
-    MENUITEMS.filter((items) => {
-      if (items.path === currentUrl) setNavActive(items);
-      if (!items.children) return false;
-      items.children.filter((subItems) => {
-        if (subItems.path === currentUrl) setNavActive(subItems);
-        if (!subItems.children) return false;
-        subItems.children.filter((subSubItems) => {
-          if (subSubItems.path === currentUrl) setNavActive(subSubItems);
-        });
-      });
-    });
-  }, []);
+  const handleSubFourMenu = (event) => {
+    if (event.target.classList.contains("sub-arrow")) return;
 
-  const setNavActive = (item) => {
-    MENUITEMS.filter((menuItem) => {
-      if (menuItem != item) menuItem.active = false;
-      if (menuItem.children && menuItem.children.includes(item))
-        menuItem.active = true;
-      if (menuItem.children) {
-        menuItem.children.filter((submenuItems) => {
-          if (submenuItems.children && submenuItems.children.includes(item)) {
-            menuItem.active = true;
-            submenuItems.active = true;
-          }
-        });
-      }
-    });
-    item.active = !item.active;
-    setMainMenu({ mainmenu: MENUITEMS });
-  };
-
-  // Click Toggle menu
-  const toggletNavActive = (item) => {
-    if (!item.active) {
-      MENUITEMS.forEach((a) => {
-        if (MENUITEMS.includes(item)) a.active = false;
-        if (!a.children) return false;
-        a.children.forEach((b) => {
-          if (a.children.includes(item)) {
-            b.active = false;
-          }
-          if (!b.children) return false;
-          b.children.forEach((c) => {
-            if (b.children.includes(item)) {
-              c.active = false;
-            }
-          });
-        });
+    if (event.target.nextElementSibling.classList.contains("opensub4"))
+      event.target.nextElementSibling.classList.remove("opensub4");
+    else {
+      document.querySelectorAll(".opensub4").forEach(function (value) {
+        value.classList.remove("opensub4");
       });
+      event.target.nextElementSibling.classList.add("opensub4");
     }
-    item.active = !item.active;
-    setMainMenu({ mainmenu: MENUITEMS });
   };
+
+  const handleMegaSubmenu = (event) => {
+    if (event.target.classList.contains("sub-arrow")) return;
+
+    if (event.target.nextElementSibling.classList.contains("opensidesubmenu"))
+      event.target.nextElementSibling.classList.remove("opensidesubmenu");
+    else {
+      event.target.nextElementSibling.classList.add("opensidesubmenu");
+    }
+  };
+
   return (
     <Fragment>
-      <ul id="sub-menu" className="sm pixelstrap sm-vertical ">
-        {MENUITEMS.map((menuItem, i) => {
-          return (
-            <li key={i} className={` ${menuItem.megaMenu ? "mega-menu" : ""}`}>
-              <a className="nav-link" onClick={(e) => openMblNav(e)}>
-                {" "}
-                {menuItem.title}
-                <span id="arrow" className="sub-arrow"></span>
+      <div id="mySidenav" className="sidenav">
+        <a href={null} className="sidebar-overlay" onClick={closeNav}></a>
+        <nav>
+          <a href={null} onClick={closeNav}>
+            <div className="sidebar-back text-start">
+              <i className="fa fa-angle-left pe-2" aria-hidden="true"></i> Back
+            </div>
+          </a>
+          <ul id="sub-menu" className="sidebar-menu">
+            <li>
+              <a href="#" onClick={(e) => handleMegaSubmenu(e)}>
+                clothing
+                <span className="sub-arrow"></span>
               </a>
-              {menuItem.children && !menuItem.megaMenu ? (
-                <ul className="nav-submenu">
-                  {menuItem.children.map((childrenItem, index) => {
-                    return (
-                      <li
-                        key={index}
-                        className={`${childrenItem.children ? "sub-menu " : ""
-                          }`}
-                      >
-                        {childrenItem.type === "sub" ? (
-                          <a
-                            href="#javascript"
-                            onClick={() => toggletNavActive(childrenItem)}
-                          >
-                            {childrenItem.title}{" "}
-                            <i className="fa fa-angle-right ps-2"></i>
-                          </a>
-                        ) : (
-                          ""
-                        )}
-                        {childrenItem.type === "link" ? (
-                          <Link href={`${childrenItem.path}`}>
-                            <a>{childrenItem.title}</a>
-                          </Link>
-                        ) : (
-                          ""
-                        )}
-                        {childrenItem.children ? (
-                          <ul
-                            className={`nav-sub-childmenu ${childrenItem.active ? "menu-open " : "active"
-                              }`}
-                          >
-                            {childrenItem.children.map(
-                              (childrenSubItem, key) => (
-                                <li key={key}>
-                                  {childrenSubItem.type === "link" ? (
-                                    <Link href={childrenSubItem.path}>
-                                      <a className="sub-menu-title">
-                                        {childrenSubItem.title}
-                                      </a>
-                                    </Link>
-                                  ) : (
-                                    ""
-                                  )}
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        ) : (
-                          ""
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              ) : (
-                <div
-                  className={`mega-menu-container  ${menuItem.active ? "opensubmenu" : ""
-                    }`}
-                >
-                  {menuItem.megaMenu === true ? (
-                    <Container>
-                      <Row>
-                        {menuItem.children.map((megaMenuItem, i) => {
-                          return (
-                            <div
-                              key={i}
-                              className={`${menuItem.megaMenuType == "small"
-                                ? "col-xl-4"
-                                : menuItem.megaMenuType == "medium"
-                                  ? "col-lg-3"
-                                  : menuItem.megaMenuType == "large"
-                                    ? "col"
-                                    : ""
-                                } `}
-                            >
-                              <div className="link-section">
-                                <div className="menu-title">
-                                  <h5 onClick={(e) => handleMegaSubmenu(e)}>
-                                    {megaMenuItem.title}
-                                  </h5>
-                                </div>
-                                <div className="menu-content">
-                                  <ul>
-                                    {menuItem.title === "Elements"
-                                      ? megaMenuItem.children.map(
-                                        (subMegaMenuItem, i) => {
-                                          return (
-                                            <li key={i}>
-                                              <a href={subMegaMenuItem.path}>
-                                                <i
-                                                  className={`icon-${subMegaMenuItem.icon}`}
-                                                ></i>
-                                                {subMegaMenuItem.title}
-                                              </a>
-                                            </li>
-                                          );
-                                        }
-                                      )
-                                      : megaMenuItem.children.map(
-                                        (subMegaMenuItem, i) => {
-                                          return (
-                                            <li key={i}>
-                                              <a href={subMegaMenuItem.path}>
-                                                {subMegaMenuItem.title}
-                                              </a>
-                                            </li>
-                                          );
-                                        }
-                                      )}
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </Row>
-                    </Container>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              )}
+              <ul className="mega-menu clothing-menu">
+                <li>
+                  <Row m="0">
+                    <Col xl="4">
+                      <div className="link-section">
+                        <h5>women's fashion</h5>
+                        <ul>
+                          <li>
+                            <a href="#">dresses</a>
+                          </li>
+                          <li>
+                            <a href="#">skirts</a>
+                          </li>
+                          <li>
+                            <a href="#">westarn wear</a>
+                          </li>
+                          <li>
+                            <a href="#">ethic wear</a>
+                          </li>
+                          <li>
+                            <a href="#">sport wear</a>
+                          </li>
+                        </ul>
+                        <h5>men's fashion</h5>
+                        <ul>
+                          <li>
+                            <a href="#">sports wear</a>
+                          </li>
+                          <li>
+                            <a href="#">western wear</a>
+                          </li>
+                          <li>
+                            <a href="#">ethic wear</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </Col>
+                    <Col xl="4">
+                      <div className="link-section">
+                        <h5>accessories</h5>
+                        <ul>
+                          <li>
+                            <a href="#">fashion jewellery</a>
+                          </li>
+                          <li>
+                            <a href="#">caps and hats</a>
+                          </li>
+                          <li>
+                            <a href="#">precious jewellery</a>
+                          </li>
+                          <li>
+                            <a href="#">necklaces</a>
+                          </li>
+                          <li>
+                            <a href="#">earrings</a>
+                          </li>
+                          <li>
+                            <a href="#">wrist wear</a>
+                          </li>
+                          <li>
+                            <a href="#">ties</a>
+                          </li>
+                          <li>
+                            <a href="#">cufflinks</a>
+                          </li>
+                          <li>
+                            <a href="#">pockets squares</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </Col>
+                    <Col xl="4">
+                      <a href="#" className="mega-menu-banner">
+                        <Media src={fashion.src} alt="" className="img-fluid" />
+                      </a>
+                    </Col>
+                  </Row>
+                </li>
+              </ul>
             </li>
-          );
-        })}
-      </ul>
+            <li>
+              <a href="#" onClick={(e) => handleSubmenu(e)}>
+                bags
+                <span className="sub-arrow"></span>
+              </a>
+              <ul>
+                <li>
+                  <a href="#">shopper bags</a>
+                </li>
+                <li>
+                  <a href="#">laptop bags</a>
+                </li>
+                <li>
+                  <a href="#">clutches</a>
+                </li>
+                <li>
+                  <a href="#" onClick={(e) => handleSubTwoMenu(e)}>
+                    purses
+                    <span className="sub-arrow"></span>
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="#">purses</a>
+                    </li>
+                    <li>
+                      <a href="#">wallets</a>
+                    </li>
+                    <li>
+                      <a href="#">leathers</a>
+                    </li>
+                    <li>
+                      <a href="#">satchels</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" onClick={(e) => handleSubmenu(e)}>
+                footwear
+                <span className="sub-arrow"></span>
+              </a>
+              <ul>
+                <li>
+                  <a href="#">sport shoes</a>
+                </li>
+                <li>
+                  <a href="#">formal shoes</a>
+                </li>
+                <li>
+                  <a href="#">casual shoes</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">watches</a>
+            </li>
+            <li>
+              <a href="#" onClick={(e) => handleSubmenu(e)}>
+                Accessories
+                <span className="sub-arrow"></span>
+              </a>
+              <ul>
+                <li>
+                  <a href="#">fashion jewellery</a>
+                </li>
+                <li>
+                  <a href="#">caps and hats</a>
+                </li>
+                <li>
+                  <a href="#">precious jewellery</a>
+                </li>
+                <li>
+                  <a href="#" onClick={(e) => handleSubTwoMenu(e)}>
+                    more..
+                    <span className="sub-arrow"></span>
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="#">necklaces</a>
+                    </li>
+                    <li>
+                      <a href="#">earrings</a>
+                    </li>
+                    <li>
+                      <a href="#">wrist wear</a>
+                    </li>
+                    <li>
+                      <a href="#" onClick={(e) => handleSubThreeMenu(e)}>
+                        accessories
+                        <span className="sub-arrow"></span>
+                      </a>
+                      <ul>
+                        <li>
+                          <a href="#">ties</a>
+                        </li>
+                        <li>
+                          <a href="#">cufflinks</a>
+                        </li>
+                        <li>
+                          <a href="#">pockets squares</a>
+                        </li>
+                        <li>
+                          <a href="#">helmets</a>
+                        </li>
+                        <li>
+                          <a href="#">scarves</a>
+                        </li>
+                        <li>
+                          <a href="#" onClick={(e) => handleSubFourMenu(e)}>
+                            more...
+                            <span className="sub-arrow"></span>
+                          </a>
+                          <ul>
+                            <li>
+                              <a href="#">accessory gift sets</a>
+                            </li>
+                            <li>
+                              <a href="#">travel accessories</a>
+                            </li>
+                            <li>
+                              <a href="#">phone cases</a>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">belts & more</a>
+                    </li>
+                    <li>
+                      <a href="#">wearable</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">house of design</a>
+            </li>
+            <li>
+              <a href="#" onClick={(e) => handleSubmenu(e)}>
+                beauty & personal care
+                <span className="sub-arrow"></span>
+              </a>
+              <ul>
+                <li>
+                  <a href="#">makeup</a>
+                </li>
+                <li>
+                  <a href="#">skincare</a>
+                </li>
+                <li>
+                  <a href="#">premium beaty</a>
+                </li>
+                <li>
+                  <a href="#" onClick={(e) => handleSubTwoMenu(e)}>
+                    more
+                    <span className="sub-arrow"></span>
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="#">fragrances</a>
+                    </li>
+                    <li>
+                      <a href="#">luxury beauty</a>
+                    </li>
+                    <li>
+                      <a href="#">hair care</a>
+                    </li>
+                    <li>
+                      <a href="#">tools & brushes</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">home & decor</a>
+            </li>
+            <li>
+              <a href="#">kitchen</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </Fragment>
   );
 };
 
-export default SideMenu;
+export default SideBar;

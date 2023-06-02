@@ -19,7 +19,6 @@ const CartContainer = ({ icon }) => {
         <Link href={`/page/account/cart`}>
           <div href={null}>
             <Media src={icon} className="img-fluid" alt="" />
-            <i className="fa fa-shopping-cart"></i>
           </div>
         </Link>
         <ul className="show-div shopping-cart">
