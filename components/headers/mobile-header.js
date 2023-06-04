@@ -1,53 +1,81 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
 import { Col, Container, Media, Row } from "reactstrap";
 
-const Data = [
-  {
-    img: "my-assets/images/backgrounds/main-banner/1.png",
-    about: "Jewels",
-    offer: "save 30%",
-    link: "#",
-    class: " p-left text-start",
-  },
-  {
-    img: "my-assets/images/backgrounds/main-banner/2.png",
-    about: "New",
-    offer: "save 60%",
-    link: "#",
-    class: " p-left text-start",
-  },
-  {
-    img: "my-assets/images/backgrounds/main-banner/5.png",
-    about: "Solid",
-    offer: "save 30%",
-    link: "#",
-    class: " p-left text-start",
-  },
-  {
-    img: "my-assets/images/backgrounds/main-banner/4.png",
-    about: "Party",
-    offer: "save 60%",
-    link: "#",
-    class: " p-left text-start",
-  },
-];
 
-const MasterCollectionBanner = ({ img, about, offer, link, classes }) => {
+const HomeSlider = ({ banners }) => {
+  const mainBanner = banners.filter(function (banner,i) {
+      return banner.is_centered == 1;
+  })
+  const caraouselBanner = banners.filter(function (banner,i) {
+      return banner.is_centered != 1;
+  })
+  return (
+    <>
+      <section className="p-0">
+        <div className="slide-1 home-slider">
+          <MasterBanner
+            bannerItem={mainBanner[0]}
+            title={"BUY. SELL.DO IT ALL OVER."}
+            desc={"Welcome to the community-powered circular fashion marketplace."}
+          />
+        </div>
+      </section>
+      <MobileCollectionBanner first bannerItem={caraouselBanner.slice(0, 2)}/>
+      <MobileCollectionBanner  bannerItem={caraouselBanner.slice(2, 4)}/>
+    </>
+  );
+};
+
+
+const MasterBanner = ({ title, desc, bannerItem }) => {
+  return (
+    <div>
+      <div
+        className={`home text-center`}
+        style={{ backgroundImage: "url(" + bannerItem?.image + ")" }}
+      >
+        <Container>
+          <Row>
+            <Col>
+              <div className="slider-contain mobile-banner">
+                <div>
+                  <h1>{title}</h1>
+                  <h4>{desc}</h4>
+                  <Link href={'#'}>
+                    <a className={`btn btn-solid`}>
+                    Shop Now
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </div>
+  );
+};
+
+const Banner = ({ img, data }) => {
   return (
     <Col md="6 banner-text-white">
-      <Link href={link}>
+      <Link href={'#'}>
         <a>
-          <div className={`collection-banner ${classes}`}>
+          <div className={`collection-banner`}>
             <Media
-              src={img}
+              src={data?.image}
               className="img-fluid blur-up lazyload bg-img"
               alt=""
             />
             <div className="contain-banner">
               <div>
-                <h4>{offer}</h4>
-                <h2>{about}</h2>
+                <h4>{data?.text}</h4>
+                <Link href={"#"}>
+                  <a className={`btn btn-outline`}>
+                    Shop Now
+                  </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -57,33 +85,25 @@ const MasterCollectionBanner = ({ img, about, offer, link, classes }) => {
   );
 };
 
-const Collection = ({ first }) => {
+const MobileCollectionBanner = ({ first, bannerItem }) => {
   return (
     <section className="banner-padding banner-furniture ratio2_1">
       <Container fluid={true}>
         <Row className="partition3">
           {first
-            ? Data.slice(0, 2).map((data, i) => {
+            ? bannerItem.map((data, i) => {
                 return (
-                    <MasterCollectionBanner
-                    key={i}
-                    img={data.img}
-                    link={data.link}
-                    about={data.about}
-                    offer={data.offer}
-                    classes={data.class}
+                    <Banner
+                      key={i}
+                      data={data}
                   />
                 );
               })
-            : Data.slice(2, 4).map((data, i) => {
+            : bannerItem.map((data, i) => {
                 return (
-                  <MasterCollectionBanner
+                  <Banner
                     key={i}
-                    img={data.img}
-                    link={data.link}
-                    about={data.about}
-                    offer={data.offer}
-                    classes={data.class}
+                    data={data}
                   />
                 );
               })}
@@ -93,4 +113,4 @@ const Collection = ({ first }) => {
   );
 };
 
-export default Collection;
+export default HomeSlider;

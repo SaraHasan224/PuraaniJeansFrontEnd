@@ -53,8 +53,7 @@ const ProductSlider = ({ type }) => {
   });
 
   const clickProductDetail = (product) => {
-    const titleProps = product.title.split(" ").join("");
-    router.push(`/product-details/${product.id}` + "-" + `${titleProps}`);
+    router.push(`/product-details/${product.handle}`);
   };
 
   return (

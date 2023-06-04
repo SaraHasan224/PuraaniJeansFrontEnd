@@ -92,7 +92,7 @@ const NewProduct = ({ type, designClass, cartClass, spanClass }) => {
 
   return (
     <Fragment>
-      <section className="tools_product">
+      <section className="home-featured-section">
         <Container>
           <Row className="multiple-slider">
             <Col xl="3" lg="4" md="12">

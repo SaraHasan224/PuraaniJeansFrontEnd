@@ -51,7 +51,7 @@ const Footer = ({
             <Container fluid={containerFluid ? containerFluid : ""} className={footerLayOut}>
               <section className={footerSection}>
                 <Row>
-                  <Col lg="8">
+                  <Col lg="8" md="12" sm="12" xs="12">
                     <div className="subscribe">
                       <div>
                         <h4>Subscribe us</h4>
@@ -61,7 +61,7 @@ const Footer = ({
                       </div>
                     </div>
                   </Col>
-                  <Col lg="4">
+                  <Col lg="4" md="12" sm="12" xs="12">
                     <form className="form_search form-inline subscribe-form subscribe-form-custom-design" role="textbox">
                       {/* eslint-disable-next-line */}
                       <Input

@@ -89,7 +89,7 @@ const ProductSlider = ({ type }) => {
   });
 
   return (
-    <section className="tools_product bg-title section-b-space ">
+    <section className="home-featured-section bg-title section-b-space ">
       <Container>
         <Row className="multiple-slider">
           <Col xl="4" lg="4" md="12">

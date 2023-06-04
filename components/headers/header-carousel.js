@@ -2,17 +2,14 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Media, Container, Row, Col } from "reactstrap";
 import Link from "next/link";
 
-import Collection from "./mobile-header";
-import HomeSlider from "./mobile-slider";
+import MobileHeader from "./mobile-header";
 
 const HeaderCarousel = ({ banners }) => {
-  
   const [windowWidth, setWindowWidth] = useState("");
   useEffect(() => {
     setWindowWidth(window.innerWidth);
     function handleResize() {
       setWindowWidth(window.innerWidth)
-      console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
     }
     window.addEventListener('resize', handleResize)
   })
@@ -22,11 +19,17 @@ const HeaderCarousel = ({ banners }) => {
     document.documentElement.style.setProperty("--theme-deafult", "#ff4c3b");
   });
   return (
-    windowWidth > 600 ? <WebHeader banners={banners}/> : <MobileHeader banners={banners}/>
+    windowWidth > 600 ? <WebHeader banners={banners} /> : <MobileHeader banners={banners} />
   );
 };
 
 const WebHeader = ({ banners }) => {
+  const mainBanner = banners.filter(function (banner, i) {
+    return banner.is_centered == 1;
+  })
+  const caraouselBanner = banners.filter(function (banner, i) {
+    return banner.is_centered != 1;
+  })
   return (
     <div className="full-banner parallax parallax-home noBtmPadding noTopPadding">
       <Fragment>
@@ -37,42 +40,24 @@ const WebHeader = ({ banners }) => {
           </div>
         </Row>
         <Container fluid={true} className="lookbook-section pt-0 lookbook mt-4">
-        <Row>
-      
-            {
-              banners.map((banner, i) => {
-                console.log("banner: ", banner)
-                return (
-                  <Col md={banner?.is_centered ? 6 : 3} sm={banner?.is_centered ? 6 : 3}>
-                    <Row className="lookbook-img">
-                      {
-                        banner.items.map((bannerItem, j) => {
-                          return(
-                            <Col sm="12" className="lookbook-parent" key={j}>
-                              <div className="lookbook-block">
-                                <Media
-                                  src={bannerItem?.image}
-                                  alt={bannerItem?.text}
-                                  className="img-fluid blur-up lazyload"
-                                />
-                                <div className={`lookbook-img-section img-${j+i+1}`}>
-                                  <h2>{bannerItem?.text}</h2>
-                                  <Link href={"#"}>
-                                    <a className={`btn btn-outline`}>
-                                      Shop Now
-                                    </a>
-                                  </Link>
-                                </div>
-                              </div>
-                            </Col>
-                          )
-                        })
-                      }
-                    </Row>
-                  </Col>
-                );
-              })
-            }
+          <Row>
+            <Col md={3} sm={3}>
+              <Row className="lookbook-img">
+                <Banners bannerItem={caraouselBanner.slice(0, 1)}/>
+                <Banners bannerItem={caraouselBanner.slice(1, 2)}/>
+              </Row>
+            </Col>
+            <Col md={6} sm={6}>
+              <Row className="lookbook-img">
+                <Banners bannerItem={mainBanner}/>
+              </Row>
+            </Col>
+            <Col md={3} sm={3}>
+              <Row className="lookbook-img">
+                <Banners bannerItem={caraouselBanner.slice(2, 3)}/>
+                <Banners bannerItem={caraouselBanner.slice(3, 4)}/>
+              </Row>
+            </Col>
           </Row>
         </Container>
       </Fragment>
@@ -80,13 +65,26 @@ const WebHeader = ({ banners }) => {
   );
 }
 
-const MobileHeader = () => {
+const Banners = ({ bannerItem }) => {
   return (
-    <>
-      <HomeSlider />
-      <Collection first />
-      <Collection />
-    </>
-  )
+    <Col sm="12" className="lookbook-parent" key={`lookbook-parent-${bannerItem[0]?.index}`}>
+      <div className="lookbook-block">
+        <Media
+          src={bannerItem[0]?.image}
+          alt={bannerItem[0]?.text}
+          className="img-fluid blur-up lazyload"
+        />
+        <div className={`lookbook-img-section img-${bannerItem[0]?.index}`}>
+          <h2>{bannerItem[0]?.text}</h2>
+          <Link href={"#"}>
+            <a className={`btn btn-outline`}>
+              Shop Now
+            </a>
+          </Link>
+        </div>
+      </div>
+    </Col>
+  );
 }
+
 export default HeaderCarousel;

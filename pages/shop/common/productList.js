@@ -507,9 +507,7 @@ const ProductList = ({ colClass, layoutList, openSidebar, title, parent, subTitl
   const [layout, setLayout] = useState(layoutList);
   const [url, setUrl] = useState();
 
-  console.log("filterContext: ", filterContext)
   useEffect(() => {
-    console.log("filterContext: ", filterContext)
     const pathname = window.location.pathname;
     setUrl(pathname);
     router.push(
@@ -533,7 +531,6 @@ const ProductList = ({ colClass, layoutList, openSidebar, title, parent, subTitl
   var { loading, current_page, last_page, data, per_page, total } = products
   var { sort_by, price_range } = filters
   var loading = false;
-  console.log("fetch: ", loading, data)
   const handlePagination = () => {
     setIsLoading(true);
     // setTimeout(
