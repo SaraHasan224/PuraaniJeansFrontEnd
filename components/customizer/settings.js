@@ -1,17 +1,13 @@
 import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-import config from "./config.json";
 
 const Settings = () => {
+  const layout_type = "ltr";
+  const layout_version = "light";
   useEffect(() => {
-    if (config.config.layout_version && config.config.layout_type) {
-      const bodyClass = document.body.classList
-      document.body.className = `${bodyClass} ${config.config.layout_version}  ${config.config.layout_type}`;
-    }
+    const bodyClass = document.body.classList
+    document.body.className = `${bodyClass} ${layout_version}  ${layout_type}`;
 
-    if (localStorage.getItem("color")) {
-      document.documentElement.style.setProperty("--theme-deafult",localStorage.getItem("color"));
-    }
     window.addEventListener("scroll", handleScroll);
     
     return () => {
@@ -29,11 +25,6 @@ const Settings = () => {
     }
   };
 
-
-    if (process.browser) {
-      document.body.classList.remove("dark");
-      config.config.layout_version = "light";
-    }
 
   return (
       <ToastContainer />

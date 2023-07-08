@@ -1,5 +1,6 @@
 import React from "react";
-import { useDispatch } from 'react-redux';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import Helmet from "react-helmet";
 
 import Header from "../components/headers/header";
@@ -13,29 +14,38 @@ import Featured from "../components/common/Featured/featured-list";
 import FeaturedClosets from "../components/common/Featured/featured-closets";
 
 import ALink from '../features/alink';
-// import InternetConnection from "../features/internet-connection";
+import InternetConnection from "../features/internet-connection";
+
+import { saveMetaData, saveBanners } from '../store/reducers/metadata'
 
 export default function Home(props){
-  console.log(props)
+  const { meta } = useSelector((state) => state.metadata);
+  const dispatch = useDispatch()
+
   const {
     banners,
     metaData,
     recommended
   } = props;
-  
+
+  useEffect(() => {
+    dispatch(saveMetaData(metaData))
+    dispatch(saveBanners(banners));
+  }, [props]);
+
   return (
     <>
         <Helmet>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" type="image/x-icon" href={ metaData?.favicon } />
+          <link rel="icon" type="image/x-icon" href={ meta?.favicon } />
           <title>
-            { metaData?.app_title }
+            { meta?.app_title }
           </title>
         </Helmet>
-        {/* <InternetConnection /> */}
+        <InternetConnection />
         {/* HEADER */}
         <ALink href="/">
-          <Header logoName={metaData?.logo} topClass="top-header" />
+          <Header logoName={meta?.logo} topClass="top-header" />
         </ALink>
         {/* HEADER Carousel */}
         <HeaderCarousel banners={banners} />
@@ -60,7 +70,7 @@ export default function Home(props){
           footerSection={"border-section border-top-0 noTopPadding footer-section"}
           belowSection={"noTopPadding"}
           newLatter={true}
-          logoName={ metaData?.logo_white }
+          logoName={ meta?.logo_white }
           layoutClass={"dark-subfooter"}
         />
         <Settings />
