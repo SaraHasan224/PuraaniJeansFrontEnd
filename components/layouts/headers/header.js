@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./common/navbar";
-import CartContainer from "../containers/CartContainer";
+import CartContainer from "../../containers/CartContainer";
 import Logo from "./common/logo";
 import { Container, Row, Col, Media } from "reactstrap";
-import cart from "../../public/assets/images/icon/cart.png";
+import cart from "../../../public/assets/images/icon/cart.png";
 import SearchOverlay from "./common/search-overlay";
-import search from "../../public/assets/images/icon/search.png";
+import search from "../../../public/assets/images/icon/search.png";
 import SearchNavigation from "./common/search-nav";
-import ALink from "../../features/alink";
+import ALink from "../../../features/alink";
 
 const Header = (props) => {
   const {

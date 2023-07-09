@@ -1,6 +1,6 @@
 import React from "react";
-import Brands from "../common/brands";
-import ALink from "../../features/alink";
+import Brands from "../../common/brands";
+import ALink from "../../../features/alink";
 
 const BrandsFooter = ({title, description, btn_name, bg_img_src}) => {
 return (

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Container, Row, Col, Media } from 'reactstrap';
-import ALink from '../../features/alink';
+import ALink from '../../../features/alink';
 
 const CopyRight = ({ layout, fluid }) => {
     return (

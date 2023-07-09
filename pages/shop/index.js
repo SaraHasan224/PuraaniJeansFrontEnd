@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CommonLayout from '../../components/shop/common-layout';
+import CommonLayout from '../../components/layouts/common-layout';
 import ProductList from './common/productList';
 import { Container, Row} from 'reactstrap';
 import FilterPage from './common/filter';

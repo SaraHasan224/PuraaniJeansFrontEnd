@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Container, Row } from "reactstrap";
 import { useTranslation } from "react-i18next";
-import ALink from "../../../features/alink";
+import ALink from "../../../../features/alink";
 
-import { MENUITEMS } from "../../constant/menu";
+import { MENUITEMS } from "../../../constant/menu";
 
 const NavBar = () => {
   const { t } = useTranslation();
@@ -112,7 +112,6 @@ const NavBar = () => {
 
   const navigationAction = (event, action) => {
     event.preventDefault();
-    console.log("navigationAction: ", action)
     router.push(action.path, undefined, { shallow: true })
   };
 

@@ -2,10 +2,9 @@ import React from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import Helmet from "react-helmet";
 
-import Header from "../headers/header";
-import Breadcrubs from "../common/widgets/breadcrubs";
-import Footer from "../footers/Footer";
-import Settings from "../customizer/settings";
+import Header from "../layouts/headers/header";
+import Breadcrumbs from "./breadcrubs";
+import Footer from "../layouts/footers/Footer";
 // import InternetConnection from "../../features/internet-connection";
 
 const CommonLayout = ({ children, title, parent, subTitle, showBreadcrumb }) => {
@@ -23,7 +22,7 @@ const CommonLayout = ({ children, title, parent, subTitle, showBreadcrumb }) => 
       </Helmet>
       {/* HEADER */}
       <Header logoName={meta?.logo} topClass="top-header" />
-      <Breadcrubs title={title} parent={parent} subTitle={subTitle} />
+      <Breadcrumbs title={title} parent={parent} subTitle={subTitle} />
       {children}
       <Footer
         footerClass={`footer-dark`}
@@ -34,7 +33,6 @@ const CommonLayout = ({ children, title, parent, subTitle, showBreadcrumb }) => 
         logoName={meta?.logo_white}
         layoutClass={"dark-subfooter"}
       />
-      <Settings />
     </>
   );
 };

@@ -9,7 +9,6 @@ export default function FeaturedByCollection(props) {
   const {
     sections
   } = props.featured;
-  console.log("sections: ", sections)
 
   const context = useContext(CartContext)
   const contextWishlist = useContext(WishlistContext);
@@ -28,7 +27,6 @@ export default function FeaturedByCollection(props) {
     setActiveCollectionProductList(sections[activeCollectionIndex].data);
   }, [activeCollectionIndex]);
 
-  console.log("activeCollectionProductList: ", activeCollectionProductList)
   return (
     <Row className="multiple-slider" key={"key"}>
       <Col xl="3" lg="4" md="12" sm="12" className="featured-menu">

@@ -1,6 +1,6 @@
 import React, { useContext, Fragment } from "react";
 import Link from "next/link";
-import CartHeader from "../headers/common/cart-header";
+import CartHeader from "../layouts/headers/common/cart-header";
 import CartContext from "../../helpers/cart";
 import { Media } from "reactstrap";
 import { CurrencyContext } from "../../helpers/Currency/CurrencyContext";

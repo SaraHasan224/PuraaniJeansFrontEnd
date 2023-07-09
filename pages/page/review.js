@@ -1,5 +1,5 @@
 import React from "react";
-import CommonLayout from "../../components/shop/common-layout";
+import CommonLayout from "../../components/layouts/common-layout";
 import two from "../../public/assets/images/2.jpg";
 import avtar from "../../public/assets/images/avtar.jpg";
 import twenty from "../../public/assets/images/20.jpg";

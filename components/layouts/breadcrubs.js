@@ -2,9 +2,9 @@ import React from "react";
 import { useRouter } from 'next/router';
 
 import { Container, Row, Col } from "reactstrap";
-import ALink from "../../../features/alink";
+import ALink from "../../features/alink";
 
-const Breadcrubs = ({ title, parent, subTitle }) => {
+const Breadcrumbs = ({ title, parent, subTitle }) => {
   const router = useRouter();
   const type = router.query.type;
   const query = router.query;
@@ -45,4 +45,4 @@ const Breadcrubs = ({ title, parent, subTitle }) => {
   );
 };
 
-export default Breadcrubs;
+export default Breadcrumbs;

@@ -10,7 +10,6 @@ export const metaDataSlice = createSlice({
   initialState,
   reducers: {
     saveMetaData: (state,metaData) => {
-        console.log("save Meta Data: ", metaData);
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
@@ -18,7 +17,6 @@ export const metaDataSlice = createSlice({
       state.meta = metaData?.payload;
     },
     saveBanners: (state,metaData) => {
-        console.log("save banners: ", metaData);
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new

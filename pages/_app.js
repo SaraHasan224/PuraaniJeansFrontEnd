@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Helmet from "react-helmet";
+import { persistor, store } from '../store/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider, useDispatch, useSelector } from 'react-redux'
+
 import { saveMetaData, saveBanners } from '../store/reducers/metadata';
 
 import "../public/assets/scss/app.scss";
 import { ToastContainer } from "react-toastify";
-import TapTop from "../components/common/widgets/Tap-Top";
 import CartContextProvider from "../helpers/cart/CartContext";
 import FilterProvider from "../helpers/filter/FilterProvider";
 import { CompareContextProvider } from "../helpers/Compare/CompareContext";
 import { CurrencyContextProvider } from "../helpers/Currency/CurrencyContext";
 // import { ApolloProvider } from "@apollo/client";
 // import { useApollo } from '../helpers/apollo';
-import { persistor, store } from '../store/store';
-import { PersistGate } from 'redux-persist/integration/react';
-import { Provider, useDispatch, useSelector } from 'react-redux'
+import TapTop from "../components/layouts/Tap-Top";
 
 export default function MyApp({ Component, pageProps, props }) {
 

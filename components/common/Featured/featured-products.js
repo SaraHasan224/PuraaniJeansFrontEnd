@@ -12,7 +12,6 @@ const ProductItem = ({
   addToCompare,
   spanClass,
 }) => {
-    console.log("product: ", product)
   const curContext = useContext(CurrencyContext);
   const currency = curContext.state;
 

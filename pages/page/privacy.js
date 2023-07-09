@@ -1,5 +1,5 @@
 import React from "react";
-import CommonLayout from "../../components/shop/common-layout";
+import CommonLayout from "../../components/layouts/common-layout";
 import {
 Container,
 Row,

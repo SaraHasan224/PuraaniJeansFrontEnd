@@ -3,13 +3,13 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import Helmet from "react-helmet";
 
-import Header from "../components/headers/header";
-import HeaderCarousel from "../components/headers/header-carousel";
-import Settings from "../components/customizer/settings";
+import Header from "../components/layouts/headers/header";
+import HeaderCarousel from "../components/layouts/headers/header-carousel";
+import TapTop from "../components/layouts/tap-top";
 import SearchByTags from "../components/search_by_tags/tags";
 import RecommendedItems from "../components/recommended_items/items";
-import BrandsFooter from "../components/footers/brands";
-import Footer from "../components/footers/Footer";
+import BrandsFooter from "../components/layouts/footers/brands";
+import Footer from "../components/layouts/footers/Footer";
 import Featured from "../components/common/Featured/featured-list";
 import FeaturedClosets from "../components/common/Featured/featured-closets";
 
@@ -73,7 +73,7 @@ export default function Home(props){
           logoName={ meta?.logo_white }
           layoutClass={"dark-subfooter"}
         />
-        <Settings />
+        <TapTop />
     </>
   );
 };

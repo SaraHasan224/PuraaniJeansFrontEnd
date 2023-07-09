@@ -9,9 +9,9 @@ import {
   Button,
   Collapse,
 } from "reactstrap";
-import Logo from "../headers/common/logo";
+import Logo from "../../layouts/headers/common/logo";
 import CopyRight from "./copyright";
-import ALink from "../../features/alink";
+import ALink from "../../../features/alink";
 
 const Footer = ({
   containerFluid,

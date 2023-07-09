@@ -1,10 +1,23 @@
 import React from "react";
-import CommonLayout from "../../components/shop/common-layout";
+import CommonLayout from "../../components/layouts/common-layout";
 import { Container, Row, Col, Media } from "reactstrap";
 import aboutus from "../../public/assets/images/about/about-us.jpg";
 import Slider from "react-slick";
-import { Slider2 } from "../../services/script";
 
+const Slider2 = {
+  infinite: true,
+  slidesToShow: 2,
+  slidesToScroll: 2,
+  responsive: [
+    {
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
 
 const TeamDetailData = [
   {

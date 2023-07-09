@@ -1,11 +1,33 @@
 import React, { Fragment } from "react";
 import { Container, Row, Col, Media } from "reactstrap";
 import Slider from "react-slick";
-import { Slider3 } from "../../../services/script";
 import blog1 from "../../../public/assets/images/marijuana/blog/1.jpg";
 import blog2 from "../../../public/assets/images/marijuana/blog/2.jpg";
 import blog3 from "../../../public/assets/images/marijuana/blog/3.jpg";
-
+const Slider3 = {
+  infinite: true,
+  speed: 300,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 5000,
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 767,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
 const BlogBanner = () => {
   const data = [blog1, blog2, blog3, blog2];
   return (
