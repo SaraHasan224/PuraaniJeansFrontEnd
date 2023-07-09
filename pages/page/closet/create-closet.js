@@ -125,24 +125,7 @@ const CreateCloset = () => {
                     </Container>
                 </section>
 
-                {/* //
-        <!-- service section start --> */}
-                <Container>
-                    <section className="service section-b-space pt-0 ">
-                        <Row className="partition4 ">
-                            {FeatureData.map((feature, i) => {
-                                return (
-                                    <FeatureComponent key={i} img={feature.img} title={feature.title} desc={feature.desc} />
-                                );
-                            })}
-                        </Row>
-                    </section>
-                </Container>
-                {/* //
-        <!-- service section end --> */}
-
-                {/*
-        <!-- how to start section start --> */}
+                {/* <!-- how to start section start --> */}
                 <section className="section-b-space become-vendor">
                     <Container>
                         <h4>doing business on {process.env.NEXT_PUBLIC_APP_NAME} is really easy</h4>
@@ -157,11 +140,9 @@ const CreateCloset = () => {
                         </div>
                     </Container>
                 </section>
-                {/*
-        <!-- how to start section end --> */}
+                {/* <!-- how to start section end --> */}
 
-                {/*
-        <!-- start selling section start --> */}
+                {/* <!-- start selling section start --> */}
                 <section className="start-selling section-b-space">
                     <Container>
                         <Col>
@@ -192,8 +173,7 @@ const CreateCloset = () => {
                         </Col>
                     </Container>
                 </section>
-                {/*
-        <!-- start selling section end --> */}
+                {/* <!-- start selling section end --> */}
             </>
         </CommonLayout>
     )

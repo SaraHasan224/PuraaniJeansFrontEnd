@@ -10,7 +10,7 @@ const SearchNavigation = () => {
                 <div className="inner-form">
                     <div className="input-field first-wrap">
                         <div className="input-select">
-                            <div className="choices" role="listbox" data-type="select-one" tabIndex="0" aria-haspopup="true"
+                            <div className="choices" role="listbox" data-type="select-one" tabindex="0" aria-haspopup="true"
                                 aria-expanded="false" dir="ltr"
                                 aria-activedescendant="choices-choices-single-defaul-yq-item-choice-2">
                                 <div className="choices__inner">

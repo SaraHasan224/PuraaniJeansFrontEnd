@@ -7,6 +7,7 @@ import cart from "../../public/assets/images/icon/cart.png";
 import SearchOverlay from "./common/search-overlay";
 import search from "../../public/assets/images/icon/search.png";
 import SearchNavigation from "./common/search-nav";
+import ALink from "../../features/alink";
 
 const Header = (props) => {
   const {
@@ -77,7 +78,7 @@ const Header = (props) => {
                         {/*Header Cart Component */}
                         <CartContainer icon={cart.src} />
                         <li className="onhover-div create-closet">
-                          <a href={`/page/closet/create-closet`} className="btn btn-solid black-btn " tabIndex="0">Create Closet</a>
+                          <ALink href={`/page/closet/create-closet`} className="btn btn-solid black-btn " tabindex="0">Create Closet</ALink>
                         </li>
                       </ul>
                     </div>

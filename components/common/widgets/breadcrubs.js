@@ -2,7 +2,6 @@ import React from "react";
 import { useRouter } from 'next/router';
 
 import { Container, Row, Col } from "reactstrap";
-import Link from 'next/link';
 import ALink from "../../../features/alink";
 
 const Breadcrubs = ({ title, parent, subTitle }) => {
@@ -24,7 +23,7 @@ const Breadcrubs = ({ title, parent, subTitle }) => {
               <nav aria-label="breadcrumb" className="theme-breadcrumb">
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
-                    <Link href="/">{parent}</Link>
+                    <ALink href="/">{parent}</ALink>
                   </li>
                   <li className="breadcrumb-item" aria-current="page">
                     {title}

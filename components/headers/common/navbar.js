@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Container, Row } from "reactstrap";
 import { useTranslation } from "react-i18next";
-import Link from "next/link";
+import ALink from "../../../features/alink";
 
 import { MENUITEMS } from "../../constant/menu";
 
@@ -87,7 +87,7 @@ const NavBar = () => {
   };
 
   // Click Toggle menu
-  const toggletNavActive = (item) => {
+  const toggletNavActive = (e, item) => {
     if (!item.active) {
       MENUITEMS.forEach((a) => {
         if (MENUITEMS.includes(item)) a.active = false;
@@ -107,12 +107,19 @@ const NavBar = () => {
     }
     item.active = !item.active;
     setMainMenu({ mainmenu: MENUITEMS });
+    navigationAction(e, menuItem)
+  };
+
+  const navigationAction = (event, action) => {
+    event.preventDefault();
+    console.log("navigationAction: ", action)
+    router.push(action.path, undefined, { shallow: true })
   };
 
   const openMblNav = (event, menuItem) => {
     if (event.target.classList.contains("sub-arrow")) return;
     if (!event.target.nextElementSibling) {
-      window.location= menuItem.path;
+      navigationAction(event, menuItem)
     } else {
       if (event.target.nextElementSibling.classList.contains("opensubmenu"))
         event.target.nextElementSibling.classList.remove("opensubmenu");
@@ -128,6 +135,7 @@ const NavBar = () => {
         }
       }
     }
+    
   };
 
   return (
@@ -152,13 +160,11 @@ const NavBar = () => {
                 >
                   {
                     menuItem.type == 'link' ?
-                      <Link href={menuItem.path}>
-                        <a className="nav-link">
+                      <ALink href={menuItem.path} className="nav-link">
                           {t(menuItem.title)}
-                        </a>
-                      </Link>
+                      </ALink>
                       :
-                      <a className="nav-link" onClick={(e) => openMblNav(e, menuItem)}>
+                      <a href="#" className="nav-link" onClick={(e) => openMblNav(e, menuItem)}>
                         {t(menuItem.title)}
                         {menuItem.children ? <span className="sub-arrow"></span> : ''}
                       </a>
@@ -173,10 +179,7 @@ const NavBar = () => {
                               }`}
                           >
                             {childrenItem.type === "sub" ? (
-                              <a
-                                href={null}
-                                onClick={() => toggletNavActive(childrenItem)}
-                              >
+                              <a href={"#"} className="nav-link" onClick={(e) => toggletNavActive(e, childrenItem)}>
                                 {childrenItem.title}
                                 {childrenItem.tag === "new" ? (
                                   <span className="new-tag">new</span>
@@ -189,16 +192,14 @@ const NavBar = () => {
                               ""
                             )}
                             {childrenItem.type === "link" ? (
-                              <Link href={`${childrenItem.path}`}>
-                                <a>
+                              <ALink href={`${childrenItem.path}`}>
                                   {childrenItem.title}
                                   {childrenItem.tag === "new" ? (
                                     <span className="new-tag">new</span>
                                   ) : (
                                     ""
                                   )}
-                                </a>
-                              </Link>
+                              </ALink>
                             ) : (
                               ""
                             )}
@@ -211,8 +212,7 @@ const NavBar = () => {
                                   (childrenSubItem, key) => (
                                     <li key={key}>
                                       {childrenSubItem.type === "link" ? (
-                                        <Link href={childrenSubItem.path}>
-                                          <a className="sub-menu-title">
+                                        <ALink href={childrenSubItem.path} className="sub-menu-title">
                                             {childrenSubItem.title}
                                             {childrenSubItem.tag === "new" ? (
                                               <span className="new-tag">
@@ -221,8 +221,7 @@ const NavBar = () => {
                                             ) : (
                                               ""
                                             )}
-                                          </a>
-                                        </Link>
+                                        </ALink>
                                       ) : (
                                         ""
                                       )}
@@ -268,28 +267,13 @@ const NavBar = () => {
                                         </div>
                                         <div className="menu-content">
                                           <ul>
-                                            {menuItem.title === "Elements"
-                                              ? megaMenuItem.children.map(
+                                            {megaMenuItem.children.map(
                                                 (subMegaMenuItem, i) => {
                                                   return (
                                                     <li key={i}>
-                                                      <Link href={subMegaMenuItem.path}>
-                                                        <>
-                                                          <i className={`icon-${subMegaMenuItem.icon}`}></i>
-                                                          {subMegaMenuItem.title}
-                                                        </>
-                                                      </Link>
-                                                    </li>
-                                                  );
-                                                }
-                                              )
-                                              : megaMenuItem.children.map(
-                                                (subMegaMenuItem, i) => {
-                                                  return (
-                                                    <li key={i}>
-                                                      <Link href={subMegaMenuItem.path}>
-                                                        {subMegaMenuItem.title}
-                                                      </Link>
+                                                      <a href={"#"} onClick={(e) => navigationAction(e, subMegaMenuItem)}>
+                                                        {subMegaMenuItem.title} sdfsd
+                                                      </a>
                                                     </li>
                                                   );
                                                 }

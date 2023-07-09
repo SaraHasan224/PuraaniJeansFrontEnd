@@ -14,7 +14,7 @@ return (
                             <div className="banner-contain">
                                 <h4>{title}</h4>
                                 <p>{description}</p>
-                                <ALink href={"/"} className="btn btn-solid black-btn" tabIndex="0">
+                                <ALink href={"/"} className="btn btn-solid black-btn" tabindex="0">
                                     {btn_name}
                                 </ALink>
                             </div>
