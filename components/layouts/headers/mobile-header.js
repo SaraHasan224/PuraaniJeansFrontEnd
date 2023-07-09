@@ -32,7 +32,7 @@ const MasterBanner = ({ title, desc, bannerItem }) => {
   return (
     <div>
       <div
-        className={`home text-center`}
+        className={`home master text-center`}
         style={{ backgroundImage: "url(" + bannerItem?.image + ")" }}
       >
         <Container>

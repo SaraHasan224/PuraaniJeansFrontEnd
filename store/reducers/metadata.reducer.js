@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   banners: [],
   meta: [],
+  authBanners: [],
 }
 
 export const metaDataSlice = createSlice({
@@ -23,10 +24,17 @@ export const metaDataSlice = createSlice({
       // immutable state based off those changes
       state.banners = metaData?.payload;
     },
+    saveAuthBanners: (state,metaData) => {
+      // Redux Toolkit allows us to write "mutating" logic in reducers. It
+      // doesn't actually mutate the state because it uses the Immer library,
+      // which detects changes to a "draft state" and produces a brand new
+      // immutable state based off those changes
+      state.authBanners = metaData?.payload;
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { saveMetaData, saveBanners } = metaDataSlice.actions
+export const { saveMetaData, saveBanners, saveAuthBanners } = metaDataSlice.actions
 
 export default metaDataSlice.reducer

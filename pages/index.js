@@ -16,7 +16,7 @@ import FeaturedClosets from "../components/common/Featured/featured-closets";
 import ALink from '../features/alink';
 import InternetConnection from "../features/internet-connection";
 
-import { saveMetaData, saveBanners } from '../store/reducers/metadata'
+import { saveMetaData, saveBanners, saveAuthBanners } from '../store/reducers/metadata.reducer'
 
 export default function Home(props){
   const { meta } = useSelector((state) => state.metadata);
@@ -25,12 +25,14 @@ export default function Home(props){
   const {
     banners,
     metaData,
-    recommended
+    recommended,
+    authBanners
   } = props;
 
   useEffect(() => {
     dispatch(saveMetaData(metaData))
     dispatch(saveBanners(banners));
+    dispatch(saveAuthBanners(authBanners));
   }, [props]);
 
   return (
@@ -89,6 +91,7 @@ export async function getStaticProps() {
     props: {
       metaData: metaJsonApiResponse?.body?.metadata,
       banners: metaJsonApiResponse?.body?.banners,
+      authBanners: metaJsonApiResponse?.body?.auth_banners,
       recommended: jsonApiResponse?.body?.recommended,
       brands: jsonApiResponse?.body?.brands,
       featured_by: featuredJsonApiResponse?.body?.featured_by,
