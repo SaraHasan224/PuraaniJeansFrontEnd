@@ -10,8 +10,8 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
-import CartContext from "../../../helpers/cart";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
+import CartContext from "../../../context/cart";
 import MasterProductDetail from "./MasterProductDetail";
 
 const ProductBox4 = ({ product, addToCompare, addCart, addWishlist }) => {

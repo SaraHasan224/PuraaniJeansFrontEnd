@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import { Row, Col, Media, Modal, ModalBody, ModalHeader } from "reactstrap";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
-import CartContext from "../../../helpers/cart";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
+import CartContext from "../../../context/cart";
 import MasterProductDetail from "./MasterProductDetail";
 
 const ProductItem = ({

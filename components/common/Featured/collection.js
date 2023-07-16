@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Col, Container, Row, Media } from 'reactstrap';
 import ProductItem from "./featured-products";
-import CartContext from "../../../helpers/cart";
-import { WishlistContext } from "../../../helpers/wishlist/WishlistContext";
-import { CompareContext } from "../../../helpers/Compare/CompareContext";
+import CartContext from "../../../context/cart";
+import { WishlistContext } from "../../../context/wishlist/WishlistContext";
+import { CompareContext } from "../../../context/Compare/CompareContext";
 
 export default function FeaturedByCollection(props) {
   const {

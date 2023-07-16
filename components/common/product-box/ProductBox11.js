@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useContext } from "react";
 import { Col, Media, ModalHeader, Modal, ModalBody, Row } from "reactstrap";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 import Link from "next/link";
-import CartContext from "../../../helpers/cart";
+import CartContext from "../../../context/cart";
 import MasterProductDetail from "./MasterProductDetail";
 
 const ProductSection = ({ product, addToCompare, addWishlist, addCart }) => {

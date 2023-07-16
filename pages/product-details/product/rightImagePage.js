@@ -5,8 +5,8 @@ import Slider from "react-slick";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import ImageZoom from "../common/image-zoom";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
-import CartContext from "../../../helpers/cart";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
+import CartContext from "../../../context/cart";
 
 const GET_SINGLE_PRODUCTS = gql`
   query product($id: Int!) {

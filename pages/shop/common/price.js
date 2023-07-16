@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Range, getTrackBackground } from 'react-range';
-import FilterContext from "../../../helpers/filter/FilterContext";
+import FilterContext from "../../../context/filter/FilterContext";
 import { useRouter } from "next/router";
 
 const Price = () => {

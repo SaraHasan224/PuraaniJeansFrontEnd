@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import { Collapse, Input } from "reactstrap";
-import FilterContext from "../../../helpers/filter/FilterContext";
+import FilterContext from "../../../context/filter/FilterContext";
 
 const GET_SIZE = gql`
   query getSize($type: String) {

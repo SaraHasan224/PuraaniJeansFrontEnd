@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Input } from "reactstrap";
 import CountdownComponent from "../../../components/common/widgets/countdownComponent";
-import CartContext from "../../../helpers/cart";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
+import CartContext from "../../../context/cart";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 
 const DetailBox = ({ item, changeColorVar }) => {
   const CurContect = useContext(CurrencyContext);

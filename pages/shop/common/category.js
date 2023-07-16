@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Collapse } from "reactstrap";
-import FilterContext from "../../../helpers/filter/FilterContext";
+import FilterContext from "../../../context/filter/FilterContext";
 
 const Category = () => {
   const context = useContext(FilterContext);

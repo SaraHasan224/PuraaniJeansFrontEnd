@@ -6,7 +6,7 @@ import {
     NavLink,
     Nav,
   } from "reactstrap";
-  import seventeen from "../../../../public/assets/images/logos/17.png";
+  import seventeen from "../../../public/assets/images/logos/17.png";
 
 const DashboardNavigation = ({ active, setActive }) => {
     return (

@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import { Row, Col, Media, Modal, ModalBody, ModalHeader } from "reactstrap";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
-import CartContext from "../../../helpers/cart";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
+import CartContext from "../../../context/cart";
 
 const ProductBox = ({ product, addCart, addWish, addCompare }) => {
   const router = useRouter();

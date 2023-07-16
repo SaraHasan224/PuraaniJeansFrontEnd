@@ -3,14 +3,14 @@ import { Col, Row, Media, Button, Spinner } from "reactstrap";
 import Menu2 from "../../../public/assets/images/mega-menu/2.jpg";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
-import FilterContext from "../../../helpers/filter/FilterContext";
+import FilterContext from "../../../context/filter/FilterContext";
 import ProductItem from "../../../components/common/product-box/ProductBox1";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 import { useRouter } from "next/router";
 import PostLoader from "../../../components/common/PostLoader";
-import CartContext from "../../../helpers/cart";
-import { WishlistContext } from "../../../helpers/wishlist/WishlistContext";
-import { CompareContext } from "../../../helpers/Compare/CompareContext";
+import CartContext from "../../../context/cart";
+import { WishlistContext } from "../../../context/wishlist/WishlistContext";
+import { CompareContext } from "../../../context/Compare/CompareContext";
 import FilterPage from "./filter";
 
 const GET_PRODUCTS = gql`

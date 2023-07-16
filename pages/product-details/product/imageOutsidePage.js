@@ -5,10 +5,10 @@ import Slider from 'react-slick';
 import sizeChart from '../../../public/assets/images/size-chart.jpg';
 import { gql } from '@apollo/client';
 import { useQuery } from "@apollo/client";
-import { CurrencyContext } from '../../../helpers/Currency/CurrencyContext'
+import { CurrencyContext } from '../../../context/Currency/CurrencyContext'
 import CountdownComponent from '../../../components/common/widgets/countdownComponent';
 import ImageZoom from '../common/image-zoom';
-import CartContext from '../../../helpers/cart';
+import CartContext from '../../../context/cart';
 
 
 const GET_SINGLE_PRODUCTS = gql`

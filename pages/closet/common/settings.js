@@ -33,7 +33,7 @@ const SettingsTab = ({ active, setActive }) => {
                                                                 placeholder="Enter your shop name" />
                                                         </Col>
                                                     </Row>
-                                                    <a href={`/page/closet/dashboard`} className="btn btn-solid btn-green btn-sm">
+                                                    <a href={`/closet/dashboard`} className="btn btn-solid btn-green btn-sm">
                                                         Save
                                                     </a>
                                                 </Form>

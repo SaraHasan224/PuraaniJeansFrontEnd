@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Container, Row, Col, Table } from 'reactstrap';
-import { WishlistContext } from '../../../../helpers/wishlist/WishlistContext';
-import CartContext from '../../../../helpers/cart/index';
+import { WishlistContext } from '../../context/wishlist/WishlistContext';
+import CartContext from '../../context/cart/index';
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 

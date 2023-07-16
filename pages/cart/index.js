@@ -1,6 +1,6 @@
 import React from 'react';
-import CommonLayout from '../../../components/layouts/common-layout';
-import CartPage from './common/cart-page';
+import CommonLayout from '../../components/layouts/common-layout';
+import CartPage from './cart-page';
 
 
 const Wishliat = () => {

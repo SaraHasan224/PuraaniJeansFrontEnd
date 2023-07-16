@@ -1,15 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import { gql } from "@apollo/client";
 import { useRouter } from "next/router";
 
 import { Col, Row, Media, Button, Spinner } from "reactstrap";
 
 import ProductItem from "../../../components/common/product-box/ProductBox1";
 import PostLoader from "../../../components/common/PostLoader";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
-import FilterContext from "../../../helpers/filter/FilterContext";
-import CartContext from "../../../helpers/cart";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
+import FilterContext from "../../../context/filter/FilterContext";
+import CartContext from "../../../context/cart";
 import ShopBreadcrumb from "./breadcrumb";
 import ALink from "../../../features/alink";
 

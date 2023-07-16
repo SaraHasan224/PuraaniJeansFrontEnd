@@ -1,8 +1,8 @@
 import React, { useContext, Fragment, useState } from "react";
 import Link from "next/link";
-import CartContext from "../../helpers/cart";
+import CartContext from "../../context/cart";
 import { Media } from "reactstrap";
-// import { CurrencyContext } from "../../helpers/Currency/CurrencyContext";
+// import { CurrencyContext } from "../../context/Currency/CurrencyContext";
 
 const CartComponent = ({ icon, layout }) => {
   

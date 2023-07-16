@@ -1,9 +1,9 @@
 import React, { useContext, Fragment } from "react";
 import Link from "next/link";
 import CartHeader from "../layouts/headers/common/cart-header";
-import CartContext from "../../helpers/cart";
+import CartContext from "../../context/cart";
 import { Media } from "reactstrap";
-import { CurrencyContext } from "../../helpers/Currency/CurrencyContext";
+import { CurrencyContext } from "../../context/Currency/CurrencyContext";
 
 const CartContainer = ({ icon }) => {
   const context = useContext(CartContext);

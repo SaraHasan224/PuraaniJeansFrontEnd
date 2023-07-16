@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import { Media } from "reactstrap";
 import Slider from "react-slick";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 
 const GET_PRODUCTS = gql`
   query newProducts($type: String!) {

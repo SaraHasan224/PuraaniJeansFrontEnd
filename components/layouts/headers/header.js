@@ -78,7 +78,7 @@ const Header = (props) => {
                         {/*Header Cart Component */}
                         <CartContainer icon={cart.src} />
                         <li className="onhover-div create-closet">
-                          <ALink href={`/page/closet/create-closet`} className="btn btn-solid black-btn " tabindex="0">Create Closet</ALink>
+                          <ALink href={`/closet/create-closet`} className="btn btn-solid black-btn " tabindex="0">Create Closet</ALink>
                         </li>
                       </ul>
                     </div>

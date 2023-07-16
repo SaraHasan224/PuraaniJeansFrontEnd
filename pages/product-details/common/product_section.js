@@ -2,10 +2,10 @@ import React, { useContext, useState } from "react";
 import { Container, Row, Col, Media, Modal, ModalBody } from "reactstrap";
 import { useQuery } from "@apollo/client";
 import { gql } from '@apollo/client';
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
-import CartContext from "../../../helpers/cart";
-import { WishlistContext } from "../../../helpers/wishlist/WishlistContext";
-import { CompareContext } from "../../../helpers/Compare/CompareContext";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
+import CartContext from "../../../context/cart";
+import { WishlistContext } from "../../../context/wishlist/WishlistContext";
+import { CompareContext } from "../../../context/Compare/CompareContext";
 import { useRouter } from "next/router";
 
 const GET_PRODUCTS = gql`

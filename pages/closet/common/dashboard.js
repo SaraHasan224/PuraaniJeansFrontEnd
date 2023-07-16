@@ -9,12 +9,12 @@ import {
     TabPane,
 } from "reactstrap";
 
-import one from "../../../../public/assets/images/dashboard/product/1.jpg";
-import nine from "../../../../public/assets/images/dashboard/product/9.jpg";
-import thirtyfour from "../../../../public/assets/images/pro3/34.jpg";
-import pro1 from "../../../../public/assets/images/pro3/1.jpg";
-import pro27 from "../../../../public/assets/images/pro3/27.jpg";
-import pro36 from "../../../../public/assets/images/pro3/36.jpg";
+import one from "../../../public/assets/images/dashboard/product/1.jpg";
+import nine from "../../../public/assets/images/dashboard/product/9.jpg";
+import thirtyfour from "../../../public/assets/images/pro3/34.jpg";
+import pro1 from "../../../public/assets/images/pro3/1.jpg";
+import pro27 from "../../../public/assets/images/pro3/27.jpg";
+import pro36 from "../../../public/assets/images/pro3/36.jpg";
 
 const ProductData = [
     {

@@ -6,19 +6,16 @@ import { Provider, useDispatch, useSelector } from 'react-redux'
 
 import "../public/assets/scss/app.scss";
 import { ToastContainer } from "react-toastify";
-import CartContextProvider from "../helpers/cart/CartContext";
-import FilterProvider from "../helpers/filter/FilterProvider";
-import { CompareContextProvider } from "../helpers/Compare/CompareContext";
-import { CurrencyContextProvider } from "../helpers/Currency/CurrencyContext";
-// import { ApolloProvider } from "@apollo/client";
-// import { useApollo } from '../helpers/apollo';
+import CartContextProvider from "../context/cart/CartContext";
+import FilterProvider from "../context/filter/FilterProvider";
+import { CompareContextProvider } from "../context/Compare/CompareContext";
+import { CurrencyContextProvider } from "../context/Currency/CurrencyContext";
 import TapTop from "../components/layouts/Tap-Top";
 
 export default function MyApp({ Component, pageProps, props }) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [metaData, setIsMetaData] = useState([]);
-  // const apolloClient = useApollo(pageProps)
 
   useEffect(async () => {
     const apiResponse = await fetch(`http://puranijeans.test/api/meta-data`);
@@ -37,7 +34,6 @@ export default function MyApp({ Component, pageProps, props }) {
   }, []);
   return (
     <>
-      {/* <ApolloProvider client={apolloClient}> */}
       {isLoading ? (
         <div className="loader-wrapper">
           <div className="loader"></div>
@@ -71,7 +67,6 @@ export default function MyApp({ Component, pageProps, props }) {
           </Provider>
         </>
       )}
-      {/* </ApolloProvider> */}
     </>
   );
 }

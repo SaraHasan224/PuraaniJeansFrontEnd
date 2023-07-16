@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import Link from "next/link";
-import CartContext from "../../../../helpers/cart";
+import CartContext from "../../context/cart";
 import { Container, Row, Col, Media, Input } from "reactstrap";
-import { CurrencyContext } from "../../../../helpers/Currency/CurrencyContext";
+import { CurrencyContext } from "../../context/Currency/CurrencyContext";
 import cart from "../../../../public/assets/images/icon-empty-cart.png";
 
 const CartPage = () => {

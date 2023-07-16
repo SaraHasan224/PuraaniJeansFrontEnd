@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/client";
 import ImageZoom from "../common/image-zoom";
 import DetailBox from "../common/detail-box";
 import Detail from "../common/detailPage";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 
 const GET_SINGLE_PRODUCTS = gql`
   query product($id: Int!) {

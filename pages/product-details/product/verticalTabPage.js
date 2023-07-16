@@ -5,9 +5,9 @@ import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import ImageZoom from "../common/image-zoom";
 import DetailsWithPrice from "../common/detail-price";
-import { CurrencyContext } from "../../../helpers/Currency/CurrencyContext";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 import { Row, Col, Container, Media } from "reactstrap";
-import CartContext from "../../../helpers/cart";
+import CartContext from "../../../context/cart";
 
 const GET_SINGLE_PRODUCTS = gql`
   query product($id: Int!) {

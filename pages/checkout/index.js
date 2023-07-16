@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Media, Container, Form, Row, Col } from "reactstrap";
-import CartContext from "../../../../helpers/cart";
+import CartContext from "../../context/cart";
 import paypal from "../../../../public/assets/images/paypal.png";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { CurrencyContext } from "../../../../helpers/Currency/CurrencyContext";
+import { CurrencyContext } from "../../context/Currency/CurrencyContext";
 
 const CheckoutPage = () => {
   const cartContext = useContext(CartContext);

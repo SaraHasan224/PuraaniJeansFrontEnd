@@ -4,9 +4,9 @@ import DetailsWithPrice from '../common/detail-price';
 import Slider from 'react-slick';
 import { gql } from '@apollo/client';
 import { useQuery } from "@apollo/client";
-import CartContext from '../../../helpers/cart';
+import CartContext from '../../../context/cart';
 import ImageZoom from '../common/image-zoom';
-import { CurrencyContext } from '../../../helpers/Currency/CurrencyContext';
+import { CurrencyContext } from '../../../context/Currency/CurrencyContext';
 
 const GET_SINGLE_PRODUCTS = gql`
     query product ($id:Int!) {
