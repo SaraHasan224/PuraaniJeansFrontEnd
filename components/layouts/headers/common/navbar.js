@@ -5,7 +5,7 @@ import { Container, Row } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import ALink from "../../../../features/alink";
 
-import { MENUITEMS } from "../../../constant/menu";
+import { MENUITEMS } from "../../../../utils";
 
 const NavBar = () => {
   const { t } = useTranslation();

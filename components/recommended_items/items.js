@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Container, Row, Col } from "reactstrap";
+
 import ItemContent from "./item-content";
 import ALink from "../../features/alink";
+
+import { HELPER } from "../../utils";
 
 const Data = [
   {
@@ -44,8 +49,11 @@ const Data = [
   },
 ];
 
-const Services = ({ items }) => {
-  return (
+const RecommendItems = () => {
+  const { recommended } = useSelector((state) => state.home);
+
+
+  return (HELPER.isEmpty(recommended) ? "" :
     <Container className="home-services">
       <section className={"border-section noTopPadding"}>
         <Row className="d-flex services">
@@ -63,7 +71,7 @@ const Services = ({ items }) => {
               </div>
             </div>
           </Col>
-          {items.map((item, index) => {
+          {recommended.map((item, index) => {
             return (
               <Col className={`service-block `} key={`service-block-${index}`}>
                 <ItemContent item={item} />
@@ -86,4 +94,4 @@ const Services = ({ items }) => {
   );
 };
 
-export default Services;
+export default RecommendItems;

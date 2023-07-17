@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CommonLayout from '../../components/layouts/common-layout';
 
-import withPrivateRoute from '../../hoc/private_routes/withPrivateRoute';
+import withPrivateRoute from '../../hoc/auth/withPrivateRoute';
 
 import {
   Container,

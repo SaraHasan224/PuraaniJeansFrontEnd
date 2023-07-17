@@ -21,16 +21,18 @@ const TapTop = () => {
       top: 0,
     });
   };
+  
   return (
-    <div
-      className="tap-top top-cls"
-      style={goingUp ? { display: "block" } : { display: "none" }}
-      onClick={tapToTop}
-    >
-      <div>
-        <i className="fa fa-angle-double-up"></i>
-      </div>
-    </div>
+    // <div
+    //   className="tap-top top-cls"
+    //   style={goingUp ? { display: "block" } : { display: "none" }}
+    //   onClick={tapToTop}
+    // >
+    //   <div>
+    //     <i className="fa fa-angle-double-up"></i>
+    //   </div>
+    // </div>
+    <></>
   );
 };
 

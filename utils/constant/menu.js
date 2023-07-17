@@ -1,3 +1,15 @@
+
+export const CONSTANTS = {
+	YES: 1,
+	NO: 0,
+	HTTP_RESPONSE: {
+		SUCCESS: 200,
+		BAD_REQUEST: 400,
+		UNAUTHORIZED: 401,
+		INPROCESSIBLE: 422,
+		SERVER_ERROR: 500,
+	},
+}
 export const MENUITEMS = [
    {
       title: 'Men', type: 'sub', children: false, megaMenu: false, path: `/shop?category=men&brand=&color=&size=&minPrice=&maxPrice=`
@@ -64,4 +76,3 @@ export const MENUITEMS = [
       title: 'More', type: 'sub', children: false, megaMenu: false, path: `/shop?category=more&fashion&brand=&color=&size=&minPrice=&maxPrice=`
    },
 ]
-

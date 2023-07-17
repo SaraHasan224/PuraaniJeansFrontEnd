@@ -16,24 +16,20 @@ import FeaturedClosets from "../components/common/Featured/featured-closets";
 import ALink from '../features/alink';
 import InternetConnection from "../features/internet-connection";
 
-import { saveMetaData, saveBanners, saveAuthBanners } from '../store/reducers/metadata.reducer'
+import { HOMEPAGE_ACTIONS } from "../store/actions";
+import { HOME_CONSTANTS } from "../store/actionTypes";
 
 export default function Home(props){
   const { meta } = useSelector((state) => state.metadata);
   const dispatch = useDispatch()
 
-  const {
-    banners,
-    metaData,
-    recommended,
-    authBanners
-  } = props;
-
   useEffect(() => {
-    dispatch(saveMetaData(metaData))
-    dispatch(saveBanners(banners));
-    dispatch(saveAuthBanners(authBanners));
-  }, [props]);
+    dispatch({
+			type: HOME_CONSTANTS.HOMEPAGE_META.SUCCESS,
+			response: props?.meta
+		});
+    dispatch(HOMEPAGE_ACTIONS.GET_HOMEPAGE_CONTENTS());
+  }, []);
 
   return (
     <>
@@ -50,14 +46,13 @@ export default function Home(props){
           <Header logoName={meta?.logo} topClass="top-header" />
         </ALink>
         {/* HEADER Carousel */}
-        <HeaderCarousel banners={banners} />
+        <HeaderCarousel />
         {/* Search By Tags */}
         <SearchByTags />
         {/* RecommendedItems We Offer */}
-        <RecommendedItems items={recommended}/>
+        <RecommendedItems/>
         <Featured
           // cartClass="cart-info cart-wrap"
-          featured={props?.featured_by}
         />
         <FeaturedClosets featured={props?.featured_by}/>
         <BrandsFooter
@@ -81,20 +76,10 @@ export default function Home(props){
 };
 
 export async function getStaticProps() {
-  const metaApiResponse = await fetch(`http://puranijeans.test/api/meta-data`);
-  const metaJsonApiResponse = await metaApiResponse.json();
-  const apiResponse = await fetch(`${process.env.NEXT_API_BASE_URL}api/homepage`);
-  const jsonApiResponse = await apiResponse.json();
-  const featuredApiResponse = await fetch(`${process.env.NEXT_API_BASE_URL}api/homepage/featured-section`);
-  const featuredJsonApiResponse = await featuredApiResponse.json();
+  const metaApiResponse = await HOMEPAGE_ACTIONS.GET_HOMEPAGE_APP_METADATA();
   return {
     props: {
-      metaData: metaJsonApiResponse?.body?.metadata,
-      banners: metaJsonApiResponse?.body?.banners,
-      authBanners: metaJsonApiResponse?.body?.auth_banners,
-      recommended: jsonApiResponse?.body?.recommended,
-      brands: jsonApiResponse?.body?.brands,
-      featured_by: featuredJsonApiResponse?.body?.featured_by,
+      meta: metaApiResponse?.data?.body
     }
   }
 }

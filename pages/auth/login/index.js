@@ -53,6 +53,24 @@ const Login = () => {
                                 <Col xl="6" lg="6" md="6" sm="6">
                                     <div className="form-group">
                                         <Label className="form-label" for="email">
+                                            <b>Country</b>
+                                        </Label>
+                                        <Input type="text" defaultValue={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Email" required="" />
+                                    </div>
+                                </Col>
+                                <Col xl="6" lg="6" md="6" sm="6">
+                                    <div className="form-group">
+                                        <Label className="form-label" for="email">
+                                            <b>Email Address</b>
+                                        </Label>
+                                        <Input type="text" defaultValue={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Email" required="" />
+                                    </div>
+                                </Col>
+                            </Row>
+                            <Row className='mt-2'>
+                                <Col xl="6" lg="6" md="6" sm="6">
+                                    <div className="form-group">
+                                        <Label className="form-label" for="email">
                                             <b>First Name</b>
                                         </Label>
                                         <Input type="text" defaultValue={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Email" required="" />
@@ -71,24 +89,6 @@ const Login = () => {
                                 <Col xl="6" lg="6" md="6" sm="6">
                                     <div className="form-group">
                                         <Label className="form-label" for="email">
-                                            <b>Email Address</b>
-                                        </Label>
-                                        <Input type="text" defaultValue={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Email" required="" />
-                                    </div>
-                                </Col>
-                                <Col xl="6" lg="6" md="6" sm="6">
-                                    <div className="form-group">
-                                        <Label className="form-label" for="email">
-                                            <b>Username</b>
-                                        </Label>
-                                        <Input type="text" defaultValue={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Email" required="" />
-                                    </div>
-                                </Col>
-                            </Row>
-                            <Row className='mt-2'>
-                                <Col xl="6" lg="6" md="6" sm="6">
-                                    <div className="form-group">
-                                        <Label className="form-label" for="email">
                                             <b>Password</b>
                                         </Label>
                                         <Input type="text" defaultValue={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Email" required="" />
@@ -97,7 +97,7 @@ const Login = () => {
                                 <Col xl="6" lg="6" md="6" sm="6">
                                     <div className="form-group">
                                         <Label className="form-label" for="email">
-                                            <b>Country</b>
+                                            <b>Password Confirmation</b>
                                         </Label>
                                         <Input type="text" defaultValue={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Email" required="" />
                                     </div>

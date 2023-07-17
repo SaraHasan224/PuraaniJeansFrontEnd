@@ -9,7 +9,7 @@ export default function ALink({ children, className, tabindex, target, style, ..
     }
 
     return (
-        <a className={className} style={style} onClick={defaultFunction} tabindex={tabindex} target={target}>
+        <a className={className} style={style} onClick={defaultFunction} tabIndex={tabindex} target={target}>
             {children}
         </a>
     )

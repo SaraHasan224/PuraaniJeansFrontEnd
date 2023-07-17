@@ -1,25 +1,34 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import { Media, Container, Row, Col } from "reactstrap";
 import Link from "next/link";
 
 import MobileHeader from "./mobile-header";
 
-const HeaderCarousel = ({ banners }) => {
+const HeaderCarousel = () => {
+  const { banners } = useSelector((state) => state.metadata);
+
   const [windowWidth, setWindowWidth] = useState("");
+
   useEffect(() => {
     setWindowWidth(window.innerWidth);
-    function handleResize() {
-      setWindowWidth(window.innerWidth)
-    }
     window.addEventListener('resize', handleResize)
   })
-
 
   useEffect(() => {
     document.documentElement.style.setProperty("--theme-deafult", "#ff4c3b");
   });
+  
+
+  function handleResize() {
+    setWindowWidth(window.innerWidth)
+  }
+
   return (
-    windowWidth > 600 ? <WebHeader banners={banners} /> : <MobileHeader banners={banners} />
+    banners ? ( 
+      windowWidth > 600 ? <WebHeader banners={banners} /> : <MobileHeader banners={banners} />) 
+    : <></>
   );
 };
 

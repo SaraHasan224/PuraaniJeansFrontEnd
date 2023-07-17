@@ -1,22 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
-import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
+import { configureStore, applyMiddleware } from '@reduxjs/toolkit';
+import { persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
+import { createLogger } from 'redux-logger'
 
-import metadataReducer from '../store/reducers/metadata.reducer'
+import rootReducer from './reducers/rootReducer';
 
-const metaConfig = {
-  key: 'meta',
-  storage,
-}
-const metaPersistedReducer = persistReducer(metaConfig, metadataReducer)
+const loggerMiddleware = createLogger()
 
 export const store = configureStore({
-  reducer: {
-    metadata: metaPersistedReducer
-  },
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware: [thunk]
+  reducer: rootReducer,
+  devTools: process.env.NEXT_PUBLIC_APP_ENVIRONMENT !== 'production',
+  middleware: [thunk, loggerMiddleware]//[thunk]
 })
 
 export const persistor = persistStore(store)
