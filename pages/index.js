@@ -18,9 +18,11 @@ import InternetConnection from "../features/internet-connection";
 
 import { HOMEPAGE_ACTIONS } from "../store/actions";
 import { HOME_CONSTANTS } from "../store/actionTypes";
+import { HELPER } from "../utils";
 
 export default function Home(props){
   const { meta } = useSelector((state) => state.metadata);
+  const { brands } = useSelector((state) => state.home);
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -30,6 +32,14 @@ export default function Home(props){
 		});
     dispatch(HOMEPAGE_ACTIONS.GET_HOMEPAGE_CONTENTS());
   }, []);
+  
+  useEffect(() => {
+    if(HELPER.isEmpty(brands)) {
+      dispatch(HOMEPAGE_ACTIONS.GET_HOMEPAGE_CONTENTS());
+    }else {
+
+    }
+  }, [brands]);
 
   return (
     <>

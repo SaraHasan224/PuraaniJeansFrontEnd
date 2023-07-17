@@ -35,10 +35,9 @@ function GET_HOMEPAGE_CONTENTS() {
 				}
 			})
 			.catch((error) => {
-				console.log("error: ", error)
-				// const { error_message } = HELPER.formatFailureApiResponse(error)
-				// dispatch(failure(error_message?.message))
-				// dispatch(ALERT_ACTIONS.error(error_message?.message))
+				const { error_message } = HELPER.formatFailureApiResponse(error)
+				dispatch(failure(error_message?.message))
+				dispatch(ALERT_ACTIONS.error(error_message?.message))
 			})
 	}
 

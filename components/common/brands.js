@@ -1,28 +1,23 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React , { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Media, Col } from "reactstrap";
+import { HOMEPAGE_ACTIONS } from "../../store/actions";
+import { HELPER } from "../../utils";
 
 const Brands = ({ designClass }) => {
   const { brands } = useSelector((state) => state.home);
 
-  // const imgData = [
-  //   "/my-assets/images/brands/1.png",
-  //   "/my-assets/images/brands/2.png",
-  //   "/my-assets/images/brands/3.png",
-  //   "/my-assets/images/brands/4.png",
-  //   "/my-assets/images/brands/5.png",
-  //   "/my-assets/images/brands/6.png",
-  // ];
   return (
-    <section className={designClass}>
+    HELPER.isEmpty(brands) ? "" : <section className={designClass}>
       <Container>
         <Row>
               {brands.map((imgSrc, i) => {
+                console.log('"imgSrc: ', imgSrc)
                 return (
                   <Col md="4" key={i}>
                     <div className="logo-block">
                       <a href={null}>
-                        <Media src={imgSrc} alt="" />
+                        <Media src={imgSrc?.image} alt={imgSrc?.index} />
                       </a>
                     </div>
                   </Col>
