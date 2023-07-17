@@ -31,6 +31,7 @@ export default function Home(props){
 			response: props?.meta
 		});
     dispatch(HOMEPAGE_ACTIONS.GET_HOMEPAGE_CONTENTS());
+    dispatch(HOMEPAGE_ACTIONS.GET_MEGA_MENU_CONTENTS());
   }, []);
   
   useEffect(() => {

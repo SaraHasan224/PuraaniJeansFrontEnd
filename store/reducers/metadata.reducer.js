@@ -42,6 +42,8 @@ const initialState = {
   banners: [],
   meta: [],
   authBanners: [],
+
+  megaMenu: []
 }
 
 const metaDataReducer = (state = initialState, action) => {
@@ -57,6 +59,17 @@ const metaDataReducer = (state = initialState, action) => {
       }
     case HOME_CONSTANTS.HOMEPAGE_META.FAILURE:
       return initialState
+      
+    case HOME_CONSTANTS.MEGA_MENU.REQUEST:
+      return initialState
+    case HOME_CONSTANTS.MEGA_MENU.SUCCESS:
+      return {
+        ...initialState,
+        megaMenu: action?.response?.menu,
+      }
+    case HOME_CONSTANTS.MEGA_MENU.FAILURE:
+      return initialState
+
 
     case META_CONSTANTS.COUNTRY_META.REQUEST:
       return initialState
