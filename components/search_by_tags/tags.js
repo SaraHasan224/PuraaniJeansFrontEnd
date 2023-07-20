@@ -37,7 +37,7 @@ const SearchByTags = () => {
       </div>
     </div>
     <div className="container category-button">
-      <section className="section-b-space border-section border-bottom-0 noTopPadding">
+      <section className="section-b-space border-bottom-0 noTopPadding">
         <Row className="partition1">
           {tagTypes.map((tag, i) => (
             <Col key={i}>

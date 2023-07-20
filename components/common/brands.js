@@ -12,7 +12,6 @@ const Brands = ({ designClass }) => {
       <Container>
         <Row>
               {brands.map((imgSrc, i) => {
-                console.log('"imgSrc: ', imgSrc)
                 return (
                   <Col md="4" key={i}>
                     <div className="logo-block">

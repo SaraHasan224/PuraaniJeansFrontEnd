@@ -132,7 +132,7 @@ const CreateCloset = () => {
                 </section>
 
                 {/* <!-- how to start section start --> */}
-                <section className="section-b-space become-vendor">
+                <section className="section-b-space become-closet">
                     <Container>
                         <h4>doing business on {process.env.NEXT_PUBLIC_APP_NAME} is really easy</h4>
                         <div className="step-bg">

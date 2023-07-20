@@ -84,7 +84,7 @@ export default function FeaturedCloset(props) {
                     <Container>
                         <Row>
                             <Col lg="8" className="tools-grey ratio_square">
-                                <section className="section-b-space blog-detail-page review-page">
+                                <section className="section-b-space f-closet-detail-page review-page">
                                     <Container>
                                         <Row>
                                             <Col sm="12">

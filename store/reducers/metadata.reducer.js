@@ -42,50 +42,52 @@ const initialState = {
   banners: [],
   meta: [],
   authBanners: [],
+  homeContent: [],
 
-  megaMenu: []
+  mainMenuCategories: []
 }
 
 const metaDataReducer = (state = initialState, action) => {
 	switch (action.type) {
     case HOME_CONSTANTS.HOMEPAGE_META.REQUEST:
-      return initialState
+      return state
     case HOME_CONSTANTS.HOMEPAGE_META.SUCCESS:
       return {
-        ...initialState,
+        ...state,
         banners: action?.response?.banners,
         meta: action?.response?.metadata,
         authBanners: action?.response?.auth_banners,
+        homeContent: action?.response?.home,
       }
     case HOME_CONSTANTS.HOMEPAGE_META.FAILURE:
-      return initialState
+      return state
       
     case HOME_CONSTANTS.MEGA_MENU.REQUEST:
-      return initialState
+      return state
     case HOME_CONSTANTS.MEGA_MENU.SUCCESS:
       return {
-        ...initialState,
-        megaMenu: action?.response?.menu,
+        ...state,
+        mainMenuCategories: action?.response?.menu,
       }
     case HOME_CONSTANTS.MEGA_MENU.FAILURE:
-      return initialState
+      return state
 
 
     case META_CONSTANTS.COUNTRY_META.REQUEST:
-      return initialState
+      return state
     case META_CONSTANTS.COUNTRY_META.SUCCESS:
       return {
-        ...initialState,
+        ...state,
       }
     case META_CONSTANTS.COUNTRY_META.FAILURE:
-      return initialState
+      return state
 
     case META_CONSTANTS.COUNTRY_LIST.REQUEST:
-      return initialState
+      return state
     case META_CONSTANTS.COUNTRY_LIST.SUCCESS:
-      return initialState
+      return state
     case META_CONSTANTS.COUNTRY_LIST.FAILURE:
-      return initialState
+      return state
 		default:
 			return state
 	}

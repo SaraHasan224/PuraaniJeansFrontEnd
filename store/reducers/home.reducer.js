@@ -12,27 +12,27 @@ const initialState = {
 const homeReducer = (state = initialState, action) => {
 	switch (action.type) {
     case HOME_CONSTANTS.HOMEPAGE.REQUEST:
-      return initialState
+      return state
     case HOME_CONSTANTS.HOMEPAGE.SUCCESS:
       return {
-        ...initialState,
+        ...state,
         recommended: action?.response?.recommended,
         brands: action?.response?.brands,
       }
     case HOME_CONSTANTS.HOMEPAGE.FAILURE:
-      return initialState
+      return state
 
       
     case HOME_CONSTANTS.FEATURED_ITEMS.REQUEST:
-      return initialState
+      return state
     case HOME_CONSTANTS.FEATURED_ITEMS.SUCCESS:
       return {
-        ...initialState,
+        ...state,
         featuredProducts: action?.response?.featured_by?.sections,
-        featuredProductsLoaded: !initialState?.featuredProductsLoaded
+        featuredProductsLoaded: !state?.featuredProductsLoaded
       }
-    case HOME_CONSTANTS.FEATURED_ITEMS.FAILURE:
-      return initialState
+      case HOME_CONSTANTS.FEATURED_ITEMS.FAILURE:
+      return state
 		default:
 			return state
 	}

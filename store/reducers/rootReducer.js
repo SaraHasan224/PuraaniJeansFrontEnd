@@ -9,19 +9,11 @@ import homeReducer from './home.reducer';
 const metaConfig = {
   key: 'meta',
   storage,
-  whitelist: [
-    "banners",
-    "meta",
-    "authBanners",
-  ]
 }
 
 const homeConfig = {
   key: 'home',
   storage,
-  whitelist: [
-    "brands"
-  ]
 }
 
 const rootReducer = combineReducers({

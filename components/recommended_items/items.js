@@ -57,7 +57,7 @@ const RecommendItems = () => {
     <Container className="home-services">
       <section className={"border-section noTopPadding"}>
         <Row className="d-flex services">
-          <Col className={`service-block`}>
+          <Col className={`service-block first col-sm-12`}>
             <div
               className={`media `}
             >
@@ -78,7 +78,7 @@ const RecommendItems = () => {
               </Col>
             );
           })}
-          <Col className={`service-block bg-dark text-white`}>
+          <Col className={`service-block last bg-dark text-white  col-sm-12`}>
             <div className={`media`}>
               <div className="media-body">
                 <h4>

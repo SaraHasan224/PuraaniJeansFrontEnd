@@ -5,10 +5,14 @@ import { Container, Row } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import ALink from "../../../../features/alink";
 
-import { MENUITEMS } from "../../../../utils";
+import { HELPER, MENUITEMS } from "../../../../utils";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const { t } = useTranslation();
+  
+  const { mainMenuCategories } = useSelector((state) => state.metadata);
+
   const [navClose, setNavClose] = useState({ left: "0px" });
   const router = useRouter();
 
@@ -51,11 +55,11 @@ const NavBar = () => {
     }
   };
 
-  const [mainmenu, setMainMenu] = useState(MENUITEMS);
+  const [mainmenu, setMainMenu] = useState(mainMenuCategories);
 
   useEffect(() => {
     const currentUrl = location.pathname;
-    MENUITEMS.filter((items) => {
+    mainMenuCategories.filter((items) => {
       if (items.path === currentUrl) setNavActive(items);
       if (!items.children) return false;
       items.children.filter((subItems) => {
@@ -69,7 +73,7 @@ const NavBar = () => {
   }, []);
 
   const setNavActive = (item) => {
-    MENUITEMS.filter((menuItem) => {
+    mainMenuCategories.filter((menuItem) => {
       if (menuItem != item) menuItem.active = false;
       if (menuItem.children && menuItem.children.includes(item))
         menuItem.active = true;
@@ -83,14 +87,14 @@ const NavBar = () => {
       }
     });
 
-    setMainMenu({ mainmenu: MENUITEMS });
+    setMainMenu({ mainmenu: mainMenuCategories });
   };
 
   // Click Toggle menu
   const toggletNavActive = (e, item) => {
     if (!item.active) {
-      MENUITEMS.forEach((a) => {
-        if (MENUITEMS.includes(item)) a.active = false;
+      mainMenuCategories.forEach((a) => {
+        if (mainMenuCategories.includes(item)) a.active = false;
         if (!a.children) return false;
         a.children.forEach((b) => {
           if (a.children.includes(item)) {
@@ -106,7 +110,7 @@ const NavBar = () => {
       });
     }
     item.active = !item.active;
-    setMainMenu({ mainmenu: MENUITEMS });
+    setMainMenu({ mainmenu: mainMenuCategories });
     navigationAction(e, menuItem)
   };
 
@@ -138,20 +142,21 @@ const NavBar = () => {
   };
 
   return (
-    <div>
-      <div className="main-navbar">
-        <div id="mainnav">
-          <div className="toggle-nav" onClick={openNav.bind(this)}>
-            <i className="fa fa-bars sidebar-bar"></i>
-          </div>
-          <ul className="nav-menu" style={navClose}>
-            <li className="back-btn" onClick={closeNav.bind(this)}>
-              <div className="mobile-back text-end">
-                <span>Back navbar</span>
-                <i className="fa fa-angle-right ps-2" aria-hidden="true"></i>
-              </div>
-            </li>
-            {MENUITEMS.map((menuItem, i) => {
+    <>
+     <div>
+       <div className="main-navbar">
+         <div id="mainnav">
+           <div className="toggle-nav" onClick={openNav.bind(this)}>
+             <i className="fa fa-bars sidebar-bar"></i>
+           </div>
+           <ul className="nav-menu" style={navClose}>
+             <li className="back-btn" onClick={closeNav.bind(this)}>
+               <div className="mobile-back text-end">
+                 <span>Back navbar</span>
+                 <i className="fa fa-angle-right ps-2" aria-hidden="true"></i>
+               </div>
+             </li>
+             {mainMenuCategories.map((menuItem, i) => {
               return (
                 <li
                   key={i}
@@ -168,9 +173,9 @@ const NavBar = () => {
                         {menuItem.children ? <span className="sub-arrow"></span> : ''}
                       </a>
                   }
-                  {menuItem.children && !menuItem.megaMenu ? (
+                  {HELPER.isNotEmpty(menuItem.children) && !menuItem.megaMenu ? (
                     <ul className="nav-submenu">
-                      {menuItem.children.map((childrenItem, index) => {
+                      {HELPER.isNotEmpty(menuItem.children) && menuItem.children.map((childrenItem, index) => {
                         return (
                           <li
                             key={index}
@@ -245,7 +250,7 @@ const NavBar = () => {
                           {menuItem.megaMenu === true ? (
                             <Container>
                               <Row>
-                                {menuItem.children.map((megaMenuItem, i) => {
+                                {HELPER.isNotEmpty(menuItem.children) &&  menuItem.children.map((megaMenuItem, i) => {
                                   return (
                                     <div
                                       className={`${menuItem.megaMenuType == "small"
@@ -264,9 +269,10 @@ const NavBar = () => {
                                             {megaMenuItem.title}
                                           </h5>
                                         </div>
-                                        <div className="menu-content">
-                                          <ul>
-                                            {megaMenuItem.children.map(
+                                        {HELPER.isNotEmpty(megaMenuItem.children) &&
+                                          <div className="menu-content">
+                                            <ul>
+                                              {megaMenuItem.children.map(
                                                 (subMegaMenuItem, i) => {
                                                   return (
                                                     <li key={i}>
@@ -277,8 +283,9 @@ const NavBar = () => {
                                                   );
                                                 }
                                               )}
-                                          </ul>
-                                        </div>
+                                            </ul>
+                                          </div>
+                                        }
                                       </div>
                                     </div>
                                   );
@@ -299,6 +306,7 @@ const NavBar = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

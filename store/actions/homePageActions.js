@@ -29,7 +29,6 @@ function GET_HOMEPAGE_CONTENTS() {
 			.getHomePage()
 			.then((response) => {
 				const responseStatus = response?.data?.status
-				console.log("response: ", response)
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
 					dispatch(success(data))
@@ -63,7 +62,6 @@ function GET_MEGA_MENU_CONTENTS() {
 			.getMegaMenu()
 			.then((response) => {
 				const responseStatus = response?.data?.status
-				console.log("response: ", response)
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
 					dispatch(success(data))
@@ -104,7 +102,6 @@ function GET_FEATURED_ITEMS() {
 				}
 			})
 			.catch((error) => {
-				console.log("error: ", error)
 				const { error_message } = HELPER.formatFailureApiResponse(error)
 				dispatch(failure(error_message?.message))
 				dispatch(ALERT_ACTIONS.error(error_message?.message))

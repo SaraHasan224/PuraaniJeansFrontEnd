@@ -88,7 +88,7 @@ const MasterReview = ({ img, name, datetime, review, likes, dislikes }) => {
 const Review = () => {
   return (
     <CommonLayout parent="home" title="review">
-      <section className="section-b-space blog-detail-page review-page">
+      <section className="section-b-space review-detail-page review-page">
         <Container>
           <Row>
             <Col sm="12">
