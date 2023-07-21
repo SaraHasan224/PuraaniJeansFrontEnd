@@ -11,7 +11,7 @@ return (
             <div className="full-banner parallax parallax-banner19 text-center p-center">
                 <div className="container">
                     <div className="row">
-                        <div className="col-9">
+                        <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 brands-list">
                             <div className="banner-contain">
                                 <h4>{title}</h4>
                                 <p>{description}</p>
@@ -23,7 +23,7 @@ return (
                                 <Brands />
                             </div>
                         </div>
-                        <div className="col-3">
+                        <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 brands-banner">
                             <div className="brands-bg">
                                 <img src={bg_img_src} alt="" className="img-fluid blur-up lazyload media" />
                             </div>

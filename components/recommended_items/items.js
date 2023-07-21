@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 
 import { Container, Row, Col } from "reactstrap";
 
@@ -57,7 +57,7 @@ const RecommendItems = () => {
     <Container className="home-services">
       <section className={"border-section noTopPadding"}>
         <Row className="d-flex services">
-          <Col className={`service-block first col-sm-12`}>
+          <div className={`service-block first col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12`}>
             <div
               className={`media `}
             >
@@ -70,15 +70,15 @@ const RecommendItems = () => {
                 <p>Some Products that we picked for you</p>
               </div>
             </div>
-          </Col>
+          </div>
           {recommended.map((item, index) => {
             return (
-              <Col className={`service-block `} key={`service-block-${index}`}>
+              <div className={`service-block mid-section col-xl-2 col-lg-2 col-md-2 col-sm-4 col-xs-4`} key={`service-block-${index}`}>
                 <ItemContent item={item} />
-              </Col>
+              </div>
             );
           })}
-          <Col className={`service-block last bg-dark text-white  col-sm-12`}>
+          <div className={`service-block last bg-dark text-white col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12`}>
             <div className={`media`}>
               <div className="media-body">
                 <h4>
@@ -87,7 +87,7 @@ const RecommendItems = () => {
                 <div className="price">{"1000+ Products"}</div>
               </div>
             </div>
-          </Col>
+          </div>
         </Row>
       </section>
     </Container>

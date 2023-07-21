@@ -1,5 +1,8 @@
 import React from "react";
+
 import { Media } from "reactstrap";
+import parse  from 'html-react-parser'
+
 import ALink from "../../features/alink";
 
 const ItemContent = ({ item }) => {
@@ -20,7 +23,7 @@ const ItemContent = ({ item }) => {
             {item?.name}
           </ALink>
         </h4>
-        <p>{item?.short_description}</p>
+        <p>{parse(item?.short_description)}</p>
         <div className="price">{item?.price}</div>
       </div>
     </div>

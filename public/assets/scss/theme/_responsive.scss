@@ -718,22 +718,7 @@
       padding-right: 12px;
     }
   }
-  .service-block{
-    &.first {
-      min-width: 100% !important;
-      width: 100% !important;
-      margin-bottom: 1rem !important;
-    }
-    &.last {
-      min-width: 100% !important;
-      width: 100% !important;
-      margin-top: 1rem !important;
-    }
-    svg {
-      width: 50px;
-      height: 50px;
-    }
-  }
+  
   
   .category-border {
     div {
@@ -1357,6 +1342,26 @@
       }
     }
   }
+  
+  .home-services {
+    section {
+      .services {
+        .service-block {
+          margin: 0px;
+        }
+        .mid-section {
+          .media {
+            .media-body {
+              margin: 0.25rem;
+              h4, .h4 {
+                font-size: 1.1rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 @media (max-width: 991px) and (min-width: 785px) {
   .partition-f {
@@ -1579,6 +1584,40 @@
       }
     }
   }
+  .product-box,
+  .product-wrap {
+    .product-info {
+      padding: 0;
+      text-align: center;
+      position: relative;
+      margin: 1rem 0rem;
+    }
+
+    .img-wrapper {
+      height: 350px;
+    }
+  }
+  
+  .home-services {
+    section {
+      .services {
+        .mid-section {
+          .media {
+            .media-body {
+              margin: 0.25rem;
+              h4, .h4 {
+                font-size: 1.1rem;
+              }
+            }
+            .media-image {
+              width: 80%;
+              margin: 0.25rem;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 @media (max-width: 991px) {
   .dashboard-sidebar{
@@ -1678,6 +1717,15 @@
   }
   
   .brands-parallax {
+    .brands-list {
+      width: 100%;
+    }
+    .brands-banner {
+      display: none;
+      .brands-bg {
+        display: none;
+      }
+    }
     .brands-bg {
       left: 34px;
       bottom: -86px;
@@ -2990,11 +3038,6 @@
       }
     }
   }
-  .brands-parallax {
-    .brands-bg {
-      display: none;
-    }
-  }
   .full-box{
     .center-slider{
       .product-box, .product-wrap{
@@ -3016,6 +3059,12 @@
     }
   }
   .brands-parallax {
+    .brands-banner {
+      display: none;
+      .brands-bg {
+        display: none;
+      }
+    }
     .full-banner {
       padding-top: 120px;
       padding-bottom: 120px;
@@ -4187,7 +4236,29 @@
       }
     }
   }
+  
+  .home-services {
+    section {
+      .services {
+        .mid-section {
+          .media {
+            .media-body {
+              margin: 0.25rem;
+              h4, .home-services section .services .service-block .media .media-body .h4 {
+                font-size: 1.1rem;
+              }
+            }
+            .media-image {
+              width: 80%;
+              margin: 0.25rem;
+            }
+          }
+        }
+      }
+    }
+  }
 }
+
 @media (max-width: 577px) {
   .category-bg{
     padding: 30px 30px;
@@ -4370,10 +4441,38 @@
   }
   .product-box,
   .product-wrap {
+    width: 66%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
     .product-detail,
     .product-info {
       .color-variant {
         padding-top: 10px;
+      }
+    }
+  }
+  .home-featured-closets .theme-closets .theme-card {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 2rem;
+  }
+  .home-services {
+    section {
+      .services {
+        .service-block {
+          .media {
+            .media-body {
+              h4, .home-services section .services .service-block .media .media-body .h4 {
+                font-size: 1.1rem;
+              }
+            }
+            .media-image {
+              width: 80%;
+              margin: 0 auto;
+              margin-bottom: 1rem;
+            }
+          }
+        }
       }
     }
   }

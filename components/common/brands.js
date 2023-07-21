@@ -13,7 +13,7 @@ const Brands = ({ designClass }) => {
         <Row>
               {brands.map((imgSrc, i) => {
                 return (
-                  <Col md="4" key={i}>
+                  <Col md="4" sm="6" key={i}>
                     <div className="logo-block">
                       <a href={null}>
                         <Media src={imgSrc?.image} alt={imgSrc?.index} />
