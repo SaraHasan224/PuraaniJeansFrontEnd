@@ -18,8 +18,8 @@ const NavBar = () => {
   const [mainmenu, setMainMenu] = useState([]);
   const router = useRouter();
 
+  
   useEffect(() => {
-    setMainMenu({ mainmenu: mainMenuCategories });
     if (window.innerWidth < 750) {
       setNavClose({ right: "-410px" });
     }
@@ -41,8 +41,7 @@ const NavBar = () => {
         });
       });
     });
-    setMainMenu({ mainmenu: mainmenu });
-  }, [mainmenu]);
+  }, []);
   
   
 
@@ -71,7 +70,7 @@ const NavBar = () => {
   };
 
   const setNavActive = (item) => {
-    mainmenu.filter((menuItem) => {
+    mainMenuCategories.filter((menuItem) => {
       if (menuItem != item) menuItem.active = false;
       if (menuItem.children && menuItem.children.includes(item))
         menuItem.active = true;
@@ -85,14 +84,14 @@ const NavBar = () => {
       }
     });
 
-    setMainMenu({ mainmenu: mainmenu });
+    setMainMenu({ mainmenu: mainMenuCategories });
   };
 
   // Click Toggle menu
   const toggletNavActive = (e, item) => {
     if (!item.active) {
-      mainmenu.forEach((a) => {
-        if (mainmenu.includes(item)) a.active = false;
+      mainMenuCategories.forEach((a) => {
+        if (mainMenuCategories.includes(item)) a.active = false;
         if (!a.children) return false;
         a.children.forEach((b) => {
           if (a.children.includes(item)) {
@@ -108,8 +107,7 @@ const NavBar = () => {
       });
     }
     item.active = !item.active;
-    setMainMenu({ mainmenu: mainmenu });
-    // setMainMenu({ mainmenu: mainmenu });
+    setMainMenu({ mainmenu: mainMenuCategories });
     navigationAction(e, menuItem)
   };
 
@@ -119,15 +117,19 @@ const NavBar = () => {
       action: action,
       path: "shop",
       router: {
-        title: action.title,
+        title: action.title ? action.title : "Shop",
         parent: action.parent_title,
         child: action.child_title,
-        slug: action.path,
-        brand: '',
+        slug: action.path ? action.path : "",
+        brand: [],
         color: '',
-        size: '',
+        size:  [],
         minPrice: '',
         maxPrice: '',
+        price: {
+          min: 0,
+          max: 500,
+        }
       }
     }));
     router.push({
@@ -146,12 +148,6 @@ const NavBar = () => {
     },
       undefined, { shallow: false }
     )
-    // window.location.reload()
-    // router.replace(
-    //   `shop?title=${action.title}&parent=${action.parent_title}&child=${action.child_title}&slug=${action.path}&brand=&color=&size=&minPrice=&maxPrice=`//,
-    //   // undefined,
-    //   // { shallow: true }
-    //   )
   };
 
   const openMblNav = (event, menuItem) => {

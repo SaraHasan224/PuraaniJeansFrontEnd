@@ -19,7 +19,7 @@ const Price = () => {
       setSelectedPrice({ min: value[0], max: value[1] })
       setValues(value)
       router.push(
-        `${url}?slug=${context.state}&brand=${context.selectedBrands}&color=${context.selectedColor}&size=${context.selectedSize}&minPrice=${context.selectedPrice?.min}&maxPrice=${context.selectedPrice?.max}`,
+        `${url}?title=${categoryTitle}&parent=${parentCategoryTitle}&child=${subCategoryTitle}&slug=${context.slug}&brand=${context.selectedBrands}&color=${context.selectedColor}&size=${context.selectedSize}&minPrice=${context.selectedPrice?.min}&maxPrice=${context.selectedPrice?.max}`,
         undefined,
         { shallow: true }
       );

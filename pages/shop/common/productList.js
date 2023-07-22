@@ -502,7 +502,7 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
   // var { loading, current_page, last_page, data, per_page, total } = products
   // var { sort_by, price_range } = filters
   // var loading = false;
-
+console.log("sort_by ", sort_by)
   const cartContext = useContext(CartContext);
   const quantity = cartContext.quantity;
   const router = useRouter();
@@ -510,15 +510,18 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
   const curContext = useContext(CurrencyContext);
   const symbol = curContext.state.symbol;
   const filterContext = useContext(FilterContext);
-  const selectedBrands = filterContext.selectedBrands;
-  const selectedColor = filterContext.selectedColor;
-  const selectedPrice = filterContext.selectedPrice;
-  const categorySlug = filterContext.slug;
-  const categoryTitle = filterContext.title;
-  const parentCategoryTitle = filterContext.parentCategoryTitle;
-  const subCategoryTitle = filterContext.subCategoryTitle;
-  const selectedSize = filterContext.selectedSize;
-  const [sortBy, setSortBy] = useState("AscOrder");
+
+  const [selectedBrands, setSelectedBrands] = useState(menu.brand);
+  const [selectedColor, setSelectedColor] = useState(menu.color);
+  const [selectedPrice, setSelectedPrice] = useState(menu.price);
+  const [categoryTitle, setCategoryTitle] = useState(menu.title);
+  const [categorySlug, setCategorySlug] = useState(menu.slug);
+  const [parentCategoryTitle, setParentCategoryTitle] = useState(menu.parent);
+  const [subCategoryTitle, setSubCategoryTitle] = useState(menu.child);
+  const [selectedSize, setSelectedSize] = useState(menu.size);
+  const [sortBy, setSortBy] = useState("newest_arrival");
+  
+
   const [isLoading, setIsLoading] = useState(false);
   const [layout, setLayout] = useState(layoutList);
   const [url, setUrl] = useState();
@@ -528,24 +531,54 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
     if(HELPER.isNotEmpty(categorySlug)) {
       dispatch(PRODUCT_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
     }
-
-    if(HELPER.isNotEmpty(categoryTitle) && HELPER.isNotEmpty(menu)) {
-      router.push({
-            pathname: "shop",
-            query: {
-              title: menu.title,
-              parent: menu.parent_title,
-              child: menu.child_title,
-              slug: menu.path,
-              brand: menu.brand,
-              color: menu.color,
-              size: menu.size,
-              minPrice: menu.minPrice,
-              maxPrice: menu.maxPrice,
-            },
-      })
-    }
   }, []);
+
+  useEffect(() => {
+    if(HELPER.isNotEmpty(menu.title)) {
+      setSelectedBrands(menu.brands);
+      setSelectedColor(menu.color);
+      setSelectedPrice(menu.price);
+      setCategorySlug(menu.slug);
+      setCategoryTitle(menu.title);
+      setParentCategoryTitle(menu.parent);
+      setSubCategoryTitle(menu.child);
+      setSelectedSize(menu.size);
+    }
+  }, [menu]);
+
+
+  useEffect(() => {
+    if(HELPER.isNotEmpty(menu.title)) {
+      setSelectedBrands(menu.brands);
+      setSelectedColor(menu.color);
+      setSelectedPrice(menu.price);
+      setCategorySlug(menu.slug);
+      setCategoryTitle(menu.title);
+      setParentCategoryTitle(menu.parent);
+      setSubCategoryTitle(menu.child);
+      setSelectedSize(menu.size);
+    }
+  }, [menu]);
+
+  // useEffect(() => {
+  //   if(HELPER.isNotEmpty(categoryTitle) && HELPER.isNotEmpty(menu) && categoryTitle !== menu.title) {
+  //     router.push({
+  //           pathname: "shop",
+  //           query: {
+  //             title: menu.title,
+  //             parent: menu.parent_title,
+  //             child: menu.child_title,
+  //             slug: menu.path,
+  //             brand: menu.brand,
+  //             color: menu.color,
+  //             size: menu.size,
+  //             minPrice: menu.minPrice,
+  //             maxPrice: menu.maxPrice,
+  //           },
+  //     })
+  //   }
+  // }, [menu.title]);
+
 
   useEffect(() => {
     if(HELPER.isNotEmpty(categorySlug)) {
@@ -554,13 +587,21 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
   }, [categorySlug]);
 
 
-  useEffect(() => {
-    const pathname = window.location.pathname;
-    setUrl(pathname);
-    router.push(
-      `${pathname}?${filterContext.state}&brand=${selectedBrands}&color=${selectedColor}&size=${selectedSize}&minPrice=${selectedPrice.min}&maxPrice=${selectedPrice.max}`, undefined, { shallow: true }
-    );
-  }, [selectedBrands, selectedColor, selectedSize, selectedPrice]);
+  // useEffect(() => {
+  //   const pathname = window.location.pathname;
+  //   setUrl(pathname);
+  //   router.push(
+  //     `${pathname}?title=${categoryTitle}&parent=${parentCategoryTitle}&child=${subCategoryTitle}&brand=${brands}&color=${selectedColor}&size=${selectedSize}&minPrice=${selectedPrice.min}&maxPrice=${selectedPrice.max}`, undefined, { shallow: true }
+  //   );
+  // }, [
+  //   categoryTitle,
+  //   parentCategoryTitle,
+  //   subCategoryTitle,
+  //   brands,
+  //   selectedColor,
+  //   selectedSize,
+  //   selectedPrice
+  // ]);
 
   // var { loading, data, fetchMore } = useQuery(GET_PRODUCTS, {
   // variables: {
@@ -568,7 +609,7 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
   //   priceMax: selectedPrice.max,
   //   priceMin: selectedPrice.min,
   //   color: selectedColor,
-  //   brand: selectedBrands,
+  //   brand: brands,
   //   sortBy: sortBy,
   //   indexFrom: 0,
   //   limit: limit,
@@ -656,8 +697,8 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
                       name="sortby"
                       id="sortby"
                       className="form-control"
-                    // onChange={onSortByChange}
-                    // value={query.sortBy ? query.sortBy : 'default'}
+                      // onChange={(e) => setSortBy(e.target.value)}
+                      value={sortBy ? sortBy : 'default'}
                     >
                       <option value={"10"}>{"10"}</option>
                       <option value={"100"}>{"100"}</option>
@@ -674,10 +715,12 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
                       name="sortby"
                       id="sortby"
                       className="form-control"
-                    // onChange={onSortByChange}
-                    // value={query.sortBy ? query.sortBy : 'default'}
+                      onChange={(e) => {
+                        setSortBy(e.target.value)
+                      }}
+                      value={sortBy ? sortBy : 'newest_arrival'}
                     >
-                      {Object.keys(sort_by).map((sort, i) => (
+                      {HELPER.isNotEmpty(sort_by) && Object.keys(sort_by).map((sort, i) => (
                         <option value={`${sort}`}>{sort_by[sort]}</option>
                       )
                       )}
@@ -689,7 +732,7 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
             <Row>
               <Col xs="12">
                 <ul className="product-filter-tags">
-                  {selectedBrands.map((brand, i) => (
+                  {HELPER.isNotEmpty(selectedBrands) && selectedBrands.map((brand, i) => (
                     <li key={i}>
                       <a href={null} className="filter_tag">
                         {brand}

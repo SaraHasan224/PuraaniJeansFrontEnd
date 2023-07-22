@@ -22,95 +22,20 @@ const FilterProvider = (props) => {
   let sizeParam = size ? size.split(",") : null;
   let brandParam = brand ? brand.split(",") : [];
   console.log("router query: ", router.query)
-  const [categoryTitle, setCategoryTitle] = useState("Shop");
-  const [categorySlug, setCategorySlug] = useState('');
-  const [parentCategoryTitle, setParentCategoryTitle] = useState("Home");  
-  const [subCategoryTitle, setSubCategoryTitle] = useState("");  
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const [selectedColor, setSelectedColor] = useState("");
-  const [selectedSize, setSelectedSize] = useState([]);
+  const [categoryTitle, setCategoryTitle] = useState(title ? title : "Shop");
+  const [categorySlug, setCategorySlug] = useState(slug ? slug : "");
+  const [parentCategoryTitle, setParentCategoryTitle] = useState(parentTitle ? parentTitle : "Home");  
+  const [subCategoryTitle, setSubCategoryTitle] = useState(subTitle);  
+  const [selectedBrands, setSelectedBrands] = useState(brandParam ? brandParam : []);
+  const [selectedColor, setSelectedColor] = useState(color ? color : "");
+  const [selectedSize, setSelectedSize] = useState(sizeParam ? sizeParam : []);
   const [selectedPrice, setSelectedPrice] = useState({
-    min: 0,
-    max: 500,
+    min: min ? min : 0,
+    max: min ? min : 500,
   });
   const [isChecked, setIsChecked] = useState(true);
   const [filterChecked, setFilterChecked] = useState([{}]);
 
-  useEffect(() => {
-    console.log("0")
-    setParentCategoryTitle(parentTitle)
-    setSubCategoryTitle(subTitle)
-    setCategoryTitle(title)
-    setCategorySlug(slug)
-    setSelectedBrands(brandParam ? brandParam : [])
-    setSelectedColor(color ? color : "")
-    setSelectedSize(sizeParam ? sizeParam : [])
-    setSelectedPrice({
-      min: min ? min : 0,
-      max: min ? min : 500,
-    })
-
-    // if(HELPER.isNotEmpty(menu) && menu.title !== router.query.title && HELPER.isEmpty(router.query.title)) {
-    //   console.log("1")
-    //   router.push({
-    //     pathname: "shop",
-    //     query: {
-    //       title: menu.title,
-    //       parent: menu.parent_title,
-    //       child: menu.child_title,
-    //       slug: menu.path,
-    //       brand: menu.brand,
-    //       color: menu.color,
-    //       size: menu.size,
-    //       minPrice: menu.minPrice,
-    //       maxPrice: menu.maxPrice,
-    //     },
-    //   })
-    // }
-    
-  }, []);
-
-
-  useEffect(() => {
-    if(HELPER.isNotEmpty(router.query.title)) {
-      console.log("5")
-      setParentCategoryTitle(parentTitle)
-      setSubCategoryTitle(subTitle)
-      setCategoryTitle(title)
-      setCategorySlug(slug)
-      setSelectedBrands(brandParam ? brandParam : [])
-      setSelectedColor(color ? color : "")
-      setSelectedSize(sizeParam ? sizeParam : [])
-      setSelectedPrice({
-        min: min ? min : 0,
-        max: min ? min : 500,
-      })
-
-    }
-  }, [router.query]);
-
-  // useEffect(() => {
-  //   if(HELPER.isNotEmpty(menu) && menu.title !== router.query.title && HELPER.isEmpty(router.query.title)) {
-  //     console.log("1")
-  //     router.push({
-  //       pathname: "shop",
-  //       query: {
-  //         title: menu.title,
-  //         parent: menu.parent_title,
-  //         child: menu.child_title,
-  //         slug: menu.path,
-  //         brand: menu.brand,
-  //         color: menu.color,
-  //         size: menu.size,
-  //         minPrice: menu.minPrice,
-  //         maxPrice: menu.maxPrice,
-  //       },
-  //     })
-  //     // undefined, { shallow: true }
-  //   }
-  // }, [menu]);
-
-  
   const handleBrands = (brand, checked) => {
     var index = selectedBrands.indexOf(brand);
 
