@@ -9,5 +9,7 @@ export const API_ENDPOINTS = {
     GET_HOMEPAGE_CONTENTS: "api/homepage",
     GET_MEGA_MENU_CONTENTS: "api/mega-menu",
     GET_HOMEPAGE_FEATURED_SECTION: "api/homepage/featured-section",
+
+    GET_CATEGORY: "api/categories",
   };
   

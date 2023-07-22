@@ -12,6 +12,7 @@ import {
 import Logo from "../../layouts/headers/common/logo";
 import CopyRight from "./copyright";
 import ALink from "../../../features/alink";
+import { useSelector } from "react-redux";
 
 const Footer = ({
   containerFluid,
@@ -25,6 +26,8 @@ const Footer = ({
   CopyRightFluid,
   newLatter,
 }) => {
+  const { subscription } = useSelector((state) => state.metadata);
+
   const [isOpen, setIsOpen] = useState();
   const [collapse, setCollapse] = useState(0);
   const width = window.innerWidth < 750;
@@ -54,10 +57,8 @@ const Footer = ({
                   <Col lg="8" md="12" sm="12" xs="12">
                     <div className="subscribe">
                       <div>
-                        <h4>Subscribe us</h4>
-                        <p>
-                          We will not share your email with anyone else.
-                        </p>
+                        <h4>{subscription?.title}</h4>
+                        <p>{subscription?.sub_title}</p>
                       </div>
                     </div>
                   </Col>

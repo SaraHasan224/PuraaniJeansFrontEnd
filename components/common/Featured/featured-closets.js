@@ -1,7 +1,11 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Slider from "react-slick";
 import { Col, Container, Media, Row } from "reactstrap";
-import ProductItem from "./featured-products";
+import { useSelector } from "react-redux";
+import {
+    HELPER
+} from "../../../utils";
+
 const tools_product_4 = {
     infinite: true,
     speed: 300,
@@ -71,10 +75,14 @@ const ReviewContent = [
 
 
 export default function FeaturedCloset(props) {
+    const { sellersWatchList } = useSelector((state) => state.metadata);
+
+
+
     let RatingStars = [];
     let rating = 5;
     for (var i = 0; i < rating; i++) {
-      RatingStars.push(<i className="fa fa-star" key={i}></i>);
+        RatingStars.push(<i className="fa fa-star" key={i}></i>);
     }
 
     return (
@@ -114,33 +122,36 @@ export default function FeaturedCloset(props) {
                                 <div className="theme-card bg-white">
                                     <h5 className="title-border">Sellers to watch</h5>
                                     <Container>
-                                        <Row>
-                                            <section>
-                                                <div className="media">
-                                                    <div className="text-center d-flex">
-                                                        <Col lg="3" xs="5" md="4" sm="4" className="align-center">
-                                                            <Media src={"/assets/images/avtar.jpg"} alt="#" />
+                                        {
+                                            HELPER.isNotEmpty(sellersWatchList) && sellersWatchList.map((item) => {
+                                                return (
+                                                    <Row className="closet media d-flex align-center">
+                                                        <Col lg="3" xs="5" md="4" sm="4">
+                                                            <div className="mediaImg">
+                                                                <Media src={item?.logo} alt="#" />
+                                                            </div>
                                                         </Col>
-                                                        <Col lg="9" xs="7" md="8" sm="8" className="text-left">
-                                                            <Row>
-                                                                <Col lg="8" md="8" sm="8" xs="8">
-                                                                    <h5>Makeup Shakeup</h5>
+                                                        <Col lg="9" xs="7" md="8" sm="8" className="text-left seller-closet">
+                                                            <div className="d-flex">
+                                                                <Col lg="7" xs="7" md="7" sm="7">
+                                                                    <h5>{item?.closet_name}</h5>
                                                                     <h6>Hyderabad</h6>
                                                                     <div className="rating">{RatingStars}</div>
                                                                 </Col>
-                                                                <Col>
+                                                                <Col lg="3" xs="3" md="3" sm="3">
                                                                     <div className="follow-button">
                                                                         <a href="#" className="btn btn-solid btn-xs btn-find">
                                                                             follow
                                                                         </a>
                                                                     </div>
                                                                 </Col>
-                                                            </Row>
+                                                            </div>
                                                         </Col>
-                                                    </div>
-                                                </div>
-                                            </section>
-                                        </Row>
+                                                    </Row>
+                                                )
+                                            })
+                                        }
+
                                     </Container>
                                 </div>
                             </Col>

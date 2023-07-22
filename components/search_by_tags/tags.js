@@ -6,23 +6,23 @@ import ALink from "../../features/alink";
 
 const tagTypes = [
   {
-    link: "/shop?category=new-products",
+    link: "/shop?slug=new-products",
     tagName: "New Products"
   },
   {
-    link: "/shop?category=feature-products",
+    link: "/shop?slug=feature-products",
     tagName: "Feature Product"
   },
   {
-    link: "/shop?category=best-sellers",
+    link: "/shop?slug=best-sellers",
     tagName: "Best Sellers"
   },
   {
-    link: "/shop?category=sale",
+    link: "/shop?slug=sale",
     tagName: "Sale"
   },
   {
-    link: "/shop?category=best",
+    link: "/shop?slug=best",
     tagName: "Best"
   },
 ];

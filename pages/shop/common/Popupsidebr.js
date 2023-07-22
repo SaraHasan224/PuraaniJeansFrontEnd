@@ -79,7 +79,7 @@ const Popupsidebar = ({ colClass, layoutList }) => {
   const selectedBrands = filterContext.selectedBrands;
   const selectedColor = filterContext.selectedColor;
   const selectedPrice = filterContext.selectedPrice;
-  const selectedCategory = filterContext.state;
+  const categorySlug = filterContext.state;
   const selectedSize = filterContext.selectedSize;
   const [sortBy, setSortBy] = useState("AscOrder");
   const [isLoading, setIsLoading] = useState(false);
@@ -88,7 +88,7 @@ const Popupsidebar = ({ colClass, layoutList }) => {
 
   var { loading, data, fetchMore } = useQuery(GET_PRODUCTS, {
     variables: {
-      type: selectedCategory,
+      type: categorySlug,
       priceMax: selectedPrice.max,
       priceMin: selectedPrice.min,
       color: selectedColor,

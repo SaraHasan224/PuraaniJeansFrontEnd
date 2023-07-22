@@ -18,13 +18,14 @@ import InternetConnection from "../features/internet-connection";
 
 import { HOMEPAGE_ACTIONS } from "../store/actions";
 import { HOME_CONSTANTS } from "../store/actionTypes";
-import { HELPER } from "../utils";
 
 export default function Home(props){
-  const { meta } = useSelector((state) => state.metadata);
+  const { meta, brands } = useSelector((state) => state.metadata);
   const dispatch = useDispatch()
 
   useEffect(() => {
+    document.documentElement.style.setProperty("--gradient1", "#ff4c3b");
+    document.documentElement.style.setProperty("--gradient2", "#FA4729");
     dispatch({
 			type: HOME_CONSTANTS.HOMEPAGE_META.SUCCESS,
 			response: props?.meta
@@ -58,8 +59,8 @@ export default function Home(props){
         />
         <FeaturedClosets featured={props?.featured_by}/>
         <BrandsFooter
-          title={"Relax & Get the product by top brands"}
-          description={"In today's modern world, Household Shopping can be an extreme sport when you are making a list to grab things from physical stores therefore."}
+          title={brands?.title}
+          description={brands?.sub_title}
           btn_name={"shop now"}
           bg_img_src={`/my-assets/images/backgrounds/home-bg-1.png`}
         />

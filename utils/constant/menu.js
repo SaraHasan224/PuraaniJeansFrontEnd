@@ -12,13 +12,13 @@ export const CONSTANTS = {
 }
 export const MENUITEMS = [
    {
-      title: 'Men', type: 'sub', children: false, megaMenu: false, path: `/shop?category=men&brand=&color=&size=&minPrice=&maxPrice=`
+      title: 'Men', type: 'sub', children: false, megaMenu: false, path: `/shop?slug=men&brand=&color=&size=&minPrice=&maxPrice=`
    },
    {
-      title: 'Women', type: 'sub', children: false, megaMenu: false, path: `/shop?category=Women&brand=&color=&size=&minPrice=&maxPrice=` 
+      title: 'Women', type: 'sub', children: false, megaMenu: false, path: `/shop?slug=Women&brand=&color=&size=&minPrice=&maxPrice=` 
    },
    {
-      title: 'Jewellery', type: 'sub', children: false, megaMenu: false,  path: `/shop?category=Jewellery&brand=&color=&size=&minPrice=&maxPrice=`
+      title: 'Jewellery', type: 'sub', children: false, megaMenu: false,  path: `/shop?slug=Jewellery&brand=&color=&size=&minPrice=&maxPrice=`
    },
    {
       title: 'Beauty', type: 'sub', children: [
@@ -37,42 +37,42 @@ export const MENUITEMS = [
       title: 'Brands', megaMenu: true, megaMenuType: 'small', type: 'sub', children: [
          {
             title: 'Men', type: 'sub', children: [
-               { path: '/shop?category=PortfolioGrid2&brand=&color=&size=&minPrice=&maxPrice=', title: 'Portfolio Grid 2', type: 'link', icon: 'alert' },
-               { path: '/shop?category=masonryFullWidth&brand=&color=&size=&minPrice=&maxPrice=', title: 'masonry Full Width', type: 'link', icon: 'map-alt' },
+               { path: '/shop?slug=PortfolioGrid2&brand=&color=&size=&minPrice=&maxPrice=', title: 'Portfolio Grid 2', type: 'link', icon: 'alert' },
+               { path: '/shop?slug=masonryFullWidth&brand=&color=&size=&minPrice=&maxPrice=', title: 'masonry Full Width', type: 'link', icon: 'map-alt' },
             ]
          },
          {
             title: 'Women', type: 'sub', children: [
-               { path: '/shop?category=CartModalPopup&brand=&color=&size=&minPrice=&maxPrice=', title: 'Cart Modal Popup', type: 'link', icon: 'list' },
-               { path: '/shop?category=CartLeft&brand=&color=&size=&minPrice=&maxPrice=', title: 'Cart Left', type: 'link', icon: 'alarm-clock' },
-               { path: '/shop?category=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Cart Right', type: 'link', icon: 'alarm-clock' }
+               { path: '/shop?slug=CartModalPopup&brand=&color=&size=&minPrice=&maxPrice=', title: 'Cart Modal Popup', type: 'link', icon: 'list' },
+               { path: '/shop?slug=CartLeft&brand=&color=&size=&minPrice=&maxPrice=', title: 'Cart Left', type: 'link', icon: 'alarm-clock' },
+               { path: '/shop?slug=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Cart Right', type: 'link', icon: 'alarm-clock' }
             ]
          },
          {
             title: 'Kids', type: 'sub', children: [
-               { path: '/shop?category=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Title', type: 'link', icon: 'bar-chart' },
+               { path: '/shop?slug=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Title', type: 'link', icon: 'bar-chart' },
             ]
          },
          {
             title: 'Accessories', type: 'sub', children: [
-               { path: '/shop?category=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Product Box', type: 'link', icon: 'bar-chart' },
-               { path: '/shop?category=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Product Slider', type: 'link', icon: 'thought' },
-               { path: '/shop?category=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'No Slider', type: 'link', icon: 'video-camera' },
-               { path: '/shop?category=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Multi Slider', type: 'link', icon: 'headphone' },
-               { path: '/shop?category=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Tab', type: 'link', icon: 'headphone' }
+               { path: '/shop?slug=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Product Box', type: 'link', icon: 'bar-chart' },
+               { path: '/shop?slug=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Product Slider', type: 'link', icon: 'thought' },
+               { path: '/shop?slug=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'No Slider', type: 'link', icon: 'video-camera' },
+               { path: '/shop?slug=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Multi Slider', type: 'link', icon: 'headphone' },
+               { path: '/shop?slug=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Tab', type: 'link', icon: 'headphone' }
             ]
          },
          {
             title: 'FootWear', type: 'sub', children: [
-               { path: '/shop?category=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Order Success', type: 'link', icon: 'bar-chart' },
-               { path: '/shop?category=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Order Success 2', type: 'link', icon: 'thought' },
-               { path: '/shop?category=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Email Template', type: 'link', icon: 'headphone' },
-               { path: '/shop?category=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Email Template 2', type: 'link', icon: 'headphone' }
+               { path: '/shop?slug=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Order Success', type: 'link', icon: 'bar-chart' },
+               { path: '/shop?slug=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Order Success 2', type: 'link', icon: 'thought' },
+               { path: '/shop?slug=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Email Template', type: 'link', icon: 'headphone' },
+               { path: '/shop?slug=CartRight&brand=&color=&size=&minPrice=&maxPrice=', title: 'Email Template 2', type: 'link', icon: 'headphone' }
             ]
          }
       ]
    },
    {
-      title: 'More', type: 'sub', children: false, megaMenu: false, path: `/shop?category=more&fashion&brand=&color=&size=&minPrice=&maxPrice=`
+      title: 'More', type: 'sub', children: false, megaMenu: false, path: `/shop?slug=more&fashion&brand=&color=&size=&minPrice=&maxPrice=`
    },
 ]

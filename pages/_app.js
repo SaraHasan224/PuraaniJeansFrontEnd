@@ -12,7 +12,7 @@ import { CompareContextProvider } from "../context/Compare/CompareContext";
 import { CurrencyContextProvider } from "../context/Currency/CurrencyContext";
 import TapTop from "../components/layouts/Tap-Top";
 
-export default function MyApp({ Component, pageProps, props }) {
+export default function MyApp({ Component, pageProps }) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [metaData, setIsMetaData] = useState([]);

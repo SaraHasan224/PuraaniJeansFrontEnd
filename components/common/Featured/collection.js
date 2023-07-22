@@ -58,8 +58,8 @@ export default function FeaturedByCollection(props) {
               <Row className="partition-collection">
                 {activeCollectionProductList.map((data, key) => {
                   return (
-                    <Col lg="3" md="6" sm="6" xs="12" className='mb-3'>
-                      <div key={key}>
+                    <Col lg="4" md="6" sm="6" xs="12" className='mb-3'  key={"featured-col-"+key}>
+                      <div>
                         <ProductItem
                           product={data}
                           addToCompare={() =>

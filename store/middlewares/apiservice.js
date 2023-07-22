@@ -11,6 +11,7 @@ export const apiService = {
 	getHomePage,
 	getMegaMenu,
 	getFeaturedItems,
+	getCategoryItems,
 	
 	
 	getCountryMetaData,
@@ -50,6 +51,15 @@ async function getFeaturedItems() {
 	return await API_REQUEST(
 		'get',
 		`${baseURL}` + API_ENDPOINTS.GET_HOMEPAGE_FEATURED_SECTION,
+		false,
+		false
+	)()
+}
+
+async function getCategoryItems(slug) {
+	return await API_REQUEST(
+		'get',
+		`${baseURL}${API_ENDPOINTS.GET_CATEGORY}/${slug}/products`,
 		false,
 		false
 	)()

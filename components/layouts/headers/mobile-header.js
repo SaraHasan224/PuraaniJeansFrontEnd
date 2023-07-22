@@ -43,8 +43,8 @@ const MasterBanner = ({ title, desc, bannerItem }) => {
     <div
     >
       <div  className={`home master text-center gfg`}>
-        <img src={bannerItem.image} alt="" className="img-fluid blur-up lazyload media" />
-        <div class="first-txt">
+        <img src={bannerItem?.image} alt="" className="img-fluid blur-up lazyload media" />
+        <div className="first-txt">
           <Container>
             <Row>
               <Col>
@@ -66,10 +66,10 @@ const MasterBanner = ({ title, desc, bannerItem }) => {
       </div>
       <div
         className={`home master text-center d-none`}
-        style={{ backgroundImage: "url(" + bannerItem.image + ")" }}
+        style={{ backgroundImage: "url(" + bannerItem?.image + ")" }}
       >
         <div className="master-banner-mb-bg">
-          <img src={bannerItem.image} alt="" className="img-fluid blur-up lazyload media" />
+          <img src={bannerItem?.image} alt="" className="img-fluid blur-up lazyload media" />
         </div>
         <Container>
           <Row>

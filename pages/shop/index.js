@@ -25,9 +25,6 @@ const Shop = () => {
                                 colClass="col-xl-3 col-6 col-grid-box"
                                 layoutList=''
                                 openSidebar={() => openCloseSidebar(sidebarView)}
-                                title="Mens Wear"
-                                parent="Home"
-                                subTitle="Shop"
                             />
                         </Row>
                     </Container>

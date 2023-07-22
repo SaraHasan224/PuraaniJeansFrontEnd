@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import metadataReducer from './metadata.reducer'
 import productsReducer from './products.reducer'
 import homeReducer from './home.reducer';
+import menuReducer from './menu.reducer';
 
 const metaConfig = {
   key: 'meta',
@@ -16,7 +17,13 @@ const homeConfig = {
   storage,
 }
 
+const menuConfig = {
+  key: 'menu',
+  storage,
+}
+
 const rootReducer = combineReducers({
+  menu: persistReducer(menuConfig, menuReducer),
   metadata: persistReducer(metaConfig, metadataReducer),
   products: productsReducer,
   // products: persistReducer(productsConfig, productsReducer),

@@ -10,6 +10,9 @@ import FilterContext from "../../../context/filter/FilterContext";
 import CartContext from "../../../context/cart";
 import ShopBreadcrumb from "./breadcrumb";
 import ALink from "../../../features/alink";
+import { useDispatch, useSelector } from "react-redux";
+import { PRODUCT_ACTIONS } from "../../../store/actions";
+import { HELPER } from "../../../utils";
 
 
 // const GET_PRODUCTS = gql`
@@ -486,7 +489,20 @@ const GET_PRODUCTS = {
   }
 };
 
-const ProductList = ({ colClass, layoutList, openSidebar, title, parent, subTitle }) => {
+const ProductList = ({ colClass, layoutList, openSidebar }) => {
+  const dispatch = useDispatch()
+
+  const { menu } = useSelector((state) => state.menu);
+
+  const { loading, products, fetchMore, type, slug, filters } = useSelector((state) => state.products);
+  var { current_page, last_page, data, per_page, total } = products
+  var { sort_by, price_range } = filters
+
+  // var { products, type, slug, filters } = GET_PRODUCTS
+  // var { loading, current_page, last_page, data, per_page, total } = products
+  // var { sort_by, price_range } = filters
+  // var loading = false;
+
   const cartContext = useContext(CartContext);
   const quantity = cartContext.quantity;
   const router = useRouter();
@@ -497,13 +513,46 @@ const ProductList = ({ colClass, layoutList, openSidebar, title, parent, subTitl
   const selectedBrands = filterContext.selectedBrands;
   const selectedColor = filterContext.selectedColor;
   const selectedPrice = filterContext.selectedPrice;
-  const selectedCategory = filterContext.state;
-  const selectedSubCategory = filterContext.subCategory;
+  const categorySlug = filterContext.slug;
+  const categoryTitle = filterContext.title;
+  const parentCategoryTitle = filterContext.parentCategoryTitle;
+  const subCategoryTitle = filterContext.subCategoryTitle;
   const selectedSize = filterContext.selectedSize;
   const [sortBy, setSortBy] = useState("AscOrder");
   const [isLoading, setIsLoading] = useState(false);
   const [layout, setLayout] = useState(layoutList);
   const [url, setUrl] = useState();
+  console.log("filterContext: ", filterContext)
+  
+  useEffect(() => {
+    if(HELPER.isNotEmpty(categorySlug)) {
+      dispatch(PRODUCT_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
+    }
+
+    if(HELPER.isNotEmpty(categoryTitle) && HELPER.isNotEmpty(menu)) {
+      router.push({
+            pathname: "shop",
+            query: {
+              title: menu.title,
+              parent: menu.parent_title,
+              child: menu.child_title,
+              slug: menu.path,
+              brand: menu.brand,
+              color: menu.color,
+              size: menu.size,
+              minPrice: menu.minPrice,
+              maxPrice: menu.maxPrice,
+            },
+      })
+    }
+  }, []);
+
+  useEffect(() => {
+    if(HELPER.isNotEmpty(categorySlug)) {
+      dispatch(PRODUCT_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
+    }
+  }, [categorySlug]);
+
 
   useEffect(() => {
     const pathname = window.location.pathname;
@@ -515,7 +564,7 @@ const ProductList = ({ colClass, layoutList, openSidebar, title, parent, subTitl
 
   // var { loading, data, fetchMore } = useQuery(GET_PRODUCTS, {
   // variables: {
-  //   type: selectedCategory,
+  //   type: categorySlug,
   //   priceMax: selectedPrice.max,
   //   priceMin: selectedPrice.min,
   //   color: selectedColor,
@@ -525,10 +574,6 @@ const ProductList = ({ colClass, layoutList, openSidebar, title, parent, subTitl
   //   limit: limit,
   // },
   // });
-  var { products, type, slug, filters } = GET_PRODUCTS
-  var { loading, current_page, last_page, data, per_page, total } = products
-  var { sort_by, price_range } = filters
-  var loading = false;
   const handlePagination = () => {
     setIsLoading(true);
     // setTimeout(
@@ -578,15 +623,15 @@ const ProductList = ({ colClass, layoutList, openSidebar, title, parent, subTitl
       <div className="page-main-content">
         <Row>
           <Col sm="12">
-            <ShopBreadcrumb title={selectedCategory} parent={parent} subTitle={selectedSubCategory} />
+            <ShopBreadcrumb title={categoryTitle} parent={parentCategoryTitle} subTitle={subCategoryTitle} />
           </Col>
           <Col sm="12">
             <Row className="toolbox noTopMargin noBtmMargin">
               <div className="top-banner-wrapper  small-section noBtmPadding toolbox-left col-6">
                 <div className="top-banner-content">
-                  <h4>{selectedCategory}</h4>
+                  <h4>{categoryTitle}</h4>
                   <h5>
-                    {selectedSubCategory}
+                    {subCategoryTitle}
                   </h5>
                 </div>
               </div>
@@ -704,7 +749,7 @@ const ProductList = ({ colClass, layoutList, openSidebar, title, parent, subTitl
                               alt=""
                             />
                             <h3>
-                              <strong>Your Cart is Empty</strong>
+                              <strong>No products found</strong>
                             </h3>
                             <h4>Explore more shortlist some items.</h4>
                           </div>

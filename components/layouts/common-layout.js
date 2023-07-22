@@ -22,7 +22,7 @@ const CommonLayout = ({ children, title, parent, subTitle, showBreadcrumb }) => 
       </Helmet>
       {/* HEADER */}
       <Header logoName={meta?.logo} topClass="top-header" />
-      <Breadcrumbs title={title} parent={parent} subTitle={subTitle} />
+      { showBreadcrumb ? <Breadcrumbs title={title} parent={parent} subTitle={subTitle} /> : "" }
       {children}
       <Footer
         footerClass={`footer-dark`}

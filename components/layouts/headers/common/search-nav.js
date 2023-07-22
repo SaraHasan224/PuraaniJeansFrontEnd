@@ -1,9 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import {
     Input,
 } from "reactstrap";
 
 const SearchNavigation = () => {
+    const { cities } = useSelector((state) => state.metadata);
+
+
     return (
         <>
             <form className="header-search">
@@ -15,9 +19,11 @@ const SearchNavigation = () => {
                                 aria-activedescendant="choices-choices-single-defaul-yq-item-choice-2">
                                 <div className="choices__inner">
                                     <select className="choices__input is-hidden form-select py-2" size="1">
-                                        <option value="Islamabad">Islamabad</option>
-                                        <option value="Karachi">Karachi</option>
-                                        <option value="Lahore">Lahore</option>
+                                    {
+                                        cities && cities.map((item, key) => {
+                                            return (<option value={`${item}`} key={`city-${key}`}>{item}</option>) 
+                                        })
+                                    }
                                     </select>
                                 </div>
                             </div>

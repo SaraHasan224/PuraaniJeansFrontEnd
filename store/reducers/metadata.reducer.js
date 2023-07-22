@@ -1,46 +1,10 @@
-/*
-import { createSlice } from '@reduxjs/toolkit'
-  export const metaDataSlice = createSlice({
-    name: 'metadata',
-    initialState,
-    reducers: {
-      saveMetaData: (state,metaData) => {
-        // Redux Toolkit allows us to write "mutating" logic in reducers. It
-        // doesn't actually mutate the state because it uses the Immer library,
-        // which detects changes to a "draft state" and produces a brand new
-        // immutable state based off those changes
-        state.meta = metaData?.payload;
-      },
-      saveBanners: (state,metaData) => {
-        // Redux Toolkit allows us to write "mutating" logic in reducers. It
-        // doesn't actually mutate the state because it uses the Immer library,
-        // which detects changes to a "draft state" and produces a brand new
-        // immutable state based off those changes
-        state.banners = metaData?.payload;
-      },
-      saveAuthBanners: (state,metaData) => {
-        // Redux Toolkit allows us to write "mutating" logic in reducers. It
-        // doesn't actually mutate the state because it uses the Immer library,
-        // which detects changes to a "draft state" and produces a brand new
-        // immutable state based off those changes
-        state.authBanners = metaData?.payload;
-      },
-    },
-  })
-
-  // Action creators are generated for each case reducer function
-  export const { saveMetaData, saveBanners, saveAuthBanners } = metaDataSlice.actions
-
-  export default metaDataSlice.reducer
-
-*/
-
 import { HOME_CONSTANTS, META_CONSTANTS } from '../actionTypes'
 
 
 const initialState = {
   banners: [],
   meta: [],
+  brands: [],
   authBanners: [],
   homeContent: [],
 
@@ -58,6 +22,10 @@ const metaDataReducer = (state = initialState, action) => {
         meta: action?.response?.metadata,
         authBanners: action?.response?.auth_banners,
         homeContent: action?.response?.home,
+        brands: action?.response?.brands,
+        subscription: action?.response?.subscription,
+        cities: action?.response?.cities,
+        sellersWatchList: action?.response?.sellers_watch?.list
       }
     case HOME_CONSTANTS.HOMEPAGE_META.FAILURE:
       return state
