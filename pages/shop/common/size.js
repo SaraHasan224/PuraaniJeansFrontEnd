@@ -3,6 +3,8 @@ import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import { Collapse, Input } from "reactstrap";
 import FilterContext from "../../../context/filter/FilterContext";
+import { HELPER } from "../../../utils";
+import { useSelector } from "react-redux";
 
 const GET_SIZE = gql`
   query getSize($type: String) {
@@ -13,6 +15,9 @@ const GET_SIZE = gql`
 `;
 
 const Size = () => {
+  const { filters } = useSelector((state) => state.products);
+  var { size } = filters
+
   const [isOpen, setIsOpen] = useState(false);
   const context = useContext(FilterContext);
   const isChecked = context.isChecked;
@@ -36,26 +41,22 @@ const Size = () => {
       <Collapse isOpen={isOpen}>
         <div className="collection-collapse-block-content">
           <div className="collection-size-filter">
-            {!data || !data.getSize || data.getSize.length === 0 || loading
-              ? "loading"
-              : data &&
-                data.getSize.size.map((size, index) => (
+            {HELPER.isNotEmpty(size) && Object.keys(size).map((val, index) => (
                   <div key={index}
                     className="form-check custom-checkbox collection-filter-checkbox"
-                    key={index}
                   >
                     <Input
-                      checked={context.selectedSize.includes(size)}
+                      checked={context.selectedSize.includes(size[val])}
                       onChange={() => {
-                        context.handleSizes(size, isChecked);
+                        context.handleSizes(size[val], isChecked);
                       }}
                       type="checkbox"
                       className="custom-control-input"
-                      id={size}
+                      id={size[val]}
                     />
 
-                    <label className="custom-control-label" htmlFor={size}>
-                      {size}
+                    <label className="custom-control-label" htmlFor={size[val]}>
+                      {size[val]}
                     </label>
                   </div>
                 ))}

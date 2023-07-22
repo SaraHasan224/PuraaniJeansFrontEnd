@@ -47,447 +47,6 @@ import { HELPER } from "../../../utils";
 // }
 // }
 // `;
-const GET_PRODUCTS = {
-  "products": {
-    "current_page": 1,
-    "data": [
-      {
-        "id": 174,
-        "name": "Assignment Sheets",
-        "listing_type": 0,
-        "list_type": 1,
-        "listing_slug": "",
-        "discount": 0,
-        "price": 199,
-        "discounted_price": 199,
-        "discount_badge": {
-          "show": 1,
-          "discount": 0,
-          "type": 1
-        },
-        "max_quantity": 99,
-        "has_variants": 1,
-        "image": "https://bsecure-dev-images.imgix.net/merchants/products/961/1646663633.png?auto=compress&w=300",
-        "position": 0,
-        "variant_count": 4,
-        "attribute_count": 0,
-        "default_variant_id": 464,
-        "category_name": null,
-        "category_id": null,
-        "sub_category_name": null,
-        "sub_category_id": null,
-        "merchant_name": "My company",
-        "store_name": "test store",
-        "store_slug": "ST-008332794",
-        "store_favicon": "",
-        "store_website": "",
-        "store_disabled": 1,
-        "store_disabled_note": ""
-      },
-      {
-        "id": 184,
-        "name": "Apple Golden 660g",
-        "listing_type": 0,
-        "list_type": 1,
-        "listing_slug": "",
-        "discount": 0,
-        "price": 120,
-        "discounted_price": 120,
-        "discount_badge": {
-          "show": 1,
-          "discount": 0,
-          "type": 1
-        },
-        "max_quantity": 50,
-        "has_variants": 0,
-        "image": "https://bsecure-dev-images.imgix.net/merchants/products/51/1646663661.png?auto=compress&w=300",
-        "position": 0,
-        "variant_count": 1,
-        "attribute_count": 0,
-        "default_variant_id": 474,
-        "category_name": null,
-        "category_id": null,
-        "sub_category_name": null,
-        "sub_category_id": null,
-        "merchant_name": "My company",
-        "store_name": "Production store",
-        "store_slug": "ST-009997",
-        "store_favicon": "https://bsecure-dev-images.imgix.net/https://bsecure-dev-images.imgix.net/dev/merchants/branding/51/favicon-961.jpg?auto=compress&w=200?auto=compress&w=200",
-        "store_website": "https://bsecure-dev-images.imgix.net/https://bsecure-dev-images.imgix.net/dev/merchants/branding/51/favicon-961.jpg?auto=compress&w=200?auto=compress&w=200",
-        "store_disabled": 1,
-        "store_disabled_note": ""
-      },
-      {
-        "id": 194,
-        "name": "Celebrate Balloons",
-        "listing_type": 0,
-        "list_type": 1,
-        "listing_slug": "",
-        "discount": 0,
-        "price": 100,
-        "discounted_price": 100,
-        "discount_badge": {
-          "show": 1,
-          "discount": 0,
-          "type": 1
-        },
-        "max_quantity": 99,
-        "has_variants": 1,
-        "image": "https://bsecure-dev-images.imgix.net/merchants/products/51/1646663878.png?auto=compress&w=300",
-        "position": 0,
-        "variant_count": 18,
-        "attribute_count": 0,
-        "default_variant_id": 514,
-        "category_name": null,
-        "category_id": null,
-        "sub_category_name": null,
-        "sub_category_id": null,
-        "merchant_name": "My company",
-        "store_name": "Fareen's Store",
-        "store_slug": "ST-007083734",
-        "store_favicon": "",
-        "store_website": "",
-        "store_disabled": 1,
-        "store_disabled_note": ""
-      },
-      {
-        "id": 204,
-        "name": "Joy Sweet Wedding Balloons",
-        "listing_type": 0,
-        "list_type": 1,
-        "listing_slug": "",
-        "discount": 0,
-        "price": 200,
-        "discounted_price": 200,
-        "discount_badge": {
-          "show": 1,
-          "discount": 0,
-          "type": 1
-        },
-        "max_quantity": 99,
-        "has_variants": 1,
-        "image": "https://bsecure-dev-images.imgix.net/merchants/products/51/1646665879.png?auto=compress&w=300",
-        "position": 0,
-        "variant_count": 3,
-        "attribute_count": 0,
-        "default_variant_id": 694,
-        "category_name": null,
-        "category_id": null,
-        "sub_category_name": null,
-        "sub_category_id": null,
-        "merchant_name": "My company",
-        "store_name": "Fareen's Store",
-        "store_slug": "ST-007083734",
-        "store_favicon": "",
-        "store_website": "",
-        "store_disabled": 1,
-        "store_disabled_note": ""
-      },
-      {
-        "id": 214,
-        "name": "4 Flower Candle",
-        "listing_type": 0,
-        "list_type": 1,
-        "listing_slug": "",
-        "discount": 150,
-        "price": 400,
-        "discounted_price": 250,
-        "discount_badge": {
-          "show": 1,
-          "discount": 150,
-          "type": 1
-        },
-        "max_quantity": 99,
-        "has_variants": 1,
-        "image": "https://bsecure-dev-images.imgix.net/merchants/products/51/1646665966.png?auto=compress&w=300",
-        "position": 0,
-        "variant_count": 4,
-        "attribute_count": 0,
-        "default_variant_id": 724,
-        "category_name": null,
-        "category_id": null,
-        "sub_category_name": null,
-        "sub_category_id": null,
-        "merchant_name": "My company",
-        "store_name": "Fareen's Store",
-        "store_slug": "ST-007083734",
-        "store_favicon": "",
-        "store_website": "",
-        "store_disabled": 1,
-        "store_disabled_note": ""
-      },
-      {
-        "id": 224,
-        "name": "T-Shirt Blue",
-        "listing_type": 0,
-        "list_type": 1,
-        "listing_slug": "",
-        "discount": 0,
-        "price": 1200,
-        "discounted_price": 1200,
-        "discount_badge": {
-          "show": 1,
-          "discount": 0,
-          "type": 1
-        },
-        "max_quantity": 50,
-        "has_variants": 1,
-        "image": "https://bsecure-dev-images.imgix.net/merchants/products/51/1646666114.png?auto=compress&w=300",
-        "position": 0,
-        "variant_count": 6,
-        "attribute_count": 0,
-        "default_variant_id": 764,
-        "category_name": null,
-        "category_id": null,
-        "sub_category_name": null,
-        "sub_category_id": null,
-        "merchant_name": "My company",
-        "store_name": "Production store",
-        "store_slug": "ST-009997",
-        "store_favicon": "https://bsecure-dev-images.imgix.net/https://bsecure-dev-images.imgix.net/dev/merchants/branding/51/favicon-961.jpg?auto=compress&w=200?auto=compress&w=200",
-        "store_website": "https://bsecure-dev-images.imgix.net/https://bsecure-dev-images.imgix.net/dev/merchants/branding/51/favicon-961.jpg?auto=compress&w=200?auto=compress&w=200",
-        "store_disabled": 1,
-        "store_disabled_note": ""
-      },
-      {
-        "id": 9644,
-        "name": "lipton tea bags",
-        "listing_type": 0,
-        "list_type": 1,
-        "listing_slug": "",
-        "discount": 0,
-        "price": 1000,
-        "discounted_price": 1000,
-        "discount_badge": {
-          "show": 1,
-          "discount": 0,
-          "type": 1
-        },
-        "max_quantity": 990,
-        "has_variants": 0,
-        "image": "https://bsecure-dev-images.imgix.net/merchants/products/7554/28894093541476.png?auto=compress&w=300",
-        "position": 0,
-        "variant_count": 1,
-        "attribute_count": 1,
-        "default_variant_id": 11444,
-        "category_name": null,
-        "category_id": null,
-        "sub_category_name": null,
-        "sub_category_id": null,
-        "merchant_name": "My company",
-        "store_name": "Shopify gateway store",
-        "store_slug": "ST-004154704",
-        "store_favicon": "https://bsecure-dev-images.imgix.net/https://bsecure-dev-images.imgix.net/dev/merchants/branding/7554/favicon-47041644239867.png?auto=compress&w=200?auto=compress&w=200",
-        "store_website": "https://bsecure-dev-images.imgix.net/https://bsecure-dev-images.imgix.net/dev/merchants/branding/7554/favicon-47041644239867.png?auto=compress&w=200?auto=compress&w=200",
-        "store_disabled": 1,
-        "store_disabled_note": ""
-      },
-      {
-        "id": 9664,
-        "name": "test product",
-        "listing_type": 0,
-        "list_type": 1,
-        "listing_slug": "",
-        "discount": 0,
-        "price": 1000,
-        "discounted_price": 1000,
-        "discount_badge": {
-          "show": 1,
-          "discount": null,
-          "type": null
-        },
-        "max_quantity": 6,
-        "has_variants": 0,
-        "image": "https://bsecure-dev-images.imgix.net/assets/placeholder/product_image_placeholder.jpg?auto=compress&w=300",
-        "position": 0,
-        "variant_count": 1,
-        "attribute_count": 1,
-        "default_variant_id": 11464,
-        "category_name": null,
-        "category_id": null,
-        "sub_category_name": null,
-        "sub_category_id": null,
-        "merchant_name": "My company",
-        "store_name": "Shopify gateway store",
-        "store_slug": "ST-004154704",
-        "store_favicon": "https://bsecure-dev-images.imgix.net/https://bsecure-dev-images.imgix.net/dev/merchants/branding/7554/favicon-47041644239867.png?auto=compress&w=200?auto=compress&w=200",
-        "store_website": "https://bsecure-dev-images.imgix.net/https://bsecure-dev-images.imgix.net/dev/merchants/branding/7554/favicon-47041644239867.png?auto=compress&w=200?auto=compress&w=200",
-        "store_disabled": 1,
-        "store_disabled_note": ""
-      },
-      {
-        "id": 10004,
-        "name": "LED New Best Fairy Lights",
-        "listing_type": 0,
-        "list_type": 1,
-        "listing_slug": "",
-        "discount": 0,
-        "price": 100,
-        "discounted_price": 100,
-        "discount_badge": {
-          "show": 1,
-          "discount": 0,
-          "type": 1
-        },
-        "max_quantity": 99,
-        "has_variants": 0,
-        "image": "https://bsecure-dev-images.imgix.net/merchants/products/51/1646710933.png?auto=compress&w=300",
-        "position": 0,
-        "variant_count": 1,
-        "attribute_count": 0,
-        "default_variant_id": 12044,
-        "category_name": null,
-        "category_id": null,
-        "sub_category_name": null,
-        "sub_category_id": null,
-        "merchant_name": "My company",
-        "store_name": "Fareen's Store",
-        "store_slug": "ST-007083734",
-        "store_favicon": "",
-        "store_website": "",
-        "store_disabled": 1,
-        "store_disabled_note": ""
-      },
-      {
-        "id": 10014,
-        "name": "Smile Party Birthday Candle",
-        "listing_type": 0,
-        "list_type": 1,
-        "listing_slug": "",
-        "discount": 0,
-        "price": 100,
-        "discounted_price": 100,
-        "discount_badge": {
-          "show": 1,
-          "discount": 0,
-          "type": 1
-        },
-        "max_quantity": 99,
-        "has_variants": 1,
-        "image": "https://bsecure-dev-images.imgix.net/merchants/products/51/1646711012.png?auto=compress&w=300",
-        "position": 0,
-        "variant_count": 4,
-        "attribute_count": 0,
-        "default_variant_id": 12054,
-        "category_name": null,
-        "category_id": null,
-        "sub_category_name": null,
-        "sub_category_id": null,
-        "merchant_name": "My company",
-        "store_name": "Fareen's Store",
-        "store_slug": "ST-007083734",
-        "store_favicon": "",
-        "store_website": "",
-        "store_disabled": 1,
-        "store_disabled_note": ""
-      }
-    ],
-    "first_page_url": "http://puranijeans.test/api/featured-products?page=1",
-    "from": 1,
-    "last_page": 1116,
-    "last_page_url": "http://puranijeans.test/api/featured-products?page=1116",
-    "links": [
-      {
-        "url": null,
-        "label": "&laquo; Previous",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=1",
-        "label": "1",
-        "active": true
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=2",
-        "label": "2",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=3",
-        "label": "3",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=4",
-        "label": "4",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=5",
-        "label": "5",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=6",
-        "label": "6",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=7",
-        "label": "7",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=8",
-        "label": "8",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=9",
-        "label": "9",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=10",
-        "label": "10",
-        "active": false
-      },
-      {
-        "url": null,
-        "label": "...",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=1115",
-        "label": "1115",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=1116",
-        "label": "1116",
-        "active": false
-      },
-      {
-        "url": "http://puranijeans.test/api/featured-products?page=2",
-        "label": "Next &raquo;",
-        "active": false
-      }
-    ],
-    "next_page_url": "http://puranijeans.test/api/featured-products?page=2",
-    "path": "http://puranijeans.test/api/featured-products",
-    "per_page": 10,
-    "prev_page_url": null,
-    "to": 10,
-    "total": 11159
-  },
-  "type": "FEATURED_PRODUCTS",
-  "slug": "",
-  "filters": {
-    "sort_by": {
-      "newest_arrival": "New Arrival",
-      "price_high_to_low": "High to Low",
-      "price_low_to_high": "Low to High",
-      "price_low_to_high": "Newest",
-      "price_low_to_high": "Asc Order",
-      "price_low_to_high": "Desc Order",
-    },
-    "price_range": {
-      "max": 200000,
-      "min": 0
-    },
-    "stores": ""
-  }
-};
 
 const ProductList = ({ colClass, layoutList, openSidebar }) => {
   const dispatch = useDispatch()
@@ -496,7 +55,7 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
 
   const { loading, products, fetchMore, type, slug, filters } = useSelector((state) => state.products);
   var { current_page, last_page, data, per_page, total } = products
-  var { sort_by, price_range } = filters
+  var { sort_by, price_range, colors, brands, categories } = filters
 
   // var { products, type, slug, filters } = GET_PRODUCTS
   // var { loading, current_page, last_page, data, per_page, total } = products
@@ -510,9 +69,10 @@ console.log("sort_by ", sort_by)
   const curContext = useContext(CurrencyContext);
   const symbol = curContext.state.symbol;
   const filterContext = useContext(FilterContext);
-
-  const [selectedBrands, setSelectedBrands] = useState(menu.brand);
-  const [selectedColor, setSelectedColor] = useState(menu.color);
+  
+  const [selectedCategories, setSelectedCategories] = useState(categories);
+  const [selectedBrands, setSelectedBrands] = useState(brands);
+  const [selectedColor, setSelectedColor] = useState(colors);
   const [selectedPrice, setSelectedPrice] = useState(menu.price);
   const [categoryTitle, setCategoryTitle] = useState(menu.title);
   const [categorySlug, setCategorySlug] = useState(menu.slug);
@@ -520,6 +80,7 @@ console.log("sort_by ", sort_by)
   const [subCategoryTitle, setSubCategoryTitle] = useState(menu.child);
   const [selectedSize, setSelectedSize] = useState(menu.size);
   const [sortBy, setSortBy] = useState("newest_arrival");
+  const [perPageRecord, setPerPageRecord] = useState(10);
   
 
   const [isLoading, setIsLoading] = useState(false);
@@ -694,15 +255,15 @@ console.log("sort_by ", sort_by)
                   <label htmlFor="sortby">Per page records:</label>
                   <div className="select-custom">
                     <select
-                      name="sortby"
-                      id="sortby"
+                      name="perPageRecord"
+                      id="perPageRecord"
                       className="form-control"
-                      // onChange={(e) => setSortBy(e.target.value)}
-                      value={sortBy ? sortBy : 'default'}
+                      onChange={(e) => setPerPageRecord(e.target.value)}
+                      value={perPageRecord ? perPageRecord : '10'}
                     >
                       <option value={"10"}>{"10"}</option>
+                      <option value={"50"}>{"50"}</option>
                       <option value={"100"}>{"100"}</option>
-                      <option value={"1000"}>{"1000"}</option>
                     </select>
                   </div>
                 </div>
@@ -735,7 +296,7 @@ console.log("sort_by ", sort_by)
                   {HELPER.isNotEmpty(selectedBrands) && selectedBrands.map((brand, i) => (
                     <li key={i}>
                       <a href={null} className="filter_tag">
-                        {brand}
+                        {brand?.name}
                         <i
                           className="fa fa-close"
                           onClick={() => removeBrand(brand)}
@@ -743,7 +304,7 @@ console.log("sort_by ", sort_by)
                       </a>
                     </li>
                   ))}
-                  {selectedColor ? (
+                  {HELPER.isNotEmpty(selectedColor) && selectedColor ? (
                     <li>
                       <a href={null} className="filter_tag">
                         {selectedColor}
@@ -753,7 +314,7 @@ console.log("sort_by ", sort_by)
                   ) : (
                     ""
                   )}
-                  {selectedSize.map((size, i) => (
+                  {HELPER.isNotEmpty(selectedSize) && selectedSize.map((size, i) => (
                     <li key={i}>
                       <a href={null} className="filter_tag">
                         {size}
@@ -764,7 +325,7 @@ console.log("sort_by ", sort_by)
                       </a>
                     </li>
                   ))}
-                  {
+                  {selectedPrice.max > 0 ??
                     <li>
                       <a href={null} className="filter_tag">
                         price: {selectedPrice.min}- {selectedPrice.max}

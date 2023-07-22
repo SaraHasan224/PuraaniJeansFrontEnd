@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import { Collapse, Input } from "reactstrap";
 import FilterContext from "../../../context/filter/FilterContext";
+import { useSelector } from "react-redux";
 
 // const GET_BRAND = gql`
 //   query getBrands($type: String) {
@@ -18,6 +19,9 @@ const Brand = () => {
   const filterChecked = context.filterChecked;
   const [isOpen, setIsOpen] = useState(false);
   const toggleBrand = () => setIsOpen(!isOpen);
+
+  const { filters } = useSelector((state) => state.products);
+  var { brands } = filters
 
   var loading = '';
   var data = '';
@@ -35,10 +39,9 @@ const Brand = () => {
       <Collapse isOpen={isOpen}>
         <div className="collection-collapse-block-content">
           <div className="collection-brand-filter">
-            {!data || !data.getBrands || data.getBrands.length === 0 || loading
+            {loading
               ? "loading"
-              : data &&
-                data.getBrands.brand.map((brand, index) => (
+              : brands && brands.map((brand, index) => (
                   <div
                     className="form-check custom-checkbox collection-filter-checkbox"
                     key={index}
@@ -53,7 +56,7 @@ const Brand = () => {
                       id={brand}
                     />
                     <label className="custom-control-label" htmlFor={brand}>
-                      {brand}
+                      {brand?.name}
                     </label>
                   </div>
                 ))}

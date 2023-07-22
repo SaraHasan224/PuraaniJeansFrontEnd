@@ -1,29 +1,18 @@
 import React, { useState ,useContext } from 'react';
-import { useQuery } from "@apollo/client";
-import { gql } from '@apollo/client';
 import { Collapse } from 'reactstrap';
 import FilterContext from '../../../context/filter/FilterContext';
+import { useSelector } from 'react-redux';
+import { HELPER } from '../../../utils';
 
-const GET_COLOR = gql`
-    query getColors($type:String)  {
-        getColors(type: $type){
-            colors
-        }
-    }
-`;
 
 const Color = () => {
+    const { filters } = useSelector((state) => state.products);
+    var { colors } = filters
+
     const context = useContext(FilterContext);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
-    // var { loading, data } = useQuery(GET_COLOR, {
-    //     variables: {
-    //         type: context.state
-    //     }
-    // })
-
-    var loading = '';
-    var data = '';
+    console.log("colors: ", colors)
     return (
         <div className="collection-collapse-block open">
             <h3 className="collapse-block-title" onClick={toggle}>colors</h3>
@@ -31,14 +20,13 @@ const Color = () => {
                 <div className="collection-collapse-block-content">
                     <div className="color-selector">
                         <ul>
-                            {(!data || !data.getColors || data.getColors.colors.length === 0 || loading) ?
-                                <h4>Loading</h4>
-                                :
-                                data.getColors.colors.map((color, i) =>
-                                <li className={`${color} ${context.selectedColor === color? 'active' : ''}`} onClick={() => {context.setSelectedColor(color)
-                            }} key={i}></li>
-                                    
-                                )
+                            {HELPER.isNotEmpty(colors) && Object.keys(colors)?.map((color, i) =>{
+                                return(<li
+                                    style={{backgroundColor: colors[color]}}
+                                    className={`${colors[color]} ${context.selectedColor === colors[color]? 'active' : ''}`}
+                                    onClick={() => {context.setSelectedColor(colors[color])}}
+                                ></li>)
+                            })
                             }
                         </ul>
                     </div>

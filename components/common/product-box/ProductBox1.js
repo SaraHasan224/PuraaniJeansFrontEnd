@@ -63,7 +63,7 @@ const ProductItem = ({
         </div>
         <div className="front" onClick={clickProductDetail}>
           <Media
-            src={`https://bsecure-dev-images.imgix.net/dev/assets/placeholder/product_image_placeholder.jpg?auto=compress`}
+            src={product?.image}
             className="img-fluid"
             alt=""
           />
