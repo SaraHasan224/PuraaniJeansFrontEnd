@@ -16,6 +16,10 @@ export const apiService = {
 	
 	getCountryMetaData,
 	getCountriesList,
+	
+	getSignupEvent,
+	getSignInEvent,
+	getPhoneVerification
 }
 
 async function getApplicationMetaData() {
@@ -23,7 +27,6 @@ async function getApplicationMetaData() {
 		'get',
 		`${baseURL}` + API_ENDPOINTS.GET_APP_METADATA,
 		false,
-		false
 	)()
 }
 
@@ -32,7 +35,6 @@ async function getHomePage() {
 		'get',
 		`${baseURL}` + API_ENDPOINTS.GET_HOMEPAGE_CONTENTS,
 		false,
-		false
 	)()
 	return response
 }
@@ -42,7 +44,6 @@ async function getMegaMenu() {
 		'get',
 		`${baseURL}` + API_ENDPOINTS.GET_MEGA_MENU_CONTENTS,
 		false,
-		false
 	)()
 	return response
 }
@@ -52,7 +53,6 @@ async function getFeaturedItems() {
 		'get',
 		`${baseURL}` + API_ENDPOINTS.GET_HOMEPAGE_FEATURED_SECTION,
 		false,
-		false
 	)()
 }
 
@@ -61,27 +61,47 @@ async function getCategoryItems(slug) {
 		'get',
 		`${baseURL}${API_ENDPOINTS.GET_CATEGORY}/${slug}/products`,
 		false,
-		false
 	)()
 }
 
 
+async function getSignupEvent(data) {
+	return await API_REQUEST(
+		'post',
+		`${baseURL}` + API_ENDPOINTS.AUTH_SIGNUP,
+		false,
+	)(data)
+}
+
+async function getSignInEvent(data) {
+	return await API_REQUEST(
+		'post',
+		`${baseURL}` + API_ENDPOINTS.AUTH_SIGNIN,
+		false,
+	)(data)
+}
+
+async function getPhoneVerification(data) {
+	return await API_REQUEST(
+		'post',
+		`${baseURL}` + API_ENDPOINTS.AUTH_PHONE_VERIFY,
+		true,
+	)(data)
+}
 
 async function getCountryMetaData() {
 	return await API_REQUEST(
 		'get',
 		`${baseURL}` + API_ENDPOINTS.COUNTRIES_METADATA,
 		false,
-		false
 	)()
 }
 
 async function getCountriesList() {
-	return response = await API_REQUEST(
+	return await API_REQUEST(
 		'get',
-		`${baseURL}` + API_ENDPOINTS.INITIATE_ORDER_ABANDONED,
+		`${baseURL}` + API_ENDPOINTS.COUNTRIES_LIST,
 		false,
-		false
 	)()
 }
 

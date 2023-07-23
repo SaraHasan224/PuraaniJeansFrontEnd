@@ -4,10 +4,11 @@ import { useRouter } from 'next/router';
 
 import { Form, Label, Input, Row, Col } from 'reactstrap';
 
+import withPrivateRoute from '../../../hoc/auth/withPrivateRoute';
 import AuthLayout from '../../../components/layouts/auth-layout'; 
 import Logo from "../../../components/layouts/headers/common/logo";
 
-const Login = () => {
+const LoginOtpVerification = () => {
     const { meta } = useSelector((state) => state.metadata);
 
     const router = useRouter();
@@ -51,7 +52,7 @@ const Login = () => {
                             <Row>
                                 <Col xl="12" lg="12" md="12" sm="12">
                                     <div className="form-group">
-                                        <Label className="form-label" for="email">
+                                        <Label className="form-label" htmlFor="email">
                                             <b>Phone number</b>
                                         </Label>
                                         <Input type="text" defaultValue={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Email" required="" />
@@ -69,4 +70,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default withPrivateRoute(LoginOtpVerification);

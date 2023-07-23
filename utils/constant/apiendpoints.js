@@ -11,5 +11,9 @@ export const API_ENDPOINTS = {
     GET_HOMEPAGE_FEATURED_SECTION: "api/homepage/featured-section",
 
     GET_CATEGORY: "api/categories",
+
+    AUTH_SIGNUP: "api/register",
+    AUTH_SIGNIN: "api/login",
+    AUTH_PHONE_VERIFY: "api/verify-phone",
   };
   

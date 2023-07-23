@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CommonLayout from '../../../components/layouts/common-layout';
-import CheckoutPage from './common/checkout-page';
+import CheckoutPage from './checkout-page';
 import Login from '../../page/account/login-auth'
 
 const Checkout = () => {

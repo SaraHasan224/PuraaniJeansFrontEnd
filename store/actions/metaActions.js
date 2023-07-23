@@ -1,4 +1,4 @@
-import { HELPER } from '../../utils'
+import { CONSTANTS, HELPER } from '../../utils'
 import { META_CONSTANTS } from '../actionTypes'
 import { apiService } from '../middlewares/apiservice'
 import { ALERT_ACTIONS } from './alertActions'
@@ -20,11 +20,13 @@ function COUNTRY_META_DATA() {
 					const data = response?.data?.body
 					dispatch(success(data))
 				}
+				return true;
 			})
 			.catch((error) => {
 				const { error_message } = HELPER.formatFailureApiResponse(error)
 				dispatch(failure(error_message?.message))
 				dispatch(ALERT_ACTIONS.error(error_message?.message))
+				return true;
 			})
 	}
 
@@ -44,7 +46,6 @@ function COUNTRY_META_DATA() {
 
 function COUNTRIES_LIST() {
 	return (dispatch, getState) => {
-		const { payment_method_id } = getState().redirect
 		dispatch(request())
 		apiService
 			.getCountriesList()
@@ -57,7 +58,7 @@ function COUNTRIES_LIST() {
 			})
 			.catch((error) => {
 				const { error_message } = HELPER.formatFailureApiResponse(error)
-				dispatch(failure(error_message?.message))
+				dispatch(failure(error_message))
 				dispatch(ALERT_ACTIONS.error(error_message?.message))
 			})
 	}

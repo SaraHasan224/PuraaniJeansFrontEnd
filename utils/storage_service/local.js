@@ -9,7 +9,10 @@ function _saveToLocalStorage(key, value) {
 }
 
 function _getFromLocalStorage(key) {
+  if (typeof window !== 'undefined') {
 	return localStorage.getItem(key);
+  }
+  return null;
 }
 
 function _updateInLocalStorage(key, value) {

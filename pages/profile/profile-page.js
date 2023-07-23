@@ -12,25 +12,25 @@ const ProfilePage = () => {
                             <Form className="theme-form">
                                 <Row>
                                     <Col md="6">
-                                        <Label className="form-label" for="name">First Name</Label>
+                                        <Label className="form-label" htmlFor="name">First Name</Label>
                                         <Input type="text" className="form-control" id="name" placeholder="Enter Your name"
                                             required="" />
                                     </Col>
                                     <Col md="6">
-                                        <Label className="form-label" for="email">Last Name</Label>
+                                        <Label className="form-label" htmlFor="email">Last Name</Label>
                                         <Input type="text" className="form-control" id="last-name" placeholder="Email" required="" />
                                     </Col>
                                     <Col md="6">
-                                        <Label className="form-label" for="review">Phone number</Label>
+                                        <Label className="form-label" htmlFor="review">Phone number</Label>
                                         <Input type="number" className="form-control" id="review" placeholder="Enter your number"
                                             required="" />
                                     </Col>
                                     <Col md="6">
-                                        <Label className="form-label" for="email">Email</Label>
+                                        <Label className="form-label" htmlFor="email">Email</Label>
                                         <Input type="email" className="form-control" id="email" placeholder="Email" required="" />
                                     </Col>
                                     <Col md="12">
-                                        <Label className="form-label" for="review">Write Your Message</Label>
+                                        <Label className="form-label" htmlFor="review">Write Your Message</Label>
                                         <textarea className="form-control mb-0" placeholder="Write Your Message"
                                             id="exampleFormControlTextarea1" rows="6"></textarea>
                                     </Col>
@@ -48,22 +48,22 @@ const ProfilePage = () => {
                             <Form className="theme-form">
                                 <Row>
                                     <Col md="6">
-                                        <Label className="form-label" for="name">flat / plot</Label>
+                                        <Label className="form-label" htmlFor="name">flat / plot</Label>
                                         <Input type="text" className="form-control" id="home-ploat" placeholder="company name"
                                             required="" />
                                     </Col>
                                     <Col md="6">
-                                        <Label className="form-label" for="name">Address *</Label>
+                                        <Label className="form-label" htmlFor="name">Address *</Label>
                                         <Input type="text" className="form-control" id="address-two" placeholder="Address"
                                             required="" />
                                     </Col>
                                     <Col md="6">
-                                        <Label className="form-label" for="email">Zip Code *</Label>
+                                        <Label className="form-label" htmlFor="email">Zip Code *</Label>
                                         <Input type="number" className="form-control" id="zip-code" placeholder="zip-code"
                                             required="" />
                                     </Col>
                                     <Col md="6" className="select_input">
-                                        <Label className="form-label" for="review">Country *</Label>
+                                        <Label className="form-label" htmlFor="review">Country *</Label>
                                         <select className="form-select py-2" size="1">
                                             <option value="India">India</option>
                                             <option value="UAE">UAE</option>
@@ -72,11 +72,11 @@ const ProfilePage = () => {
                                         </select>
                                     </Col>
                                     <Col md="6">
-                                        <Label className="form-label" for="review">City *</Label>
+                                        <Label className="form-label" htmlFor="review">City *</Label>
                                         <Input type="text" className="form-control" id="city" placeholder="City" required="" />
                                     </Col>
                                     <Col md="6">
-                                        <Label className="form-label" for="review">Region/State *</Label>
+                                        <Label className="form-label" htmlFor="review">Region/State *</Label>
                                         <Input type="text" className="form-control" id="region-state" placeholder="Region/state"
                                             required="" />
                                     </Col>

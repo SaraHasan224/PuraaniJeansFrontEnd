@@ -13,32 +13,16 @@ var mainInstance = axios.create({
 
 const makeRequest =
 	(instance) =>
-		(method, url, token, allow_error_pages, allow_byPass_Expiry, ...params) => {
-			if (allow_byPass_Expiry) {
-				mainInstance.defaults.headers.common['x-bypass-expiry'] = 'enabled'
-			} else {
-				delete mainInstance.defaults.headers.common['x-bypass-expiry']
-			}
-
-			let locale = '';
-			if (typeof window !== 'undefined') {
-				// Perform localStorage action
-				locale = LOCAL_STORAGE_SERVICE._getFromLocalStorage('locale')
-			}
-			// Set Language Headers
-			mainInstance.defaults.headers.common['Accept-Language'] = HELPER.isNotEmpty(locale)
-				? locale
-				: 'en'
-			// Set Access token
+		(method, url, token, ...params) => {
+			console.log("method, url, token: ", method, url, token)
 			let access_token = '';
-			// if (typeof window !== 'undefined') {
-			// 	// Perform localStorage action
-			// 	access_token = LOCAL_STORAGE_SERVICE._getAccessTokenFromSession()
-			// }
+				// Perform localStorage action
+				access_token = LOCAL_STORAGE_SERVICE._getFromLocalStorage("access_token")
 			if (access_token) {
 				axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token
 				mainInstance.defaults.headers.common['Authorization'] = 'Bearer ' + access_token
 			}
+			console.log("access_token: ", access_token)
 
 			if (!token) {
 				delete axios.defaults.headers.common['Authorization']

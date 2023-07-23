@@ -1,5 +1,6 @@
 import React from 'react';
 import Router from 'next/router';
+import { HELPER, LOCAL_STORAGE_SERVICE } from '../../utils';
 
 const login = '/auth/login?redirected=true'; // Define your login route address.
 
@@ -10,7 +11,10 @@ const login = '/auth/login?redirected=true'; // Define your login route address.
  */
 
 const checkUserAuthentication = () => {
-  return { auth: null }; // change null to { isAdmin: true } for test it.
+  let checkAuth = false;
+    // Perform localStorage action
+    checkAuth = LOCAL_STORAGE_SERVICE._getFromLocalStorage("user");
+  return { auth: HELPER.isNotEmpty(checkAuth) ? checkAuth : false }; // change null to { isAdmin: true } for test it.
 };
 
 export default WrappedComponent => {

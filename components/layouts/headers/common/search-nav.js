@@ -1,3 +1,4 @@
+import { Autocomplete } from "@mui/joy";
 import React from "react";
 import { useSelector } from "react-redux";
 import {
@@ -6,7 +7,9 @@ import {
 
 const SearchNavigation = () => {
     const { cities } = useSelector((state) => state.metadata);
-
+    const citiesList = cities && cities.map((item, key) => {
+        return (item) 
+    })
 
     return (
         <>
@@ -18,13 +21,17 @@ const SearchNavigation = () => {
                                 aria-expanded="false" dir="ltr"
                                 aria-activedescendant="choices-choices-single-defaul-yq-item-choice-2">
                                 <div className="choices__inner">
-                                    <select className="choices__input is-hidden form-select py-2" size="1">
+                                    <Autocomplete 
+                                        placeholder="Select city"
+                                        options={citiesList}
+                                    />;
+                                    {/* <select className="choices__input is-hidden form-select py-2" size="1">
                                     {
                                         cities && cities.map((item, key) => {
                                             return (<option value={`${item}`} key={`city-${key}`}>{item}</option>) 
                                         })
                                     }
-                                    </select>
+                                    </select> */}
                                 </div>
                             </div>
                         </div>

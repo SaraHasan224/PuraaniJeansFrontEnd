@@ -1,0 +1,118 @@
+.flag {
+    background: unset;
+}
+
+.react-tel-input {
+    .flag {
+        // background-image: url("../images/flags/flags.png") !important;
+    }
+    .form-control {
+        width: 100% !important;
+    }
+}
+
+.custom-tel-container {
+
+    &:before {
+        content: '';
+        width: 1px;
+        height: 23.5px;
+        position: absolute;
+        left: 54px;
+        top: 13px;
+        background: $grey;
+    }
+
+    .custom-tel-input {
+        height: 50px;
+        line-height: 1.5;
+        border: none;
+        font-size: 18px;
+
+        &:focus {
+
+            box-shadow: none;
+            outline: none;
+        }
+    }
+
+
+
+}
+
+.custom-tel-flag-dropdown {
+    font-weight: 400;
+    color: transparent !important;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    margin: 0 5px;
+    border: 1px solid transparent !important;
+    font-size: 18px;
+    line-height: 1.5;
+    outline: 0 none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    &.open {
+        background: transparent !important;
+
+    }
+
+    .selected-flag {
+        max-width: 44px !important;
+    }
+
+    .selected-flag {
+        width: 100%;
+        height: 100%;
+        padding: 0 0 0 8px;
+    }
+}
+
+.custom-tel-dropdown {
+    margin-left: 0px !important;
+    width: 320px !important;
+
+    .country-name {
+        color: #6b6b6b;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+
+    .country {
+        align-items: center;
+        display: flex;
+
+        .dial-code {
+            font-size: 15px;
+        }
+
+    }
+
+    .highlight {
+        background-color: #e0dfdf;
+        margin: 1rem 0 0.5rem;
+    }
+
+}
+
+.country-phone-input {
+    .dropInput {
+        margin-bottom: 25px;
+
+        .input-group {
+            border-radius: 0.25rem;
+            border: solid 1px $grey-dark;
+
+
+            .Mui-error {
+                border: solid 1px #f44336;
+            }
+        }
+
+        .error {
+            border: solid 1px #f44336;
+        }
+    }
+}

@@ -6,6 +6,7 @@ import { ALERT_ACTIONS } from './alertActions';
 
 export const HOMEPAGE_ACTIONS = {
 	GET_HOMEPAGE_APP_METADATA,
+	FETCH_HOMEPAGE_APP_METADATA,
 	GET_HOMEPAGE_CONTENTS,
 	GET_MEGA_MENU_CONTENTS,
 	GET_FEATURED_ITEMS
@@ -20,6 +21,38 @@ function GET_HOMEPAGE_APP_METADATA() {
 		.catch((error) => {
 			return response;
 		})
+}
+
+function FETCH_HOMEPAGE_APP_METADATA() {
+	return (dispatch, getState) => {
+		dispatch(request())
+		apiService
+			.getApplicationMetaData()
+			.then((response) => {
+				const responseStatus = response?.data?.status
+				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
+					const data = response?.data?.body
+					dispatch(success(data))
+				}
+			})
+			.catch((error) => {
+				const { error_message } = HELPER.formatFailureApiResponse(error)
+				dispatch(failure(error_message?.message))
+				dispatch(ALERT_ACTIONS.error(error_message?.message))
+			})
+	}
+	function request() {
+		return { type: HOME_CONSTANTS.HOMEPAGE_META.REQUEST }
+	}
+	function success(response) {
+		return {
+			type: HOME_CONSTANTS.HOMEPAGE_META.SUCCESS,
+			response
+		}
+	}
+	function failure() {
+		return { type: HOME_CONSTANTS.HOMEPAGE_META.FAILURE }
+	}
 }
 
 function GET_HOMEPAGE_CONTENTS() {

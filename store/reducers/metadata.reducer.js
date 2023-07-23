@@ -8,7 +8,9 @@ const initialState = {
   authBanners: [],
   homeContent: [],
 
-  mainMenuCategories: []
+  mainMenuCategories: [],
+  metaLoading: false,
+  metaCountryList: []
 }
 
 const metaDataReducer = (state = initialState, action) => {
@@ -42,20 +44,48 @@ const metaDataReducer = (state = initialState, action) => {
 
 
     case META_CONSTANTS.COUNTRY_META.REQUEST:
-      return state
+      return {
+        ...state,
+        metaLoading: true
+      }
     case META_CONSTANTS.COUNTRY_META.SUCCESS:
       return {
         ...state,
+        metaLoading: false,
+        metaCountryList: action?.response,
       }
     case META_CONSTANTS.COUNTRY_META.FAILURE:
-      return state
+      return {
+        ...state,
+        metaLoading: false
+      }
 
     case META_CONSTANTS.COUNTRY_LIST.REQUEST:
-      return state
+      return {
+        ...state,
+        metaLoading: true
+      }
     case META_CONSTANTS.COUNTRY_LIST.SUCCESS:
-      return state
+      let countriesList = action?.response;
+      const peopleKeys = Object.keys(countriesList);
+      const names = peopleKeys.map((key) => {
+        return {
+          "id": countriesList[key].id,
+          "name": countriesList[key].name,
+          "country_code": countriesList[key].country_code,
+          "code": countriesList[key].code
+        };
+      })
+      return {
+        ...state,
+        metaLoading: false,
+        metaCountryList: names
+      }
     case META_CONSTANTS.COUNTRY_LIST.FAILURE:
-      return state
+      return {
+        ...state,
+        metaLoading: false
+      }
 		default:
 			return state
 	}

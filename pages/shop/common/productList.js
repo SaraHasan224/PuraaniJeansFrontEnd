@@ -61,7 +61,6 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
   // var { loading, current_page, last_page, data, per_page, total } = products
   // var { sort_by, price_range } = filters
   // var loading = false;
-console.log("sort_by ", sort_by)
   const cartContext = useContext(CartContext);
   const quantity = cartContext.quantity;
   const router = useRouter();
