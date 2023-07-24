@@ -37,14 +37,14 @@ const CartProvider = (props) => {
       cartItems[index] = {
         ...item,
         qty: quantity,
-        total: (item.price - (item.price * item.discount) / 100) * quantity,
+        total: (item.discounted_price) * quantity,
       };
       setCartItems([...cartItems]);
     } else {
       const product = {
         ...item,
         qty: quantity,
-        total: item.price - (item.price * item.discount) / 100,
+        total: item.discounted_price,
       };
       setCartItems([...cartItems, product]);
     }
@@ -56,6 +56,7 @@ const CartProvider = (props) => {
   };
 
   const minusQty = () => {
+    alert("minus Qty")
     if (quantity > 1) {
       setQuantity(quantity - 1);
       setStock("InStock");
@@ -63,10 +64,11 @@ const CartProvider = (props) => {
   };
 
   const plusQty = (item) => {
-    if (item.stock >= quantity) {
+    if (item.qty >= quantity) {
       setQuantity(quantity + 1);
     } else {
-      setStock("Out of Stock !");
+      toast.error("Product is out of stock !");
+      setStock("Out of stock !");
     }
   };
 
@@ -78,7 +80,7 @@ const CartProvider = (props) => {
         cartItems[index] = {
           ...item,
           qty: quantity,
-          total: item.price * quantity,
+          total: item.discounted_price * quantity,
         };
         setCartItems([...cartItems]);
         toast.info("Product Quantity Updated !");
@@ -86,7 +88,7 @@ const CartProvider = (props) => {
         const product = {
           ...item,
           qty: quantity,
-          total: (item.price - (item.price * item.discount) / 100) * quantity,
+          total: item.discounted_price * quantity,
         };
         setCartItems([...cartItems, product]);
         toast.success("Product Added Updated !");

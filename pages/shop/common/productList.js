@@ -324,7 +324,7 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
                       </a>
                     </li>
                   ))}
-                  {selectedPrice.max > 0 ??
+                  {selectedPrice?.max > 0 ??
                     <li>
                       <a href={null} className="filter_tag">
                         price: {selectedPrice.min}- {selectedPrice.max}

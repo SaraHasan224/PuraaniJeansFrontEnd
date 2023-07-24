@@ -9,13 +9,13 @@ const CartHeader = ({ item, symbol }) => {
     <Fragment>
       <li>
         <div className="media">
-          <Link href={"/product-details/" + item.id}>
+          <Link href={"/product-details/" + item.handle}>
             <a>
               <Media alt="" className="me-3" src={`${item.image}`} />
             </a>
           </Link>
           <div className="media-body">
-            <Link href={"/product-details/" + item.id}>
+            <Link href={"/product-details/" + item.handle}>
               <a>
                 <h6>{item.title}</h6>
               </a>
@@ -24,7 +24,7 @@ const CartHeader = ({ item, symbol }) => {
             <h4>
               <span>
                 {item.qty} x {symbol}
-                {(item.price - (item.price * item.discount) / 100).toFixed(2)}
+                {(item.price).toFixed(2)}
               </span>
             </h4>
           </div>

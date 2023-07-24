@@ -13,7 +13,7 @@ const login = '/auth/login?redirected=true'; // Define your login route address.
 const checkUserAuthentication = () => {
   let checkAuth = false;
     // Perform localStorage action
-    checkAuth = LOCAL_STORAGE_SERVICE._getFromLocalStorage("user");
+    checkAuth = LOCAL_STORAGE_SERVICE._getFromLocalStorage("access_token");
   return { auth: HELPER.isNotEmpty(checkAuth) ? checkAuth : false }; // change null to { isAdmin: true } for test it.
 };
 

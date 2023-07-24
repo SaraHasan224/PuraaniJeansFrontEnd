@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { CONSTANTS, HELPER, LOCAL_STORAGE_SERVICE } from '../../utils'
+import { CONSTANTS, COOKIE_STORAGE_SERVICE, HELPER, LOCAL_STORAGE_SERVICE } from '../../utils'
 import { AUTH_CONSTANTS } from '../actionTypes'
 import { apiService } from '../middlewares/apiservice'
 import { ALERT_ACTIONS } from './alertActions'
@@ -20,6 +20,7 @@ function SIGNUP_YOUR_ACCOUNT(data) {
 				const responseStatus = response?.data?.status
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
+					COOKIE_STORAGE_SERVICE._updateAccessToken(data?.token);
 					dispatch(success(data))
 				}
 			})
@@ -90,7 +91,6 @@ function VERIFY_YOUR_PHONE(data) {
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
 					dispatch(success(data))
-					LOCAL_STORAGE_SERVICE._saveToLocalStorage("access_token", response?.token);
 				}
 			})
 			.catch((error) => {

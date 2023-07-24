@@ -1,4 +1,4 @@
-import { HELPER } from '../../utils'
+import { HELPER, LOCAL_STORAGE_SERVICE } from '../../utils'
 import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
@@ -33,16 +33,16 @@ function _getAccessToken() {
 	return cookies.get('access_token')
 }
 function _getAccessTokenFromSession() {
-	const localStorageAT = localStorage.getItem('access_token')
+	const localStorageAT = LOCAL_STORAGE_SERVICE._getFromLocalStorage('access_token')
 	const cookiesAT = cookies.get('access_token')
 	return HELPER.isNotEmpty(localStorageAT) ? localStorageAT : cookiesAT
 }
 function _updateAccessToken(access_token) {
-	localStorage.setItem('access_token', access_token)
+	LOCAL_STORAGE_SERVICE._saveToLocalStorage("access_token", access_token)
 	cookies.set('access_token', access_token, cookieSettings)
 }
 function _removeAccessToken() {
-	localStorage.removeItem('access_token')
+	LOCAL_STORAGE_SERVICE._deleteFromLocalStorage('access_token')
 	if (cookies.get('access_token') !== undefined) {
 		return cookies.remove('access_token', cookieSettings)
 	}

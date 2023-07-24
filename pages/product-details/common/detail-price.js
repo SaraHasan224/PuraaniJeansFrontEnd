@@ -4,7 +4,7 @@ import sizeChart from "../../../public/assets/images/size-chart.jpg";
 import { Modal, ModalBody, ModalHeader, Media, Input } from "reactstrap";
 import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 import CartContext from "../../../context/cart";
-import CountdownComponent from "../../../components/common/widgets/countdownComponent";
+// import CountdownComponent from "../../../components/common/widgets/countdownComponent";
 import MasterSocial from "./master_social";
 
 const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
@@ -177,7 +177,7 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
         </div>
         <div className="border-product">
           <h6 className="product-title">Time Reminder</h6>
-          <CountdownComponent />
+          {/* <CountdownComponent /> */}
         </div>
       </div>
     </>

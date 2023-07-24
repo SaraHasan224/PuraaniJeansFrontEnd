@@ -3,7 +3,8 @@ import Link from "next/link";
 import CartContext from "../../context/cart";
 import { Container, Row, Col, Media, Input } from "reactstrap";
 import { CurrencyContext } from "../../context/Currency/CurrencyContext";
-import cart from "../../../../public/assets/images/icon-empty-cart.png";
+import ALink from "../../features/alink";
+import cart from "../../public/assets/images/icon-empty-cart.png";
 
 const CartPage = () => {
   const context = useContext(CartContext);
@@ -37,10 +38,10 @@ const CartPage = () => {
   };
 
   const plusQty = (product) => {
-    if (product.stock >= quantity) {
+    if (product.qty >= quantity) {
       setQty(quantity + 1);
     } else {
-      setStock("Out of Stock !");
+      setStock("Out of stock !");
     }
   };
 
@@ -67,23 +68,19 @@ const CartPage = () => {
                       <tbody key={index}>
                         <tr>
                           <td>
-                            <Link href={`/left-sidebar/product/` + item.id}>
+                            <ALink href={`/product-details/` + item.handle}>
                               <a>
                                 <Media
-                                  src={
-                                    item.images
-                                      ? item.images[0].src
-                                      : item.images[0].src
-                                  }
+                                  src={item.image}
                                   alt=""
                                 />
                               </a>
-                            </Link>
+                            </ALink>
                           </td>
                           <td>
-                            <Link href={`/left-sidebar/product/` + item.id}>
-                              <a>{item.title}</a>
-                            </Link>
+                            <ALink href={`/product-details/` + item.handle}>
+                              <a>{item.name}</a>
+                            </ALink>
                             <div className="mobile-cart-content row">
                               <div className="col-xs-3">
                                 <div className="qty-box">
@@ -107,8 +104,7 @@ const CartPage = () => {
                               <div className="col-xs-3">
                                 <h2 className="td-color">
                                   {symbol}
-                                  {item.price -
-                                    (item.price * item.discount) / 100}
+                                  { item.price}
                                 </h2>
                               </div>
                               <div className="col-xs-3">
@@ -126,7 +122,7 @@ const CartPage = () => {
                           <td>
                             <h2>
                               {symbol}
-                              {item.price - (item.price * item.discount) / 100}
+                              {item.discounted_price}
                             </h2>
                           </td>
                           <td>

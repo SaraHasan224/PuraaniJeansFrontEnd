@@ -1,17 +1,20 @@
 import React, { useContext, useState } from "react";
-import { Media, Container, Form, Row, Col } from "reactstrap";
-import CartContext from "../../../../helpers/cart";
-import paypal from "../../../../public/assets/images/paypal.png";
-import { PayPalButton } from "react-paypal-button-v2";
-import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { CurrencyContext } from "../../../../helpers/Currency/CurrencyContext";
+
+import { useForm } from "react-hook-form";
+import { Media, Container, Form, Row, Col } from "reactstrap";
+
+import paypal from "../../../public/assets/images/paypal.png";
+// import { PayPalButton } from "react-paypal-button-v2";
+import CartContext from "../../../context/cart/CartContext";
+import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 
 const CheckoutPage = () => {
   const cartContext = useContext(CartContext);
-  const cartItems = cartContext.state;
-  const cartTotal = cartContext.cartTotal;
   const curContext = useContext(CurrencyContext);
+  console.log("cartContext: ", cartContext)
+  const cartItems = cartContext?.state;
+  const cartTotal = cartContext?.cartTotal;
   const symbol = curContext.state.symbol;
   const [obj, setObj] = useState({});
   const [payment, setPayment] = useState("cod");
@@ -284,19 +287,20 @@ const CheckoutPage = () => {
                                 Place Order
                               </button>
                             ) : (
-                              <PayPalButton
-                                amount="0.01"
-                                onSuccess={(details, data) => {
-                                  alert("Transaction completed by " + details.payer.name.given_name);
+                              ""
+                              // <PayPalButton
+                              //   amount="0.01"
+                              //   onSuccess={(details, data) => {
+                              //     alert("Transaction completed by " + details.payer.name.given_name);
 
-                                  return fetch("/paypal-transaction-complete", {
-                                    method: "post",
-                                    body: JSON.stringify({
-                                      orderID: data.orderID
-                                    })
-                                  });
-                                }}
-                              />
+                              //     return fetch("/paypal-transaction-complete", {
+                              //       method: "post",
+                              //       body: JSON.stringify({
+                              //         orderID: data.orderID
+                              //       })
+                              //     });
+                              //   }}
+                              // />
                             )}
                           </div>
                         ) : (

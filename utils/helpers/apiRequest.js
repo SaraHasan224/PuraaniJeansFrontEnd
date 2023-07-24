@@ -41,14 +41,12 @@ const makeRequest =
 		}
 
 const API_REQUEST =
-	(method, url, token, allow_error_pages, allow_byPass_Expiry = false) =>
+	(method, url, token) =>
 		(...params) => {
 			return makeRequest(mainInstance)(
 				method,
 				url,
 				token,
-				allow_error_pages,
-				allow_byPass_Expiry,
 				...params
 			)
 		}

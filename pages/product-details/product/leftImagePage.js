@@ -39,6 +39,120 @@ const GET_SINGLE_PRODUCTS = gql`
     }
 `;
 
+var data = {   
+    "id": 1,
+    "title": "trim dress",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+    "type": "fashion",
+    "brand": "nike",
+    "collection": ["new products"],
+    "category": "Women",
+    "price": 145,
+    "sale": true,
+    "discount": "40",
+    "stock": 5,
+    "new": true,
+    "tags": [
+        "new",
+        "s",
+        "m",
+        "yellow",
+        "white",
+        "pink",
+        "nike"
+    ],
+    "variants": [
+        {
+            "variant_id": 101,
+            "id": 1.1,
+            "sku": "sku1",
+            "size": "s",
+            "color": "yellow",
+            "image_id": 111
+        },
+        {
+            "variant_id": 102,
+            "id": 1.2,
+            "sku": "sku2",
+            "size": "s",
+            "color": "white",
+            "image_id": 112
+        },
+        {
+            "variant_id": 103,
+            "id": 1.3,
+            "sku": "sku3",
+            "size": "s",
+            "color": "pink",
+            "image_id": 113
+        },
+        {
+            "variant_id": 104,
+            "id": 1.4,
+            "sku": "sku4",
+            "size": "m",
+            "color": "yellow",
+            "image_id": 111
+        },
+        {
+            "variant_id": 105,
+            "id": 1.5,
+            "sku": "sku5",
+            "size": "m",
+            "color": "white",
+            "image_id": 112
+        },
+        {
+            "variant_id": 106,
+            "id": 1.6,
+            "sku": "sku5",
+            "size": "m",
+            "color": "pink",
+            "image_id": 113
+        },
+        {
+            "variant_id": 107,
+            "id": 1.7,
+            "sku": "sku1",
+            "size": "l",
+            "color": "yellow",
+            "image_id": 111
+        }
+    ],
+    "images": [
+        {
+            "image_id": 111,
+            "id": 1.1,
+            "alt": "yellow",
+            "src": "/assets/images/pro3/39.jpg",
+            "variant_id": [
+                101,
+                104
+            ]
+        },
+        {
+            "image_id": 112,
+            "id": 1.2,
+            "alt": "white",
+            "src": "/assets/images/pro3/6.jpg",
+            "variant_id": [
+                102,
+                105
+            ]
+        },
+        {
+            "image_id": 113,
+            "id": 1.3,
+            "alt": "pink",
+            "src": "/assets/images/pro3/25.jpg",
+            "variant_id": [
+                103,
+                106
+            ]
+        }
+    ]
+}
+
 const LeftImagePage = () => {
 
     const context = useContext(CartContext);
@@ -48,11 +162,13 @@ const LeftImagePage = () => {
     const [state, setState] = useState({ nav1: null, nav2: null });
     const slider1 = useRef();
     const slider2 = useRef();
-    var { loading, data } = useQuery(GET_SINGLE_PRODUCTS, {
-        variables: {
-            id: 1
-        }
-    });
+    // var { loading, data } = useQuery(GET_SINGLE_PRODUCTS, {
+    //     variables: {
+    //         id: 1
+    //     }
+    // });
+    var loading = false;
+    
     var products = {
         slidesToShow: 1,
         slidesToScroll: 1,

@@ -6859,24 +6859,24 @@ header {
           a {
             &:hover {
               background-image: linear-gradient(to right,
-                  var(--gradient1),
-                  var(--gradient2));
+              var(theme-deafult-light),
+              var(theme-deafult-dark));
             }
           }
   
           button {
             &:hover {
               background-image: linear-gradient(to right,
-                  var(--gradient1),
-                  var(--gradient2));
+                  var(theme-deafult-light),
+                  var(theme-deafult-dark));
             }
           }
         }
   
         .quick-view-part {
           background-image: linear-gradient(to right,
-              var(--gradient1),
-              var(--gradient2));
+          var(theme-deafult-light),
+          var(theme-deafult-dark));
         }
       }
     }

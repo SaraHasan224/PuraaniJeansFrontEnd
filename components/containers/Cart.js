@@ -89,7 +89,7 @@ const CartComponent = ({ icon, layout }) => {
               </li>
               <li>
                 <div className="buttons">
-                  <Link href="/page/account/cart">
+                  <Link href="/cart">
                     <a className="btn btn-solid btn-xs view-cart">view cart</a>
                   </Link>
                   <Link href="/page/account/checkout">

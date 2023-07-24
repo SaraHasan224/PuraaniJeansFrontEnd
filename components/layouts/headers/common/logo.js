@@ -7,7 +7,7 @@ const Logo = ({ logo }) => {
     const router = useRouter()
     return (
         <Fragment>
-            <ALink href={""}>
+            <ALink href={"/"}>
                 <img src={logo} alt="" className="img-fluid" />
             </ALink>
         </Fragment>
