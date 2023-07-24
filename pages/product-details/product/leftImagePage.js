@@ -1,44 +1,14 @@
 import React, { useContext, useState, useRef ,useEffect} from 'react';
 import { Container, Row, Col ,Media} from 'reactstrap';
-import DetailsWithPrice from '../common/detail-price';
+import { useSelector } from 'react-redux';
 import Slider from 'react-slick';
-import { gql } from '@apollo/client';
-import { useQuery } from "@apollo/client";
-import CartContext from '../../../context/cart';
+
+import DetailsWithPrice from '../common/detail-price';
 import ImageZoom from '../common/image-zoom';
+import CartContext from '../../../context/cart';
 import { CurrencyContext } from '../../../context/Currency/CurrencyContext';
-
-const GET_SINGLE_PRODUCTS = gql`
-    query product ($id:Int!) {
-        product (id:$id) {
-            id
-            title
-            description
-            type
-            brand
-            category 
-            price
-            new
-            sale
-            discount
-            stock
-            variants
-            {
-                id
-                color
-                image_id
-                variant_id
-                size
-            }
-            images
-            {
-                image_id
-                src
-            }
-        }
-    }
-`;
-
+import { HELPER } from '../../../utils';
+/*
 var data = {   
     "id": 1,
     "title": "trim dress",
@@ -152,8 +122,28 @@ var data = {
         }
     ]
 }
+*/
+var products = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    dots: false,
+    arrows: true,
+    fade: true,
+    infinite: false
+};
+var productsnav = {
+    slidesToShow: 3,
+    swipeToSlide: true,
+    arrows: false,
+    dots: false,
+    vertical:true,
+    focusOnSelect: true,
+    infinite: false
+};
 
 const LeftImagePage = () => {
+    const { product, loading } = useSelector((state) => state.products);
+
 
     const context = useContext(CartContext);
     const addToCart = context.addToCart;
@@ -162,37 +152,13 @@ const LeftImagePage = () => {
     const [state, setState] = useState({ nav1: null, nav2: null });
     const slider1 = useRef();
     const slider2 = useRef();
-    // var { loading, data } = useQuery(GET_SINGLE_PRODUCTS, {
-    //     variables: {
-    //         id: 1
-    //     }
-    // });
-    var loading = false;
-    
-    var products = {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        dots: false,
-        arrows: true,
-        fade: true,
-        infinite: false
-    };
-    var productsnav = {
-        slidesToShow: 3,
-        swipeToSlide: true,
-        arrows: false,
-        dots: false,
-        vertical:true,
-        focusOnSelect: true,
-        infinite: false
-    };
-
+   
     useEffect(() => {
         setState({
             nav1: slider1.current,
             nav2: slider2.current
         });
-    }, [data]);
+    }, [product]);
 
     const changeColorVar = (img_id) => {
         slider2.current.slickGoTo(img_id)
@@ -204,7 +170,7 @@ const LeftImagePage = () => {
         <section>
             <div className="collection-wrapper">
                 <Container>
-                    {(!data || !data.product || data.product.length === 0 || loading) ?
+                    {(HELPER.isEmpty(product) || loading) ?
                         'loading'
                         :
                         <Row className="leftImage">
@@ -215,25 +181,23 @@ const LeftImagePage = () => {
                                         asNavFor={nav1}
                                         ref={slider => (slider2.current = slider)}
                                     >
-                                        {data.product.variants ?
-                                            data.product.images.map((vari, index) =>
+                                        {product.images.map((vari, index) =>
                                                 <div key={index}>
-                                                    <Media src={`${vari.src}`} key={index} alt={vari.alt} className="img-fluid" />
+                                                    <Media src={`${vari.url}`} key={index} alt={vari.alt} className="img-fluid" />
                                                 </div>
-                                            ) :
-                                            ''}
+                                            )}
                                     </Slider>
                                 </Row>
                             </Col>
                             <Col lg="5" sm="10" xs="12" className="order-up">
                                 <Slider {...products} asNavFor={nav2} ref={slider => (slider1.current = slider)} className="product-right-slick">
-                                    {data.product.variants ?
-                                        data.product.images.map((vari, index) =>
+                                    {product.variants ?
+                                        product.images.map((vari, index) =>
                                             <div key={index}>
                                                 <ImageZoom image={vari} />
                                             </div>
                                         ) :
-                                        data.product.images.map((vari, index) =>
+                                        product.images.map((vari, index) =>
                                             <div key={index}>
                                                 <ImageZoom image={vari} />
                                             </div>
@@ -241,7 +205,7 @@ const LeftImagePage = () => {
                                 </Slider>
                             </Col>
                             <Col lg="6" className="rtl-text">
-                                <DetailsWithPrice symbol={symbol} item={data.product} changeColorVar={changeColorVar} navOne={state.nav1} addToCartClicked={addToCart} />
+                                <DetailsWithPrice symbol={symbol} item={product} changeColorVar={changeColorVar} navOne={state.nav1} addToCartClicked={addToCart} />
                             </Col>
                         </Row>
                     }

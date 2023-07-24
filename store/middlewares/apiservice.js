@@ -12,7 +12,7 @@ export const apiService = {
 	getMegaMenu,
 	getFeaturedItems,
 	getCategoryItems,
-	
+	getProductDetail,
 	
 	getCountryMetaData,
 	getCountriesList,
@@ -60,6 +60,14 @@ async function getCategoryItems(slug) {
 	return await API_REQUEST(
 		'get',
 		`${baseURL}${API_ENDPOINTS.GET_CATEGORY}/${slug}/products`,
+		false,
+	)()
+}
+
+async function getProductDetail(handle) {
+	return await API_REQUEST(
+		'post',
+		`${baseURL}${API_ENDPOINTS.GET_PRODUCT_DETAIL}/${handle}`,
 		false,
 	)()
 }

@@ -60,7 +60,6 @@ function SIGNIN_YOUR_ACCOUNT(data) {
 				}
 			})
 			.catch((error) => {
-				console.log("error: ",error)
 				const { error_message } = HELPER.formatFailureApiResponse(error)
 				dispatch(failure(error_message))
 				dispatch(ALERT_ACTIONS.error(error_message?.message))
@@ -94,7 +93,6 @@ function VERIFY_YOUR_PHONE(data) {
 				}
 			})
 			.catch((error) => {
-				console.log("error: ",error)
 				const { error_message } = HELPER.formatFailureApiResponse(error)
 				dispatch(failure(error_message))
 				dispatch(ALERT_ACTIONS.error(error_message?.message))

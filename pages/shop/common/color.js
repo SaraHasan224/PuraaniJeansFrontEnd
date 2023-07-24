@@ -12,7 +12,6 @@ const Color = () => {
     const context = useContext(FilterContext);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
-    console.log("colors: ", colors)
     return (
         <div className="collection-collapse-block open">
             <h3 className="collapse-block-title" onClick={toggle}>colors</h3>

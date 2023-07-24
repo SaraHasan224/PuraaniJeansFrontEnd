@@ -21,7 +21,6 @@ const FilterProvider = (props) => {
   const max = router.query.max;
   let sizeParam = size ? size.split(",") : null;
   let brandParam = brand ? brand.split(",") : [];
-  console.log("router query: ", router.query)
   const [categoryTitle, setCategoryTitle] = useState(title ? title : "Shop");
   const [categorySlug, setCategorySlug] = useState(slug ? slug : "");
   const [parentCategoryTitle, setParentCategoryTitle] = useState(parentTitle ? parentTitle : "Home");  

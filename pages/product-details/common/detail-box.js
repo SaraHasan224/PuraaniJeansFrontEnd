@@ -53,8 +53,8 @@ const DetailBox = ({ item, changeColorVar }) => {
         )}
       </ul>
       <div className="product-description border-product">
-        <h6 className="product-title">Time Reminder</h6>
-        <CountdownComponent />
+        {/* <h6 className="product-title">Time Reminder</h6>
+        <CountdownComponent /> */}
         <h6 className="product-title">select size</h6>
         {item.variants ? (
           <div>

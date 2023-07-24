@@ -14,7 +14,6 @@ var mainInstance = axios.create({
 const makeRequest =
 	(instance) =>
 		(method, url, token, ...params) => {
-			console.log("method, url, token: ", method, url, token)
 			let access_token = '';
 				// Perform localStorage action
 				access_token = LOCAL_STORAGE_SERVICE._getFromLocalStorage("access_token")
@@ -22,7 +21,6 @@ const makeRequest =
 				axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token
 				mainInstance.defaults.headers.common['Authorization'] = 'Bearer ' + access_token
 			}
-			console.log("access_token: ", access_token)
 
 			if (!token) {
 				delete axios.defaults.headers.common['Authorization']

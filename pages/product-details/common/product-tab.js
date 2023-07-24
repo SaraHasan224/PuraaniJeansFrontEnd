@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Container,
   Row,
@@ -9,9 +10,14 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import { HELPER } from "../../../utils";
 
 const ProductTab = () => {
+  const { product } = useSelector((state) => state.products);
+
   const [activeTab, setActiveTab] = useState("1");
+
+  const selected_variant = HELPER.getSelectedVariant(product);
 
   return (
     <section className="tab-product m-0">
@@ -28,7 +34,7 @@ const ProductTab = () => {
                     Description
                   </NavLink>
                 </NavItem>
-                <NavItem className="nav nav-tabs" id="myTab" role="tablist">
+                {/* <NavItem className="nav nav-tabs" id="myTab" role="tablist">
                   <NavLink
                     className={activeTab === "2" ? "active" : ""}
                     onClick={() => setActiveTab("2")}
@@ -51,26 +57,13 @@ const ProductTab = () => {
                   >
                     Write Review
                   </NavLink>
-                </NavItem>
+                </NavItem> */}
               </Nav>
               <TabContent activeTab={activeTab} className="nav-material">
                 <TabPane tabId="1">
                   <p className="mb-0 pb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum." sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis nostrud exercitation ullamco laboris nisi
-                    ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                    reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id
-                    est laborum."
+                    {HELPER.isNotEmpty(selected_variant?.variant_short_description) ? 
+                        selected_variant?.variant_short_description : product?.short_description}
                   </p>
                 </TabPane>
                 <TabPane tabId="2">

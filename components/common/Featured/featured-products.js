@@ -44,7 +44,6 @@ const ProductItem = ({
   };
 
   const clickProductDetail = () => {
-    console.log("product detail: ", product)
     router.push(`/product-details/${product.handle}`, undefined, { shallow: true });
   };
 

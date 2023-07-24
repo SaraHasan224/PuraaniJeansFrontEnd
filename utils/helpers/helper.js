@@ -302,6 +302,27 @@ const formatFailureApiResponse = (error) => {
 	return { error_response, error_message, errorBody }
 }
 
+function getSelectedVariant(product) {
+	let { default_variant_id, variants, selected_variant } = product;
+	if (HELPER.isNotEmpty(selected_variant)) {
+	  return selected_variant;
+	} else if (HELPER.isNotEmpty(variants)) {
+	  let selectedVariant = HELPER.isNotEmpty(variants?.variant_id)
+		? variants
+		: variants.find(variant => variant.variant_id === default_variant_id);
+	  if (HELPER.isNotEmpty(selectedVariant.attributes)) {
+		selectedVariant.attributes = selectedVariant.attributes?.map(e =>
+		  Array.isArray(e?.options) ? { ...e, options: e?.options[0] } : e
+		);
+	  } else {
+		selectedVariant.attributes = product.attributes;
+	  }
+	  return selectedVariant;
+	}
+	return product;
+  }
+
+  
 const HELPER = {
 	stringToBoolean,
 	isEmpty,
@@ -311,6 +332,7 @@ const HELPER = {
 	findProvinceByCountryId,
 	findCityByProvinceId,
 	findAreaByCityId,
-	formatFailureApiResponse
+	formatFailureApiResponse,
+	getSelectedVariant
 }
 export default HELPER

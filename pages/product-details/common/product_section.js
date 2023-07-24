@@ -200,7 +200,7 @@ const ProductSection = () => {
       <Container>
         <Row>
           <Col className="product-related">
-            <h2>related products</h2>
+            <h2>Recently Viewed</h2>
           </Col>
         </Row>
         <Row className="search-product">

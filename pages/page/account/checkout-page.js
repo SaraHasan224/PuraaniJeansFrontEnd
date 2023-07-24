@@ -12,7 +12,6 @@ import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 const CheckoutPage = () => {
   const cartContext = useContext(CartContext);
   const curContext = useContext(CurrencyContext);
-  console.log("cartContext: ", cartContext)
   const cartItems = cartContext?.state;
   const cartTotal = cartContext?.cartTotal;
   const symbol = curContext.state.symbol;

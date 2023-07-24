@@ -12,6 +12,8 @@ export const API_ENDPOINTS = {
 
     GET_CATEGORY: "api/categories",
 
+    GET_PRODUCT_DETAIL: "api/product",
+
     AUTH_SIGNUP: "api/register",
     AUTH_SIGNIN: "api/login",
     AUTH_PHONE_VERIFY: "api/verify-phone",

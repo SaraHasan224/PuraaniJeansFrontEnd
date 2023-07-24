@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Context from "./index";
 import { toast } from "react-toastify";
+import { HELPER } from "../../utils";
 
 const getLocalCartItems = () => {
   try {
@@ -56,17 +57,22 @@ const CartProvider = (props) => {
   };
 
   const minusQty = () => {
-    alert("minus Qty")
     if (quantity > 1) {
       setQuantity(quantity - 1);
       setStock("InStock");
     }
   };
 
-  const plusQty = (item) => {
-    if (item.qty >= quantity) {
+  const plusQty = (item, itemSelectedVariant = {}) => {
+    let allowedQty = item?.qty;
+    if(HELPER.isNotEmpty(itemSelectedVariant)) {
+      let selected_variant = HELPER.getSelectedVariant(item);
+      allowedQty = selected_variant?.max_quantity;
+    }
+    if (allowedQty >= quantity) {
       setQuantity(quantity + 1);
     } else {
+      setQuantity(quantity);
       toast.error("Product is out of stock !");
       setStock("Out of stock !");
     }

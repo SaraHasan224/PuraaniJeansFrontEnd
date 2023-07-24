@@ -185,8 +185,8 @@ const SwatchDetailsWithPrice = (params) => {
           </div>
         </div>
         <div className="border-product">
-          <h6 className="product-title">Time Reminder</h6>
-          <CountdownComponent />
+          {/* <h6 className="product-title">Time Reminder</h6>
+          <CountdownComponent /> */}
         </div>
       </div>
     </>

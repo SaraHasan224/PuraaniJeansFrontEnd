@@ -34,31 +34,52 @@ const initialState = {
 	},
 	loading: false,
 	fetchMore: false,
+
+	product: []
 }
 
 const productsReducer = (state = initialState, action) => {
 	switch (action.type) {
-      
+
 		case PRODUCTS_CONSTANTS.PRODUCT_LISTING.REQUEST:
-		  return {
-			...state,
-			loading: true,
-		  }
+			return {
+				...state,
+				loading: true,
+			}
 		case PRODUCTS_CONSTANTS.PRODUCT_LISTING.SUCCESS:
-		  return {
-			...state,
-			loading: false,
-			products: action?.response?.products,
-			filters: action?.response?.filters,
-			slug: action?.response?.slug,
-			type: action?.response?.type,
-		  }
+			return {
+				...state,
+				loading: false,
+				products: action?.response?.products,
+				filters: action?.response?.filters,
+				slug: action?.response?.slug,
+				type: action?.response?.type,
+			}
 		case PRODUCTS_CONSTANTS.PRODUCT_LISTING.FAILURE:
 			return {
-			  ...state,
-			  loading: false,
+				...state,
+				loading: false,
 			}
-	
+
+
+
+
+		case PRODUCTS_CONSTANTS.PRODUCT_DETAIL.REQUEST:
+			return {
+				...state,
+				loading: true,
+			}
+		case PRODUCTS_CONSTANTS.PRODUCT_DETAIL.SUCCESS:
+			return {
+				...state,
+				loading: false,
+				product: action?.response,
+			}
+		case PRODUCTS_CONSTANTS.PRODUCT_DETAIL.FAILURE:
+			return {
+				...state,
+				loading: false,
+			}
 		default:
 			return state
 	}

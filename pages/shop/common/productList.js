@@ -85,7 +85,6 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [layout, setLayout] = useState(layoutList);
   const [url, setUrl] = useState();
-  console.log("filterContext: ", filterContext)
   
   useEffect(() => {
     if(HELPER.isNotEmpty(categorySlug)) {
