@@ -1,4 +1,5 @@
 import { HOMEPAGE_ACTIONS } from './homePageActions'
+import { CLOSET_ACTIONS } from './closetActions'
 import { META_ACTIONS } from './metaActions'
 import { ALERT_ACTIONS } from './alertActions'
 import { ERROR_ACTION } from './errorAction'
@@ -8,6 +9,7 @@ import { AUTH_ACTIONS } from "./authActions"
 
 export {
 	ALERT_ACTIONS,
+	CLOSET_ACTIONS,
 	ERROR_ACTION,
 	HOMEPAGE_ACTIONS,
 	MENU_ITEM_ACTIONS,

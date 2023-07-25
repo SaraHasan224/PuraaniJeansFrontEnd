@@ -2,7 +2,7 @@ import React from 'react';
 import Router from 'next/router';
 import { HELPER, LOCAL_STORAGE_SERVICE } from '../../utils';
 
-const login = '/auth/login?redirected=true'; // Define your login route address.
+const login = '/auth/signin?redirected=true'; // Define your login route address.
 
 /**
  * Check user authentication and authorization

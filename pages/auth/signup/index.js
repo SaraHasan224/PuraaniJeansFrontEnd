@@ -9,12 +9,12 @@ import AuthLayout from '../../../components/layouts/auth-layout';
 import { Autocomplete, CircularProgress, FormControl, FormHelperText, FormLabel } from '@mui/joy';
 import { AUTH_ACTIONS, HOMEPAGE_ACTIONS, META_ACTIONS } from '../../../store/actions';
 import { CONSTANTS, HELPER, LOCAL_STORAGE_SERVICE } from '../../../utils';
+import ALink from '../../../features/alink';
 
-const Login = () => {
+const Signup = () => {
     const dispatch = useDispatch()
-
     const { meta, metaLoading, metaCountryList, authBanners } = useSelector((state) => state.metadata);
-    const { isLoggedIn, isLoggedInCustomer, isLoggedProcessing } = useSelector((state) => state.auth);
+    const { isLoggedIn, isLoggedInCustomer, authLoading } = useSelector((state) => state.auth);
 
     const router = useRouter();
     const [open, setOpen] = useState(false);
@@ -28,33 +28,33 @@ const Login = () => {
     const [subsStatus, setSubsStatus] = useState(CONSTANTS.NO);
     const [isLoggedInSubmitPressed, setIsLoggedInSubmitPressed] = useState(false);
 
-    const onLoginAuthSubmit = () => {
-       if(!isLoggedProcessing && !isLoggedInSubmitPressed) {
-        dispatch(AUTH_ACTIONS.SIGNUP_YOUR_ACCOUNT({
-            country: country?.code,
-            first_name: fName,
-            last_name: lName,
-            email_address: email,
-            password,
-            password_confirmation: cpassword,
-            subscription: subsStatus,
-        }));
-        setIsLoggedInSubmitPressed(true)
-       }
+    const onSignupAction = () => {
+        if (!authLoading && !isLoggedInSubmitPressed) {
+            dispatch(AUTH_ACTIONS.SIGNUP_YOUR_ACCOUNT({
+                country: country?.code,
+                first_name: fName,
+                last_name: lName,
+                email_address: email,
+                password,
+                password_confirmation: cpassword,
+                subscription: subsStatus,
+            }));
+            setIsLoggedInSubmitPressed(true)
+        }
     }
 
     useEffect(() => {
-        if(HELPER.isEmpty(authBanners)) {
+        if (HELPER.isEmpty(authBanners)) {
             document.documentElement.style.setProperty("--gradient1", "#ff4c3b");
             document.documentElement.style.setProperty("--gradient2", "#FA4729");
             dispatch(HOMEPAGE_ACTIONS.FETCH_HOMEPAGE_APP_METADATA())
-        } 
+        }
         dispatch(META_ACTIONS.COUNTRIES_LIST()); // For demo purposes.
         return () => { };
     }, []);
 
     useEffect(() => {
-        if(isLoggedIn) {
+        if (isLoggedIn) {
             LOCAL_STORAGE_SERVICE._saveToLocalStorage("user", true)
             LOCAL_STORAGE_SERVICE._saveToLocalStorage("user_info", isLoggedInCustomer);
             router.push(`/auth/phone`);
@@ -63,7 +63,7 @@ const Login = () => {
 
 
     return (
-        <AuthLayout parent="home" title="login">
+        <AuthLayout parent="home" title="Sign up">
             <div className="d-flex bg-white justify-content-center align-items-center">
                 <div className="app-login-box">
                     <div className="brand-logo layout2-logo">
@@ -76,11 +76,19 @@ const Login = () => {
                             </b>
                         </span>
                         <span className="mb-2">
-                            Exploring the large variety of clothes with Purani jeans.
+                            Exploring the large variety of clothes with {process.env.NEXT_PUBLIC_APP_NAME}.
                         </span>
                     </h4>
+                    <h6 className="mt-4">
+                        <span>
+                                Already have an account?&nbsp;
+                                <ALink href="/auth/signin">
+                                    Click here to <b><u>Sign In</u></b>
+                                </ALink>
+                        </span>
+                    </h6>
                     <div className="divider row"></div>
-                    <div className="mt-5">
+                    <div className="mt-2">
                         <Form className="">
                             <Row>
                                 <Col xl="6" lg="6" md="6" sm="6">
@@ -209,17 +217,17 @@ const Login = () => {
                             <Row className='mt-2'>
                                 <button
                                     type="submit"
-                                    className="btn btn-outline black-btn" onClick={() => onLoginAuthSubmit()}
-                                    disabled={isLoggedProcessing ? true : false}
-                                >Next Step (1/3)
+                                    className="btn btn-outline black-btn" onClick={() => onSignupAction()}
+                                    disabled={authLoading && !isLoggedIn ? true : false}
+                                >Next Step (1/2)
                                 </button>
                             </Row>
                         </Form>
                     </div>
                 </div>
             </div>
-        </AuthLayout>
+        </AuthLayout >
     )
 }
 
-export default Login;
+export default Signup;

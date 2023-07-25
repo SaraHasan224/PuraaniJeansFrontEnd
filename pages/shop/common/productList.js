@@ -9,7 +9,6 @@ import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 import FilterContext from "../../../context/filter/FilterContext";
 import CartContext from "../../../context/cart";
 import ShopBreadcrumb from "./breadcrumb";
-import ALink from "../../../features/alink";
 import { useDispatch, useSelector } from "react-redux";
 import { PRODUCT_ACTIONS } from "../../../store/actions";
 import { HELPER } from "../../../utils";

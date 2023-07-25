@@ -25,7 +25,7 @@ const menuConfig = {
 const authConfig = {
   key: 'auth',
   storage,
-  blacklist: ['isLoggedProcessing', 'isPhoneVerifyProcessing']
+  blacklist: ['authLoading', 'authLoading']
 }
 
 const rootReducer = combineReducers({

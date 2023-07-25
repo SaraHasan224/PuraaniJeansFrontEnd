@@ -19,7 +19,7 @@ const LoginMobileVerification = () => {
   const dispatch = useDispatch()
 
   const { meta } = useSelector((state) => state.metadata);
-  const { isPhoneVerifyProcessing } = useSelector((state) => state.auth);
+  const { authLoading } = useSelector((state) => state.auth);
 
   const router = useRouter();
   const [email, setEmail] = useState("test@gmail.com");
@@ -69,7 +69,7 @@ const LoginMobileVerification = () => {
   const onLoginAuthSubmit = () => {
     let validationCheck = handleValidation();
     if (validationCheck.phone_number === "") {
-      if (!isPhoneVerifyProcessing) {
+      if (!authLoading) {
         dispatch(AUTH_ACTIONS.VERIFY_YOUR_PHONE({
           phone_number: phoneNumber.replace(country.dialCode, ""),
           country_code: country.dialCode,
@@ -160,7 +160,7 @@ const LoginMobileVerification = () => {
                     <button
                       type="submit"
                       className="btn btn-outline black-btn" onClick={() => onLoginAuthSubmit()}
-                      disabled={isPhoneVerifyProcessing ? true : false}
+                      disabled={authLoading ? true : false}
                     >Next Step (2/3)
                     </button>
                   </Row>
