@@ -17,6 +17,8 @@ export const API_ENDPOINTS = {
 
     AUTH_SIGNUP: "api/register",
     AUTH_SIGNIN: "api/login",
-    AUTH_PHONE_VERIFY: "api/verify-phone",
+    AUTH_OTP_SEND: "api/send/otp",
+    AUTH_OTP_VERIFY: "api/verify/otp",
+    AUTH_OTP_RESEND: "api/resend/otp",
   };
   

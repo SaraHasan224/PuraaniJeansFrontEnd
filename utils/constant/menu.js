@@ -9,6 +9,10 @@ export const CONSTANTS = {
 		INPROCESSIBLE: 422,
 		SERVER_ERROR: 500,
 	},
+   ERROR_TYPE: {
+      TOAST: "TOAST",
+      ALERT: "ALERT"
+   }
 }
 export const MENUITEMS = [
    {

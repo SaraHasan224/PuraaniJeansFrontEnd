@@ -7,6 +7,7 @@ import productsReducer from './products.reducer'
 import homeReducer from './home.reducer';
 import menuReducer from './menu.reducer';
 import authReducer from './auth.reducer';
+import alertReducer from './alert.reducer';
 
 const metaConfig = {
   key: 'meta',
@@ -29,6 +30,7 @@ const authConfig = {
 }
 
 const rootReducer = combineReducers({
+  alert: alertReducer,
   auth: persistReducer(authConfig, authReducer),
   menu: persistReducer(menuConfig, menuReducer),
   metadata: persistReducer(metaConfig, metadataReducer),

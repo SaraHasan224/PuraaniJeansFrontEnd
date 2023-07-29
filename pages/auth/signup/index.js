@@ -10,11 +10,12 @@ import { Autocomplete, CircularProgress, FormControl, FormHelperText, FormLabel 
 import { AUTH_ACTIONS, HOMEPAGE_ACTIONS, META_ACTIONS } from '../../../store/actions';
 import { CONSTANTS, HELPER, LOCAL_STORAGE_SERVICE } from '../../../utils';
 import ALink from '../../../features/alink';
+import AlertComponent from '../../../components/common/alert';
 
 const Signup = () => {
     const dispatch = useDispatch()
     const { meta, metaLoading, metaCountryList, authBanners } = useSelector((state) => state.metadata);
-    const { isLoggedIn, isLoggedInCustomer, authLoading } = useSelector((state) => state.auth);
+    const { isLoggedIn, isLoggedInCustomer, authLoading, isVerified, isVerificationAttempt, retryOtp,  } = useSelector((state) => state.auth);
 
     const router = useRouter();
     const [open, setOpen] = useState(false);
@@ -50,12 +51,19 @@ const Signup = () => {
             dispatch(HOMEPAGE_ACTIONS.FETCH_HOMEPAGE_APP_METADATA())
         }
         dispatch(META_ACTIONS.COUNTRIES_LIST()); // For demo purposes.
+        
+        if(isVerified) {
+            router.push(`/`);
+          }else if(isVerificationAttempt || retryOtp) {
+              router.push(`/auth/otp`);
+          }else if(isLoggedIn) {
+              router.push(`/auth/phone`);
+          }
         return () => { };
     }, []);
 
     useEffect(() => {
         if (isLoggedIn) {
-            LOCAL_STORAGE_SERVICE._saveToLocalStorage("user", true)
             LOCAL_STORAGE_SERVICE._saveToLocalStorage("user_info", isLoggedInCustomer);
             router.push(`/auth/phone`);
         }
@@ -87,6 +95,8 @@ const Signup = () => {
                                 </ALink>
                         </span>
                     </h6>
+                    <div className="divider row"></div>
+                    <AlertComponent/>
                     <div className="divider row"></div>
                     <div className="mt-2">
                         <Form className="">
@@ -208,7 +218,6 @@ const Signup = () => {
                                             defaultValue={subsStatus}
                                             onChange={e => setSubsStatus(!subsStatus)}
                                             className="form-control form-check-input"
-                                            required={true}
                                         />
                                         <label htmlFor="exampleCheck" className="form-check-label">Keep me logged in</label>
                                     </div>

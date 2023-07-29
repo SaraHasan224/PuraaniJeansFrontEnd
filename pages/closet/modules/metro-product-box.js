@@ -16,8 +16,8 @@ const ProductBox = ({ product, addCart, addWish, addCompare }) => {
   const cartContext = useContext(CartContext);
   const plusQty = cartContext.plusQty;
   const minusQty = cartContext.minusQty;
-  const quantity = cartContext?.quantity;
-  const setQuantity = cartContext?.setQuantity;
+  const quantity = cartContext.quantity;
+  const setQuantity = cartContext.setQuantity;
   const uniqueTags = [];
 
   const changeQty = (e) => {
@@ -35,7 +35,7 @@ const ProductBox = ({ product, addCart, addWish, addCompare }) => {
         <div className="front" onClick={clickProductDetail}>
           <a href="#!">
             <Media
-              src={product.images[0].src}
+              src={product.image}
               className="img-fluid blur-up lazyload"
               alt=""
             />
@@ -49,9 +49,6 @@ const ProductBox = ({ product, addCart, addWish, addCompare }) => {
           >
             <i className="fa fa-shopping-cart" onClick={addCart}></i>
           </button>
-          <a href={null} title="Add to Wishlist" onClick={addWish}>
-            <i className="fa fa-heart" aria-hidden="true"></i>
-          </a>
           <a
             href={null}
             data-toggle="modal"
@@ -61,63 +58,27 @@ const ProductBox = ({ product, addCart, addWish, addCompare }) => {
           >
             <i className="fa fa-search" aria-hidden="true"></i>
           </a>
-          <a href={null} title="Compare" onClick={toggleCompare}>
-            <i className="fa fa-refresh" aria-hidden="true"></i>
-          </a>
         </div>
       </div>
       <div className="product-detail" onClick={clickProductDetail}>
         <a href="#!">
-          <h6>{product.title}</h6>
+          <h6><b>{product.name}</b></h6>
         </a>
+        <br/>
         <h4>
           {currency.symbol}
           {(
-            (product.price - (product.price * product.discount) / 100) *
+           product?.discounted_price *
             currency.value
           ).toFixed(2)}
           <del>
             <span className="money">
               {currency.symbol}
-              {(product.price * currency.value).toFixed(2)}
+              {(product?.price).toFixed(2)}
             </span>
           </del>
         </h4>
       </div>
-      <Modal isOpen={modalCompare} toggle={toggleCompare} size="lg" centered>
-        <ModalHeader toggle={toggleCompare}>Quick View</ModalHeader>
-        <ModalBody>
-          <Row className="compare-modal">
-            <Col lg="12">
-              <div className="media">
-                <Media
-                  src={product.images[0].src}
-                  alt=""
-                  className="img-fluid"
-                />
-                <div className="media-body align-self-center text-center">
-                  <h5>
-                    <i className="fa fa-check"></i>Item{" "}
-                    <span>{product.title} </span>
-                    <span> successfully added to your Compare list</span>
-                  </h5>
-                  <div className="buttons d-flex justify-content-center">
-                    <Link href="/page/compare">
-                      <a
-                        href={null}
-                        className="btn-sm btn-solid"
-                        onClick={addCompare}
-                      >
-                        View Compare list
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </ModalBody>
-      </Modal>
       <Modal
         isOpen={modal}
         toggle={toggle}
@@ -133,7 +94,7 @@ const ProductBox = ({ product, addCart, addWish, addCompare }) => {
             <Col lg="6" xs="12">
               <div className="quick-view-img">
                 <Media
-                  src={product.images[0].src}
+                  src={product.image}
                   alt=""
                   className="img-fluid"
                 />

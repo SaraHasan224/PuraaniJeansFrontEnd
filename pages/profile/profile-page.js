@@ -65,7 +65,7 @@ const ProfilePage = () => {
                                     <Col md="6" className="select_input">
                                         <Label className="form-label" htmlFor="review">Country *</Label>
                                         <select className="form-select py-2" size="1">
-                                            <option value="India">India</option>
+                                            <option value="Pakistan">Pakistan</option>
                                             <option value="UAE">UAE</option>
                                             <option value="U.K">U.K</option>
                                             <option value="US">US</option>

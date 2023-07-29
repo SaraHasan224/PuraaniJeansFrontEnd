@@ -5,29 +5,31 @@ import { useRouter } from 'next/router';
 import { Form, Label, Input, Row, Col } from 'reactstrap';
 
 import withPrivateRoute from '../../../hoc/auth/withPrivateRoute';
-import AuthLayout from '../../../components/layouts/auth-layout'; 
+import AuthLayout from '../../../components/layouts/auth-layout';
 import Logo from "../../../components/layouts/headers/common/logo";
+import AlertComponent from '../../../components/common/alert';
+import useOtp from '../../../hooks/useOtp'
+import OtpInput from './otpInput'
 
 const LoginOtpVerification = () => {
-    const { meta } = useSelector((state) => state.metadata);
-
     const router = useRouter();
-    const [email, setEmail] = useState("test@gmail.com");
-    const [password, setPassword] = useState("test123");
-    const [name, setName] = useState(
-        localStorage.getItem('Name')
-    );
+    
+	const { verify_otp, setVerify_otp, submitOTP, sendOTP, digitLimit } = useOtp()
+    const { meta } = useSelector((state) => state.metadata);
+    const { isVerificationAttemptPhone, isVerified } = useSelector((state) => state.auth);
+
 
     useEffect(() => {
-        localStorage.setItem('Name', name);
-    }, [name]);
+        if(isVerified) {
+          router.push(`/`);
+        }
+      }, []);
 
-    const loginAuth = () => {
-        localStorage.setItem("user", true)
-        setTimeout(() => {
-            router.push(`/page/account/checkout`);
-        }, 200);
-    }
+    useEffect(() => {
+        if (isVerified) {
+          router.push(`/`);
+        }
+      }, [isVerified]);
 
     return (
         <AuthLayout parent="home" title="login">
@@ -39,28 +41,33 @@ const LoginOtpVerification = () => {
                     <h4 className="mb-0">
                         <span className="d-block mb-2">
                             <b>
-                                What’s your Mobile Number
+                                Otp Verification
                             </b>
                         </span>
                         <span className="mb-2">
-                            We’ve sent a 6-digit code to your number +92 431*****12.
+                            We’ve sent a 6-digit code to your number {isVerificationAttemptPhone}.
                         </span>
                     </h4>
+                    <div className="divider row"></div>
+                    <AlertComponent/>
                     <div className="divider row"></div>
                     <div className="mt-5">
                         <Form className="">
                             <Row>
-                                <Col xl="12" lg="12" md="12" sm="12">
-                                    <div className="form-group">
-                                        <Label className="form-label" htmlFor="email">
-                                            <b>Phone number</b>
-                                        </Label>
-                                        <Input type="text" defaultValue={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Email" required="" />
-                                    </div>
+                                <Col xl="8" lg="8" md="8" sm="8">
+                                    <OtpInput
+                                        value={verify_otp}
+                                        onChange={(val) => setVerify_otp(val)}
+                                        numInputs={6}
+                                        isInputNum
+                                        shouldAutoFocus={true}
+                                        separator={<span>-</span>}
+                                        className="otpFields"
+                                    />
                                 </Col>
                             </Row>
                             <Row className='mt-5'>
-                                <a href="#" className="btn btn-outline black-btn" onClick={() => loginAuth()}>Next Step (1/3)</a>
+                                <a href="#" className="btn btn-outline black-btn" onClick={(e) => submitOTP(e)}>Next Step (3/3)</a>
                             </Row>
                         </Form>
                     </div>

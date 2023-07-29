@@ -20,7 +20,7 @@ function secondary(message, group = '', autoDismiss = true) {
 	return { type: ALERT_CONSTANTS.SECONDARY, message, group, autoDismiss }
 }
 
-function warning(message, group = '', autoDismiss = true) {
+function warning(message, errorBody = "", group = '', autoDismiss = true) {
 	return { type: ALERT_CONSTANTS.WARNING, message, group, autoDismiss }
 }
 

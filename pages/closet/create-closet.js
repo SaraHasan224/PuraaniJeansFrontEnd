@@ -117,7 +117,7 @@ const CreateCloset = () => {
                                     player with minimum investment. Through a team of experts
                                     offering exclusive seller workshops, training, seller support
                                     and convenient seller portal, {process.env.NEXT_PUBLIC_APP_NAME} focuses on educating and
-                                    empowering sellers across India. Selling on {process.env.NEXT_PUBLIC_APP_NAME}.com is
+                                    empowering sellers across Pakistan. Selling on {process.env.NEXT_PUBLIC_APP_NAME}.com is
                                     easy and absolutely free. All you need is to register, list your
                                     catalogue and start selling your products.
                                 </p>

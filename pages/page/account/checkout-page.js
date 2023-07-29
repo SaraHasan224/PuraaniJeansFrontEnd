@@ -108,7 +108,7 @@ const CheckoutPage = () => {
                     <div className="form-group col-md-12 col-sm-12 col-xs-12">
                       <div className="field-label">Country</div>
                       <select name="country" {...register("country", { required: true })}>
-                        <option>India</option>
+                        <option>Pakistan</option>
                         <option>South Africa</option>
                         <option>United State</option>
                         <option>Australia</option>

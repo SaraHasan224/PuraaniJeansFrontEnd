@@ -11,6 +11,7 @@ import { parsePhoneNumber, isValidNumber } from "libphonenumber-js";
 import withPrivateRoute from '../../../hoc/auth/withPrivateRoute';
 import AuthLayout from '../../../components/layouts/auth-layout';
 import Logo from "../../../components/layouts/headers/common/logo";
+import AlertComponent from '../../../components/common/alert';
 import PhoneNumberComponent from './phone';
 import { HELPER } from '../../../utils';
 import { AUTH_ACTIONS } from '../../../store/actions';
@@ -19,7 +20,7 @@ const LoginMobileVerification = () => {
   const dispatch = useDispatch()
 
   const { meta } = useSelector((state) => state.metadata);
-  const { authLoading } = useSelector((state) => state.auth);
+  const { authLoading, isVerified, isVerificationAttempt, retryOtp,  } = useSelector((state) => state.auth);
 
   const router = useRouter();
   const [email, setEmail] = useState("test@gmail.com");
@@ -78,6 +79,23 @@ const LoginMobileVerification = () => {
     }
   };
 
+ 
+
+  useEffect(() => {
+    if(isVerified) {
+      router.push(`/`);
+    }else if(isVerificationAttempt || retryOtp) {
+        router.push(`/auth/otp`);
+    }
+  }, []);
+
+
+  useEffect(() => {
+    if (isVerificationAttempt) {
+      router.push(`/auth/otp`);
+    }
+  }, [isVerificationAttempt]);
+
   const handleValidation = () => {
     let errors = {
       phone_number: "",
@@ -110,6 +128,8 @@ const LoginMobileVerification = () => {
               We need to verify your account.
             </span>
           </h4>
+          <div className="divider row"></div>
+          <AlertComponent />
           <div className="divider row"></div>
           <div className="mt-5">
             {

@@ -297,9 +297,10 @@ function stringToBoolean(string) {
 
 const formatFailureApiResponse = (error) => {
 	const error_response = error?.response
+	const errorResponse = error_response?.data?.status
 	const errorBody = error_response?.data?.body
 	const error_message = ERROR_ACTION.ERROR(error_response);
-	return { error_response, error_message, errorBody }
+	return { error_response, error_message, errorBody, errorResponse }
 }
 
 function getSelectedVariant(product) {

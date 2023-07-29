@@ -20,7 +20,9 @@ export const apiService = {
 	
 	getSignupEvent,
 	getSignInEvent,
-	getPhoneVerification
+	getPhoneVerification,
+	getPhoneOtpVerify,
+	getPhoneOtpReSend
 }
 
 async function getApplicationMetaData() {
@@ -101,7 +103,25 @@ async function getSignInEvent(data) {
 async function getPhoneVerification(data) {
 	return await API_REQUEST(
 		'post',
-		`${baseURL}` + API_ENDPOINTS.AUTH_PHONE_VERIFY,
+		`${baseURL}` + API_ENDPOINTS.AUTH_OTP_SEND,
+		true,
+	)(data)
+}
+
+
+async function getPhoneOtpReSend(data) {
+	return await API_REQUEST(
+		'post',
+		`${baseURL}` + API_ENDPOINTS.AUTH_OTP_RESEND,
+		true,
+	)(data)
+}
+
+
+async function getPhoneOtpVerify(data) {
+	return await API_REQUEST(
+		'post',
+		`${baseURL}` + API_ENDPOINTS.AUTH_OTP_VERIFY,
 		true,
 	)(data)
 }

@@ -17,18 +17,7 @@ function ERROR(error_response) {
 			description: {},
 			body: {},
 		}
-	} else if (parseInt(error_response.status) === CONSTANTS.HTTP_RESPONSE.SERVER_ERROR) {
-		errorMessage = "Internal server error"
-		errorMessageDescription = "Internal server error"
-		const error_message = {
-			type: ERROR_CONSTANTS.ERROR,
-			status: CONSTANTS.HTTP_RESPONSE.SERVER_ERROR,
-			message: errorMessage,
-			description: '',
-			body: errorMessageDescription,
-		}
-		return error_message
-	} else {
+	}else {
 		return handleError(error_response)
 	}
 }
