@@ -1,45 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+
 import { Container, Row, Col, Media, Modal, ModalBody } from "reactstrap";
-import { useQuery } from "@apollo/client";
-import { gql } from '@apollo/client';
 import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 import CartContext from "../../../context/cart";
 import { WishlistContext } from "../../../context/wishlist/WishlistContext";
 import { CompareContext } from "../../../context/Compare/CompareContext";
-import { useRouter } from "next/router";
+import { PRODUCT_ACTIONS } from "../../../store/actions";
+import { HELPER } from "../../../utils";
+import HTMLReactParser from "html-react-parser";
 
-const GET_PRODUCTS = gql`
-  query products($type: _CategoryType!, $indexFrom: Int!, $limit: Int!) {
-    products(type: $type, indexFrom: $indexFrom, limit: $limit) {
-      items {
-        id
-        title
-        description
-        type
-        brand
-        category
-        price
-        new
-        stock
-        sale
-        discount
-        variants {
-          id
-          sku
-          size
-          color
-          image_id
-        }
-        images {
-          image_id
-          id
-          alt
-          src
-        }
-      }
-    }
-  }
-`;
 
 
 var data = {   
@@ -155,8 +126,13 @@ var data = {
       }
   ]
 }
-const ProductSection = () => {
+const ProductSection = ({ customerRef }) => {
   const router = useRouter();
+  const dispatch = useDispatch()
+
+  const { products, loading } = useSelector((state) => state.products?.recentlyViewed);
+  console.log("products: ", products)
+
   const curContext = useContext(CurrencyContext);
   const wishlistContext = useContext(WishlistContext);
   const compareContext = useContext(CompareContext);
@@ -173,12 +149,27 @@ const ProductSection = () => {
   const toggle = () => setModal(!modal);
   const uniqueTags = [];
 
+  useEffect(() => {
+    dispatch(PRODUCT_ACTIONS.GET_RECENTLY_VIEWED_PRODUCT());
+  }, []);
+
   const changeQty = (e) => {
     setQuantity(parseInt(e.target.value));
   };
 
   const clickProductDetail = (product) => {
-    router.push(`/product-details/${product.handle}`, undefined, { shallow: true });
+    router.replace(
+      `/product-details/${product.handle}`,
+      undefined,
+      {
+        // shallow: true,
+        // unstable_skipClientCache: true
+      }
+    );
+    toggle();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // window.location.reload(false);
   };
 
   const getSelectedProduct = (item) => {
@@ -193,7 +184,7 @@ const ProductSection = () => {
   //     limit: 8,
   //   },
   // });
-  var loading = false;
+
   return (
     <section className="section-b-space ratio_asos">
       <Container>
@@ -203,15 +194,12 @@ const ProductSection = () => {
           </Col>
         </Row>
         <Row className="search-product">
-          {!data ||
-            !data.products ||
-            data.products.items.length === 0 ||
+          {HELPER.isEmpty(products) ||
             loading ? (
             "loading"
           ) : (
             <>
-              {data &&
-                data.products.items.slice(0, 6).map((product, index) => (
+              {products.map((product, index) => (
                   <Col xl="2" md="4" sm="6" key={index}>
                     <div className="product-box">
                       <div className="img-wrapper">
@@ -219,7 +207,7 @@ const ProductSection = () => {
                           <a href={null}>
                             <Media
                               onClick={() => clickProductDetail(product)}
-                              src={product.images[0].src}
+                              src={product.image}
                               className="img-fluid blur-up lazyload bg-img"
                               alt=""
                             />
@@ -228,7 +216,7 @@ const ProductSection = () => {
                         <div className="back">
                           <a href={null}>
                             <Media
-                              src={product.images[1].src}
+                              src={product.image}
                               className="img-fluid blur-up lazyload bg-img"
                               alt=""
                             />
@@ -245,26 +233,12 @@ const ProductSection = () => {
                           </button>
                           <a
                             href="#"
-                            onClick={() => wishlistContext.addToWish(product)}
-                            title="Add to Wishlist"
-                          >
-                            <i className="fa fa-heart" aria-hidden="true"></i>
-                          </a>
-                          <a
-                            href="#"
                             onClick={() => getSelectedProduct(product)}
                             data-toggle="modal"
                             data-target="#quick-view"
                             title="Quick View"
                           >
                             <i className="fa fa-search" aria-hidden="true"></i>
-                          </a>
-                          <a
-                            href="#"
-                            onClick={() => compareContext.addToCompare(product)}
-                            title="Compare"
-                          >
-                            <i className="fa fa-refresh" aria-hidden="true"></i>
                           </a>
                         </div>
                       </div>
@@ -276,18 +250,18 @@ const ProductSection = () => {
                           <i className="fa fa-star"></i>{" "}
                           <i className="fa fa-star"></i>
                         </div>
-                        <a href={null}>
-                          <h6>{product.title}</h6>
+                        <a href={() => clickProductDetail(product)}>
+                          <h6>{product.name}</h6>
                         </a>
                         <h4>
                           {symbol}
                           {product.price}
                         </h4>
-                        <ul className="color-variant">
+                        {product.variants ? <ul className="color-variant">
                           <li className="bg-light0"></li>
                           <li className="bg-light1"></li>
                           <li className="bg-light2"></li>
-                        </ul>
+                        </ul> : "" }
                       </div>
                     </div>
                   </Col>
@@ -307,7 +281,7 @@ const ProductSection = () => {
                 <Col lg="6" xs="12">
                   <div className="quick-view-img">
                     <Media
-                      src={`${selectedProduct.images[0].src}`}
+                      src={`${selectedProduct.image}`}
                       alt=""
                       className="img-fluid"
                     />
@@ -315,10 +289,10 @@ const ProductSection = () => {
                 </Col>
                 <Col lg="6" className="rtl-text">
                   <div className="product-right">
-                    <h2> {selectedProduct.title} </h2>
+                    <h2 onClick={() => clickProductDetail(selectedProduct)}> {selectedProduct.name} </h2>
                     <h3>
                       {currency.symbol}
-                      {(selectedProduct.price * currency.value).toFixed(2)}
+                      {(selectedProduct.price).toFixed(2)}
                     </h3>
                     {selectedProduct.variants ? (
                       <ul className="color-variant">
@@ -367,9 +341,9 @@ const ProductSection = () => {
                     )}
                     <div className="border-product">
                       <h6 className="product-title">
-                      {parse(selectedProduct.description)}
+                        Product detail
                       </h6>
-                      <p>{selectedProduct.description}</p>
+                      <p>{HTMLReactParser(selectedProduct.description ?? "")}</p>
                     </div>
                     <div className="product-description border-product">
                       {selectedProduct.size ? (

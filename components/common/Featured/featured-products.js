@@ -231,7 +231,7 @@ const ProductItem = ({
                 )}
                 <div className="border-product">
                   <h6 className="product-title">product details</h6>
-                  <p>{parse(product.description)}</p>
+                  <p>{ parse(product.description) ?? ""}</p>
                 </div>
                 <div className="product-description border-product">
                   {product.size ? (
@@ -454,7 +454,7 @@ const ProductItem = ({
                   <div className="border-product">
                     <h6 className="product-title">product details</h6>
                     <p>
-                      {parse(product.description)}
+                      { parse(product.description) ?? ""}
                     </p>
                   </div>
                   <div className="product-description border-product">

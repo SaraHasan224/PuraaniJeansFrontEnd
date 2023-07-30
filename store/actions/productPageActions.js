@@ -76,11 +76,11 @@ function GET_PRODUCT_DETAIL(handle) {
 	}
 }
 
-function GET_RECENTLY_VIEWED_PRODUCT(handle) {
+function GET_RECENTLY_VIEWED_PRODUCT() {
 	return (dispatch, getState) => {
 		dispatch(request())
 		apiService
-			.getProductDetail(handle)
+			.getRecentlyViewed()
 			.then((response) => {
 				const responseStatus = response?.data?.status
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {

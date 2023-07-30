@@ -12,12 +12,14 @@ export const apiService = {
 	getMegaMenu,
 	getFeaturedItems,
 	getCategoryItems,
-	getProductDetail,
-
+	
 	createYourCloset,
 	uploadYourClosetImage,
 	getClosetDetail,
 	getClosetProductList,
+	
+	getProductDetail,
+	getRecentlyViewed,
 	
 	getCountryMetaData,
 	getCountriesList,
@@ -75,9 +77,18 @@ async function getProductDetail(handle) {
 	return await API_REQUEST(
 		'post',
 		`${baseURL}${API_ENDPOINTS.GET_PRODUCT_DETAIL}/${handle}`,
-		false,
+		true,
 	)()
 }
+
+async function getRecentlyViewed() {
+	return await API_REQUEST(
+		'post',
+		`${baseURL}${API_ENDPOINTS.GET_RECENTLY_VIEWED_PRODUCTS}`,
+		true,
+	)()
+}
+
 
 async function createYourCloset(data) {
 	return await API_REQUEST(

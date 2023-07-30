@@ -238,7 +238,7 @@ const ProductItem = ({
                 <div className="border-product">
                   <h6 className="product-title">product details</h6>
                   <p>
-                      {parse(product.description)}</p>
+                      { parse(product.description) ?? ""}</p>
                 </div>
                 <div className="product-description border-product">
                   {product.size ? (

@@ -63,7 +63,7 @@ const ProductTab = () => {
               <TabContent activeTab={activeTab} className="nav-material">
                 <TabPane tabId="1">
                   <p className="mb-0 pb-0">
-                    {HTMLReactParser(product?.short_description)}
+                    {HTMLReactParser(product?.short_description ?? "")}
                   </p>
                 </TabPane>
                 <TabPane tabId="2">

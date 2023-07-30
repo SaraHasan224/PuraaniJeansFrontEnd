@@ -35,7 +35,10 @@ const initialState = {
 	loading: false,
 	fetchMore: false,
 
-	product: []
+	product: [],
+	recentlyViewed: {
+		products: []
+	}
 }
 
 const productsReducer = (state = initialState, action) => {
@@ -80,6 +83,24 @@ const productsReducer = (state = initialState, action) => {
 				...state,
 				loading: false,
 			}
+
+
+			case PRODUCTS_CONSTANTS.RECENTLY_VIEWED.REQUEST:
+				return {
+					...state,
+					loading: true,
+				}
+			case PRODUCTS_CONSTANTS.RECENTLY_VIEWED.SUCCESS:
+				return {
+					...state,
+					loading: false,
+					recentlyViewed: action?.response,
+				}
+			case PRODUCTS_CONSTANTS.RECENTLY_VIEWED.FAILURE:
+				return {
+					...state,
+					recentlyViewed: false,
+				}
 		default:
 			return state
 	}

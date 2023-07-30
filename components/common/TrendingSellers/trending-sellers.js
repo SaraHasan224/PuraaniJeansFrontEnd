@@ -11,7 +11,7 @@ export default function TrendingSellers() {
                 <div className="ratio_square">
                     <Container>
                         <Row>
-                            <Col lg="8" className="tools-grey ratio_square">
+                            <Col lg="8" className="featured_sq ratio_square">
                                 <ReviewSlider/>
                             </Col>
                             <Col lg="3" className="theme-closets">

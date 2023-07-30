@@ -51,7 +51,7 @@ export default function FeaturedByCollection(props) {
           })}
         </div>
       </Col>
-      <Col xl="9" lg="8" md="12" sm="12" className={"tools-grey ratio_square featured-section"}>
+      <Col xl="9" lg="8" md="12" sm="12" className={"featured_sq ratio_square featured-section"}>
         <Container className="p-0">
           <section className="collection section-b-space ratio_square noTopPadding">
             <Container className=' mb-3'>

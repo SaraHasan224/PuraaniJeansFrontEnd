@@ -13,6 +13,7 @@ export const API_ENDPOINTS = {
   GET_CATEGORY: "api/categories",
 
   GET_PRODUCT_DETAIL: "api/product",
+  GET_RECENTLY_VIEWED_PRODUCTS: "api/recently-viewed-products",
 
   AUTH_SIGNUP: "api/register",
   AUTH_SIGNIN: "api/login",
