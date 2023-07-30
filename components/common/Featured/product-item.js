@@ -5,6 +5,7 @@ import { Row, Col, Media, Modal, ModalBody } from "reactstrap";
 import CartContext from "../../../context/cart";
 import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 import MasterProductDetail from "./MasterProductDetail";
+import parse  from 'html-react-parser'
 
 const ProductItem = ({
   product,
@@ -44,7 +45,7 @@ const ProductItem = ({
 
   const clickProductDetail = () => {
     const titleProps = product.name.split(" ").join("");
-    router.push(`/product-details/${product.id}` + "-" + `${titleProps}`);
+    router.push(`/product-details/${product.handle}`, undefined, { shallow: true });
   };
 
   const variantChangeByColor = (imgId, product_images) => {
@@ -236,7 +237,8 @@ const ProductItem = ({
                 )}
                 <div className="border-product">
                   <h6 className="product-title">product details</h6>
-                  <p>{product.description}</p>
+                  <p>
+                      {parse(product.description)}</p>
                 </div>
                 <div className="product-description border-product">
                   {product.size ? (

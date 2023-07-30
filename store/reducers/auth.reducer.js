@@ -1,15 +1,17 @@
-import { AUTH_CONSTANTS } from '../actionTypes'
+import { AUTH_CONSTANTS, CLOSET_CONSTANTS } from '../actionTypes'
 
 
 const initialState = {
   authLoading: false,
-	sendOTP: false,
-	retryOtp: false,
+  sendOTP: false,
+  retryOtp: false,
   isLoggedIn: false,
   isVerified: false,
   isVerificationAttempt: false,
   isVerificationAttemptPhone: "",
-  isLoggedInCustomer: []
+  isLoggedInCustomer: [],
+  customerRef: "",
+  closetRef: ""
 }
 
 const authReducer = (state = initialState, action) => {
@@ -18,6 +20,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         authLoading: true,
+        isLoggedIn: false,
       }
     case AUTH_CONSTANTS.AUTH_SIGNUP.SUCCESS:
       return {
@@ -36,6 +39,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         authLoading: true,
+        isLoggedIn: false,
       }
     case AUTH_CONSTANTS.AUTH_SIGNIN.SUCCESS:
       return {
@@ -43,6 +47,9 @@ const authReducer = (state = initialState, action) => {
         isLoggedIn: true,
         authLoading: true,
         isLoggedInCustomer: action?.response?.customer,
+        isLoggedInCustomerScreen: action?.response?.screen,
+        customerRef: action?.response?.customer?.identifier,
+        closetRef: action?.response?.customer?.closet_ref
       }
     case AUTH_CONSTANTS.AUTH_SIGNIN.FAILURE:
       return {
@@ -59,7 +66,6 @@ const authReducer = (state = initialState, action) => {
     case AUTH_CONSTANTS.AUTH_OTP_SEND.SUCCESS:
       return {
         ...state,
-        isLoggedIn: true,
         authLoading: true,
         isVerificationAttempt: true,
         isVerificationAttemptPhone: action?.response?.phone
@@ -82,9 +88,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         sendOTP: false,
-        isLoggedIn: true,
         authLoading: true,
         isVerified: true,
+        isLoggedInCustomer: action?.response?.customer,
+        customerRef: action?.response?.customer?.identifier,
+        closetRef: action?.response?.customer?.closet_ref
       }
     case AUTH_CONSTANTS.AUTH_OTP_VERIFY.FAILURE:
       return {
@@ -104,7 +112,6 @@ const authReducer = (state = initialState, action) => {
     case AUTH_CONSTANTS.AUTH_OTP_RESEND.SUCCESS:
       return {
         ...state,
-        isLoggedIn: true,
         authLoading: true,
         isVerificationAttempt: true,
         retryOtp: true,
@@ -115,6 +122,12 @@ const authReducer = (state = initialState, action) => {
         authLoading: false,
         isVerificationAttempt: false,
         retryOtp: false,
+      }
+
+    case CLOSET_CONSTANTS.CREATE.SUCCESS:
+      return {
+        ...state,
+        closetRef: action?.response?.closet_ref
       }
     default:
       return state

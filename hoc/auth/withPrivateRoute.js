@@ -1,8 +1,8 @@
 import React from 'react';
 import Router from 'next/router';
-import { HELPER, LOCAL_STORAGE_SERVICE } from '../../utils';
+import { COOKIE_STORAGE_SERVICE, HELPER, LOCAL_STORAGE_SERVICE } from '../../utils';
 
-const login = '/auth/signin?redirected=true'; // Define your login route address.
+const login = '/auth/signin'; // Define your login route address.
 
 /**
  * Check user authentication and authorization
@@ -14,6 +14,9 @@ const checkUserAuthentication = () => {
   let checkAuth = false;
     // Perform localStorage action
     checkAuth = LOCAL_STORAGE_SERVICE._getFromLocalStorage("access_token");
+    if(HELPER.isEmpty(checkAuth)) {
+      checkAuth = COOKIE_STORAGE_SERVICE._getAccessToken();
+    }
   return { auth: HELPER.isNotEmpty(checkAuth) ? checkAuth : false }; // change null to { isAdmin: true } for test it.
 };
 

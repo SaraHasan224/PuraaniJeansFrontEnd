@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import Link from "next/link";
+import parse  from 'html-react-parser'
 import sizeChart from "../../../public/assets/images/size-chart.jpg";
 import { Modal, ModalBody, ModalHeader, Media, Input } from "reactstrap";
 import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
@@ -406,8 +407,11 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
         </div>
         <div className="border-product">
           <h6 className="product-title">product details</h6>
-          <p>{HELPER.isNotEmpty(selected_variant?.variant_short_description) ? 
-                        selected_variant?.variant_short_description : product?.short_description}</p>
+          <p>
+            
+          {parse(HELPER.isNotEmpty(selected_variant?.variant_short_description) ? 
+                        selected_variant?.variant_short_description : product?.short_description)}
+          </p>
         </div>
         <div className="border-product">
           <h6 className="product-title">share it</h6>

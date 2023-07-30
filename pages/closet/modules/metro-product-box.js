@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Row, Col, Media, Modal, ModalBody, ModalHeader } from "reactstrap";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import parse  from 'html-react-parser'
 import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 import CartContext from "../../../context/cart";
 
@@ -25,8 +26,7 @@ const ProductBox = ({ product, addCart, addWish, addCompare }) => {
   };
 
   const clickProductDetail = () => {
-    const titleProps = product.title.split(" ").join("");
-    router.push(`/product-details/${product.id}` + "-" + `${titleProps}`);
+    router.push(`/product-details/${product.handle}`, undefined, { shallow: true });
   };
 
   return (
@@ -136,7 +136,8 @@ const ProductBox = ({ product, addCart, addWish, addCompare }) => {
                 )}
                 <div className="border-product">
                   <h6 className="product-title">product details</h6>
-                  <p>{product.description}</p>
+                  <p>
+                      {parse(product.description)}</p>
                 </div>
                 <div className="product-description border-product">
                   {product.size ? (

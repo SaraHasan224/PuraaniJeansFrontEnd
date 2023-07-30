@@ -7,62 +7,62 @@ import { Form, Label, Input, Row, Col } from 'reactstrap';
 import Logo from "../../../components/layouts/headers/common/logo";
 import AuthLayout from '../../../components/layouts/auth-layout';
 import { Autocomplete, CircularProgress, FormControl, FormHelperText, FormLabel } from '@mui/joy';
-import { AUTH_ACTIONS, HOMEPAGE_ACTIONS, META_ACTIONS } from '../../../store/actions';
-import { CONSTANTS, HELPER, LOCAL_STORAGE_SERVICE } from '../../../utils';
+import { ALERT_ACTIONS, AUTH_ACTIONS, HOMEPAGE_ACTIONS, META_ACTIONS } from '../../../store/actions';
+import { CONSTANTS, COOKIE_STORAGE_SERVICE, HELPER, LOCAL_STORAGE_SERVICE } from '../../../utils';
 import ALink from '../../../features/alink';
 import AlertComponent from '../../../components/common/alert';
 
 const SignIn = () => {
     const dispatch = useDispatch()
     const { meta, authBanners } = useSelector((state) => state.metadata);
-    const { isLoggedIn, isVerified, isVerificationAttempt, retryOtp, authLoading } = useSelector((state) => state.auth);
+    const { isLoggedIn, isLoggedInCustomerScreen, authLoading } = useSelector((state) => state.auth);
 
     const router = useRouter();
-    const [open, setOpen] = useState(false);
 
-    const [country, setCountry] = useState("");
-    const [fName, setFName] = useState("");
-    const [lName, setLName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [cpassword, setCPassword] = useState("");
-    const [subsStatus, setSubsStatus] = useState(CONSTANTS.NO);
     const [isLoggedInSubmitPressed, setIsLoggedInSubmitPressed] = useState(false);
 
-    const onSignInAction = () => {
-       if(!authLoading && !isLoggedInSubmitPressed) {
-        dispatch(AUTH_ACTIONS.SIGNUP_YOUR_ACCOUNT({
-            country: country?.code,
-            first_name: fName,
-            last_name: lName,
-            email_address: email,
-            password,
-            password_confirmation: cpassword,
-            subscription: subsStatus,
-        }));
-        setIsLoggedInSubmitPressed(true)
-       }
-    }
-
     useEffect(() => {
-        if(HELPER.isEmpty(authBanners)) {
+        ALERT_ACTIONS.clear();
+        let localStorageAuth = LOCAL_STORAGE_SERVICE._getFromLocalStorage("access_token");
+        let cookieStorageAuth = COOKIE_STORAGE_SERVICE._getAccessToken();
+
+        if(HELPER.isNotEmpty(localStorageAuth) || HELPER.isNotEmpty(cookieStorageAuth)) {
+            router.back();
+        }
+
+        if (HELPER.isEmpty(authBanners)) {
             document.documentElement.style.setProperty("--gradient1", "#ff4c3b");
             document.documentElement.style.setProperty("--gradient2", "#FA4729");
             dispatch(HOMEPAGE_ACTIONS.FETCH_HOMEPAGE_APP_METADATA())
-        } 
-        dispatch(META_ACTIONS.COUNTRIES_LIST()); // For demo purposes.
-
-        if(isVerified) {
-          router.push(`/`);
-        }else if(isVerificationAttempt || retryOtp) {
-            router.push(`/auth/otp`);
-        }else if(isLoggedIn) {
-            router.push(`/auth/phone`);
         }
-
+        dispatch(META_ACTIONS.COUNTRIES_LIST()); // For demo purposes.
 
         return () => { };
     }, []);
+
+    useEffect(() => {
+        if (HELPER.isNotEmpty(isLoggedInCustomerScreen)) {
+            if (isLoggedInCustomerScreen === "phone") {
+                router.push(`/auth/phone`);
+            } else if (isLoggedInCustomerScreen === "otp") {
+                router.push(`/auth/otp`);
+            } else {
+                router.push(`/`);
+            }
+        }
+    }, [isLoggedInCustomerScreen]);
+    
+    const onSignInAction = () => {
+        if (!authLoading) {
+            dispatch(AUTH_ACTIONS.SIGNIN_YOUR_ACCOUNT({
+                email_address: email,
+                password,
+            }));
+            setIsLoggedInSubmitPressed(true)
+        }
+    }
 
 
     return (
@@ -84,14 +84,14 @@ const SignIn = () => {
                     </h4>
                     <h6 className="mt-4">
                         <span>
-                                Don't have an account yet?&nbsp;
-                                <ALink href="/auth/signup">
-                                    Click here to <b><u>Sign up</u></b>
-                                </ALink>
+                            Don't have an account yet?&nbsp;
+                            <ALink href="/auth/signup">
+                                Click here to <b><u>Sign up</u></b>
+                            </ALink>
                         </span>
                     </h6>
                     <div className="divider row"></div>
-                    <AlertComponent/>
+                    <AlertComponent />
                     <div className="divider row"></div>
                     <div className="mt-5">
                         <Form className="">

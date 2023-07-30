@@ -13,23 +13,16 @@ import OtpInput from './otpInput'
 
 const LoginOtpVerification = () => {
     const router = useRouter();
-    
-	const { verify_otp, setVerify_otp, submitOTP, sendOTP, digitLimit } = useOtp()
+
+    const { verify_otp, setVerify_otp, submitOTP } = useOtp()
     const { meta } = useSelector((state) => state.metadata);
     const { isVerificationAttemptPhone, isVerified } = useSelector((state) => state.auth);
 
-
-    useEffect(() => {
-        if(isVerified) {
-          router.push(`/`);
-        }
-      }, []);
-
     useEffect(() => {
         if (isVerified) {
-          router.push(`/`);
+            router.push(`/`);
         }
-      }, [isVerified]);
+    }, [isVerified]);
 
     return (
         <AuthLayout parent="home" title="login">
@@ -49,7 +42,7 @@ const LoginOtpVerification = () => {
                         </span>
                     </h4>
                     <div className="divider row"></div>
-                    <AlertComponent/>
+                    <AlertComponent />
                     <div className="divider row"></div>
                     <div className="mt-5">
                         <Form className="">

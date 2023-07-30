@@ -23,6 +23,7 @@ function SIGNUP_YOUR_ACCOUNT(data) {
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
 					COOKIE_STORAGE_SERVICE._updateAccessToken(data?.token);
+					LOCAL_STORAGE_SERVICE._saveToLocalStorage("user_info", data?.customer);
 					dispatch(success(data))
 				}
 			})
@@ -63,6 +64,7 @@ function SIGNIN_YOUR_ACCOUNT(data) {
 					const data = response?.data?.body
 					dispatch(success(data))
 					LOCAL_STORAGE_SERVICE._saveToLocalStorage("access_token", response?.token);
+					LOCAL_STORAGE_SERVICE._saveToLocalStorage("user_info", data?.customer);
 				}
 			})
 			.catch((error) => {

@@ -8,6 +8,7 @@ import homeReducer from './home.reducer';
 import menuReducer from './menu.reducer';
 import authReducer from './auth.reducer';
 import alertReducer from './alert.reducer';
+import closetReducer from './closet.reducer';
 
 const metaConfig = {
   key: 'meta',
@@ -26,12 +27,26 @@ const menuConfig = {
 const authConfig = {
   key: 'auth',
   storage,
-  blacklist: ['authLoading', 'authLoading']
+  blacklist: [
+    'authLoading',
+    'sendOTP',
+    'retryOtp',
+    'isLoggedIn',
+    'isVerified',
+    'isVerificationAttempt',
+    'isVerificationAttemptPhone',
+  ]
+}
+
+const closetConfig = {
+  key: 'closet',
+  storage,
 }
 
 const rootReducer = combineReducers({
   alert: alertReducer,
   auth: persistReducer(authConfig, authReducer),
+  closet: persistReducer(closetConfig, closetReducer),
   menu: persistReducer(menuConfig, menuReducer),
   metadata: persistReducer(metaConfig, metadataReducer),
   products: productsReducer,

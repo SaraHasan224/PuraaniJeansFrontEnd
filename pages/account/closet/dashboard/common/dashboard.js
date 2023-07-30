@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext,  } from 'react';
+import { useSelector } from 'react-redux';
 
 import {
     Row,
@@ -8,121 +9,7 @@ import {
     Media,
     TabPane,
 } from "reactstrap";
-
-import one from "../../../public/assets/images/dashboard/product/1.jpg";
-import nine from "../../../public/assets/images/dashboard/product/9.jpg";
-import thirtyfour from "../../../public/assets/images/pro3/34.jpg";
-import pro1 from "../../../public/assets/images/pro3/1.jpg";
-import pro27 from "../../../public/assets/images/pro3/27.jpg";
-import pro36 from "../../../public/assets/images/pro3/36.jpg";
-
-const ProductData = [
-    {
-        img: one,
-        productName: "Neck Velvet Dress	",
-        category: "Women Clothes",
-        price: "$205",
-        stock: "1000",
-        sales: "2000",
-    },
-    {
-        img: nine,
-        productName: "Belted Trench Coat		",
-        category: "Women Clothes",
-        price: "$350",
-        stock: "800",
-        sales: "350",
-    },
-    {
-        img: thirtyfour,
-        productName: "Men Print Tee",
-        category: "Men Clothes",
-        price: "$150",
-        stock: "750",
-        sales: "150",
-    },
-    {
-        img: pro1,
-        productName: "Woman Print Tee",
-        category: "Women Clothes",
-        price: "$150",
-        stock: "750",
-        sales: "150",
-    },
-    {
-        img: pro27,
-        productName: "Men Print Tee",
-        category: "Men Clothes",
-        price: "$150",
-        stock: "750",
-        sales: "150",
-    },
-    {
-        img: pro36,
-        productName: "Men Print Tee",
-        category: "Men Clothes",
-        price: "$150",
-        stock: "750",
-        sales: "150",
-    },
-];
-const OrderData = [
-    {
-        id: "#125021",
-        productDetails: "Neck Velvet Dress",
-        status: "Shipped",
-        price: "$205",
-    },
-    {
-        id: "#521214",
-        productDetails: "Belted Trench Coat",
-        status: "Shipped",
-        price: "$350",
-    },
-    {
-        id: "#521021",
-        productDetails: "Men Print Tee",
-        status: "pending",
-        price: "$150",
-    },
-    {
-        id: "#245021",
-        productDetails: "Woman Print Tee",
-        status: "Shipped",
-        price: "$150",
-    },
-    {
-        id: "#122141",
-        productDetails: "Men Print Tee",
-        status: "canceled",
-        price: "$150",
-    },
-    {
-        id: "#125015",
-        productDetails: "Men Print Tee",
-        status: "pending",
-        price: "$150",
-    },
-    {
-        id: "#245021",
-        productDetails: "women print tee",
-        status: "Shipped",
-        price: "$150",
-    },
-    {
-        id: "#122141",
-        productDetails: "men print tee",
-        status: "canceled",
-        price: "$150",
-    },
-    {
-        id: "#125015",
-        productDetails: "men print tee",
-        status: "pending",
-        price: "$150",
-    },
-];
-
+import { CurrencyContext } from "../../../../../context/Currency/CurrencyContext";
 
 const RecentOrder = ({ id, productDetails, status }) => {
     return (
@@ -148,6 +35,10 @@ const TrendingProduct = ({ img, productName, price, sales }) => {
   };
 
 const DashboardTab = ({ active, setActive }) => {
+    const {  trendingClosetProducts, recentClosetProducts  } = useSelector((state) => state.closet);
+    const curContext = useContext(CurrencyContext);
+    const currency = curContext.state;
+
     return (
         <TabPane tabId="1">
             <Row>
@@ -161,18 +52,18 @@ const DashboardTab = ({ active, setActive }) => {
                                         <th scope="col">image</th>
                                         <th scope="col">product name</th>
                                         <th scope="col">price</th>
-                                        <th scope="col">sales</th>
+                                        <th scope="col">sale price</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {ProductData.slice(0, 3).map((data, i) => {
+                                    {trendingClosetProducts.map((data, i) => {
                                         return (
                                             <TrendingProduct
                                                 key={i}
-                                                img={data.img.src}
-                                                productName={data.productName}
-                                                price={data.price}
-                                                sales={data.sales}
+                                                img={data.image}
+                                                productName={data.name}
+                                                price={currency.symbol +""+ data.price}
+                                                sales={currency.symbol +""+ data.discounted_price}
                                             />
                                         );
                                     })}
@@ -194,7 +85,7 @@ const DashboardTab = ({ active, setActive }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {OrderData.slice(0, 5).map((data, i) => {
+                                    {recentClosetProducts.slice(0, 5).map((data, i) => {
                                         return (
                                             <RecentOrder
                                                 key={i}

@@ -178,8 +178,7 @@ const ProductSection = () => {
   };
 
   const clickProductDetail = (product) => {
-    const titleProps = product.title.split(" ").join("");
-    router.push(`/product-details/${product.handle}` + "-" + `${titleProps}`, undefined, { shallow: true });
+    router.push(`/product-details/${product.handle}`, undefined, { shallow: true });
   };
 
   const getSelectedProduct = (item) => {
@@ -367,7 +366,9 @@ const ProductSection = () => {
                       ""
                     )}
                     <div className="border-product">
-                      <h6 className="product-title">product details</h6>
+                      <h6 className="product-title">
+                      {parse(selectedProduct.description)}
+                      </h6>
                       <p>{selectedProduct.description}</p>
                     </div>
                     <div className="product-description border-product">

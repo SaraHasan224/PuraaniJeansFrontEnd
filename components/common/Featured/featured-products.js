@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Row, Col, Media, Modal, ModalBody, ModalHeader } from "reactstrap";
+import parse  from 'html-react-parser'
+
 import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 import CartContext from "../../../context/cart";
 import FeaturedProductDetail from "./featured-detail";
@@ -229,7 +231,7 @@ const ProductItem = ({
                 )}
                 <div className="border-product">
                   <h6 className="product-title">product details</h6>
-                  <p>{product.description}</p>
+                  <p>{parse(product.description)}</p>
                 </div>
                 <div className="product-description border-product">
                   {product.size ? (
@@ -451,7 +453,9 @@ const ProductItem = ({
                   )} */}
                   <div className="border-product">
                     <h6 className="product-title">product details</h6>
-                    <p dangerouslySetInnerHTML={{ __html: product.short_description }} />
+                    <p>
+                      {parse(product.description)}
+                    </p>
                   </div>
                   <div className="product-description border-product">
                     {/* {product.size ? (

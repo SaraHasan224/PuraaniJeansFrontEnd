@@ -19,7 +19,7 @@ function GET_HOMEPAGE_APP_METADATA() {
 			return response;
 		})
 		.catch((error) => {
-			return response;
+			return error;
 		})
 }
 

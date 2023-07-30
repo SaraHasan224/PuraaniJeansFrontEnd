@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container, Row, Col, Input, Form } from "reactstrap";
 
-import CommonLayout from '../../components/layouts/common-layout';
+import CommonLayout from '../../../components/layouts/common-layout';
 
-import vendor from "../../public/my-assets/images/backgrounds/main-banner/create-closet.png";
-import withPrivateRoute from '../../hoc/auth/withPrivateRoute';
+import vendor from "../../../public/my-assets/images/backgrounds/main-banner/create-closet.png";
+import withPrivateRoute from '../../../hoc/auth/withPrivateRoute';
+import { CLOSET_ACTIONS } from '../../../store/actions';
 
 const BannerData = [
     {
@@ -43,6 +46,34 @@ const BannerComponent = ({ no, title, desc }) => {
 
 
 const CreateCloset = () => {
+    const router = useRouter();
+    const dispatch = useDispatch()
+    
+    const { closetLoggedIn } = useSelector((state) => state.closet);
+    const { closetRef } = useSelector((state) => state.auth);
+    
+    const [closetName, setClosetName] = useState("");
+
+    useEffect(() => {
+        if (closetLoggedIn) {
+            router.push(`/account/closet/dashboard/${closetRef}`, undefined, { shallow: true });
+        }
+    }, [closetLoggedIn]);
+
+    const onClosetCreation = () => {
+            dispatch(CLOSET_ACTIONS.CREATE_CLOSET({
+                name: closetName,
+            }));
+    }
+
+    const handleUpload = () => {
+        const PP = profilePictureRef.current;
+        const requestData = {
+          image: PP.getImageAsDataUrl(),
+        };
+        props.CUSTOMER_IMAGE(requestData);
+      };
+
     return (
         <CommonLayout parent="home" title="Create your closet">
             <>
@@ -124,13 +155,23 @@ const CreateCloset = () => {
                                 <Form>
                                     <Row>
                                         <Col sm="6">
-                                            <Input type="text" className="form-control" placeholder="Enter your shop name" />
+                                            <Input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter your shop name"
+                                                onChange={(e) => setClosetName(e.target.value)}
+                                            />
+                                        </Col>
+                                        <Col sm="6">
+                                            <button onClick={handleUpload} className="btn btn-primary">
+                                                Upload
+                                            </button>
                                         </Col>
                                     </Row>
                                 </Form>
-                                <a href={`/closet/dashboard`} className="btn btn-solid btn-sm">
+                                <button onClick={(e) => onClosetCreation(e)}  className="btn btn-solid btn-sm">
                                     start selling
-                                </a>
+                                </button>
                             </div>
                         </Col>
                     </Container>
@@ -140,4 +181,5 @@ const CreateCloset = () => {
         </CommonLayout>
     )
 }
-export default withPrivateRoute(CreateCloset);
+export default CreateCloset;
+// export default withPrivateRoute(CreateCloset);

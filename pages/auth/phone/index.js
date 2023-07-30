@@ -20,10 +20,9 @@ const LoginMobileVerification = () => {
   const dispatch = useDispatch()
 
   const { meta } = useSelector((state) => state.metadata);
-  const { authLoading, isVerified, isVerificationAttempt, retryOtp,  } = useSelector((state) => state.auth);
+  const { authLoading, isVerificationAttempt, } = useSelector((state) => state.auth);
 
   const router = useRouter();
-  const [email, setEmail] = useState("test@gmail.com");
 
   let errors = {
     phone_number: "",
@@ -34,6 +33,11 @@ const LoginMobileVerification = () => {
 
   const [error, setError] = useState(errors);
 
+  useEffect(() => {
+    if (isVerificationAttempt) {
+      router.push(`/auth/otp`);
+    }
+  }, [isVerificationAttempt]);
 
   const handleChange = (phone, dialCode, country) => {
     let errors = {
@@ -52,7 +56,6 @@ const LoginMobileVerification = () => {
       return parsePhoneNumber("+" + country.dialCode + phoneNumber);
     }
   };
-
 
   const submitForm = (event) => {
     if (event.keyCode === 13) {
@@ -78,23 +81,6 @@ const LoginMobileVerification = () => {
       }
     }
   };
-
- 
-
-  useEffect(() => {
-    if(isVerified) {
-      router.push(`/`);
-    }else if(isVerificationAttempt || retryOtp) {
-        router.push(`/auth/otp`);
-    }
-  }, []);
-
-
-  useEffect(() => {
-    if (isVerificationAttempt) {
-      router.push(`/auth/otp`);
-    }
-  }, [isVerificationAttempt]);
 
   const handleValidation = () => {
     let errors = {

@@ -23,7 +23,7 @@ const ItemContent = ({ item }) => {
             {item?.name}
           </ALink>
         </h4>
-        <p>{parse(item?.short_description)}</p>
+        <p>{parse(item?.description)}</p>
         <div className="price">{item?.price}</div>
       </div>
     </div>

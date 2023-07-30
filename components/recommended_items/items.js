@@ -82,7 +82,7 @@ const RecommendItems = () => {
             <div className={`media`}>
               <div className="media-body">
                 <h4>
-                  <ALink href={"#"}>View alll</ALink>
+                  <ALink href={"#"}>View all</ALink>
                 </h4>
                 <div className="price">{"1000+ Products"}</div>
               </div>

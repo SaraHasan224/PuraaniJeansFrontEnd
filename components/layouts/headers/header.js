@@ -8,11 +8,16 @@ import SearchOverlay from "./common/search-overlay";
 import search from "../../../public/assets/images/icon/search.png";
 import SearchNavigation from "./common/search-nav";
 import ALink from "../../../features/alink";
+import { useSelector } from "react-redux";
+import { HELPER } from "../../../utils";
 
 const Header = (props) => {
   const {
     logoName,
   } = props;
+
+  const { closetRef } = useSelector((state) => state.auth);
+
   /*=====================
          Pre loader
     ==========================*/
@@ -78,7 +83,9 @@ const Header = (props) => {
                         {/*Header Cart Component */}
                         <CartContainer icon={cart.src} />
                         <li className="onhover-div create-closet">
-                          <ALink href={`/closet/create-closet`} className="btn btn-solid black-btn " tabIndex="0">Create Closet</ALink>
+                          <ALink href={HELPER.isNotEmpty(closetRef) ? `/account/closet/dashboard/${closetRef}` : `/account/closet/create`} className="btn btn-solid black-btn " tabIndex="0">
+                            {HELPER.isNotEmpty(closetRef) ? "My Closet" : "Create Closet"}
+                          </ALink>
                         </li>
                       </ul>
                     </div>

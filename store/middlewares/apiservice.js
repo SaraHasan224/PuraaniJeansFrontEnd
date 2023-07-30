@@ -13,7 +13,11 @@ export const apiService = {
 	getFeaturedItems,
 	getCategoryItems,
 	getProductDetail,
+
+	createYourCloset,
+	uploadYourClosetImage,
 	getClosetDetail,
+	getClosetProductList,
 	
 	getCountryMetaData,
 	getCountriesList,
@@ -75,14 +79,38 @@ async function getProductDetail(handle) {
 	)()
 }
 
-async function getClosetDetail(handle) {
+async function createYourCloset(data) {
 	return await API_REQUEST(
 		'post',
+		`${baseURL}${API_ENDPOINTS.CREATE_CLOSET}`,
+		true,
+	)(data)
+}
+
+async function uploadYourClosetImage(requestData) {
+  let response = await axiosRequest(
+    "post",
+    `${baseURL}` + API_ENDPOINTS.CLOSET_IMG_UPLOAD,
+    true
+  )(requestData);
+  return response;
+}
+
+async function getClosetDetail(handle) {
+	return await API_REQUEST(
+		'get',
 		`${baseURL}${API_ENDPOINTS.GET_CLOSET_DETAIL}/${handle}`,
-		false,
+		true,
 	)()
 }
 
+async function getClosetProductList(handle, pageNumber) {
+	return await API_REQUEST(
+		'get',
+		`${baseURL}${API_ENDPOINTS.GET_CLOSET_DETAIL}/${handle}?page=${pageNumber}`,
+		true,
+	)()
+}
 
 async function getSignupEvent(data) {
 	return await API_REQUEST(

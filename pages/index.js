@@ -11,7 +11,7 @@ import RecommendedItems from "../components/recommended_items/items";
 import BrandsFooter from "../components/layouts/footers/brands";
 import Footer from "../components/layouts/footers/Footer";
 import Featured from "../components/common/Featured/featured-list";
-import FeaturedClosets from "../components/common/Featured/featured-closets";
+import TrendingSellers from "../components/common/TrendingSellers/trending-sellers";
 
 import ALink from '../features/alink';
 import InternetConnection from "../features/internet-connection";
@@ -57,7 +57,7 @@ export default function Home(props){
         <Featured
           // cartClass="cart-info cart-wrap"
         />
-        <FeaturedClosets featured={props?.featured_by}/>
+        <TrendingSellers featured={props?.featured_by}/>
         <BrandsFooter
           title={brands?.title}
           description={brands?.sub_title}

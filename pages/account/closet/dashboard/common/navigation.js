@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import {
     Media,
@@ -6,18 +7,21 @@ import {
     NavLink,
     Nav,
   } from "reactstrap";
-  import seventeen from "../../../public/assets/images/logos/17.png";
+  import seventeen from "../../../../../public/assets/images/logos/17.png";
 
 const DashboardNavigation = ({ active, setActive }) => {
+    const {  closet  } = useSelector((state) => state.closet);
+
+
     return (
         <div className="dashboard-sidebar">
             <div className="profile-top">
                 <div className="profile-image">
-                    <Media src={seventeen.src} alt="" className="img-fluid" />
+                    <Media src={closet?.logo} alt="" className="img-fluid" />
                 </div>
                 <div className="profile-detail">
-                    <h5>Fashion Store</h5>
-                    <h6>mark.enderess@mail.com</h6>
+                    <h5>{closet?.name}</h5>
+                    <h6>{closet?.email}</h6>
                 </div>
             </div>
             <div className="faq-tab">
