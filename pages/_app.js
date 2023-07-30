@@ -11,6 +11,8 @@ import FilterProvider from "../context/filter/FilterProvider";
 import { CompareContextProvider } from "../context/Compare/CompareContext";
 import { CurrencyContextProvider } from "../context/Currency/CurrencyContext";
 import TapTop from "../components/layouts/Tap-Top";
+import { apiService } from "../store/middlewares/apiservice";
+import { API_ENDPOINTS } from "../utils";
 
 export default function MyApp({ Component, pageProps }) {
 
@@ -18,7 +20,7 @@ export default function MyApp({ Component, pageProps }) {
   const [metaData, setIsMetaData] = useState([]);
 
   useEffect(async () => {
-    const apiResponse = await fetch(`http://puranijeans.test/api/meta-data`);
+    const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}` + API_ENDPOINTS.GET_APP_METADATA);
     const jsonApiResponse = await apiResponse.json();
     if (jsonApiResponse.status === 200) {
       setIsMetaData(jsonApiResponse?.body?.metaData);
@@ -32,6 +34,7 @@ export default function MyApp({ Component, pageProps }) {
     }, 1000);
     return () => { clearTimeout(timer) }
   }, []);
+
   return (
     <>
       {isLoading ? (

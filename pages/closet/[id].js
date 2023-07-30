@@ -6,7 +6,7 @@ import CommonLayout from '../../components/layouts/common-layout';
 import { CLOSET_ACTIONS } from '../../store/actions';
 import { Container, Row, Col, Media } from 'reactstrap';
 import Masonry from "react-masonry-css";
-import ProductBox from "./modules/metro-product-box";
+import ProductBox from "./modules/product-box";
 import { HELPER } from '../../utils';
 
 const Closet = () => {
