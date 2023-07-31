@@ -6,7 +6,7 @@ import { HELPER } from '../../../utils';
 
 
 const Color = () => {
-    const { filters } = useSelector((state) => state.products);
+    const { filters } = useSelector((state) => state.category);
     var { colors } = filters
 
     const context = useContext(FilterContext);

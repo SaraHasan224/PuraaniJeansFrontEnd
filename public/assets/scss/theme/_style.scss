@@ -14366,3 +14366,19 @@ table {
     margin: 0 auto;
   }
 }
+
+.slide-category {
+  .slick-slide {
+    img {
+      display: block;
+      width: unset !important;
+      height: unset !important;
+      margin: 0 auto;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.bg-black{
+  background-color: #000;
+}

@@ -1,17 +1,8 @@
 import React, { useState, useContext } from "react";
-import { useQuery } from "@apollo/client";
-import { gql } from "@apollo/client";
 import { Collapse, Input } from "reactstrap";
 import FilterContext from "../../../context/filter/FilterContext";
 import { useSelector } from "react-redux";
 
-// const GET_BRAND = gql`
-//   query getBrands($type: String) {
-//     getBrands(type: $type) {
-//       brand
-//     }
-//   }
-// `;
 
 const Brand = () => {
   const context = useContext(FilterContext);
@@ -20,7 +11,7 @@ const Brand = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleBrand = () => setIsOpen(!isOpen);
 
-  const { filters } = useSelector((state) => state.products);
+  const { filters } = useSelector((state) => state.category);
   var { brands } = filters
 
   var loading = '';

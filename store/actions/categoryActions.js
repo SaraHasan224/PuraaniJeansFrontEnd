@@ -1,20 +1,20 @@
 import { apiService } from '../middlewares/apiservice';
-import { PRODUCTS_CONSTANTS } from '../actionTypes';
+import { CATEGORY_CONSTANTS } from '../actionTypes';
 import { CONSTANTS, HELPER } from '../../utils';
 import { ALERT_ACTIONS } from './alertActions';
 
 
-export const PRODUCT_ACTIONS = {
-	GET_PRODUCT_DETAIL,
-	GET_RECENTLY_VIEWED_PRODUCT,
+export const CATEGORY_ACTIONS = {
+	GET_CATEGORY_DETAILS,
+	GET_CATEGORY_PRODUCT_ITEMS
 }
 
 
-function GET_PRODUCT_DETAIL(handle) {
+function GET_CATEGORY_DETAILS(handle) {
 	return (dispatch, getState) => {
 		dispatch(request())
 		apiService
-			.getProductDetail(handle)
+			.getCategory(handle)
 			.then((response) => {
 				const responseStatus = response?.data?.status
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
@@ -30,24 +30,25 @@ function GET_PRODUCT_DETAIL(handle) {
 	}
 
 	function request() {
-		return { type: PRODUCTS_CONSTANTS.PRODUCT_DETAIL.REQUEST }
+		return { type: CATEGORY_CONSTANTS.SHOW_DETAILS.REQUEST }
 	}
 	function success(response) {
 		return {
-			type: PRODUCTS_CONSTANTS.PRODUCT_DETAIL.SUCCESS,
+			type: CATEGORY_CONSTANTS.SHOW_DETAILS.SUCCESS,
 			response
 		}
 	}
 	function failure() {
-		return { type: PRODUCTS_CONSTANTS.PRODUCT_DETAIL.FAILURE }
+		return { type: CATEGORY_CONSTANTS.SHOW_DETAILS.FAILURE }
 	}
 }
 
-function GET_RECENTLY_VIEWED_PRODUCT() {
+
+function GET_CATEGORY_PRODUCT_ITEMS(slug) {
 	return (dispatch, getState) => {
 		dispatch(request())
 		apiService
-			.getRecentlyViewed()
+			.getCategoryItems(slug)
 			.then((response) => {
 				const responseStatus = response?.data?.status
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
@@ -63,15 +64,15 @@ function GET_RECENTLY_VIEWED_PRODUCT() {
 	}
 
 	function request() {
-		return { type: PRODUCTS_CONSTANTS.RECENTLY_VIEWED.REQUEST }
+		return { type: CATEGORY_CONSTANTS.PRODUCT_LISTING.REQUEST }
 	}
 	function success(response) {
 		return {
-			type: PRODUCTS_CONSTANTS.RECENTLY_VIEWED.SUCCESS,
+			type: CATEGORY_CONSTANTS.PRODUCT_LISTING.SUCCESS,
 			response
 		}
 	}
 	function failure() {
-		return { type: PRODUCTS_CONSTANTS.RECENTLY_VIEWED.FAILURE }
+		return { type: CATEGORY_CONSTANTS.PRODUCT_LISTING.FAILURE }
 	}
 }

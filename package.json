@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@apollo/client": "^3.5.10",
     "@apollo/react-ssr": "4.0.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",

@@ -6,6 +6,7 @@ import { ERROR_ACTION } from './errorAction'
 import { PRODUCT_ACTIONS } from './productPageActions'
 import { MENU_ITEM_ACTIONS } from "./menuItemsActions"
 import { AUTH_ACTIONS } from "./authActions"
+import { CATEGORY_ACTIONS } from "./categoryActions"
 
 export {
 	ALERT_ACTIONS,
@@ -15,5 +16,6 @@ export {
 	MENU_ITEM_ACTIONS,
 	META_ACTIONS,
 	PRODUCT_ACTIONS,
-	AUTH_ACTIONS
+	AUTH_ACTIONS,
+	CATEGORY_ACTIONS
 }

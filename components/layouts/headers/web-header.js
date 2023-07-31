@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import { Media, Container, Row, Col } from "reactstrap";
 import Link from "next/link";
+import ALink from "../../../features/alink";
 
 
 const WebHeader = () => {
@@ -62,11 +63,11 @@ const Banners = (props) => {
         />
         <div className={`lookbook-img-section img-${keyIndex}`}>
           <h2>{bannerItem[0]?.text}</h2>
-          <Link href={"#"}>
+          <ALink href={`/category/${bannerItem[0]?.slug}`}>
             <a className={`btn btn-outline`}>
               Shop Now
             </a>
-          </Link>
+          </ALink>
         </div>
       </div>
     </Col>

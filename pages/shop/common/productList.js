@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { Col, Row, Media, Button, Spinner } from "reactstrap";
+import { Col, Row, Button, Spinner } from "reactstrap";
 
 import ProductItem from "../../../components/common/product-box/ProductBox1";
 import PostLoader from "../../../components/common/PostLoader";
@@ -10,56 +10,18 @@ import FilterContext from "../../../context/filter/FilterContext";
 import CartContext from "../../../context/cart";
 import ShopBreadcrumb from "./breadcrumb";
 import { useDispatch, useSelector } from "react-redux";
-import { PRODUCT_ACTIONS } from "../../../store/actions";
+import { CATEGORY_ACTIONS, PRODUCT_ACTIONS } from "../../../store/actions";
 import { HELPER } from "../../../utils";
-
-
-// const GET_PRODUCTS = gql`
-// query products($type: _CategoryType!, $indexFrom: Int!, $limit: Int!) {
-// products(type: $type, indexFrom: $indexFrom, limit: $limit) {
-// items {
-// id
-// title
-// description
-// type
-// brand
-// category
-// price
-// new
-// stock
-// sale
-// discount
-// variants {
-// id
-// sku
-// size
-// color
-// image_id
-// }
-// images {
-// image_id
-// id
-// alt
-// src
-// }
-// }
-// }
-// }
-// `;
 
 const ProductList = ({ colClass, layoutList, openSidebar }) => {
   const dispatch = useDispatch()
 
   const { menu } = useSelector((state) => state.menu);
 
-  const { loading, products, fetchMore, type, slug, filters } = useSelector((state) => state.products);
+  const { loading, products, fetchMore, type, slug, filters } = useSelector((state) => state.category);
   var { current_page, last_page, data, per_page, total } = products
   var { sort_by, price_range, colors, brands, categories } = filters
 
-  // var { products, type, slug, filters } = GET_PRODUCTS
-  // var { loading, current_page, last_page, data, per_page, total } = products
-  // var { sort_by, price_range } = filters
-  // var loading = false;
   const cartContext = useContext(CartContext);
   const quantity = cartContext.quantity;
   const router = useRouter();
@@ -87,7 +49,7 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
   
   useEffect(() => {
     if(HELPER.isNotEmpty(categorySlug)) {
-      dispatch(PRODUCT_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
+      dispatch(CATEGORY_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
     }
   }, []);
 
@@ -140,7 +102,7 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
 
   useEffect(() => {
     if(HELPER.isNotEmpty(categorySlug)) {
-      dispatch(PRODUCT_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
+      dispatch(CATEGORY_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
     }
   }, [categorySlug]);
 
@@ -161,18 +123,6 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
   //   selectedPrice
   // ]);
 
-  // var { loading, data, fetchMore } = useQuery(GET_PRODUCTS, {
-  // variables: {
-  //   type: categorySlug,
-  //   priceMax: selectedPrice.max,
-  //   priceMin: selectedPrice.min,
-  //   color: selectedColor,
-  //   brand: brands,
-  //   sortBy: sortBy,
-  //   indexFrom: 0,
-  //   limit: limit,
-  // },
-  // });
   const handlePagination = () => {
     setIsLoading(true);
     // setTimeout(

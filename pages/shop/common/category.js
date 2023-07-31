@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { HELPER } from "../../../utils";
 
 const Category = () => {
-  const { filters } = useSelector((state) => state.products);
+  const { filters } = useSelector((state) => state.category);
   var { categories } = filters
 
 

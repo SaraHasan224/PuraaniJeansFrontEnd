@@ -168,22 +168,12 @@ const ProductSection = ({ customerRef }) => {
     );
     toggle();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // window.location.reload(false);
   };
 
   const getSelectedProduct = (item) => {
     setSelectedProduct(item);
     toggle();
   };
-
-  // var { loading, data } = useQuery(GET_PRODUCTS, {
-  //   variables: {
-  //     type: "fashion",
-  //     indexFrom: 0,
-  //     limit: 8,
-  //   },
-  // });
 
   return (
     <section className="section-b-space ratio_asos">

@@ -11,13 +11,16 @@ export const apiService = {
 	getHomePage,
 	getMegaMenu,
 	getFeaturedItems,
-	getCategoryItems,
 	
 	createYourCloset,
 	uploadYourClosetImage,
 	getClosetDetail,
 	getClosetProductList,
 	
+	
+	getCategory,
+	getCategoryItems,
+
 	getProductDetail,
 	getRecentlyViewed,
 	
@@ -61,14 +64,6 @@ async function getFeaturedItems() {
 	return await API_REQUEST(
 		'get',
 		`${baseURL}` + API_ENDPOINTS.GET_HOMEPAGE_FEATURED_SECTION,
-		false,
-	)()
-}
-
-async function getCategoryItems(slug) {
-	return await API_REQUEST(
-		'get',
-		`${baseURL}${API_ENDPOINTS.GET_CATEGORY}/${slug}/products`,
 		false,
 	)()
 }
@@ -122,6 +117,24 @@ async function getClosetProductList(handle, pageNumber) {
 		true,
 	)()
 }
+
+
+async function getCategory(handle) {
+	return await API_REQUEST(
+		'get',
+		`${baseURL}${API_ENDPOINTS.GET_CATEGORY}/${handle}`,
+		true,
+	)()
+}
+
+async function getCategoryItems(handle) {
+	return await API_REQUEST(
+		'get',
+		`${baseURL}${API_ENDPOINTS.GET_CATEGORY}/${handle}/products`,
+		false,
+	)()
+}
+
 
 async function getSignupEvent(data) {
 	return await API_REQUEST(

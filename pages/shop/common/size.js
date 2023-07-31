@@ -1,21 +1,11 @@
 import React, { useState, useContext } from "react";
-import { useQuery } from "@apollo/client";
-import { gql } from "@apollo/client";
 import { Collapse, Input } from "reactstrap";
 import FilterContext from "../../../context/filter/FilterContext";
 import { HELPER } from "../../../utils";
 import { useSelector } from "react-redux";
 
-const GET_SIZE = gql`
-  query getSize($type: String) {
-    getSize(type: $type) {
-      size
-    }
-  }
-`;
-
 const Size = () => {
-  const { filters } = useSelector((state) => state.products);
+  const { filters } = useSelector((state) => state.category);
   var { size } = filters
 
   const [isOpen, setIsOpen] = useState(false);
