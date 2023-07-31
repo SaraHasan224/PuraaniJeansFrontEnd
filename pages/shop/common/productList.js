@@ -50,6 +50,8 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
   useEffect(() => {
     if(HELPER.isNotEmpty(categorySlug)) {
       dispatch(CATEGORY_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
+    }else if(HELPER.isEmpty(categoryTitle)) {
+      dispatch(PRODUCT_ACTIONS.GET_ALL_PRODUCT_LIST())
     }
   }, []);
 
@@ -178,7 +180,7 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
             <Row className="toolbox noTopMargin noBtmMargin">
               <div className="top-banner-wrapper  small-section noBtmPadding toolbox-left col-6">
                 <div className="top-banner-content">
-                  <h4>{categoryTitle}</h4>
+                  <h4>{categoryTitle ?? "Shop"}</h4>
                   <h5>
                     {subCategoryTitle}
                   </h5>

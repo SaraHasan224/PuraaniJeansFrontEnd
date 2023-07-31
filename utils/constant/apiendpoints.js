@@ -13,6 +13,7 @@ export const API_ENDPOINTS = {
   GET_CATEGORY: "api/categories",
 
   GET_PRODUCT_DETAIL: "api/product",
+  GET_ALL_PRODUCTS: "api/products",
   GET_RECENTLY_VIEWED_PRODUCTS: "api/recently-viewed-products",
 
   AUTH_SIGNUP: "api/register",
@@ -24,7 +25,7 @@ export const API_ENDPOINTS = {
 
   CREATE_CLOSET: "api/closet/create",
   CLOSET_IMG_UPLOAD: "api/closet/image-upload",
-  GET_CLOSET_DETAIL: "api/closet",
+  GET_CLOSET: "api/closet",
 
   
   GET_CATEGORY_DETAIL: "api/categories",

@@ -3,6 +3,7 @@ import { CLOSET_CONSTANTS } from '../actionTypes'
 
 const initialState = {
   closet: [],
+  categories: [],
   trendingClosetProducts: [],
   recentClosetProducts: [],
   closetLoggedIn: false,
@@ -44,6 +45,7 @@ const closetReducer = (state = initialState, action) => {
         ...state,
         closetDataLoading: false,
         closet: action?.response?.closet,
+        categories: action?.response?.categories,
         trendingClosetProducts: action?.response?.trending_products,
         // recentClosetProducts: action?.response?.recent_orders,
         recentClosetProducts: [

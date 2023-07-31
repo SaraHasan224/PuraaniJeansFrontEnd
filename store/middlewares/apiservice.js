@@ -16,7 +16,9 @@ export const apiService = {
 	uploadYourClosetImage,
 	getClosetDetail,
 	getClosetProductList,
+	getClosetCategories,
 	
+	getAllItems,
 	
 	getCategory,
 	getCategoryItems,
@@ -105,15 +107,24 @@ async function uploadYourClosetImage(requestData) {
 async function getClosetDetail(handle) {
 	return await API_REQUEST(
 		'get',
-		`${baseURL}${API_ENDPOINTS.GET_CLOSET_DETAIL}/${handle}`,
+		`${baseURL}${API_ENDPOINTS.GET_CLOSET}/${handle}`,
 		true,
 	)()
 }
 
+async function getClosetCategories(handle, catSlug) {
+	return await API_REQUEST(
+		'get',
+		`${baseURL}${API_ENDPOINTS.GET_CLOSET}/${handle}/category/${catSlug}`,
+		true,
+	)()
+}
+
+
 async function getClosetProductList(handle, pageNumber) {
 	return await API_REQUEST(
 		'get',
-		`${baseURL}${API_ENDPOINTS.GET_CLOSET_DETAIL}/${handle}?page=${pageNumber}`,
+		`${baseURL}${API_ENDPOINTS.GET_CLOSET}/${handle}?page=${pageNumber}`,
 		true,
 	)()
 }
@@ -131,6 +142,14 @@ async function getCategoryItems(handle) {
 	return await API_REQUEST(
 		'get',
 		`${baseURL}${API_ENDPOINTS.GET_CATEGORY}/${handle}/products`,
+		false,
+	)()
+}
+
+async function getAllItems() {
+	return await API_REQUEST(
+		'get',
+		`${baseURL}${API_ENDPOINTS.GET_ALL_PRODUCTS}`,
 		false,
 	)()
 }

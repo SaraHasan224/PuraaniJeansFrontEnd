@@ -7,6 +7,7 @@ import { ALERT_ACTIONS } from './alertActions';
 export const CLOSET_ACTIONS = {
 	GET_CLOSET_DETAILS,
 	CREATE_CLOSET,
+	GET_CLOSET_CATEGORY_DETAILS,
 	CLOSET_ASSETS_UPLOAD,
 	GET_CLOSET_PRODUCTS_PAGINATED_DATA
 }
@@ -44,6 +45,73 @@ function CREATE_CLOSET(data) {
 	}
 }
 
+function GET_CLOSET_CATEGORY_DETAILS(handle, category) {
+	return (dispatch, getState) => {
+		dispatch(request())
+		apiService
+			.getClosetCategories(handle)
+			.then((response) => {
+				const responseStatus = response?.data?.status
+				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
+					const data = response?.data?.body
+					dispatch(success(data))
+				}
+			})
+			.catch((error) => {
+				const { error_message } = HELPER.formatFailureApiResponse(error)
+				dispatch(failure(error_message?.message))
+				dispatch(ALERT_ACTIONS.error(error_message?.message))
+			})
+	}
+
+	function request() {
+		return { type: CLOSET_CONSTANTS.SHOW_DETAILS.REQUEST }
+	}
+	function success(response) {
+		return {
+			type: CLOSET_CONSTANTS.SHOW_DETAILS.SUCCESS,
+			response
+		}
+	}
+	function failure() {
+		return { type: CLOSET_CONSTANTS.SHOW_DETAILS.FAILURE }
+	}
+}
+
+
+function GET_CLOSET_DETAILS(handle) {
+	return (dispatch, getState) => {
+		dispatch(request())
+		apiService
+			.getClosetDetail(handle)
+			.then((response) => {
+				const responseStatus = response?.data?.status
+				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
+					const data = response?.data?.body
+					dispatch(success(data))
+				}
+			})
+			.catch((error) => {
+				const { error_message } = HELPER.formatFailureApiResponse(error)
+				dispatch(failure(error_message?.message))
+				dispatch(ALERT_ACTIONS.error(error_message?.message))
+			})
+	}
+
+	function request() {
+		return { type: CLOSET_CONSTANTS.SHOW_DETAILS.REQUEST }
+	}
+	function success(response) {
+		return {
+			type: CLOSET_CONSTANTS.SHOW_DETAILS.SUCCESS,
+			response
+		}
+	}
+	function failure() {
+		return { type: CLOSET_CONSTANTS.SHOW_DETAILS.FAILURE }
+	}
+}
+
 function CLOSET_ASSETS_UPLOAD(requestData) {
 	return (dispatch) => {
 		dispatch(request());
@@ -78,39 +146,6 @@ function CLOSET_ASSETS_UPLOAD(requestData) {
 	}
 	function failure() {
 		return { type: customerConstants.PROFILE_FAILURE };
-	}
-}
-
-function GET_CLOSET_DETAILS(handle) {
-	return (dispatch, getState) => {
-		dispatch(request())
-		apiService
-			.getClosetDetail(handle)
-			.then((response) => {
-				const responseStatus = response?.data?.status
-				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
-					const data = response?.data?.body
-					dispatch(success(data))
-				}
-			})
-			.catch((error) => {
-				const { error_message } = HELPER.formatFailureApiResponse(error)
-				dispatch(failure(error_message?.message))
-				dispatch(ALERT_ACTIONS.error(error_message?.message))
-			})
-	}
-
-	function request() {
-		return { type: CLOSET_CONSTANTS.SHOW_DETAILS.REQUEST }
-	}
-	function success(response) {
-		return {
-			type: CLOSET_CONSTANTS.SHOW_DETAILS.SUCCESS,
-			response
-		}
-	}
-	function failure() {
-		return { type: CLOSET_CONSTANTS.SHOW_DETAILS.FAILURE }
 	}
 }
 

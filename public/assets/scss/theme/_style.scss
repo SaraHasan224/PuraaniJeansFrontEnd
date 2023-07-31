@@ -2419,7 +2419,11 @@ header {
               &:hover {
                 color: var(--theme-deafult);
                 transition: all 0.3s ease;
+                text-decoration: underline !important;
               }
+            }
+            &:hover {
+              text-decoration: underline !important;
             }
           }
         }
@@ -2439,6 +2443,7 @@ header {
               transition: all 0.3s ease;
           }
         }
+        
   
         @media (max-width: 1199px) {
             margin-right: auto !important;

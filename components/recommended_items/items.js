@@ -8,46 +8,6 @@ import ALink from "../../features/alink";
 
 import { HELPER } from "../../utils";
 
-const Data = [
-  {
-    title: "Recommend",
-    service: "Some Products that we picked for you",
-    price: '',
-    theme: "",
-    titleLink: "/shop"
-  },
-  {
-    link: "/my-assets/images/backgrounds/recommendations/1.png",
-    title: "Breakout 2 piece",
-    service: "Summer net stuff",
-    price: 'Rs 2300',
-    theme: "",
-    titleLink: "/shop"
-  },
-  {
-    link: "/my-assets/images/backgrounds/recommendations/2.png",
-    title: "Sapphire pret",
-    service: "sapphire pret shirt",
-    price: 'Rs 10000',
-    theme: "",
-    titleLink: "/shop"
-  },
-  {
-    link: "/my-assets/images/backgrounds/recommendations/3.png",
-    title: "Sana Safinaz lawn",
-    service: "Sana safinaz lawn baggy",
-    price: 'Rs 200',
-    theme: "",
-    titleLink: "/shop"
-  },
-  {
-    title: "View alll",
-    service: "1000+ Products",
-    price: '',
-    theme: "bg-dark text-white",
-    titleLink: "/shop"
-  },
-];
 
 const RecommendItems = () => {
   const { recommended } = useSelector((state) => state.home);
@@ -82,7 +42,7 @@ const RecommendItems = () => {
             <div className={`media`}>
               <div className="media-body">
                 <h4>
-                  <ALink href={"#"}>View all</ALink>
+                  <ALink href={`/shop`}>View all</ALink>
                 </h4>
                 <div className="price">{"1000+ Products"}</div>
               </div>

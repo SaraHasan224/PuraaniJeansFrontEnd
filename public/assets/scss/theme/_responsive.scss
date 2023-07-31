@@ -294,7 +294,7 @@
       font-size: 16px;
     }
   }
-  .service-block {
+  .recommended-section {
     h4 {
       // font-size: 16px;
       margin-bottom: 5px;
@@ -919,8 +919,8 @@
       }
     }
   }
-  .service-block {
-    + .service-block {
+  .recommended-section {
+    + .recommended-section {
       border: none;
     }
   }
@@ -1211,7 +1211,7 @@
   .home-services {
     section {
       .services {
-        .service-block {
+        .recommended-section {
           margin: 0px;
         }
         .mid-section {
@@ -1607,7 +1607,7 @@
   .m-sm-t-2 {
     margin-top: 2rem;
   }
-  .service-block p {
+  .recommended-section p {
     line-height: 1.2;
   }
   h2 {
@@ -1652,7 +1652,7 @@
       margin-top: 10px;
     }
   }
-  .service-block {
+  .recommended-section {
     svg {
       margin-bottom: 20px;
       height: auto;
@@ -2968,7 +2968,7 @@
       }
     }
   }
-  .service-block {
+  .recommended-section {
     &.first, .last {
       width: 100% !important;
     }
@@ -2984,7 +2984,7 @@
     &:nth-child(n+3){
       margin-top: 20px;
     }
-    + .service-block {
+    + .recommended-section {
       border-left: 0;
     }
     &:last-child {
@@ -3994,7 +3994,7 @@
           .media {
             .media-body {
               margin: 0.25rem;
-              h4, .home-services section .services .service-block .media .media-body .h4 {
+              h4, .home-services section .services .recommended-section .media .media-body .h4 {
                 font-size: 1.1rem;
               }
             }
@@ -4209,10 +4209,10 @@
   .home-services {
     section {
       .services {
-        .service-block {
+        .recommended-section {
           .media {
             .media-body {
-              h4, .home-services section .services .service-block .media .media-body .h4 {
+              h4, .home-services section .services .recommended-section .media .media-body .h4 {
                 font-size: 1.1rem;
               }
             }
@@ -5110,8 +5110,8 @@
       margin-bottom: 30px;
     }
   } 
-  .service-block{
-    + .service-block{
+  .recommended-section{
+    + .recommended-section{
       margin-top: 15px;
     }
   }

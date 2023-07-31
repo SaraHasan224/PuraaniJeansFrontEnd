@@ -10,12 +10,6 @@ import { Container, Row, Col, Media } from 'reactstrap';
 import Masonry from "react-masonry-css";
 import ProductBox from "./modules/product-box";
 import { HELPER } from '../../utils';
-import cart from "../../public/assets/images/icon/cat1.png";
-import cart2 from "../../public/assets/images/icon/cat2.png";
-import cart3 from "../../public/assets/images/icon/cat3.png";
-import cart4 from "../../public/assets/images/icon/cat4.png";
-import cart5 from "../../public/assets/images/icon/cat5.png";
-import cart6 from "../../public/assets/images/icon/cat6.png";
 import categoryIcon from "../../public/my-assets/images/icons/category/icon.png"
 import ALink from '../../features/alink';
 
@@ -57,17 +51,6 @@ const Product5 = {
     },
   ],
 };
-
-const Data = [
-  { img: categoryIcon, title: "sport shoes", link: "#" },
-  { img: cart2, title: "casual shoes", link: "#" },
-  { img: cart3, title: "formal shoes", link: "#" },
-  { img: cart4, title: "flat", link: "#" },
-  { img: cart5, title: "heels", link: "#" },
-  { img: cart6, title: "boots", link: "#" },
-  { img: cart2, title: "casual shoes", link: "#" },
-  { img: cart2, title: "casual shoes", link: "#" },
-];
 
 const Category = () => {
   const dispatch = useDispatch()
