@@ -25,7 +25,7 @@ export const API_ENDPOINTS = {
 
   CREATE_CLOSET: "api/closet/create",
   CLOSET_IMG_UPLOAD: "api/closet/image-upload",
-  GET_CLOSET: "api/closet",
+  CLOSET: "api/closet",
 
   
   GET_CATEGORY_DETAIL: "api/categories",

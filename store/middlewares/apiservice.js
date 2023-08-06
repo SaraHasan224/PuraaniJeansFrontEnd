@@ -13,6 +13,7 @@ export const apiService = {
 	getFeaturedItems,
 	
 	createYourCloset,
+	updateClosetSettings,
 	uploadYourClosetImage,
 	getClosetDetail,
 	getClosetProductList,
@@ -95,6 +96,14 @@ async function createYourCloset(data) {
 	)(data)
 }
 
+async function updateClosetSettings(data, handle) {
+	return await API_REQUEST(
+		'post',
+		`${baseURL}${API_ENDPOINTS.CLOSET}/${handle}/edit`,
+		true,
+	)(data)
+
+}
 async function uploadYourClosetImage(requestData) {
   let response = await axiosRequest(
     "post",
@@ -107,7 +116,7 @@ async function uploadYourClosetImage(requestData) {
 async function getClosetDetail(handle) {
 	return await API_REQUEST(
 		'get',
-		`${baseURL}${API_ENDPOINTS.GET_CLOSET}/${handle}`,
+		`${baseURL}${API_ENDPOINTS.CLOSET}/${handle}`,
 		true,
 	)()
 }
@@ -115,7 +124,7 @@ async function getClosetDetail(handle) {
 async function getClosetCategories(handle, catSlug) {
 	return await API_REQUEST(
 		'get',
-		`${baseURL}${API_ENDPOINTS.GET_CLOSET}/${handle}/category/${catSlug}`,
+		`${baseURL}${API_ENDPOINTS.CLOSET}/${handle}/category/${catSlug}`,
 		true,
 	)()
 }
@@ -124,7 +133,7 @@ async function getClosetCategories(handle, catSlug) {
 async function getClosetProductList(handle, pageNumber) {
 	return await API_REQUEST(
 		'get',
-		`${baseURL}${API_ENDPOINTS.GET_CLOSET}/${handle}?page=${pageNumber}`,
+		`${baseURL}${API_ENDPOINTS.CLOSET}/${handle}?page=${pageNumber}`,
 		true,
 	)()
 }

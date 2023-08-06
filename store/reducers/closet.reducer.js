@@ -37,8 +37,11 @@ const closetReducer = (state = initialState, action) => {
         ...state,
         closetDataLoading: true,
         closet: [],
+        categories: [],
         trendingClosetProducts: [],
         recentClosetProducts: [],
+        closetAllProductsData: [],
+        closetAllProducts: [],
       }
     case CLOSET_CONSTANTS.SHOW_DETAILS.SUCCESS:
       return {

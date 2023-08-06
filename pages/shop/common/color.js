@@ -19,14 +19,14 @@ const Color = () => {
                 <div className="collection-collapse-block-content">
                     <div className="color-selector">
                         <ul>
-                            {HELPER.isNotEmpty(colors) && Object.keys(colors)?.map((color, i) =>{
+                            {/* {HELPER.isNotEmpty(colors) && Object.keys(colors)?.map((color, i) =>{
                                 return(<li
                                     style={{backgroundColor: colors[color]}}
                                     className={`${colors[color]} ${context.selectedColor === colors[color]? 'active' : ''}`}
                                     onClick={() => {context.setSelectedColor(colors[color])}}
                                 ></li>)
                             })
-                            }
+                            } */}
                         </ul>
                     </div>
                 </div>

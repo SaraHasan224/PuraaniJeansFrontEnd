@@ -8,6 +8,8 @@ import CommonLayout from '../../../components/layouts/common-layout';
 import vendor from "../../../public/my-assets/images/backgrounds/main-banner/create-closet.png";
 import withPrivateRoute from '../../../hoc/auth/withPrivateRoute';
 import { CLOSET_ACTIONS } from '../../../store/actions';
+import { Textarea, Tooltip } from '@mui/joy';
+import { HELPER } from '../../../utils';
 
 const BannerData = [
     {
@@ -48,11 +50,14 @@ const BannerComponent = ({ no, title, desc }) => {
 const CreateCloset = () => {
     const router = useRouter();
     const dispatch = useDispatch()
-    
+
     const { closetLoggedIn } = useSelector((state) => state.closet);
     const { closetRef } = useSelector((state) => state.auth);
-    
+
     const [closetName, setClosetName] = useState("");
+    const [closetAbout, setClosetAbout] = useState("");
+    const [logoDataUrl, setLogoDataUrl] = useState(null);
+    const [bannerDataUrl, setBannerDataUrl] = useState(null);
 
     useEffect(() => {
         if (closetLoggedIn) {
@@ -61,18 +66,34 @@ const CreateCloset = () => {
     }, [closetLoggedIn]);
 
     const onClosetCreation = () => {
-            dispatch(CLOSET_ACTIONS.CREATE_CLOSET({
-                name: closetName,
-            }));
+        dispatch(CLOSET_ACTIONS.CREATE_CLOSET({
+            name: closetName,
+            logo: logoDataUrl,
+            banner: bannerDataUrl,
+            about: closetAbout
+        }));
     }
 
-    const handleUpload = () => {
-        const PP = profilePictureRef.current;
-        const requestData = {
-          image: PP.getImageAsDataUrl(),
-        };
-        props.CUSTOMER_IMAGE(requestData);
-      };
+    const handleLogoUpload = (files) => {
+        HELPER.blobToDataURL(files, function (dataurl) {
+            setLogoDataUrl(dataurl)
+        });
+
+    };
+
+    const handleBannerUpload = (files) => {
+        HELPER.blobToDataURL(files, function (dataurl) {
+            setBannerDataUrl(dataurl)
+        });
+    };
+
+    const resetImage = (type) => {
+        if (type == "banner") {
+            setBannerDataUrl(null)
+        } else {
+            setLogoDataUrl(null)
+        }
+    };
 
     return (
         <CommonLayout parent="home" title="Create your closet">
@@ -152,24 +173,88 @@ const CreateCloset = () => {
                                     easy and absolutely free. All you need is to register, list your
                                     catalogue and start selling your products.
                                 </p>
-                                <Form>
-                                    <Row>
-                                        <Col sm="6">
+                                <Row>
+                                    <Col lg="6" md="6" sm="6" xs="6">
+                                        <div className="account-setting">
+                                            <h5><b>Closet Name</b></h5>
                                             <Input
                                                 type="text"
                                                 className="form-control"
-                                                placeholder="Enter your shop name"
+                                                placeholder="Enter your closet name"
                                                 onChange={(e) => setClosetName(e.target.value)}
                                             />
-                                        </Col>
-                                        <Col sm="6">
-                                            <button onClick={handleUpload} className="btn btn-primary">
-                                                Upload
-                                            </button>
-                                        </Col>
-                                    </Row>
-                                </Form>
-                                <button onClick={(e) => onClosetCreation(e)}  className="btn btn-solid btn-sm">
+                                        </div>
+                                    </Col>
+                                    <Col lg="6" md="6" sm="6" xs="6">
+                                        <div className="account-setting">
+                                            <h5><b>Closet Description</b></h5>
+                                            <Textarea
+                                                minRows={4}
+                                                name="Outlined"
+                                                variant="outlined"
+                                                placeholder="Enter something about your closet"
+                                                onChange={(e) => setClosetAbout(e.target.value)}
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row className='mt-5'>
+                                    <Col lg="6" md="6" sm="6" xs="6">
+                                        <div className="account-setting">
+                                            <h5><b>Closet logo</b></h5>
+                                            <Tooltip arrow title="Upload closet logo" htmlFor="raised-button-file">
+                                                <input
+                                                    type="file"
+                                                    name="myImage"
+                                                    onChange={(event) => {
+                                                        handleLogoUpload(event.target.files[0])
+                                                    }}
+                                                />
+                                            </Tooltip>
+                                            {logoDataUrl && (
+                                                <div>
+                                                    <img
+                                                        alt="not found"
+                                                        width={"250px"}
+                                                        src={logoDataUrl}
+                                                    />
+                                                    <br />
+                                                    <button onClick={() => resetImage("logo")} className="btn btn-primary mt-0">
+                                                        Remove Icon
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </Col>
+                                    <Col lg="6" md="6" sm="6" xs="6">
+                                        <div className="account-setting">
+                                            <h5><b>Closet Banner</b></h5>
+                                            <Tooltip arrow title="Upload closet banner" htmlFor="raised-button-file">
+                                                <input
+                                                    type="file"
+                                                    name="myImage"
+                                                    onChange={(event) => {
+                                                        handleBannerUpload(event.target.files[0])
+                                                    }}
+                                                />
+                                            </Tooltip>
+                                            {bannerDataUrl && (
+                                                <div>
+                                                    <img
+                                                        alt="not found"
+                                                        width={"250px"}
+                                                        src={bannerDataUrl}
+                                                    />
+                                                    <br />
+                                                    <button onClick={() => resetImage("banner")} className="btn btn-primary mt-0">
+                                                        Remove Banner
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <button onClick={(e) => onClosetCreation(e)} className="btn btn-solid btn-sm">
                                     start selling
                                 </button>
                             </div>
@@ -181,5 +266,4 @@ const CreateCloset = () => {
         </CommonLayout>
     )
 }
-export default CreateCloset;
-// export default withPrivateRoute(CreateCloset);
+export default withPrivateRoute(CreateCloset);

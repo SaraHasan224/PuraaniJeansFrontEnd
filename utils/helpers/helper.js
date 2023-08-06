@@ -16,6 +16,13 @@ function isNotEmpty(x) {
 	return !isEmpty(x)
 }
 
+//**blob to dataURL**
+function blobToDataURL(blob, callback) {
+    var a = new FileReader();
+    a.onload = function (e) { callback(e.target.result); }
+    a.readAsDataURL(blob);
+}
+
 function parseMetaData(data) {
 	const countries = data?.countries
 	var default_country = null
@@ -334,6 +341,7 @@ const HELPER = {
 	findCityByProvinceId,
 	findAreaByCityId,
 	formatFailureApiResponse,
-	getSelectedVariant
+	getSelectedVariant,
+	blobToDataURL
 }
 export default HELPER

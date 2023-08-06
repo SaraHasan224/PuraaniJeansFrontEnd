@@ -11,7 +11,6 @@ import { HELPER } from '../../utils';
 import Slider from 'react-slick';
 import categoryIcon from "../../public/my-assets/images/icons/category/icon.png"
 import ALink from '../../features/alink';
-import NotFound from '../../components/common/NotFound';
 
 const Product5 = {
   dots: false,
@@ -52,10 +51,11 @@ const Product5 = {
   ],
 };
 
-const Closet = () => {
+const ClosetCategory = () => {
   const dispatch = useDispatch()
   const router = useRouter();
   const reference = router.query.id;
+  console.log("query: ", router.query)
   const { closet, categories, closetDataLoading, closetAllProductsData } = useSelector((state) => state.closet);
 
   useEffect(() => {
@@ -74,14 +74,6 @@ const Closet = () => {
                 "loading"
               ) : (
                 <>
-                {
-                  HELPER.isEmpty(closet?.name) ? 
-                                      <>
-                                        <NotFound
-                                          errTitle="No closet found"
-                                          errDescription="Explore more shortlist some items."
-                                        />
-                                      </> : 
                   <div className="collection-wrapper">
                     <Container>
                       <Row>
@@ -148,7 +140,6 @@ const Closet = () => {
                       </Row>
                     </Container>
                   </div>
-                }
                 </>)}
           </Container>
         </section>
@@ -159,4 +150,4 @@ const Closet = () => {
   );
 }
 
-export default Closet;
+export default ClosetCategory;

@@ -1,7 +1,8 @@
 import axios from 'axios'
 import {
 	LOCAL_STORAGE_SERVICE, 
-	HELPER
+	HELPER,
+	COOKIE_STORAGE_SERVICE
 } from '../../utils'
 
 var mainInstance = axios.create({
@@ -16,7 +17,7 @@ const makeRequest =
 		(method, url, token, ...params) => {
 			let access_token = '';
 				// Perform localStorage action
-				access_token = LOCAL_STORAGE_SERVICE._getFromLocalStorage("access_token")
+				access_token = COOKIE_STORAGE_SERVICE._getAccessToken()
 			if (access_token) {
 				axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token
 				mainInstance.defaults.headers.common['Authorization'] = 'Bearer ' + access_token

@@ -12,6 +12,7 @@ import ProductBox from "./modules/product-box";
 import { HELPER } from '../../utils';
 import categoryIcon from "../../public/my-assets/images/icons/category/icon.png"
 import ALink from '../../features/alink';
+import NotFound from '../../components/common/NotFound';
 
 const Product5 = {
   dots: false,
@@ -170,24 +171,10 @@ const Category = () => {
                                   {
                                     HELPER.isEmpty(data) ?
                                       <>
-                                        <Row>
-                                          <Col xs="12">
-                                            <div>
-                                              <div className="col-sm-12 empty-cart-cls text-center">
-                                                <img
-                                                  src={`/assets/images/empty-search.jpg`}
-                                                  className="img-fluid mb-4 mx-auto"
-                                                  alt=""
-                                                />
-                                                <h3>
-                                                  <strong>No products found</strong>
-                                                </h3>
-                                                <h4>Explore more shortlist some items.</h4>
-                                              </div>
-                                            </div>
-                                          </Col>
-
-                                        </Row>
+                                        <NotFound
+                                          errTitle="No products found"
+                                          errDescription="Explore more shortlist some items."
+                                        />
                                       </>
                                       : <Masonry breakpointCols={4} className="isotopeContainer row" columnClassName={`isotopeSelector
       col-xl-2 col-lg-3 col-md-4 col-sm-6`}>

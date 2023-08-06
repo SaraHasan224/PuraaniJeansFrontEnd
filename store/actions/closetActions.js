@@ -7,6 +7,7 @@ import { ALERT_ACTIONS } from './alertActions';
 export const CLOSET_ACTIONS = {
 	GET_CLOSET_DETAILS,
 	CREATE_CLOSET,
+	CLOSET_UPDATE_SETTINGS,
 	GET_CLOSET_CATEGORY_DETAILS,
 	CLOSET_ASSETS_UPLOAD,
 	GET_CLOSET_PRODUCTS_PAGINATED_DATA
@@ -44,6 +45,40 @@ function CREATE_CLOSET(data) {
 		return { type: CLOSET_CONSTANTS.CREATE.FAILURE }
 	}
 }
+
+function CLOSET_UPDATE_SETTINGS(data, handle) {
+	return (dispatch, getState) => {
+		dispatch(request())
+		apiService
+			.updateClosetSettings(data, handle)
+			.then((response) => {
+				const responseStatus = response?.data?.status
+				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
+					const data = response?.data?.body
+					dispatch(success(data))
+				}
+			})
+			.catch((error) => {
+				const { error_message } = HELPER.formatFailureApiResponse(error)
+				dispatch(failure(error_message?.message))
+				dispatch(ALERT_ACTIONS.error(error_message?.message))
+			})
+	}
+
+	function request() {
+		return { type: CLOSET_CONSTANTS.CREATE.REQUEST }
+	}
+	function success(response) {
+		return {
+			type: CLOSET_CONSTANTS.CREATE.SUCCESS,
+			response
+		}
+	}
+	function failure() {
+		return { type: CLOSET_CONSTANTS.CREATE.FAILURE }
+	}
+}
+
 
 function GET_CLOSET_CATEGORY_DETAILS(handle, category) {
 	return (dispatch, getState) => {

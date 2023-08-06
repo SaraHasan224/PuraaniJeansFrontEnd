@@ -15,6 +15,7 @@
     "@apollo/react-ssr": "4.0.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.3",
     "@mui/joy": "^5.0.0-alpha.88",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react-slick": "^0.23.8",

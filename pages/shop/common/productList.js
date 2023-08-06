@@ -293,21 +293,10 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
                     data.length === 0 ||
                     loading ? (
                     data ? (
-                      <Col xs="12">
-                        <div>
-                          <div className="col-sm-12 empty-cart-cls text-center">
-                            <img
-                              src={`/assets/images/empty-search.jpg`}
-                              className="img-fluid mb-4 mx-auto"
-                              alt=""
-                            />
-                            <h3>
-                              <strong>No products found</strong>
-                            </h3>
-                            <h4>Explore more shortlist some items.</h4>
-                          </div>
-                        </div>
-                      </Col>
+                      <NotFound
+                        errTitle="No products found"
+                        errDescription="Explore more shortlist some items."
+                      />
                     ) : (
                       <div className="row mx-0 margin-default mt-4">
                         <div className="col-xl-3 col-lg-4 col-6">

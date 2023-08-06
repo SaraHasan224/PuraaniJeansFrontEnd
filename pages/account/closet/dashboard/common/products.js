@@ -12,6 +12,7 @@ import {
 
 import Pagination from "react-js-pagination";
 import { CLOSET_ACTIONS } from '../../../../../store/actions';
+import { HELPER } from '../../../../../utils';
 
 const ProductCatalog = ({ product }) => {
     return (
@@ -34,16 +35,16 @@ const ProductCatalog = ({ product }) => {
 
 const ProductCatalogList = () => {
     const dispatch = useDispatch()
-    const {  closetDataLoading, closetAllProductsData, closetAllProducts  } = useSelector((state) => state.closet);
+    const { closetDataLoading, closetAllProductsData, closetAllProducts } = useSelector((state) => state.closet);
     const { products } = closetAllProducts;
     const [currentPage, setCurrentPage] = useState(products?.current_page);
-    const {  closetRef  } = useSelector((state) => state.auth);
+    const { closetRef } = useSelector((state) => state.auth);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
         dispatch(CLOSET_ACTIONS.GET_CLOSET_PRODUCTS_PAGINATED_DATA(closetRef, pageNumber));
     };
-  
+
     return (
         closetDataLoading ? (
             <p>Loading...</p>
@@ -61,32 +62,38 @@ const ProductCatalogList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {closetAllProductsData.map((data, i) => {
-                        return (
-                            <ProductCatalog key={`catalog-all-products-${i}`} product={data} />
-                        );
-                    })}
+                    {
+                        HELPER.isEmpty(closetAllProductsData) ?
+                            <tr>
+                                <td colSpan={7}> No products found</td>
+                            </tr> :
+                            closetAllProductsData.map((data, i) => {
+                                return (
+                                    <ProductCatalog key={`catalog-all-products-${i}`} product={data} />
+                                );
+                            })}
                 </tbody>
-                <tfoot>
+                {HELPER.isNotEmpty(closetAllProductsData) ?? <tfoot>
                     <div className="pagination-background">
                         <Pagination
                             activePage={currentPage}
                             itemsCountPerPage={products?.per_page}
                             totalItemsCount={products?.total}
-                            pageRangeDisplayed={Math.ceil( Number(products?.total) / Number(products?.per_page) )}
+                            pageRangeDisplayed={Math.ceil(Number(products?.total) / Number(products?.per_page))}
                             onChange={handlePageChange}
                             itemClass="page-item"
                             linkClass="page-link"
                         />
                     </div>
                 </tfoot>
+                }
             </table>
         )
     );
 }
 
 const AddNewProduct = () => {
-    const {  closetAllProductsData  } = useSelector((state) => state.closet);
+    const { closetAllProductsData } = useSelector((state) => state.closet);
     return (
         <table className="table-responsive-md table mb-0">
             <thead>
@@ -126,7 +133,7 @@ const ProductsTab = ({ active, setActive }) => {
                                     {!addProducts ? "add product" : "back"}
                                 </a>
                             </div>
-                            {!addProducts ? <ProductCatalogList/> : <AddNewProduct/>}
+                            {!addProducts ? <ProductCatalogList /> : <AddNewProduct />}
                         </CardBody>
                     </Card>
                 </Col>

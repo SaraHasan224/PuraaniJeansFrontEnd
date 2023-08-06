@@ -14,7 +14,7 @@ import {
   Media
 } from "reactstrap";
 import DashboardNavigation from "./common/navigation";
-import DashboardTab from "./common/dashboard";
+import DashboardTab from "./common/dashboard/index";
 import ProductsTab from "./common/products";
 import OrdersTab from "./common/orders";
 import SettingsTab from "./common/settings";
@@ -46,7 +46,7 @@ const Dashboard = () => {
                   </a>
                   <div className="top-banner-content small-section pb-0">
                     <h4>About {HELPER.isNotEmpty(closet?.name) ? closet?.name : `Closet`}</h4>
-                    <p>{closet?.about_closet}</p>
+                    <p>{closet?.description}</p>
                   </div>
                 </div>
               </div>
