@@ -13,6 +13,7 @@ function AlertComponent() {
   const { message, hide, type, clearAll, autoDismiss, group } = useSelector(state => state.alert);
 
   useEffect(() => {
+    dispatch(ALERT_ACTIONS.clear())
     // returned function will be called on component unmount
     return () => {
       if (HELPER.isNotEmpty(message) && hide) {
@@ -60,7 +61,6 @@ function AlertComponent() {
     }
   };
 
-console.log("Alert: ", message, hide, type, clearAll, autoDismiss, group)
   return (HELPER.isNotEmpty(message) && group !== CONSTANTS.ERROR_TYPE.TOAST) ? <div className="row">
   <div className={`col-12 alert_classes `}>
       <div className={`alertCustom  ${HELPER.isEmpty(type) ? "default" : type}`} role="alert">

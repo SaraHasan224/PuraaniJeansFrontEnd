@@ -1,4 +1,4 @@
-import { AUTH_CONSTANTS, CLOSET_CONSTANTS } from '../actionTypes'
+import { AUTH_CONSTANTS, CLOSET_CONSTANTS, CUSTOMER_CONSTANTS } from '../actionTypes'
 
 
 const initialState = {
@@ -11,11 +11,36 @@ const initialState = {
   isVerificationAttemptPhone: "",
   isLoggedInCustomer: [],
   customerRef: "",
-  closetRef: ""
+  closetRef: "",
+  customerMetaRequested: false
 }
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CUSTOMER_CONSTANTS.META.REQUEST:
+      return {
+        ...state,
+        customerMetaRequested: false,
+      }
+    case CUSTOMER_CONSTANTS.META.SUCCESS:
+      return {
+        ...state,
+        customerMetaRequested: true,
+        isLoggedInCustomer: action?.response?.customer,
+      }
+    case CUSTOMER_CONSTANTS.META.FAILURE:
+      return {
+        ...state,
+        customerMetaRequested: false,
+      }
+
+    case AUTH_CONSTANTS.AUTH_SIGNIN.REQUEST:
+      return {
+        ...state,
+        authLoading: true,
+        isLoggedIn: false,
+      }
+
     case AUTH_CONSTANTS.AUTH_SIGNUP.REQUEST:
       return {
         ...state,

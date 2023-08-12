@@ -1,4 +1,5 @@
 import { ERROR_ACTION } from "../../store/actions"
+import Resizer from "react-image-file-resizer";
 
 function isEmpty(x) {
 	return (
@@ -18,9 +19,23 @@ function isNotEmpty(x) {
 
 //**blob to dataURL**
 function blobToDataURL(blob, callback) {
-    var a = new FileReader();
-    a.onload = function (e) { callback(e.target.result); }
-    a.readAsDataURL(blob);
+	var a = new FileReader();
+	a.onload = function (e) { callback(e.target.result); }
+	a.readAsDataURL(blob);
+}
+
+async function URltoBlobDataUrl(url, callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function () {
+		var reader = new FileReader();
+		reader.onloadend = function () {
+			callback(reader.result);
+		}
+		reader.readAsDataURL(xhr.response);
+	};
+	xhr.open('GET', url);
+	xhr.responseType = 'blob';
+	xhr.send();
 }
 
 function parseMetaData(data) {
@@ -313,24 +328,53 @@ const formatFailureApiResponse = (error) => {
 function getSelectedVariant(product) {
 	let { default_variant_id, variants, selected_variant } = product;
 	if (HELPER.isNotEmpty(selected_variant)) {
-	  return selected_variant;
+		return selected_variant;
 	} else if (HELPER.isNotEmpty(variants)) {
-	  let selectedVariant = HELPER.isNotEmpty(variants?.variant_id)
-		? variants
-		: variants.find(variant => variant.variant_id === default_variant_id);
-	  if (HELPER.isNotEmpty(selectedVariant.attributes)) {
-		selectedVariant.attributes = selectedVariant.attributes?.map(e =>
-		  Array.isArray(e?.options) ? { ...e, options: e?.options[0] } : e
-		);
-	  } else {
-		selectedVariant.attributes = product.attributes;
-	  }
-	  return selectedVariant;
+		let selectedVariant = HELPER.isNotEmpty(variants?.variant_id)
+			? variants
+			: variants.find(variant => variant.variant_id === default_variant_id);
+		if (HELPER.isNotEmpty(selectedVariant.attributes)) {
+			selectedVariant.attributes = selectedVariant.attributes?.map(e =>
+				Array.isArray(e?.options) ? { ...e, options: e?.options[0] } : e
+			);
+		} else {
+			selectedVariant.attributes = product.attributes;
+		}
+		return selectedVariant;
 	}
 	return product;
-  }
+}
+function toDataURL(src, callback) {
+	var image = new Image();
+	image.crossOrigin = 'Anonymous';
+	image.onload = function () {
+		var canvas = document.createElement('canvas');
+		var context = canvas.getContext('2d');
+		canvas.height = this.naturalHeight;
+		canvas.width = this.naturalWidth;
+		context.drawImage(this, 0, 0);
+		var dataURL = canvas.toDataURL('image/jpeg');
+		callback(dataURL);
+	};
+	image.src = src;
+}
 
-  
+function resizeFile(file, maxWidth, maxHeight, width, height = 0) {
+	new Promise((resolve) => {
+		Resizer.imageFileResizer(
+			file,
+			maxWidth,
+			maxHeight,
+			"PNG",
+			width,
+			height,
+			(uri) => {
+				resolve(uri);
+			},
+			"base64"
+		);
+	});
+}
 const HELPER = {
 	stringToBoolean,
 	isEmpty,
@@ -342,6 +386,8 @@ const HELPER = {
 	findAreaByCityId,
 	formatFailureApiResponse,
 	getSelectedVariant,
-	blobToDataURL
+	blobToDataURL,
+	toDataURL,
+	resizeFile
 }
 export default HELPER

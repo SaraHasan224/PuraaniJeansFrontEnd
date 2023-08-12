@@ -6,6 +6,8 @@ export const API_ENDPOINTS = {
 
   // HomePage
   GET_APP_METADATA: "api/meta-data",
+  GET_CUSTOMER_METADATA: "api/customer",
+  GET_AUTH_APP_METADATA: "api/auth/meta",
   GET_HOMEPAGE_CONTENTS: "api/homepage",
   GET_MEGA_MENU_CONTENTS: "api/mega-menu",
   GET_HOMEPAGE_FEATURED_SECTION: "api/homepage/featured-section",

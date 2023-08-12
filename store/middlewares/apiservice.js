@@ -8,6 +8,7 @@ const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
 
 export const apiService = {
 	getApplicationMetaData,
+	getCustomerMetaData,
 	getHomePage,
 	getMegaMenu,
 	getFeaturedItems,
@@ -40,8 +41,16 @@ export const apiService = {
 async function getApplicationMetaData() {
 	return API_REQUEST(
 		'get',
-		`${baseURL}` + API_ENDPOINTS.GET_APP_METADATA,
+		`${baseURL} ${API_ENDPOINTS.GET_APP_METADATA}`,
 		false,
+	)()
+}
+
+async function getCustomerMetaData() {
+	return API_REQUEST(
+		'post',
+		`${baseURL}${API_ENDPOINTS.GET_CUSTOMER_METADATA}`,
+		true,
 	)()
 }
 

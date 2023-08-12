@@ -12,10 +12,29 @@ import {
     Input,
     TabPane,
 } from "reactstrap";
-import ALink from '../../../../../features/alink';
+import Resizer from "react-image-file-resizer";
 import { HELPER } from '../../../../../utils';
 import { CLOSET_ACTIONS } from '../../../../../store/actions';
 import AlertComponent from '../../../../../components/common/alert';
+
+
+
+function resizeFile(file, maxWidth, maxHeight, width, height = 0) {
+	new Promise((resolve) => {
+		Resizer.imageFileResizer(
+			file,
+			maxWidth,
+			maxHeight,
+			"PNG",
+			width,
+			height,
+			(uri) => {
+				resolve(uri);
+			},
+			"base64"
+		);
+	});
+}
 
 const SettingsTab = () => {
     const dispatch = useDispatch()
@@ -26,9 +45,9 @@ const SettingsTab = () => {
     const [closetName, setClosetName] = useState(closet?.name);
     const [closetAbout, setClosetAbout] = useState(closet?.description ?? "");
     const [logo, setLogo] = useState(closet?.logo);
-    const [logoDataUrl, setLogoDataUrl] = useState(null);
+    const [logoDataUrl, setLogoDataUrl] = useState("");
     const [banner, setBanner] = useState(closet?.banner);
-    const [bannerDataUrl, setBannerDataUrl] = useState(null);
+    const [bannerDataUrl, setBannerDataUrl] = useState("");
 
     const onSettingsUpdate = () => {
         dispatch(CLOSET_ACTIONS.CLOSET_UPDATE_SETTINGS({
@@ -39,19 +58,33 @@ const SettingsTab = () => {
         }, closetRef));
     }
 
-    const handleLogoUpload = (files) => {
-        setLogo(files);
-        HELPER.blobToDataURL(files, function (dataurl) {
-            setLogoDataUrl(dataurl)
-        });
+    const handleLogoUpload = async(file) => {
+        try {
+            const image = await resizeFile(file, 300, 300, 300, 0);
+            setLogo(file);
+            setLogoDataUrl(image)
+        } catch (err) {
+            console.log(err);
+        }
+        // setLogo(files);
+        // HELPER.blobToDataURL(files, function (dataurl) {
+        //     setLogoDataUrl(dataurl)
+        // });
 
     };
 
-    const handleBannerUpload = (files) => {
-        setBanner(files);
-        HELPER.blobToDataURL(files, function (dataurl) {
-            setBannerDataUrl(dataurl)
-        });
+    const handleBannerUpload = async (file) => {
+        try {
+            const image = await resizeFile(file, 1100, 400, 1100, 0);
+            setBanner(file);
+            setBannerDataUrl(image)
+        } catch (err) {
+            console.log(err);
+        }
+        // setBanner(file);
+        // HELPER.blobToDataURL(file, function (dataurl) {
+        //     setBannerDataUrl(dataurl)
+        // });
     };
 
     const resetImage = (type) => {
@@ -84,7 +117,7 @@ const SettingsTab = () => {
                                             </Col>
                                         </Row>
                                         <Row>
-                                            <Col sm="6">
+                                            <Col lg="6" md="6" sm="12">
                                                 <h5>
                                                     <b>Change Closet Name</b>
                                                 </h5>
@@ -95,7 +128,7 @@ const SettingsTab = () => {
                                             </Col>
                                         </Row>
                                         <Row className='mt-2'>
-                                            <Col sm="6">
+                                            <Col lg="6" md="6" sm="12">
                                                 <h5>
                                                     <b>Change Closet Description</b>
                                                 </h5>
@@ -106,7 +139,7 @@ const SettingsTab = () => {
                                             </Col>
                                         </Row>
                                         <Row className='mt-2'>
-                                            <Col sm="6">
+                                            <Col lg="6" md="6" sm="12">
                                                 <h5><b>Closet logo</b></h5>
                                                 <Tooltip arrow title="Upload closet logo" htmlFor="raised-button-file">
                                                     <input
@@ -119,7 +152,7 @@ const SettingsTab = () => {
                                                     />
                                                 </Tooltip>
                                             </Col>
-                                            <Col sm="6">
+                                            <Col lg="6" md="6" sm="12">
                                                 {logo && (
                                                     <div>
                                                         <img
@@ -136,7 +169,7 @@ const SettingsTab = () => {
                                             </Col>
                                         </Row>
                                         <Row className='mt-4'>
-                                            <Col sm="6">
+                                            <Col lg="6" md="6" sm="12">
                                                 <h5><b>Closet Banner</b></h5>
                                                 <Tooltip arrow title="Upload closet banner" htmlFor="raised-button-file">
                                                     <input
@@ -149,7 +182,7 @@ const SettingsTab = () => {
                                                     />
                                                 </Tooltip>
                                             </Col>
-                                            <Col sm="6">
+                                            <Col lg="6" md="6" sm="12">
                                                 {banner && (
                                                     <div>
                                                         <img

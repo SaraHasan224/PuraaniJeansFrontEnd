@@ -19,8 +19,8 @@ const makeRequest =
 				// Perform localStorage action
 				access_token = COOKIE_STORAGE_SERVICE._getAccessToken()
 			if (access_token) {
-				axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token
-				mainInstance.defaults.headers.common['Authorization'] = 'Bearer ' + access_token
+				axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
+				mainInstance.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
 			}
 
 			if (!token) {

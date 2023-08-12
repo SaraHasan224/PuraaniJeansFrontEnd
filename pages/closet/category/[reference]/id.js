@@ -55,7 +55,6 @@ const ClosetCategory = () => {
   const dispatch = useDispatch()
   const router = useRouter();
   const reference = router.query.id;
-  console.log("query: ", router.query)
   const { closet, categories, closetDataLoading, closetAllProductsData } = useSelector((state) => state.closet);
 
   useEffect(() => {

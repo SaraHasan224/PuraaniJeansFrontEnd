@@ -13,16 +13,16 @@ export const AUTH_ACTIONS = {
 	RESEND_PHONE_OTP
 }
 
-function SIGNUP_YOUR_ACCOUNT(data) {
+function SIGNUP_YOUR_ACCOUNT(requestData) {
 	return (dispatch, getState) => {
 		dispatch(request())
 		apiService
-			.getSignupEvent(data)
+			.getSignupEvent(requestData)
 			.then((response) => {
 				const responseStatus = response?.data?.status
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
-					COOKIE_STORAGE_SERVICE._updateAccessToken(data?.token);
+					COOKIE_STORAGE_SERVICE._updateAccessToken(response?.data?.body?.token);
 					LOCAL_STORAGE_SERVICE._saveToLocalStorage("user_info", data?.customer);
 					dispatch(success(data))
 				}
@@ -62,9 +62,10 @@ function SIGNIN_YOUR_ACCOUNT(data) {
 				const responseStatus = response?.data?.status
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
-					dispatch(success(data))
-					LOCAL_STORAGE_SERVICE._saveToLocalStorage("access_token", response?.token);
+					console.log("response: ",response)
+					COOKIE_STORAGE_SERVICE._updateAccessToken(data?.token);
 					LOCAL_STORAGE_SERVICE._saveToLocalStorage("user_info", data?.customer);
+					dispatch(success(data))
 				}
 			})
 			.catch((error) => {

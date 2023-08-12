@@ -30,6 +30,18 @@ const closetReducer = (state = initialState, action) => {
       }
     case CLOSET_CONSTANTS.CREATE.FAILURE:
       return state
+    case CLOSET_CONSTANTS.UPDATE.REQUEST:
+      return {
+        ...state,
+        closetDataLoading: true,
+      }
+    case CLOSET_CONSTANTS.UPDATE.SUCCESS:
+      return {
+        ...state,
+        closet: action?.response?.closet,
+      }
+    case CLOSET_CONSTANTS.UPDATE.FAILURE:
+      return state
 
 
     case CLOSET_CONSTANTS.SHOW_DETAILS.REQUEST:
@@ -107,8 +119,8 @@ const closetReducer = (state = initialState, action) => {
             price: "$150",
           },
         ],
-        closetAllProductsData:action?.response?.all_products?.products?.data,
-        closetAllProducts:action?.response?.all_products
+        closetAllProductsData: action?.response?.all_products?.products?.data,
+        closetAllProducts: action?.response?.all_products
       }
     case CLOSET_CONSTANTS.SHOW_DETAILS.FAILURE:
       return {
@@ -116,7 +128,7 @@ const closetReducer = (state = initialState, action) => {
         closetDataLoading: false,
       }
 
-      
+
     case CLOSET_CONSTANTS.PRODUCT_PAGINATED.REQUEST:
       return {
         ...state,
@@ -126,8 +138,8 @@ const closetReducer = (state = initialState, action) => {
       return {
         ...state,
         closetDataLoading: false,
-        closetAllProductsData:action?.response?.all_products?.products?.data,
-        closetAllProducts:action?.response?.all_products
+        closetAllProductsData: action?.response?.all_products?.products?.data,
+        closetAllProducts: action?.response?.all_products
       }
     case CLOSET_CONSTANTS.PRODUCT_PAGINATED.FAILURE:
       return {

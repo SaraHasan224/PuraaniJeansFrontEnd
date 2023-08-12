@@ -66,16 +66,16 @@ function CLOSET_UPDATE_SETTINGS(data, handle) {
 	}
 
 	function request() {
-		return { type: CLOSET_CONSTANTS.CREATE.REQUEST }
+		return { type: CLOSET_CONSTANTS.UPDATE.REQUEST }
 	}
 	function success(response) {
 		return {
-			type: CLOSET_CONSTANTS.CREATE.SUCCESS,
+			type: CLOSET_CONSTANTS.UPDATE.SUCCESS,
 			response
 		}
 	}
 	function failure() {
-		return { type: CLOSET_CONSTANTS.CREATE.FAILURE }
+		return { type: CLOSET_CONSTANTS.UPDATE.FAILURE }
 	}
 }
 

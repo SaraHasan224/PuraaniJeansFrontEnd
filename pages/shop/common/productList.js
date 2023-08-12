@@ -12,6 +12,7 @@ import ShopBreadcrumb from "./breadcrumb";
 import { useDispatch, useSelector } from "react-redux";
 import { CATEGORY_ACTIONS, PRODUCT_ACTIONS } from "../../../store/actions";
 import { HELPER } from "../../../utils";
+import NotFound from "../../../components/common/NotFound";
 
 const ProductList = ({ colClass, layoutList, openSidebar }) => {
   const dispatch = useDispatch()

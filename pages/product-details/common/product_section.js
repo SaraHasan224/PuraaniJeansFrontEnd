@@ -5,8 +5,6 @@ import { useRouter } from "next/router";
 import { Container, Row, Col, Media, Modal, ModalBody } from "reactstrap";
 import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 import CartContext from "../../../context/cart";
-import { WishlistContext } from "../../../context/wishlist/WishlistContext";
-import { CompareContext } from "../../../context/Compare/CompareContext";
 import { PRODUCT_ACTIONS } from "../../../store/actions";
 import { HELPER } from "../../../utils";
 import HTMLReactParser from "html-react-parser";
@@ -131,11 +129,8 @@ const ProductSection = ({ customerRef }) => {
   const dispatch = useDispatch()
 
   const { products, loading } = useSelector((state) => state.products?.recentlyViewed);
-  console.log("products: ", products)
 
   const curContext = useContext(CurrencyContext);
-  const wishlistContext = useContext(WishlistContext);
-  const compareContext = useContext(CompareContext);
   const symbol = curContext.state.symbol;
   const currency = curContext.state;
   const cartCtx = useContext(CartContext);

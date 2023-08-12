@@ -13,6 +13,7 @@ import {
 import Pagination from "react-js-pagination";
 import { CLOSET_ACTIONS } from '../../../../../store/actions';
 import { HELPER } from '../../../../../utils';
+import ALink from '../../../../../features/alink';
 
 const ProductCatalog = ({ product }) => {
     return (
@@ -92,35 +93,9 @@ const ProductCatalogList = () => {
     );
 }
 
-const AddNewProduct = () => {
-    const { closetAllProductsData } = useSelector((state) => state.closet);
-    return (
-        <table className="table-responsive-md table mb-0">
-            <thead>
-                <tr>
-                    <th scope="col">image</th>
-                    <th scope="col">product name</th>
-                    <th scope="col">category</th>
-                    <th scope="col">price</th>
-                    <th scope="col">stock</th>
-                    <th scope="col">sales</th>
-                    <th scope="col">edit/delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {closetAllProductsData.map((data, i) => {
-                    return (
-                        <ProductCatalog key={i} product={data} />
-                    );
-                })}
-            </tbody>
-        </table>
-    );
-}
-
-const ProductsTab = ({ active, setActive }) => {
-    const [addProducts, setAddProducts] = useState(false);
-
+const ProductsTab = () => {
+    const { closetRef } = useSelector((state) => state.auth);
+    
     return (
         <TabPane tabId="2">
             <Row>
@@ -129,11 +104,11 @@ const ProductsTab = ({ active, setActive }) => {
                         <CardBody>
                             <div className="top-sec">
                                 <h3>All products</h3>
-                                <a onClick={() => setAddProducts(!addProducts)} className="btn btn-sm btn-solid">
-                                    {!addProducts ? "add product" : "back"}
-                                </a>
+                                <ALink href={`/account/closet/dashboard/${closetRef}/add-product`} className="btn btn-sm btn-solid">
+                                add product
+                                </ALink>
                             </div>
-                            {!addProducts ? <ProductCatalogList /> : <AddNewProduct />}
+                            <ProductCatalogList />
                         </CardBody>
                     </Card>
                 </Col>

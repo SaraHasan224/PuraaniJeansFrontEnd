@@ -18,11 +18,11 @@ import InternetConnection from "../features/internet-connection";
 
 import { HOMEPAGE_ACTIONS } from "../store/actions";
 import { HOME_CONSTANTS } from "../store/actionTypes";
+import { API_ENDPOINTS, HELPER } from "../utils";
 
 export default function Home(props){
   const { meta, brands } = useSelector((state) => state.metadata);
   const dispatch = useDispatch()
-
   useEffect(() => {
     document.documentElement.style.setProperty("--gradient1", "#ff4c3b");
     document.documentElement.style.setProperty("--gradient2", "#FA4729");
@@ -79,10 +79,13 @@ export default function Home(props){
 };
 
 export async function getStaticProps() {
-  const metaApiResponse = await HOMEPAGE_ACTIONS.GET_HOMEPAGE_APP_METADATA();
+  // const metaApiResponse = await HOMEPAGE_ACTIONS.GET_HOMEPAGE_APP_METADATA();
+  const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${API_ENDPOINTS.GET_APP_METADATA}`);
+  const metaApiResponse = await apiResponse.json();
+    
   return {
     props: {
-      meta: metaApiResponse?.data?.body
+      meta: HELPER.isNotEmpty(metaApiResponse?.body) ? metaApiResponse?.body : [],
     }
   }
 }

@@ -73,5 +73,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard;
-// export default withPrivateRoute(Dashboard);
+export default withPrivateRoute(Dashboard);

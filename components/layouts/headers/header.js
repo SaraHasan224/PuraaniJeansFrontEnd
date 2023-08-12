@@ -8,15 +8,17 @@ import SearchOverlay from "./common/search-overlay";
 import search from "../../../public/assets/images/icon/search.png";
 import SearchNavigation from "./common/search-nav";
 import ALink from "../../../features/alink";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { HELPER } from "../../../utils";
+import { CUSTOMER_ACTIONS } from "../../../store/actions/customerActions";
 
 const Header = (props) => {
   const {
     logoName,
   } = props;
+  const dispatch = useDispatch()
 
-  const { closetRef } = useSelector((state) => state.auth);
+  const { closetRef, customerMetaRequested, isLoggedIn } = useSelector((state) => state.auth);
 
   /*=====================
          Pre loader
@@ -25,6 +27,10 @@ const Header = (props) => {
     setTimeout(function () {
       document.querySelectorAll(".loader-wrapper").style = "display: none";
     }, 2000);
+
+    if((!closetRef || !isLoggedIn) && !customerMetaRequested) {
+      dispatch(CUSTOMER_ACTIONS.FETCH_CUSTOMER_METADATA());
+    }
 
     window.addEventListener("scroll", handleScroll);
 

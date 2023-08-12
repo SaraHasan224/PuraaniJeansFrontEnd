@@ -12,18 +12,20 @@ import { CompareContextProvider } from "../context/Compare/CompareContext";
 import { CurrencyContextProvider } from "../context/Currency/CurrencyContext";
 import TapTop from "../components/layouts/Tap-Top";
 import { apiService } from "../store/middlewares/apiservice";
-import { API_ENDPOINTS } from "../utils";
+import { API_ENDPOINTS, COOKIE_STORAGE_SERVICE } from "../utils";
 
 export default function MyApp({ Component, pageProps }) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [metaData, setIsMetaData] = useState([]);
+  const [customerData, setIsCustomerData] = useState([]);
 
   useEffect(async () => {
-    const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}` + API_ENDPOINTS.GET_APP_METADATA);
+    const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${API_ENDPOINTS.GET_APP_METADATA}`);
     const jsonApiResponse = await apiResponse.json();
     if (jsonApiResponse.status === 200) {
       setIsMetaData(jsonApiResponse?.body?.metaData);
+      setIsCustomerData(jsonApiResponse?.body?.customer);
     } else {
       setErrors(jsonApiResponse?.message)
       setIsLoading(true)
@@ -34,7 +36,9 @@ export default function MyApp({ Component, pageProps }) {
     }, 1000);
     return () => { clearTimeout(timer) }
   }, []);
-
+  const appProps = {
+    ...pageProps, customerData: customerData
+  }
   return (
     <>
       {isLoading ? (
@@ -58,7 +62,7 @@ export default function MyApp({ Component, pageProps }) {
                   <CurrencyContextProvider>
                     <CartContextProvider>
                       <FilterProvider>
-                        <Component {...pageProps} />
+                        <Component { ...pageProps} />
                       </FilterProvider>
                     </CartContextProvider>
                   </CurrencyContextProvider>

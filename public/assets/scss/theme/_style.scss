@@ -13038,6 +13038,26 @@ table {
       transform: scale(1, 1);
     }
   }
+
+  .dashboard-product-section{
+    background-color: #FFF;
+    .dashboard-product-section-container{
+      border: 1px dashed #ccc;
+      .icon {
+        svg {
+          width: 100%;
+          margin: 0 auto;
+          font-size: 4.5rem;
+        }
+      }
+      h4 {
+        color: #969494;
+      }
+    }
+    .shipment-section {
+      background-color: #F2F2F2;
+    }
+  }
 }
 
 .faq-tab {
@@ -14164,7 +14184,9 @@ table {
 }
 
 // Custom CSS
-
+.h-50{
+  height: 50px !important;
+}
 .noTopMargin, 
 .mt-0 {
   margin-top: 0 !important;
@@ -14184,7 +14206,13 @@ table {
 .noBtmPadding {
   padding-bottom: 0 !important;
 }
-
+ 
+.pt-3 {
+  padding-top: 3rem !important;
+}
+.pb-3 {
+  padding-bottom: 3rem !important;
+}
 .ml-1 {
   margin-left: 1% !important;
 }
