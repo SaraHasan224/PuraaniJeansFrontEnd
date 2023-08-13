@@ -16,34 +16,38 @@ import GradeIcon from '@mui/icons-material/Grade';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import SettingsInputSvideoIcon from '@mui/icons-material/SettingsInputSvideo';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '@mui/joy';
 import { CONSTANTS, HELPER } from '../../../../../../../utils';
+import { PRODUCT_ACTIONS } from '../../../../../../../store/actions';
 
 const ItemInfo = forwardRef((props, ref)  => {
-    const { color, brands, categories, condition, size, standard } = useSelector((state) => state.products);
+    const dispatch = useDispatch()
+
+    const { activeStep } = props;
+    const { color, brands, categories, condition, size, standard , addedProduct } = useSelector((state) => state.products);
 
     const [value, setValue] = useState([]);
 
-    const [category, setCategory] = useState(null);
+    const [category, setCategory] = useState(addedProduct?.item_information?.category);
     const [categoryHasSubCategory, setCategoryHasSubCategory] = useState(true);
     const [subCategoryLoading, setSubCategoryLoading] = useState(true);
     const [subCategoryPlaceholder, setSubCategoryPlaceholder] = useState("Choose Sub Category");
     const [subCategories, setSubCategories] = useState([]);
-    const [subCategory, setSubCategory] = useState(null);
-    const [brand, setBrand] = useState([]);
-    const [productcondition, setCondition] = useState(null);
-    const [sizeChart, setSizeChart] = useState([]);
-    const [quantity, setQuantity] = useState(null);
-    const [standardSize, setStandardSize] = useState(null);
-    const [productColor, setColor] = useState([]);
+    const [subCategory, setSubCategory] = useState(addedProduct?.item_information?.subCategory);
+    const [brand, setBrand] = useState(addedProduct?.item_information?.brand);
+    const [productcondition, setCondition] = useState(addedProduct?.item_information?.condition);
+    const [sizeChart, setSizeChart] = useState(addedProduct?.item_information?.size);
+    const [quantity, setQuantity] = useState(addedProduct?.item_information?.quantity);
+    const [standardSize, setStandardSize] = useState(addedProduct?.item_information?.standard);
+    const [productColor, setColor] = useState(addedProduct?.item_information?.color);
     
     useImperativeHandle(
         ref,
         () => ({
             handleNextAction() {
                 alert("Child handleNext Function Called")
-                dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_DATA(CONSTANTS.PRODUCT_ADDED.ITEM_INFORMATION, {
+                dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_DATA(activeStep, CONSTANTS.PRODUCT_ADDED.ITEM_INFORMATION, {
                     category,
                     subCategory,
                     brand,
@@ -109,6 +113,15 @@ const ItemInfo = forwardRef((props, ref)  => {
             }
         }),
     )
+    
+  
+    useEffect(() => {
+        if(HELPER.isNotEmpty(subCategory)) {
+            setCategoryHasSubCategory(true)
+            setSubCategoryLoading(false)
+            // setColor()
+        }
+      }, []);
   
     useEffect(() => {
         if(HELPER.isNotEmpty(category)) {
@@ -205,7 +218,7 @@ const ItemInfo = forwardRef((props, ref)  => {
                                             <Autocomplete startDecorator={<BrandingWatermarkIcon />}
                                                 placeholder="Choose Brand"
                                                 options={brands}
-                                                // value={brand}
+                                                value={brand}
                                                 defaultValue={[]}
                                                 multiple
                                                 onChange={(event, newValue, reason) => {
@@ -239,7 +252,7 @@ const ItemInfo = forwardRef((props, ref)  => {
                                             <Autocomplete
                                                 startDecorator={<PlaylistAddIcon />}
                                                 placeholder="Choose Size"
-                                                // value={sizeChart}
+                                                value={sizeChart}
                                                 defaultValue={[]}
                                                 multiple
                                                 options={size}
@@ -290,7 +303,7 @@ const ItemInfo = forwardRef((props, ref)  => {
                                                 placeholder="Choose Color"
                                                 size="sm"
                                                 // value={productColor}
-                                                defaultValue={[]}
+                                                defaultValue={productColor}
                                                 onChange={(event, newValue, reason) => {
                                                     if (
                                                         event.type === "keydown" &&

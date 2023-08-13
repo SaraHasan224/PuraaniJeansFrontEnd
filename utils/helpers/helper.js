@@ -17,10 +17,16 @@ function isNotEmpty(x) {
 	return !isEmpty(x)
 }
 
+function firstLetterCapitalize(str) {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 //**blob to dataURL**
-function blobToDataURL(blob, callback) {
+function blobToDataURL(blob, callback = '') {
 	var a = new FileReader();
-	a.onload = function (e) { callback(e.target.result); }
+	if(callback) {
+		a.onload = function (e) { callback(e.target.result); }
+	}
 	a.readAsDataURL(blob);
 }
 
@@ -377,6 +383,7 @@ function resizeFile(file, maxWidth, maxHeight, width, height = 0) {
 }
 const HELPER = {
 	stringToBoolean,
+	firstLetterCapitalize,
 	isEmpty,
 	isNotEmpty,
 	parseMetaData,

@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useState, forwardRef } from 'react';
+import React, { useImperativeHandle, useState, forwardRef, useEffect } from 'react';
 
 import {
     Container,
@@ -6,40 +6,58 @@ import {
     Col,
 } from "reactstrap";
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
-import { Autocomplete, FormHelperText } from '@mui/joy';
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import { Autocomplete, CircularProgress, FormHelperText, Input } from '@mui/joy';
 import {
     Switch,
     FormGroup,
     FormControlLabel,
-    FormControl,
     FormLabel,
     Checkbox,
 } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { META_ACTIONS, PRODUCT_ACTIONS } from '../../../../../../../store/actions';
+import { CONSTANTS, HELPER } from '../../../../../../../utils';
 
 const ShipmentLocation = forwardRef((props, ref) => {
-    const [checked, setChecked] = useState(true);
-    const [worldWideShipping, setWorldWideShipping] = React.useState(true);
+    const dispatch = useDispatch()
+
+    const { activeStep } = props; 
+    const { metaCountryList, metaLoading } = useSelector((state) => state.metadata);
+    const { addedProduct } = useSelector((state) => state.products);
+
+    const [country, setCountry] = useState(addedProduct?.shipment_and_location?.country);
+    const [freeShipping, setFreeShipping] = useState(addedProduct?.shipment_and_location?.freeShipping);
+    const [worldWideShipping, setWorldWideShipping] = React.useState(addedProduct?.shipment_and_location?.worldWideShipping);
+    const [shippingPrice, setShippingPrice] = useState(addedProduct?.shipment_and_location?.shippingPrice);
+
+    useEffect(() => {
+        dispatch(META_ACTIONS.COUNTRIES_LIST()); // For demo purposes.
+        return () => { };
+    }, []);
 
     useImperativeHandle(
         ref,
         () => ({
             handleNextAction() {
                 alert("Child handleNext Function Called")
-                dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_DATA(CONSTANTS.PRODUCT_ADDED.PHOTO_AND_DESCRIPTION, {
-                    images: files,
-                    description: description
+                dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_DATA(activeStep, CONSTANTS.PRODUCT_ADDED.SHIPMENT_AND_LOCATION, {
+                    country,
+                    freeShipping,
+                    shippingPrice,
+                    worldWideShipping,
                 }))
             },
             handleValidationAction() {
                 let error = false;
                 let errorDescription = "";
-                if(HELPER.isEmpty(description)){
+                if (HELPER.isEmpty(country)) {
                     error = true;
-                    errorDescription = "Product description is required."
+                    errorDescription = "Location is required."
                 }
-                if(HELPER.isEmpty(files)){
+                if (HELPER.isEmpty(shippingPrice)) {
                     error = true;
-                    errorDescription = "Product images are required."
+                    errorDescription = "Shipping Price field is required."
                 }
                 return {
                     'error': error,
@@ -53,7 +71,7 @@ const ShipmentLocation = forwardRef((props, ref) => {
     )
 
     const handleChange = (event) => {
-        setChecked(event.target.checked);
+        setFreeShipping(event.target.checked);
     };
 
     const handleChangeWorldWideShipping = (event) => {
@@ -75,10 +93,21 @@ const ShipmentLocation = forwardRef((props, ref) => {
                                                 <h6><b>Location</b></h6>
                                             </FormLabel>
                                             <Autocomplete
+                                                placeholder="Select your country"
+                                                required={true}
                                                 size="md"
+                                                defaultValue={country}
+                                                onChange={(e, values) => setCountry(values)}
+                                                isOptionEqualToValue={(option, value) => option.name === value.name}
+                                                getOptionLabel={(option) => option.name}
+                                                options={metaCountryList}
+                                                loading={metaLoading}
                                                 startDecorator={<AddLocationAltIcon />}
-                                                placeholder="Choose Location"
-                                                options={['Canada', 'USA']}
+                                                endDecorator={
+                                                    metaLoading ? (
+                                                        <CircularProgress size="sm" sx={{ bgcolor: 'background.surface' }} />
+                                                    ) : null
+                                                }
                                             />
                                             <FormHelperText>Select your country from the dropdown list.</FormHelperText>
                                         </Col>
@@ -92,7 +121,7 @@ const ShipmentLocation = forwardRef((props, ref) => {
                                                 <FormControlLabel
                                                     value="top"
                                                     control={<Switch
-                                                        checked={checked}
+                                                        checked={freeShipping}
                                                         onChange={handleChange}
                                                         inputProps={{ 'aria-label': 'controlled' }}
                                                         color="default"
@@ -103,12 +132,18 @@ const ShipmentLocation = forwardRef((props, ref) => {
                                             </FormGroup>
                                         </Col>
                                         <Col lg="12" md="12" sm="12" xs="12" className='shipment-section pt-4'>
-                                            <Autocomplete
-                                                startDecorator={<AddLocationAltIcon />}
-                                                placeholder="Choose Location"
-                                                options={['Canada', 'USA']}
+                                            <Input
+                                                name="Outlined"
+                                                value={shippingPrice}
+                                                variant="outlined"
+                                                type="number"
+                                                placeholder="Enter Shipping Price"
+                                                onChange={(event) => {
+                                                    const newValue = Number(event.target.value);
+                                                    if (newValue >= 0 && newValue <= 10000) setShippingPrice(newValue);
+                                                }}
+                                                startDecorator={<PaidOutlinedIcon />}
                                             />
-                                            <FormHelperText>Select your country from the dropdown list.</FormHelperText>
                                         </Col>
                                         <Col lg="12" md="12" sm="12" xs="12" className='shipment-section pt-4'>
                                             <FormControlLabel

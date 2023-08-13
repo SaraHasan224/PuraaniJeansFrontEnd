@@ -7,6 +7,7 @@ import { ALERT_ACTIONS } from './alertActions';
 export const PRODUCT_ACTIONS = {
 	ADD_NEW_PRODUCT_META,
 	ADD_NEW_PRODUCT_DATA,
+	ADD_NEW_PRODUCT,
 	GET_PRODUCT_DETAIL,
 	GET_RECENTLY_VIEWED_PRODUCT,
 	GET_ALL_PRODUCT_LIST
@@ -45,15 +46,48 @@ function ADD_NEW_PRODUCT_META() {
 	}
 }
 
-
-function ADD_NEW_PRODUCT_DATA(type, data) {
+function ADD_NEW_PRODUCT_DATA(step, type, data) {
 	return (dispatch, getState) => {
-		dispatch(request(type, data))
+		dispatch(request(type, data, step))
 	}
-	function request(action, response) {
-		return { type: PRODUCTS_CONSTANTS.PRODUCT_DATA_ADDED, action, response }
+	function request(action, response, step) {
+		return { type: PRODUCTS_CONSTANTS.PRODUCT_DATA_ADDED, action, response, activeStep: step }
 	}
 };
+
+function ADD_NEW_PRODUCT(requestData) {
+	console.log("add Data: ", requestData)
+	return (dispatch, getState) => {
+		dispatch(request())
+		apiService
+			.addItemToCloset()
+			.then((response) => {
+				const responseStatus = response?.data?.status
+				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
+					const data = response?.data?.body
+					dispatch(success(data))
+				}
+			})
+			.catch((error) => {
+				const { error_message } = HELPER.formatFailureApiResponse(error)
+				dispatch(failure(error_message?.message))
+				dispatch(ALERT_ACTIONS.error(error_message?.message))
+			})
+	}
+
+	function request() {
+		return { type: PRODUCTS_CONSTANTS.ADD_NEW_PRODUCT.REQUEST }
+	}
+	function success(response) {
+		return {
+			type: PRODUCTS_CONSTANTS.ADD_NEW_PRODUCT.SUCCESS,
+			response
+		}
+	}
+	function failure() {
+		return { type: PRODUCTS_CONSTANTS.ADD_NEW_PRODUCT.FAILURE }
+	}
+}
 
 function GET_ALL_PRODUCT_LIST() {
 	return (dispatch, getState) => {

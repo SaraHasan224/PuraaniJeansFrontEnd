@@ -17,7 +17,7 @@ export const CONSTANTS = {
       PHOTO_AND_DESCRIPTION: "photo_and_description",
       ITEM_INFORMATION: "item_information",
       SHIPMENT_AND_LOCATION: "shipment_and_location",
-      PRICE: "price",
+      VARIANTS: "product_variants",
    }
 }
 export const MENUITEMS = [

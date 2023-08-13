@@ -331,59 +331,8 @@ const ProductItem = ({
               <i className="fa fa-shopping-cart"></i>
               <span>Add to cart</span>
             </button>
-            {/* <a href={null} title="Compare" onClick={toggleCompare} className="d-none">
-              <i className="fa fa-refresh" aria-hidden="true"></i>
-            </a> 
-            <div className="quick-view-part">
-              <a
-                className="mobile-quick-view"
-                href={null}
-                data-toggle="modal"
-                data-target="#quick-view"
-                title="Quick View"
-                onClick={toggle}
-              >
-                <i className="fa fa-search" aria-hidden="true"></i>
-              </a>
-            </div>*/}
+           
           </div>
-          {/* <Modal
-            isOpen={modalCompare}
-            toggle={toggleCompare}
-            centered
-          >
-            <ModalHeader toggle={toggleCompare}>Quick View</ModalHeader>
-            <ModalBody>
-              <Row className="compare-modal">
-                <Col lg="12">
-                  <div className="media">
-                    <Media
-                      src={product.image}
-                      alt=""
-                      className="img-fluid"
-                    />
-                    <div className="media-body align-self-center text-center">
-                      <h5>
-                        <i className="fa fa-check"></i>Item{" "}
-                        <span>{product.name} </span>
-                        <span> successfully added to your Compare list</span>
-                      </h5>
-                      <div className="buttons d-flex justify-content-center">
-                        <Link href="/page/compare">
-                          <a
-                            className="btn-sm btn-solid"
-                            onClick={addToCompare}
-                          >
-                            View Compare list
-                          </a>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </ModalBody>
-          </Modal>*/}
         </div>
         <div className="product-info">
           {/* <div className="rating">{RatingStars}</div> */}

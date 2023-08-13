@@ -22,6 +22,7 @@ export const apiService = {
 	
 	getAllItems,
 	getAddItemMetaData,
+	addItemToCloset,
 	
 	getCategory,
 	getCategoryItems,
@@ -177,6 +178,14 @@ async function getAddItemMetaData() {
 	return await API_REQUEST(
 		'get',
 		`${baseURL}${API_ENDPOINTS.GET_METADATA_PRODUCTS}`,
+		true,
+	)()
+}
+
+async function addItemToCloset() {
+	return await API_REQUEST(
+		'get',
+		`${baseURL}${API_ENDPOINTS.ADD_PRODUCT}`,
 		false,
 	)()
 }

@@ -45,9 +45,7 @@ export default function Home(props){
         </Helmet>
         <InternetConnection />
         {/* HEADER */}
-        <ALink href="/">
-          <Header logoName={meta?.logo} topClass="top-header" />
-        </ALink>
+        <Header logoName={meta?.logo} topClass="top-header" />
         {/* HEADER Carousel */}
         <HeaderCarousel />
         {/* Search By Tags */}

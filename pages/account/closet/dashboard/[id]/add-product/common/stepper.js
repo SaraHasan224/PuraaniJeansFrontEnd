@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 
@@ -18,23 +18,38 @@ import Box from '@mui/material/Box';
 import ItemInfo from './item-info';
 import PhotoDescription from './photo-description';
 import ShipmentLocation from './shipment-location';
-import Price from './price';
+import VariantsInfo from './variants';
 import { useRouter } from 'next/router';
 import { HELPER } from '../../../../../../../utils';
+import { META_ACTIONS, PRODUCT_ACTIONS } from '../../../../../../../store/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function ProductStepper() {
     const router = useRouter();
+    const dispatch = useDispatch()
 
     const photoDescriptionRef = useRef();
     const itemInfoRef = useRef();
     const shipmentLocationRef = useRef();
     const priceRef = useRef();
 
-    const [activeStep, setActiveStep] = React.useState(0);
+    const { color, addedProduct    } = useSelector((state) => state.products);
+
+    const [activeStep, setActiveStep] = React.useState(1);
     const [completed, setCompleted] = React.useState({});
     const [validationErr, setValidationErr] = React.useState("");
 
-    
+    useEffect(() => {
+        if (HELPER.isEmpty(color)) {
+        dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_META());
+        }
+        if(HELPER.isNotEmpty(addedProduct?.step)) {
+            handleStep(addedProduct?.step)
+            setActiveStep(addedProduct?.step)
+            console.log("addedProduct?.step: ", addedProduct?.step)
+        }
+    }, []);
+
     const totalSteps = () => {
         return steps.length;
     };
@@ -44,7 +59,7 @@ export default function ProductStepper() {
     };
 
     const isLastStep = () => {
-        return activeStep === totalSteps() - 1;
+        return activeStep === totalSteps();
     };
 
     const allStepsCompleted = () => {
@@ -54,9 +69,8 @@ export default function ProductStepper() {
     const handleNext = () => {
         setValidationErr("")
         console.log("handleNext: ")
-        let currentRef = ""
-        // currentRef = photoDescriptionRef.current;
-        currentRef = itemInfoRef.current;
+        console.log("activeStep: ", activeStep)
+        let currentRef = photoDescriptionRef.current;
         if(activeStep === 2) {
             currentRef = itemInfoRef.current;
         }else if(activeStep === 3) {
@@ -65,16 +79,21 @@ export default function ProductStepper() {
             currentRef = priceRef.current;
         }
         const validation = currentRef.handleValidationAction()
-        console.log("validation: ", validation)
+        console.log("validation: ", validation, `activeStep: ${activeStep} isLast Step: ${totalSteps()}`,  )
         if(!validation?.error) {
-            currentRef.handleNextAction();
-            const newActiveStep =
-            isLastStep() && !allStepsCompleted()
-                ? // It's the last step, but not all steps have been completed,
-                // find the first step that has been completed
-                steps.findIndex((step, i) => !(i in completed))
-                : activeStep + 1;
-            setActiveStep(newActiveStep);
+            if(activeStep !== totalSteps()) {
+                currentRef.handleNextAction();
+                const newActiveStep =
+                isLastStep() && !allStepsCompleted()
+                    ? // It's the last step, but not all steps have been completed,
+                    // find the first step that has been completed
+                    steps.findIndex((step, i) => !(i in completed))
+                    : activeStep;
+                setActiveStep(newActiveStep+1);
+            }else {
+                currentRef.handleNextAction();
+                currentRef.handleWizardCompleteAction();
+            }
         }else {
             setValidationErr(validation?.description)
         }
@@ -84,7 +103,7 @@ export default function ProductStepper() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleStep = (step) => () => {
+    const handleStep = (step) => {
         setActiveStep(step);
     };
 
@@ -96,30 +115,26 @@ export default function ProductStepper() {
     };
 
     const handleReset = () => {
-        setActiveStep(0);
+        setActiveStep(1);
         setCompleted({});
     };
     
     const handleCheckoutStep = () => {
-        // if(activeStep+1 === 1) {
-        //     return <PhotoDescription ref={photoDescriptionRef} activeStep={activeStep} totalSteps={totalSteps()} />;
-        // }else if(activeStep+1 === 2) {
-        //     return <ItemInfo ref={itemInfoRef} activeStep={activeStep} totalSteps={totalSteps()} />;
-        // }
-        if(activeStep+1 === 2) {
-            return <PhotoDescription ref={photoDescriptionRef} activeStep={activeStep} totalSteps={totalSteps()} />;
-        }else if(activeStep+1 === 1) {
-            return <ItemInfo ref={itemInfoRef} activeStep={activeStep} totalSteps={totalSteps()} />;
-        }else if(activeStep+1 === 3) {
-            return <ShipmentLocation ref={shipmentLocationRef} activeStep={activeStep} totalSteps={totalSteps()} />;
-        }else if(activeStep+1 === 4) {
-            return <Price ref={priceRef} activeStep={activeStep} totalSteps={totalSteps()} />;
+        console.log("activeStep: ", activeStep)
+        if(activeStep === 1) {
+            return <PhotoDescription ref={photoDescriptionRef} activeStep={activeStep+1} totalSteps={totalSteps()} />;
+        }else if(activeStep === 2) {
+            return <ItemInfo ref={itemInfoRef} activeStep={activeStep+1} totalSteps={totalSteps()} />;
+        }else if(activeStep === 3) {
+            return <ShipmentLocation ref={shipmentLocationRef} activeStep={activeStep+1} totalSteps={totalSteps()} />;
+        }else if(activeStep === 4) {
+            return <VariantsInfo ref={priceRef} activeStep={activeStep+1} totalSteps={totalSteps()} />;
         }
     };
 
     return (
         <Stack sx={{ width: '100%', marginTop: '2rem', marginBottom: '2rem' }} spacing={4}>
-            <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+            <Stepper alternativeLabel activeStep={activeStep-1} connector={<ColorlibConnector />}>
                 {steps.map((label) => (
                     <Step key={label}>
                         <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
@@ -156,7 +171,7 @@ export default function ProductStepper() {
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                             <Button
                                 color="inherit"
-                                disabled={activeStep === 0}
+                                disabled={activeStep === 1}
                                 onClick={handleBack}
                                 sx={{ mr: 1 }}
                             >
@@ -164,20 +179,19 @@ export default function ProductStepper() {
                             </Button>
                             <Box sx={{ flex: '1 1 auto' }} />
                             <Button onClick={handleNext} sx={{ mr: 1 }}>
-                                Next (Step {activeStep + 1}/{totalSteps()})
+                                Next (Step {activeStep}/{totalSteps()})
                             </Button>
                             {activeStep !== steps.length &&
                                 (completed[activeStep] ? (
                                     <Typography variant="caption" sx={{ display: 'inline-block' }}>
-                                        Step {activeStep + 1} already completed
+                                        Step {activeStep} already completed
                                     </Typography>
                                 ) : (
-                                    // <Button onClick={handleComplete}>
-                                    //     {completedSteps() === totalSteps() - 1
-                                    //         ? 'Finish'
-                                    //         : 'Complete Step'}
-                                    // </Button>
-                                    ""
+                                    isLastStep() ? <Button onClick={handleComplete}>
+                                        {completedSteps() === totalSteps()
+                                            ? 'Finish'
+                                            : 'Complete Step'}
+                                    </Button> : ""
                                 ))}
                         </Box>
                     </React.Fragment>
@@ -269,4 +283,4 @@ ColorlibStepIcon.propTypes = {
     icon: PropTypes.node,
 };
 
-const steps = ['Photo & Description', 'Item Information', 'Shipment & location', 'Price'];
+const steps = ['Photo & Description', 'Item Information', 'Shipment & location', 'Variants'];

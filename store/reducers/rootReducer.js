@@ -51,7 +51,13 @@ const productsConfig = {
   key: 'products',
   storage,
   whitelist: [
-    'addProductFormData',
+    'addedProduct',
+    'brands',
+    'categories',
+    'color',
+    'condition',
+    'size',
+    'standard',
   ]
 }
 

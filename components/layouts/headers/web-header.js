@@ -63,10 +63,8 @@ const Banners = (props) => {
         />
         <div className={`lookbook-img-section img-${keyIndex}`}>
           <h2>{bannerItem[0]?.text}</h2>
-          <ALink href={`/category/${bannerItem[0]?.slug}`}>
-            <a className={`btn btn-outline`}>
+          <ALink href={`/category/${bannerItem[0]?.slug}`} className={`btn btn-outline`}>
               Shop Now
-            </a>
           </ALink>
         </div>
       </div>

@@ -97,11 +97,9 @@ const ClosetCategory = () => {
                                                 <Col key={i}>
                                                   <ALink href={`/closet/category/${reference}/${data?.pim_cat_reference}`}>
                                                     <div className="contain-bg">
-                                                      <a href={`/closet/category/${reference}/${data?.pim_cat_reference}`}>
                                                         <div className={`category-image ${HELPER.isNotEmpty(data?.image) ? "" : "bg-black"}`}>
                                                           <Media src={data?.image === "" ? categoryIcon : data?.image} alt="" />
                                                         </div>
-                                                      </a>
                                                       <h4 data-hover="size 06">{data.name}</h4>
                                                     </div>
                                                   </ALink>

@@ -6,13 +6,17 @@ import {
     Row,
     Col,
 } from "reactstrap";
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
-import { Textarea } from '@mui/joy';
+import { Input, Textarea } from '@mui/joy';
 import {
     CONSTANTS,
     HELPER
 } from "../../../../../../../utils";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PRODUCT_ACTIONS } from '../../../../../../../store/actions';
 
 const thumbsContainer = {
@@ -48,18 +52,49 @@ const img = {
     height: '100%'
 };
 
-const PhotoAndDescription = forwardRef((props, ref)  => {
+const PhotoAndDescription = forwardRef((props, ref) => {
     const dispatch = useDispatch()
 
-    const [files, setFiles] = useState([]);
-    const [description, setDescription] = useState("");
+    const { activeStep } = props;
+
+    const { photo_and_description } = useSelector((state) => state.products.addedProduct);
+
+    const [name, setProductName] = useState(photo_and_description?.name);
+    const [sku, setProductSKU] = useState(photo_and_description?.sku);
+    const [price, setPrice] = useState(photo_and_description?.price);
+    const [discountedPrice, setDiscountedPrice] = useState(photo_and_description?.discountedPrice);
+    const [files, setFiles] = useState([]);//
+    const [description, setDescription] = useState(photo_and_description?.description);
+
+
+    useEffect(() => {
+        if (HELPER.isNotEmpty(photo_and_description?.images)) {
+            const acceptedFiles = photo_and_description?.images;
+            // setFiles(acceptedFiles.map(file => Object.assign(file, {
+            //     preview: URL.createObjectURL(file)
+            // })))
+        }
+    }, []);
 
     useImperativeHandle(
         ref,
         () => ({
             handleNextAction() {
                 alert("Child handleNext Function Called")
-                dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_DATA(CONSTANTS.PRODUCT_ADDED.PHOTO_AND_DESCRIPTION, {
+                console.log(
+                    files.map(file => {
+                        console.log("file: ", file);
+                        return HELPER.blobToDataURL(file, function (dataurl) {
+                            return dataurl;
+                        });
+                    })
+                );
+
+                dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_DATA(activeStep, CONSTANTS.PRODUCT_ADDED.PHOTO_AND_DESCRIPTION, {
+                    name,
+                    sku,
+                    price,
+                    discountedPrice,
                     images: files,
                     description: description
                 }))
@@ -67,11 +102,19 @@ const PhotoAndDescription = forwardRef((props, ref)  => {
             handleValidationAction() {
                 let error = false;
                 let errorDescription = "";
-                if(HELPER.isEmpty(description)){
+                if (HELPER.isEmpty(name)) {
+                    error = true;
+                    errorDescription = "Product name is required."
+                }
+                if (HELPER.isEmpty(sku)) {
+                    error = true;
+                    errorDescription = "Product sku is required."
+                }
+                if (HELPER.isEmpty(description)) {
                     error = true;
                     errorDescription = "Product description is required."
                 }
-                if(HELPER.isEmpty(files)){
+                if (HELPER.isEmpty(files)) {
                     error = true;
                     errorDescription = "Product images are required."
                 }
@@ -103,8 +146,7 @@ const PhotoAndDescription = forwardRef((props, ref)  => {
             })));
         }
     });
-
-    const thumbs = files.map(file => (
+    const thumbs = files && files.map(file => (
         <div style={thumb} key={file.name}>
             <div style={thumbInner}>
                 <img
@@ -125,6 +167,73 @@ const PhotoAndDescription = forwardRef((props, ref)  => {
 
     return (
         <Container className='dashboard-product-section'>
+
+            <Row className='mt-4'>
+                <Col lg="6" md="6" sm="6" xs="6">
+                    <div className="account-setting">
+                        <h6><b>Name</b></h6>
+                        <Input
+                            name="Outlined"
+                            value={name}
+                            variant="outlined"
+                            type="text"
+                            placeholder="Enter name"
+                            onChange={(event) => setProductName(event.target.value)}
+                            startDecorator={<InventoryIcon />}
+                        />
+                    </div>
+                </Col>
+                <Col lg="6" md="6" sm="6" xs="6">
+                    <div className="account-setting">
+                        <h6><b>SKU</b></h6>
+                        <Input
+                            name="Outlined"
+                            value={sku}
+                            variant="outlined"
+                            type="text"
+                            placeholder="Enter product sku"
+                            onChange={(event) => setProductSKU(event.target.value)}
+                            startDecorator={<QrCodeScannerIcon />}
+                        />
+                    </div>
+                </Col>
+            </Row>
+            <Row className='mt-4'>
+                <Col lg="6" md="6" sm="6" xs="6">
+                    <div className="account-setting">
+                        <h6><b>Price</b></h6>
+                        <Input
+                            name="Outlined"
+                            value={price}
+                            variant="outlined"
+                            type="number"
+                            placeholder="Enter price"
+                            onChange={(event) => {
+                                const newValue = Number(event.target.value);
+                                if (newValue >= 0 && newValue <= 10000) setPrice(newValue);
+                            }}
+                            startDecorator={<PaidOutlinedIcon />}
+                        />
+                    </div>
+                </Col>
+                <Col lg="6" md="6" sm="6" xs="6">
+                    <div className="account-setting">
+                        <h6><b>Discounted Price</b></h6>
+                        <Input
+                            name="Outlined"
+                            value={discountedPrice}
+                            variant="outlined"
+                            type="number"
+                            placeholder="Enter discounted price"
+                            onChange={(event) => {
+                                const newValue = Number(event.target.value);
+                                if (newValue >= 0 && newValue <= 10000 && newValue < price) setDiscountedPrice(newValue);
+                            }}
+                            startDecorator={<LocalOfferOutlinedIcon />}
+                        />
+                    </div>
+                </Col>
+            </Row>
             <Row>
                 <Col className="collection-content">
                     <div className="page-main-content">
@@ -165,6 +274,7 @@ const PhotoAndDescription = forwardRef((props, ref)  => {
                             minRows={4}
                             name="Outlined"
                             variant="outlined"
+                            value={description}
                             placeholder="Enter product description"
                             onChange={(e) => setDescription(e.target.value)}
                         />

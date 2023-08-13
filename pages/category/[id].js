@@ -124,11 +124,11 @@ const Category = () => {
                                               <Col key={i}>
                                                 <ALink href={`/category/${data?.slug}`}>
                                                   <div className="contain-bg">
-                                                    <a href={data.link}>
+                                                    {/* <a href={data.link}> */}
                                                       <div className={`category-image ${HELPER.isNotEmpty(data?.icon) ? "" : "bg-black"}`}>
                                                         <Media src={data.icon === "" ? categoryIcon : data?.icon} alt="" />
                                                       </div>
-                                                    </a>
+                                                    {/* </a> */}
                                                     <h4 data-hover="size 06">{data.name}</h4>
                                                   </div>
                                                 </ALink>

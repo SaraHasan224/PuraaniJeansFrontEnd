@@ -7,7 +7,15 @@ const initialState = {
 	condition: [],
 	size: [],
 	standard: [],
-
+	addedProduct: {
+		photo_and_description: {
+			name: "",
+			sku: "",
+			files: [],
+			description: "",
+		}
+	},
+	
 	product: [],
 	recentlyViewed: {
 		products: []
@@ -21,6 +29,7 @@ const productsReducer = (state = initialState, action) => {
 				...state,
 				addedProduct: {
 					...state.addedProduct, 
+					step: action?.activeStep,
 					[action?.action]: action?.response
 				}
 			}

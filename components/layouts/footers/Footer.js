@@ -190,34 +190,22 @@ const Footer = ({
                       <div className="footer-contant">
                         <ul>
                           <li>
-                            <ALink href={`/page/about-us`}>
-                              <a>About Us</a>
-                            </ALink>
+                            <ALink href={`/page/about-us`}>About Us</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/review`}>
-                              <a> Reviews </a>
-                            </ALink>
+                            <ALink href={`/page/review`}>Reviews</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/terms`}>
-                              <a>Terms & Conditions</a>
-                            </ALink>
+                            <ALink href={`/page/terms`}>Terms & Conditions</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/privacy`}>
-                              <a> Privacy Policy </a>
-                            </ALink>
+                            <ALink href={`/page/privacy`}>Privacy Policy</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/faq`}>
-                              <a> FAQs </a>
-                            </ALink>
+                            <ALink href={`/page/faq`}>FAQs</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/account/contact312`}>
-                              <a> Contact Us </a>
-                            </ALink>
+                            <ALink href={`/page/account/contact312`}>Contact Us</ALink>
                           </li>
                         </ul>
                       </div>
@@ -248,34 +236,22 @@ const Footer = ({
                       <div className="footer-contant">
                         <ul>
                           <li>
-                            <ALink href={`/page/account/contact312`}>
-                              <a> Men Wear </a>
-                            </ALink>
+                            <ALink href={`/page/account/contact312`}>Men Wear</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/account/contact312`}>
-                              <a> Women Wear </a>
-                            </ALink>
+                            <ALink href={`/page/account/contact312`}>Women Wear</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/account/contact312`}>
-                              <a> Shoes </a>
-                            </ALink>
+                            <ALink href={`/page/account/contact312`}>Shoes</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/account/contact312`}>
-                              <a> Bags </a>
-                            </ALink>
+                            <ALink href={`/page/account/contact312`}>Bags</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/account/contact312`}>
-                              <a> Hats </a>
-                            </ALink>
+                            <ALink href={`/page/account/contact312`}>Hats</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/account/contact312`}>
-                              <a> Caps </a>
-                            </ALink>
+                            <ALink href={`/page/account/contact312`}>Caps</ALink>
                           </li>
                         </ul>
                       </div>
