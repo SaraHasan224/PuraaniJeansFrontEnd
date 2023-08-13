@@ -1,5 +1,5 @@
 import { Input, TextField } from '@mui/joy';
-import React, { useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 
 import {
     Container,
@@ -9,9 +9,41 @@ import {
 
 
 
-const Price = () => {
+const Price = forwardRef((props, ref)  => {
     const [price, setPrice] = useState("");
     const [discountedPrice, setDiscountedPrice] = useState("");
+
+    useImperativeHandle(
+        ref,
+        () => ({
+            handleNextAction() {
+                alert("Child handleNext Function Called")
+                dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_DATA(CONSTANTS.PRODUCT_ADDED.PHOTO_AND_DESCRIPTION, {
+                    images: files,
+                    description: description
+                }))
+            },
+            handleValidationAction() {
+                let error = false;
+                let errorDescription = "";
+                if(HELPER.isEmpty(description)){
+                    error = true;
+                    errorDescription = "Product description is required."
+                }
+                if(HELPER.isEmpty(files)){
+                    error = true;
+                    errorDescription = "Product images are required."
+                }
+                return {
+                    'error': error,
+                    'description': errorDescription
+                };
+            },
+            handleWizardCompleteAction() {
+                return false;
+            }
+        }),
+    )
 
     return (
         <Container className='dashboard-product-section'>
@@ -58,6 +90,6 @@ const Price = () => {
             </Row>
         </Container>
     )
-}
+});
 
 export default Price;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useImperativeHandle, useState, forwardRef } from 'react';
 
 import {
     Container,
@@ -16,9 +16,41 @@ import {
     Checkbox,
 } from '@mui/material';
 
-const ShipmentLocation = () => {
+const ShipmentLocation = forwardRef((props, ref) => {
     const [checked, setChecked] = useState(true);
     const [worldWideShipping, setWorldWideShipping] = React.useState(true);
+
+    useImperativeHandle(
+        ref,
+        () => ({
+            handleNextAction() {
+                alert("Child handleNext Function Called")
+                dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_DATA(CONSTANTS.PRODUCT_ADDED.PHOTO_AND_DESCRIPTION, {
+                    images: files,
+                    description: description
+                }))
+            },
+            handleValidationAction() {
+                let error = false;
+                let errorDescription = "";
+                if(HELPER.isEmpty(description)){
+                    error = true;
+                    errorDescription = "Product description is required."
+                }
+                if(HELPER.isEmpty(files)){
+                    error = true;
+                    errorDescription = "Product images are required."
+                }
+                return {
+                    'error': error,
+                    'description': errorDescription
+                };
+            },
+            handleWizardCompleteAction() {
+                return false;
+            }
+        }),
+    )
 
     const handleChange = (event) => {
         setChecked(event.target.checked);
@@ -100,6 +132,6 @@ const ShipmentLocation = () => {
             </Row>
         </Container>
     )
-}
+});
 
 export default ShipmentLocation;

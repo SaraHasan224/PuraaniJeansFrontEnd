@@ -26,6 +26,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         customerMetaRequested: true,
+        closetRef: action?.response?.customer?.closet?.closet_ref,
         isLoggedInCustomer: action?.response?.customer,
       }
     case CUSTOMER_CONSTANTS.META.FAILURE:
@@ -148,7 +149,6 @@ const authReducer = (state = initialState, action) => {
         isVerificationAttempt: false,
         retryOtp: false,
       }
-
     case CLOSET_CONSTANTS.CREATE.SUCCESS:
       return {
         ...state,

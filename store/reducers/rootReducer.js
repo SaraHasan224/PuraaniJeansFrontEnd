@@ -47,6 +47,13 @@ const categoryConfig = {
   key: 'category',
   storage,
 }
+const productsConfig = {
+  key: 'products',
+  storage,
+  whitelist: [
+    'addProductFormData',
+  ]
+}
 
 const rootReducer = combineReducers({
   alert: alertReducer,
@@ -55,8 +62,7 @@ const rootReducer = combineReducers({
   closet: persistReducer(closetConfig, closetReducer),
   menu: persistReducer(menuConfig, menuReducer),
   metadata: persistReducer(metaConfig, metadataReducer),
-  products: productsReducer,
-  // products: persistReducer(productsConfig, productsReducer),
+  products: persistReducer(productsConfig, productsReducer),
   home: persistReducer(homeConfig, homeReducer),
 })
 

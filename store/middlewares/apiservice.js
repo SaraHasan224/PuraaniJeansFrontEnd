@@ -21,6 +21,7 @@ export const apiService = {
 	getClosetCategories,
 	
 	getAllItems,
+	getAddItemMetaData,
 	
 	getCategory,
 	getCategoryItems,
@@ -172,6 +173,13 @@ async function getAllItems() {
 	)()
 }
 
+async function getAddItemMetaData() {
+	return await API_REQUEST(
+		'get',
+		`${baseURL}${API_ENDPOINTS.GET_METADATA_PRODUCTS}`,
+		false,
+	)()
+}
 
 async function getSignupEvent(data) {
 	return await API_REQUEST(

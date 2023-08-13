@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
 
 import CommonLayout from '../../../../../../components/layouts/common-layout';
 import withPrivateRoute from '../../../../../../hoc/auth/withPrivateRoute';
@@ -12,11 +11,23 @@ import {
 } from "reactstrap";
 import { HELPER } from '../../../../../../utils';
 import ProductStepper from './common/stepper';
+import { PRODUCT_ACTIONS } from '../../../../../../store/actions';
 
 
 
 const AddClosetProducts = () => {
+  const dispatch = useDispatch();
+
   const { closet } = useSelector((state) => state.closet);
+  const { color } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    if (HELPER.isEmpty(color)) {
+      dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_META());
+    }
+  }, []);
+
+
   return (
     <CommonLayout parent="home" title={HELPER.isNotEmpty(closet?.name) ? closet?.name : `Closet dashboard`} showBreadcrumb={true}>
       <section className="dashboard-section section-b-space full-banner parallax parallax-home noBtmPadding noTopPadding">

@@ -16,6 +16,7 @@ export const API_ENDPOINTS = {
 
   GET_PRODUCT_DETAIL: "api/product",
   GET_ALL_PRODUCTS: "api/products",
+  GET_METADATA_PRODUCTS: "api/meta-data/product", 
   GET_RECENTLY_VIEWED_PRODUCTS: "api/recently-viewed-products",
 
   AUTH_SIGNUP: "api/register",

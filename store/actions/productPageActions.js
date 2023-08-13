@@ -1,15 +1,59 @@
 import { apiService } from '../middlewares/apiservice';
-import { CATEGORY_CONSTANTS, PRODUCTS_CONSTANTS } from '../actionTypes';
+import { PRODUCTS_CONSTANTS } from '../actionTypes';
 import { CONSTANTS, HELPER } from '../../utils';
 import { ALERT_ACTIONS } from './alertActions';
 
 
 export const PRODUCT_ACTIONS = {
+	ADD_NEW_PRODUCT_META,
+	ADD_NEW_PRODUCT_DATA,
 	GET_PRODUCT_DETAIL,
 	GET_RECENTLY_VIEWED_PRODUCT,
 	GET_ALL_PRODUCT_LIST
 }
 
+function ADD_NEW_PRODUCT_META() {
+	return (dispatch, getState) => {
+		dispatch(request())
+		apiService
+			.getAddItemMetaData()
+			.then((response) => {
+				const responseStatus = response?.data?.status
+				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
+					const data = response?.data?.body
+					dispatch(success(data))
+				}
+			})
+			.catch((error) => {
+				const { error_message } = HELPER.formatFailureApiResponse(error)
+				dispatch(failure(error_message?.message))
+				dispatch(ALERT_ACTIONS.error(error_message?.message))
+			})
+	}
+
+	function request() {
+		return { type: PRODUCTS_CONSTANTS.PRODUCT_METADATA.REQUEST }
+	}
+	function success(response) {
+		return {
+			type: PRODUCTS_CONSTANTS.PRODUCT_METADATA.SUCCESS,
+			response
+		}
+	}
+	function failure() {
+		return { type: PRODUCTS_CONSTANTS.PRODUCT_METADATA.FAILURE }
+	}
+}
+
+
+function ADD_NEW_PRODUCT_DATA(type, data) {
+	return (dispatch, getState) => {
+		dispatch(request(type, data))
+	}
+	function request(action, response) {
+		return { type: PRODUCTS_CONSTANTS.PRODUCT_DATA_ADDED, action, response }
+	}
+};
 
 function GET_ALL_PRODUCT_LIST() {
 	return (dispatch, getState) => {
@@ -31,16 +75,16 @@ function GET_ALL_PRODUCT_LIST() {
 	}
 
 	function request() {
-		return { type: CATEGORY_CONSTANTS.PRODUCT_LISTING.REQUEST }
+		return { type: PRODUCTS_CONSTANTS.PRODUCT_LISTING.REQUEST }
 	}
 	function success(response) {
 		return {
-			type: CATEGORY_CONSTANTS.PRODUCT_LISTING.SUCCESS,
+			type: PRODUCTS_CONSTANTS.PRODUCT_LISTING.SUCCESS,
 			response
 		}
 	}
 	function failure() {
-		return { type: CATEGORY_CONSTANTS.PRODUCT_LISTING.FAILURE }
+		return { type: PRODUCTS_CONSTANTS.PRODUCT_LISTING.FAILURE }
 	}
 }
 

@@ -1,4 +1,4 @@
-import { CATEGORY_CONSTANTS } from '../actionTypes'
+import { PRODUCTS_CONSTANTS } from '../actionTypes'
 
 
 const initialState = {
@@ -44,12 +44,12 @@ const initialState = {
 
 const categoryReducer = (state = initialState, action) => {
   switch (action.type) {
-		case CATEGORY_CONSTANTS.PRODUCT_LISTING.REQUEST:
+		case PRODUCTS_CONSTANTS.PRODUCT_LISTING.REQUEST:
 			return {
 				...state,
 				loading: true,
 			}
-		case CATEGORY_CONSTANTS.PRODUCT_LISTING.SUCCESS:
+		case PRODUCTS_CONSTANTS.PRODUCT_LISTING.SUCCESS:
 			return {
 				...state,
 				loading: false,
@@ -58,19 +58,19 @@ const categoryReducer = (state = initialState, action) => {
 				slug: action?.response?.slug,
 				type: action?.response?.type,
 			}
-		case CATEGORY_CONSTANTS.PRODUCT_LISTING.FAILURE:
+		case PRODUCTS_CONSTANTS.PRODUCT_LISTING.FAILURE:
 			return {
 				...state,
 				loading: false,
 			}
       
-    case CATEGORY_CONSTANTS.SHOW_DETAILS.REQUEST:
+    case PRODUCTS_CONSTANTS.SHOW_DETAILS.REQUEST:
       return {
         ...state,
         categoryDataLoading: true,
         category: [],
       }
-    case CATEGORY_CONSTANTS.SHOW_DETAILS.SUCCESS:
+    case PRODUCTS_CONSTANTS.SHOW_DETAILS.SUCCESS:
       return {
         ...state,
         categoryDataLoading: false,
@@ -78,7 +78,7 @@ const categoryReducer = (state = initialState, action) => {
 		parentCategory:  action?.response?.parent_category,
 		subCategories:  action?.response?.sub_categories,
       }
-    case CATEGORY_CONSTANTS.SHOW_DETAILS.FAILURE:
+    case PRODUCTS_CONSTANTS.SHOW_DETAILS.FAILURE:
       return {
         ...state,
         categoryDataLoading: false,

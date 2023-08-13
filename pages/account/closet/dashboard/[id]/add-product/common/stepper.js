@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 
@@ -19,11 +19,22 @@ import ItemInfo from './item-info';
 import PhotoDescription from './photo-description';
 import ShipmentLocation from './shipment-location';
 import Price from './price';
+import { useRouter } from 'next/router';
+import { HELPER } from '../../../../../../../utils';
 
 export default function ProductStepper() {
+    const router = useRouter();
+
+    const photoDescriptionRef = useRef();
+    const itemInfoRef = useRef();
+    const shipmentLocationRef = useRef();
+    const priceRef = useRef();
+
     const [activeStep, setActiveStep] = React.useState(0);
     const [completed, setCompleted] = React.useState({});
+    const [validationErr, setValidationErr] = React.useState("");
 
+    
     const totalSteps = () => {
         return steps.length;
     };
@@ -41,13 +52,32 @@ export default function ProductStepper() {
     };
 
     const handleNext = () => {
-        const newActiveStep =
+        setValidationErr("")
+        console.log("handleNext: ")
+        let currentRef = ""
+        // currentRef = photoDescriptionRef.current;
+        currentRef = itemInfoRef.current;
+        if(activeStep === 2) {
+            currentRef = itemInfoRef.current;
+        }else if(activeStep === 3) {
+            currentRef = shipmentLocationRef.current;
+        }else if(activeStep === 4) {
+            currentRef = priceRef.current;
+        }
+        const validation = currentRef.handleValidationAction()
+        console.log("validation: ", validation)
+        if(!validation?.error) {
+            currentRef.handleNextAction();
+            const newActiveStep =
             isLastStep() && !allStepsCompleted()
                 ? // It's the last step, but not all steps have been completed,
                 // find the first step that has been completed
                 steps.findIndex((step, i) => !(i in completed))
                 : activeStep + 1;
-        setActiveStep(newActiveStep);
+            setActiveStep(newActiveStep);
+        }else {
+            setValidationErr(validation?.description)
+        }
     };
 
     const handleBack = () => {
@@ -70,11 +100,21 @@ export default function ProductStepper() {
         setCompleted({});
     };
     
-    const stepComponents = {
-        1: <PhotoDescription />,
-        2: <ItemInfo />,
-        3: <ShipmentLocation />,
-        4: <Price />,
+    const handleCheckoutStep = () => {
+        // if(activeStep+1 === 1) {
+        //     return <PhotoDescription ref={photoDescriptionRef} activeStep={activeStep} totalSteps={totalSteps()} />;
+        // }else if(activeStep+1 === 2) {
+        //     return <ItemInfo ref={itemInfoRef} activeStep={activeStep} totalSteps={totalSteps()} />;
+        // }
+        if(activeStep+1 === 2) {
+            return <PhotoDescription ref={photoDescriptionRef} activeStep={activeStep} totalSteps={totalSteps()} />;
+        }else if(activeStep+1 === 1) {
+            return <ItemInfo ref={itemInfoRef} activeStep={activeStep} totalSteps={totalSteps()} />;
+        }else if(activeStep+1 === 3) {
+            return <ShipmentLocation ref={shipmentLocationRef} activeStep={activeStep} totalSteps={totalSteps()} />;
+        }else if(activeStep+1 === 4) {
+            return <Price ref={priceRef} activeStep={activeStep} totalSteps={totalSteps()} />;
+        }
     };
 
     return (
@@ -87,6 +127,17 @@ export default function ProductStepper() {
                 ))}
             </Stepper>
             <div>
+                {HELPER.isNotEmpty(validationErr) ? <Typography sx={{ mt: 2, mb: 1 }}>
+                    <div className="row">
+                        <div className={`col-12 alert_classes `}>
+                            <div className={`alertCustom error`} role="alert">
+                                <div className={`alertAction error`}>
+                                </div>
+                                <div className="alertMsg">{validationErr}</div>
+                            </div>
+                        </div>
+                    </div>
+                </Typography> : ""}
                 {allStepsCompleted() ? (
                     <React.Fragment>
                         <Typography sx={{ mt: 2, mb: 1 }}>
@@ -100,7 +151,7 @@ export default function ProductStepper() {
                 ) : (
                     <React.Fragment>
                         <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
-                            {stepComponents[activeStep+1]}
+                            {handleCheckoutStep()}
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                             <Button
@@ -113,7 +164,7 @@ export default function ProductStepper() {
                             </Button>
                             <Box sx={{ flex: '1 1 auto' }} />
                             <Button onClick={handleNext} sx={{ mr: 1 }}>
-                                Next
+                                Next (Step {activeStep + 1}/{totalSteps()})
                             </Button>
                             {activeStep !== steps.length &&
                                 (completed[activeStep] ? (
@@ -121,11 +172,12 @@ export default function ProductStepper() {
                                         Step {activeStep + 1} already completed
                                     </Typography>
                                 ) : (
-                                    <Button onClick={handleComplete}>
-                                        {completedSteps() === totalSteps() - 1
-                                            ? 'Finish'
-                                            : 'Complete Step'}
-                                    </Button>
+                                    // <Button onClick={handleComplete}>
+                                    //     {completedSteps() === totalSteps() - 1
+                                    //         ? 'Finish'
+                                    //         : 'Complete Step'}
+                                    // </Button>
+                                    ""
                                 ))}
                         </Box>
                     </React.Fragment>

@@ -62,7 +62,6 @@ function SIGNIN_YOUR_ACCOUNT(data) {
 				const responseStatus = response?.data?.status
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
-					console.log("response: ",response)
 					COOKIE_STORAGE_SERVICE._updateAccessToken(data?.token);
 					LOCAL_STORAGE_SERVICE._saveToLocalStorage("user_info", data?.customer);
 					dispatch(success(data))

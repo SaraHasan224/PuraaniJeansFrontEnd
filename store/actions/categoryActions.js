@@ -1,5 +1,5 @@
 import { apiService } from '../middlewares/apiservice';
-import { CATEGORY_CONSTANTS } from '../actionTypes';
+import { PRODUCTS_CONSTANTS } from '../actionTypes';
 import { CONSTANTS, HELPER } from '../../utils';
 import { ALERT_ACTIONS } from './alertActions';
 
@@ -30,16 +30,16 @@ function GET_CATEGORY_DETAILS(handle) {
 	}
 
 	function request() {
-		return { type: CATEGORY_CONSTANTS.SHOW_DETAILS.REQUEST }
+		return { type: PRODUCTS_CONSTANTS.SHOW_DETAILS.REQUEST }
 	}
 	function success(response) {
 		return {
-			type: CATEGORY_CONSTANTS.SHOW_DETAILS.SUCCESS,
+			type: PRODUCTS_CONSTANTS.SHOW_DETAILS.SUCCESS,
 			response
 		}
 	}
 	function failure() {
-		return { type: CATEGORY_CONSTANTS.SHOW_DETAILS.FAILURE }
+		return { type: PRODUCTS_CONSTANTS.SHOW_DETAILS.FAILURE }
 	}
 }
 
@@ -64,15 +64,15 @@ function GET_CATEGORY_PRODUCT_ITEMS(slug) {
 	}
 
 	function request() {
-		return { type: CATEGORY_CONSTANTS.PRODUCT_LISTING.REQUEST }
+		return { type: PRODUCTS_CONSTANTS.PRODUCT_LISTING.REQUEST }
 	}
 	function success(response) {
 		return {
-			type: CATEGORY_CONSTANTS.PRODUCT_LISTING.SUCCESS,
+			type: PRODUCTS_CONSTANTS.PRODUCT_LISTING.SUCCESS,
 			response
 		}
 	}
 	function failure() {
-		return { type: CATEGORY_CONSTANTS.PRODUCT_LISTING.FAILURE }
+		return { type: PRODUCTS_CONSTANTS.PRODUCT_LISTING.FAILURE }
 	}
 }

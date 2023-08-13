@@ -12,6 +12,12 @@ export const CONSTANTS = {
    ERROR_TYPE: {
       TOAST: "TOAST",
       ALERT: "ALERT"
+   },
+   PRODUCT_ADDED: {
+      PHOTO_AND_DESCRIPTION: "photo_and_description",
+      ITEM_INFORMATION: "item_information",
+      SHIPMENT_AND_LOCATION: "shipment_and_location",
+      PRICE: "price",
    }
 }
 export const MENUITEMS = [

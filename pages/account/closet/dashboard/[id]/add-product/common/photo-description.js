@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import {
@@ -8,6 +8,12 @@ import {
 } from "reactstrap";
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import { Textarea } from '@mui/joy';
+import {
+    CONSTANTS,
+    HELPER
+} from "../../../../../../../utils";
+import { useDispatch } from 'react-redux';
+import { PRODUCT_ACTIONS } from '../../../../../../../store/actions';
 
 const thumbsContainer = {
     display: 'flex',
@@ -42,9 +48,44 @@ const img = {
     height: '100%'
 };
 
-const PhotoAndDescription = () => {
+const PhotoAndDescription = forwardRef((props, ref)  => {
+    const dispatch = useDispatch()
+
     const [files, setFiles] = useState([]);
     const [description, setDescription] = useState("");
+
+    useImperativeHandle(
+        ref,
+        () => ({
+            handleNextAction() {
+                alert("Child handleNext Function Called")
+                dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_DATA(CONSTANTS.PRODUCT_ADDED.PHOTO_AND_DESCRIPTION, {
+                    images: files,
+                    description: description
+                }))
+            },
+            handleValidationAction() {
+                let error = false;
+                let errorDescription = "";
+                if(HELPER.isEmpty(description)){
+                    error = true;
+                    errorDescription = "Product description is required."
+                }
+                if(HELPER.isEmpty(files)){
+                    error = true;
+                    errorDescription = "Product images are required."
+                }
+                return {
+                    'error': error,
+                    'description': errorDescription
+                };
+            },
+            handleWizardCompleteAction() {
+                return false;
+            }
+        }),
+    )
+
 
     const { getRootProps, getInputProps } = useDropzone({
         accept: {
@@ -132,6 +173,6 @@ const PhotoAndDescription = () => {
             </Row>
         </Container>
     )
-}
+});
 
 export default PhotoAndDescription;
