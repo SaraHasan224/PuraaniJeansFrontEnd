@@ -46,7 +46,6 @@ export default function ProductStepper() {
         if(HELPER.isNotEmpty(addedProduct?.step)) {
             handleStep(addedProduct?.step)
             setActiveStep(addedProduct?.step)
-            console.log("addedProduct?.step: ", addedProduct?.step)
         }
     }, []);
 
@@ -68,8 +67,6 @@ export default function ProductStepper() {
 
     const handleNext = () => {
         setValidationErr("")
-        console.log("handleNext: ")
-        console.log("activeStep: ", activeStep)
         let currentRef = photoDescriptionRef.current;
         if(activeStep === 2) {
             currentRef = itemInfoRef.current;
@@ -79,7 +76,6 @@ export default function ProductStepper() {
             currentRef = priceRef.current;
         }
         const validation = currentRef.handleValidationAction()
-        console.log("validation: ", validation, `activeStep: ${activeStep} isLast Step: ${totalSteps()}`,  )
         if(!validation?.error) {
             if(activeStep !== totalSteps()) {
                 currentRef.handleNextAction();
@@ -120,7 +116,6 @@ export default function ProductStepper() {
     };
     
     const handleCheckoutStep = () => {
-        console.log("activeStep: ", activeStep)
         if(activeStep === 1) {
             return <PhotoDescription ref={photoDescriptionRef} activeStep={activeStep+1} totalSteps={totalSteps()} />;
         }else if(activeStep === 2) {
@@ -178,21 +173,11 @@ export default function ProductStepper() {
                                 Back
                             </Button>
                             <Box sx={{ flex: '1 1 auto' }} />
-                            <Button onClick={handleNext} sx={{ mr: 1 }}>
-                                Next (Step {activeStep}/{totalSteps()})
-                            </Button>
-                            {activeStep !== steps.length &&
-                                (completed[activeStep] ? (
-                                    <Typography variant="caption" sx={{ display: 'inline-block' }}>
-                                        Step {activeStep} already completed
-                                    </Typography>
-                                ) : (
-                                    isLastStep() ? <Button onClick={handleComplete}>
-                                        {completedSteps() === totalSteps()
-                                            ? 'Finish'
-                                            : 'Complete Step'}
-                                    </Button> : ""
-                                ))}
+                            {
+                                isLastStep() ? <Button onClick={handleComplete}>Finish</Button> : <Button onClick={handleNext} sx={{ mr: 1 }}>
+                                    Next (Step {activeStep}/{totalSteps()})
+                                </Button>
+                            }
                         </Box>
                     </React.Fragment>
                 )}

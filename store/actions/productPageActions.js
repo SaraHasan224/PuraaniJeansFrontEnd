@@ -56,11 +56,10 @@ function ADD_NEW_PRODUCT_DATA(step, type, data) {
 };
 
 function ADD_NEW_PRODUCT(requestData) {
-	console.log("add Data: ", requestData)
 	return (dispatch, getState) => {
 		dispatch(request())
 		apiService
-			.addItemToCloset()
+			.addItemToCloset(requestData)
 			.then((response) => {
 				const responseStatus = response?.data?.status
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {

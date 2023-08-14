@@ -63,39 +63,19 @@ const PhotoAndDescription = forwardRef((props, ref) => {
     const [sku, setProductSKU] = useState(photo_and_description?.sku);
     const [price, setPrice] = useState(photo_and_description?.price);
     const [discountedPrice, setDiscountedPrice] = useState(photo_and_description?.discountedPrice);
-    const [files, setFiles] = useState([]);//
+    const [multiFiles, setMultipleFiles] = useState(HELPER.isNotEmpty(photo_and_description?.images) ? photo_and_description?.images : []);//
     const [description, setDescription] = useState(photo_and_description?.description);
-
-
-    useEffect(() => {
-        if (HELPER.isNotEmpty(photo_and_description?.images)) {
-            const acceptedFiles = photo_and_description?.images;
-            // setFiles(acceptedFiles.map(file => Object.assign(file, {
-            //     preview: URL.createObjectURL(file)
-            // })))
-        }
-    }, []);
-
+    
     useImperativeHandle(
         ref,
         () => ({
             handleNextAction() {
-                alert("Child handleNext Function Called")
-                console.log(
-                    files.map(file => {
-                        console.log("file: ", file);
-                        return HELPER.blobToDataURL(file, function (dataurl) {
-                            return dataurl;
-                        });
-                    })
-                );
-
                 dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_DATA(activeStep, CONSTANTS.PRODUCT_ADDED.PHOTO_AND_DESCRIPTION, {
                     name,
                     sku,
                     price,
                     discountedPrice,
-                    images: files,
+                    images: multiFiles,
                     description: description
                 }))
             },
@@ -114,7 +94,7 @@ const PhotoAndDescription = forwardRef((props, ref) => {
                     error = true;
                     errorDescription = "Product description is required."
                 }
-                if (HELPER.isEmpty(files)) {
+                if (HELPER.isEmpty(multiFiles)) {
                     error = true;
                     errorDescription = "Product images are required."
                 }
@@ -141,29 +121,26 @@ const PhotoAndDescription = forwardRef((props, ref) => {
         },
         maxFiles: 4,
         onDrop: acceptedFiles => {
-            setFiles(acceptedFiles.map(file => Object.assign(file, {
-                preview: URL.createObjectURL(file)
-            })));
+            let _multiFiles = [];
+            acceptedFiles.map((file, key) => {
+                HELPER.blobToDataURL(file, function (dataurl) {
+                    _multiFiles[key] = { preview: dataurl };
+                })
+            });
+            setMultipleFiles(_multiFiles);
         }
     });
-    const thumbs = files && files.map(file => (
+
+    const thumbs = multiFiles && multiFiles.map(file => (
         <div style={thumb} key={file.name}>
             <div style={thumbInner}>
                 <img
                     src={file.preview}
                     style={img}
-                    // Revoke data uri after image is loaded
-                    onLoad={() => { URL.revokeObjectURL(file.preview) }}
                 />
             </div>
         </div>
     ));
-
-    useEffect(() => {
-        // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-        return () => files.forEach(file => URL.revokeObjectURL(file.preview));
-    }, []);
-
 
     return (
         <Container className='dashboard-product-section'>

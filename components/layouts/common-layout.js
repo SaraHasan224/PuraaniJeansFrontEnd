@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import Helmet from "react-helmet";
 
 import Header from "../layouts/headers/header";
 import Breadcrumbs from "./breadcrubs";
 import Footer from "../layouts/footers/Footer";
+import { HELPER } from "../../utils";
+import { HOMEPAGE_ACTIONS } from "../../store/actions";
 // import InternetConnection from "../../features/internet-connection";
 
 const CommonLayout = ({ children, title, parent, subTitle, showBreadcrumb }) => {
+  const dispatch = useDispatch();
+
   const { meta } = useSelector((state) => state.metadata);
+
+  useEffect(() => {
+    if(HELPER.isNotEmpty(meta?.app_title)) {
+      dispatch(HOMEPAGE_ACTIONS.FETCH_HOMEPAGE_APP_METADATA())
+    }
+  }, []);
+
 
   return (
     <>

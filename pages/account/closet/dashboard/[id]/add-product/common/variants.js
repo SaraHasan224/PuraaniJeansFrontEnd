@@ -15,7 +15,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function getAllCombinations(arr, index) {
     var result = [];
-    console.log("arr: ", arr)
     if (index == arr.length - 1) {
         for (var i = 0; i < arr[index].length; i++) {
             result.push([arr[index][i]]);

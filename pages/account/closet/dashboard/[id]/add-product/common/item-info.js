@@ -93,16 +93,6 @@ const ItemInfo = forwardRef((props, ref)  => {
                     error = true;
                     errorDescription = "Product color is required."
                 }
-                console.log({
-                    category,
-                    subCategory,
-                    brand,
-                    condition: productcondition,
-                    size: sizeChart,
-                    quantity,
-                    standard: standardSize,
-                    color: productColor,
-                })
                 return {
                     'error': error,
                     'description': errorDescription
@@ -220,7 +210,6 @@ const ItemInfo = forwardRef((props, ref)  => {
                                                 options={brands}
                                                 value={brand}
                                                 defaultValue={[]}
-                                                multiple
                                                 onChange={(event, newValue, reason) => {
                                                     setBrand(newValue);
                                                 }}

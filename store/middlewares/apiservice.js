@@ -182,12 +182,12 @@ async function getAddItemMetaData() {
 	)()
 }
 
-async function addItemToCloset() {
+async function addItemToCloset(requestData) {
 	return await API_REQUEST(
-		'get',
+		'post',
 		`${baseURL}${API_ENDPOINTS.ADD_PRODUCT}`,
-		false,
-	)()
+		true,
+	)(requestData)
 }
 
 async function getSignupEvent(data) {
