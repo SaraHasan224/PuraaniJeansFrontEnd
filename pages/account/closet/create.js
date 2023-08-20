@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Row, Col, Input, Form } from "reactstrap";
@@ -10,13 +10,15 @@ import withPrivateRoute from '../../../hoc/auth/withPrivateRoute';
 import { CLOSET_ACTIONS } from '../../../store/actions';
 import { Textarea, Tooltip } from '@mui/joy';
 import { HELPER } from '../../../utils';
+import Cropper, { ReactCropperElement } from "react-cropper";
+import "cropperjs/dist/cropper.css";
 
 const BannerData = [
     {
         no: "1",
         title: "List your products & Get support service provider",
         desc:
-            "Register your business for free and create a productcatalogue. Sell under your own private label or sell an existing brand. Get your documentation & cataloging done with ease from our Professional Services network.",
+            "Register your business for free and create a productcatalogue. Sell under your own private label or sell an existing brand.Get your documentation & cataloging done with ease from our Professional Services network.",
     },
     {
         no: "2",
@@ -28,7 +30,7 @@ const BannerData = [
         no: "3",
         title: "Receive Quick Payment & Grow Your Business",
         desc:
-            "Receive quick and hassle-free payments in your account once your orders are fulfilled. Expand your business with low interest & collateral-free loans.",
+            "Receive quick and hassle-free payments in your account once your orders are fulfilled. Expand your business with low     interest & collateral - free loans.",
     },
 ];
 
@@ -46,7 +48,6 @@ const BannerComponent = ({ no, title, desc }) => {
     );
 };
 
-
 const CreateCloset = () => {
     const router = useRouter();
     const dispatch = useDispatch()
@@ -56,8 +57,12 @@ const CreateCloset = () => {
 
     const [closetName, setClosetName] = useState("");
     const [closetAbout, setClosetAbout] = useState("");
+    const [logo, setLogo] = useState(null);
     const [logoDataUrl, setLogoDataUrl] = useState(null);
     const [bannerDataUrl, setBannerDataUrl] = useState(null);
+    const logoCropperRef = createRef();
+    const [banner, setBanner] = useState(null);
+    const bannerCropperRef = createRef();
 
     useEffect(() => {
         if (closetLoggedIn) {
@@ -66,32 +71,67 @@ const CreateCloset = () => {
     }, [closetLoggedIn]);
 
     const onClosetCreation = () => {
+        console.log("logo: ", logo)
         dispatch(CLOSET_ACTIONS.CREATE_CLOSET({
             name: closetName,
-            logo: logoDataUrl,
-            banner: bannerDataUrl,
+            logo,
+            banner,
+            // logo: logoDataUrl,
+            // banner: bannerDataUrl,
             about: closetAbout
         }));
     }
-
-    const handleLogoUpload = (files) => {
-        HELPER.blobToDataURL(files, function (dataurl) {
-            setLogoDataUrl(dataurl)
-        });
-
+    const handleLogoUpload = (e) => {
+        e.preventDefault();
+        let files;
+        if (e.dataTransfer) {
+            files = e.dataTransfer.files;
+        } else if (e.target) {
+            files = e.target.files;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+            console.log("reader.resultL ", reader.result)
+            setLogo(reader.result);
+        };
+        reader.readAsDataURL(files[0]);
     };
 
-    const handleBannerUpload = (files) => {
-        HELPER.blobToDataURL(files, function (dataurl) {
-            setBannerDataUrl(dataurl)
-        });
+    const handleBannerUpload = (e) => {
+        e.preventDefault();
+        let files;
+        if (e.dataTransfer) {
+            files = e.dataTransfer.files;
+        } else if (e.target) {
+            files = e.target.files;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+            setBanner(reader.result);
+        };
+        reader.readAsDataURL(files[0]);
     };
+   
+    // const handleLogoUpload = (files) => {
+    // HELPER.blobToDataURL(files, function (dataurl) {
+    // setLogoDataUrl(dataurl)
+    // });
+
+    // };
+
+    // const handleBannerUpload = (files) => {
+    //     HELPER.blobToDataURL(files, function (dataurl) {
+    //         setBannerDataUrl(dataurl)
+    //     });
+    // };
 
     const resetImage = (type) => {
         if (type == "banner") {
-            setBannerDataUrl(null)
+            // setBannerDataUrl(null)
+            setBanner(null)
         } else {
-            setLogoDataUrl(null)
+            // setLogoDataUrl(null)
+            setLogo(null)
         }
     };
 
@@ -139,7 +179,8 @@ const CreateCloset = () => {
                     </Container>
                 </section>
 
-                {/* <!-- how to start section start --> */}
+                {/*
+        <!-- how to start section start --> */}
                 <section className="section-b-space become-closet">
                     <Container>
                         <h4>doing business on {process.env.NEXT_PUBLIC_APP_NAME} is really easy</h4>
@@ -154,9 +195,11 @@ const CreateCloset = () => {
                         </div>
                     </Container>
                 </section>
-                {/* <!-- how to start section end --> */}
+                {/*
+        <!-- how to start section end --> */}
 
-                {/* <!-- start selling section start --> */}
+                {/*
+        <!-- start selling section start --> */}
                 <section className="start-selling section-b-space">
                     <Container>
                         <Col>
@@ -177,10 +220,7 @@ const CreateCloset = () => {
                                     <Col lg="6" md="6" sm="6" xs="6">
                                         <div className="account-setting">
                                             <h5><b>Closet Name</b></h5>
-                                            <Input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Enter your closet name"
+                                            <Input type="text" className="form-control" placeholder="Enter your closet name"
                                                 onChange={(e) => setClosetName(e.target.value)}
                                             />
                                         </div>
@@ -188,12 +228,8 @@ const CreateCloset = () => {
                                     <Col lg="6" md="6" sm="6" xs="6">
                                         <div className="account-setting">
                                             <h5><b>Closet Description</b></h5>
-                                            <Textarea
-                                                minRows={4}
-                                                name="Outlined"
-                                                variant="outlined"
-                                                placeholder="Enter something about your closet"
-                                                onChange={(e) => setClosetAbout(e.target.value)}
+                                            <Textarea minRows={4} name="Outlined" variant="outlined"
+                                                placeholder="Enter something about your closet" onChange={(e) => setClosetAbout(e.target.value)}
                                             />
                                         </div>
                                     </Col>
@@ -203,28 +239,31 @@ const CreateCloset = () => {
                                         <div className="account-setting">
                                             <h5><b>Closet logo</b></h5>
                                             <Tooltip arrow title="Upload closet logo" htmlFor="raised-button-file">
-                                                <input
-                                                    type="file"
-                                                    name="myImage"
-                                                    onChange={(event) => {
-                                                        handleLogoUpload(event.target.files[0])
-                                                    }}
-                                                />
+                                                <div >
+                                                    <input
+                                                        type="file"
+                                                        name="myImage"
+                                                        onChange={(event) => {
+                                                            handleLogoUpload(event)
+                                                            // handleLogoUpload(event.target.files[0])
+                                                        }}
+                                                    />
+                                                </div>
                                             </Tooltip>
-                                            {logoDataUrl && (
+                                            {logo && (
                                                 <div>
-                                                    <img
+                                                    {/* <img
                                                         alt="not found"
                                                         width={"250px"}
                                                         src={logoDataUrl}
-                                                    />
-                                                    <br />
+                                                    /> */}
                                                     <button onClick={() => resetImage("logo")} className="btn btn-primary mt-0">
-                                                        Remove Icon
-                                                    </button>
+                                                    Remove Icon
+                                                </button>
                                                 </div>
                                             )}
                                         </div>
+
                                     </Col>
                                     <Col lg="6" md="6" sm="6" xs="6">
                                         <div className="account-setting">
@@ -234,17 +273,18 @@ const CreateCloset = () => {
                                                     type="file"
                                                     name="myImage"
                                                     onChange={(event) => {
-                                                        handleBannerUpload(event.target.files[0])
+                                                        handleBannerUpload(event)
+                                                        // handleBannerUpload(event.target.files[0])
                                                     }}
                                                 />
                                             </Tooltip>
-                                            {bannerDataUrl && (
+                                            {banner && (
                                                 <div>
-                                                    <img
+                                                    {/* <img
                                                         alt="not found"
                                                         width={"250px"}
                                                         src={bannerDataUrl}
-                                                    />
+                                                    /> */}
                                                     <br />
                                                     <button onClick={() => resetImage("banner")} className="btn btn-primary mt-0">
                                                         Remove Banner
@@ -252,6 +292,56 @@ const CreateCloset = () => {
                                                 </div>
                                             )}
                                         </div>
+                                    </Col>
+
+                                    <Col lg="6" md="6" sm="6" xs="6">
+                                        <Cropper
+                                            ref={logoCropperRef}
+                                            style={{ height:100, width: "100%" }}
+                                            zoomTo={-0.000001}
+                                            initialAspectRatio={1}
+                                            preview=".img-preview"
+                                            src={logo}
+                                            viewMode={1}
+                                            minCropBoxHeight={130}
+                                            minCropBoxWidth={130}
+                                            minCanvasHeight={130}
+                                            minCanvasWidth={130}
+                                            background={false}
+                                            responsive={true}
+                                            cropBoxResizable={false}
+                                            cropBoxMovable={false}
+                                            autoCropArea={1}
+                                            aspectRatio={1.4}
+                                            checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                                            guides={false}
+                                            toggleDragModeOnDblclick={false}
+                                        />
+                                    </Col>
+                                    
+                                    <Col lg="6" md="6" sm="6" xs="6">
+                                        <Cropper
+                                            ref={bannerCropperRef}
+                                            style={{ height:100, width: "100%" }}
+                                            zoomTo={-0.000001}
+                                            initialAspectRatio={1}
+                                            preview=".img-preview"
+                                            src={banner}
+                                            viewMode={1}
+                                            minCropBoxHeight={230}
+                                            minCropBoxWidth={230}
+                                            minCanvasHeight={130}
+                                            minCanvasWidth={130}
+                                            background={false}
+                                            responsive={true}
+                                            cropBoxResizable={false}
+                                            cropBoxMovable={false}
+                                            autoCropArea={1}
+                                            aspectRatio={2.5}
+                                            checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                                            guides={false}
+                                            toggleDragModeOnDblclick={false}
+                                        />
                                     </Col>
                                 </Row>
                                 <button onClick={(e) => onClosetCreation(e)} className="btn btn-solid btn-sm">

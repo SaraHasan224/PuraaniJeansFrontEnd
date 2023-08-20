@@ -2,18 +2,21 @@ import React, { Fragment, useEffect } from "react";
 import { Container, Col, Row } from "reactstrap";
 import FeaturedByCollection from "./collection";
 import { HOMEPAGE_ACTIONS } from "../../../store/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { HELPER } from "../../../utils";
 
 export default function Featured(){
   const dispatch = useDispatch()
   
+  const { featuredProducts } = useSelector((state) => state.home);
+
   useEffect(() => {
     dispatch(HOMEPAGE_ACTIONS.GET_FEATURED_ITEMS());
   }, []);
 
   return (
     <Fragment>
-      <section className="home-featured-section">
+      { HELPER.isNotEmpty(featuredProducts) ? <section className="home-featured-section">
         <Container className="featured-container">
           <Row className="multiple-slider mb-3">
             <Col xl="12" lg="12" md="12">
@@ -24,7 +27,7 @@ export default function Featured(){
           </Row>
               <FeaturedByCollection product={4}/>
         </Container>
-      </section>
+      </section> : "" }
     </Fragment>
   );
 };

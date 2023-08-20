@@ -25,7 +25,7 @@ function useOtp() {
 		e.preventDefault()
 		e.stopPropagation()
 		e.target.blur()
-		if (verify_otp.length === digitLimit) {
+		if (verify_otp.length === digitLimit && !sendOTP) {
 			dispatch(AUTH_ACTIONS.VERIFY_PHONE_OTP(verify_otp))
 		}
 	}

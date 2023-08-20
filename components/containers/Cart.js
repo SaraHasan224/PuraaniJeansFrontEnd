@@ -61,9 +61,9 @@ const CartComponent = ({ icon, layout }) => {
                         />
                       </a>
                       <div className="media-body">
-                        <a href={null}>
-                          <h4>{item.title}</h4>
-                        </a>
+                      <Link href={"/product-details/" + item.handle}>
+                          <h6>{item.title}</h6>
+                      </Link>
                         <h4>
                           <span>
                             {item.qty} x {symbol} {item.price}

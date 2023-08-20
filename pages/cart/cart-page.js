@@ -79,7 +79,7 @@ const CartPage = () => {
                           </td>
                           <td>
                             <ALink href={`/product-details/` + item.handle}>
-                              <a>{item.name}</a>
+                              <a>{item.title}</a>
                             </ALink>
                             <div className="mobile-cart-content row">
                               <div className="col-xs-3">

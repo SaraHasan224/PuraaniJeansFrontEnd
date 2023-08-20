@@ -5,6 +5,7 @@ import { Media } from "reactstrap";
 
 const CartHeader = ({ item, symbol }) => {
   const context = useContext(CartContext);
+  console.log("item ", item)
   return (
     <Fragment>
       <li>
@@ -14,12 +15,8 @@ const CartHeader = ({ item, symbol }) => {
               <Media alt="" className="me-3" src={`${item.image}`} />
             </a>
           </Link>
-          <div className="media-body">
-            <Link href={"/product-details/" + item.handle}>
-              <a>
-                <h6>{item.title}</h6>
-              </a>
-            </Link>
+          <div className="media-body align-left">
+            <Link href={"/product-details/" + item.handle}><h5>{item.name}</h5></Link>
 
             <h4>
               <span>

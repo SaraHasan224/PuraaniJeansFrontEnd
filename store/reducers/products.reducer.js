@@ -1,3 +1,4 @@
+import { CONSTANTS } from "../../utils"
 import { PRODUCTS_CONSTANTS } from "../actionTypes"
 
 const initialState = {
@@ -7,6 +8,8 @@ const initialState = {
 	condition: [],
 	size: [],
 	standard: [],
+	
+	productAdded: CONSTANTS.NO,
 	addedProduct: {
 		photo_and_description: {
 			name: "",
@@ -51,6 +54,24 @@ const productsReducer = (state = initialState, action) => {
 			return {
 				...state,
 			}
+
+			
+		case PRODUCTS_CONSTANTS.ADD_NEW_PRODUCT.REQUEST:
+			return {
+				...state,
+				productAdded: CONSTANTS.NO
+			}
+		case PRODUCTS_CONSTANTS.ADD_NEW_PRODUCT.SUCCESS:
+			return {
+				...state,
+				addedProduct: initialState?.addedProduct,
+				productAdded: CONSTANTS.YES
+			}
+		case PRODUCTS_CONSTANTS.ADD_NEW_PRODUCT.FAILURE:
+			return {
+				...state,
+			}
+
 
 		case PRODUCTS_CONSTANTS.PRODUCT_DETAIL.REQUEST:
 			return {

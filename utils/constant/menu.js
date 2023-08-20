@@ -18,7 +18,20 @@ export const CONSTANTS = {
       ITEM_INFORMATION: "item_information",
       SHIPMENT_AND_LOCATION: "shipment_and_location",
       VARIANTS: "product_variants",
-   }
+   },
+	CKEDITOR_CONFIG: {
+      toolbar: [ 
+          'alignment',
+          '|', 'heading',
+          '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+          '|', 'bold', 'italic','strikethrough', 'subscript', 'superscript', 'code',, 'blockQuote', 'codeBlock',
+          '|', 'link',
+          '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent',
+          'insertTable',
+          '|',
+          'undo', 'redo',
+      ]
+  }
 }
 export const MENUITEMS = [
    {

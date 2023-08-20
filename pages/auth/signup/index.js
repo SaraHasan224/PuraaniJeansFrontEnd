@@ -102,18 +102,27 @@ const Signup = () => {
                                 <div className="form-group">
                                     <FormControl>
                                         <FormLabel>Country</FormLabel>
-                                        <Autocomplete placeholder="Select home country" open={open} onOpen={() => {
-                                            setOpen(true);
-                                        }}
+                                        <Autocomplete
+                                            placeholder="Select home country"
+                                            open={open}
+                                            onOpen={() => {
+                                                setOpen(true);
+                                            }}
+                                            inputProps={{
+                                                autoComplete: 'off',
+                                            }}
                                             onClose={() => {
                                                 setOpen(false);
                                             }}
+                                            autoSelect={true}
+                                            autoHighlight={true}
                                             required={true}
                                             onChange={(e, values) => setCountry(values)}
                                             isOptionEqualToValue={(option, value) => option.name === value.name}
                                             getOptionLabel={(option) => option.name}
                                             options={metaCountryList}
                                             loading={metaLoading}
+                                            autoComplete='off'
                                             endDecorator={
                                                 metaLoading ? (
                                                     <CircularProgress size="sm" sx={{ bgcolor: 'background.surface' }} />

@@ -1,4 +1,5 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
 
 import {
@@ -11,12 +12,26 @@ import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
-import { Input, Textarea } from '@mui/joy';
+import { Input } from '@mui/joy';
+
+const editorConfiguration = {
+    toolbar: [ 
+        'alignment',
+        '|', 'heading',
+        '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+        '|', 'bold', 'italic','strikethrough', 'subscript', 'superscript', 'code',, 'blockQuote', 'codeBlock',
+        '|', 'link',
+        '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent',
+        'insertTable',
+        '|',
+        'undo', 'redo',
+    ]
+};
+
 import {
     CONSTANTS,
     HELPER
 } from "../../../../../../../utils";
-import { useDispatch, useSelector } from 'react-redux';
 import { PRODUCT_ACTIONS } from '../../../../../../../store/actions';
 
 const thumbsContainer = {
@@ -52,6 +67,7 @@ const img = {
     height: '100%'
 };
 
+
 const PhotoAndDescription = forwardRef((props, ref) => {
     const dispatch = useDispatch()
 
@@ -65,6 +81,18 @@ const PhotoAndDescription = forwardRef((props, ref) => {
     const [discountedPrice, setDiscountedPrice] = useState(photo_and_description?.discountedPrice);
     const [multiFiles, setMultipleFiles] = useState(HELPER.isNotEmpty(photo_and_description?.images) ? photo_and_description?.images : []);//
     const [description, setDescription] = useState(photo_and_description?.description);
+    
+    const editorRef = useRef()
+    const [ editorLoaded, setEditorLoaded ] = useState( false )
+    const { CKEditor, ClassicEditor} = editorRef.current || {}
+
+    useEffect( () => {
+        editorRef.current = {
+          CKEditor: require( '@ckeditor/ckeditor5-react' ).CKEditor, //Added .CKEditor
+          ClassicEditor: require( '@ckeditor/ckeditor5-build-classic' ),
+        }
+        setEditorLoaded( true )
+    }, [] );
     
     useImperativeHandle(
         ref,
@@ -144,7 +172,6 @@ const PhotoAndDescription = forwardRef((props, ref) => {
 
     return (
         <Container className='dashboard-product-section'>
-
             <Row className='mt-4'>
                 <Col lg="6" md="6" sm="6" xs="6">
                     <div className="account-setting">
@@ -247,14 +274,21 @@ const PhotoAndDescription = forwardRef((props, ref) => {
                 <Col lg="12" md="12" sm="12" xs="12">
                     <div className="account-setting">
                         <h5><b>Description</b></h5>
-                        <Textarea
-                            minRows={4}
-                            name="Outlined"
-                            variant="outlined"
-                            value={description}
-                            placeholder="Enter product description"
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
+                        <>
+                            {editorLoaded ? <CKEditor
+                                editor={ClassicEditor}
+                                data={description}
+                                config={CONSTANTS.CKEDITOR_CONFIG}
+                                onReady={editor => {
+                                    // You can store the "editor" and use when it is needed.
+                                    console.log('Editor is ready to use!', editor);
+                                }}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData()
+                                    setDescription(data);
+                                }}
+                            /> : <p>Editor loading for product description</p>}
+                        </>
                     </div>
                 </Col>
             </Row>

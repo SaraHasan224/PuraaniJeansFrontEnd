@@ -1,5 +1,5 @@
 import { Input, TextField, Textarea } from '@mui/joy';
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 
 import {
     Container,
@@ -12,6 +12,7 @@ import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantity
 import { CONSTANTS, HELPER } from '../../../../../../../utils';
 import { PRODUCT_ACTIONS } from '../../../../../../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 function getAllCombinations(arr, index) {
     var result = [];
@@ -44,10 +45,10 @@ function formatVariantOptions(variants, quantity, description, discountedPrice, 
 function updateVariantOptions(variants, qty, price, discountedPrice, description) {
     return variants.map((variant, key) => {
         return {
-            price: price[key],
-            discounted_price: discountedPrice[key],
-            qty: qty[key],
-            description: description[key],
+            price: HELPER.isNotEmpty(price[key]) ? price[key] : variant?.price,
+            discounted_price: HELPER.isNotEmpty(discountedPrice[key]) ? discountedPrice[key] : variant?.discounted_price,
+            qty: HELPER.isNotEmpty(qty[key]) ? qty[key] : variant?.qty,
+            description: HELPER.isNotEmpty(description[key]) ?  description[key]: variant?.description,
             variation: variant?.variation
         }
     });
@@ -64,12 +65,18 @@ function filter(data, keyName) {
 
 const VariantsInfo = forwardRef((props, ref) => {
     const dispatch = useDispatch()
+    const router = useRouter();
     const { activeStep } = props;
+    
+    const { productAdded, addedProduct } = useSelector((state) => state.products);
+    const { closetRef } = useSelector((state) => state.auth);
 
-    const { item_information, photo_and_description, shipment_and_location, product_variants } = useSelector((state) => state.products.addedProduct);
+    const { item_information, photo_and_description, shipment_and_location, product_variants } = addedProduct;
     const { color, condition, size, standard, quantity } = item_information;
     const { description, discountedPrice, price } = photo_and_description;
 
+    const editorRef = useRef()
+    const { CKEditor, ClassicEditor} = editorRef.current || {}
     const [variantDescription, setVariantDescription] = useState('');
     const [variantQty, setVariantQty] = useState('');
     const [variantPrice, setVariantPrice] = useState('');
@@ -81,16 +88,28 @@ const VariantsInfo = forwardRef((props, ref) => {
         var arr = [objectToArr(color, "color"), objectToArr({ condition }, "condition"), objectToArr(size, "size"), objectToArr({ standard }, "standard")];
         var result = getAllCombinations(arr, 0);
         setVariants(formatVariantOptions(result, quantity, description, discountedPrice, price));
+        
+        editorRef.current = {
+            CKEditor: require( '@ckeditor/ckeditor5-react' ).CKEditor, //Added .CKEditor
+            ClassicEditor: require( '@ckeditor/ckeditor5-build-classic' ),
+          }
     }, []);
 
-
+    useEffect(() => {
+        if(productAdded) {
+            router.push(`/account/closet/dashboard/${closetRef}`, undefined, { shallow: true });
+        }
+    }, [productAdded]);
+    
     useImperativeHandle(
         ref,
         () => ({
             handleNextAction() {
+                const variantsUpdated = updateVariantOptions(variants, variantQty, variantPrice, variantDiscountedPrice, variantDescription);
+                setVariants(variantsUpdated);
                 alert("Child handleNext Function Called")
                 dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_DATA(activeStep, CONSTANTS.PRODUCT_ADDED.VARIANTS, {
-                    variants
+                    variants: variantsUpdated
                 }))
             },
             handleValidationAction() {
@@ -104,6 +123,7 @@ const VariantsInfo = forwardRef((props, ref) => {
                 };
             },
             handleWizardCompleteAction() {
+                alert("Child handleWizardCompleteAction Function Called")
                 dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT({
                     'name': photo_and_description?.name,
                     'sku': photo_and_description?.sku,
@@ -116,7 +136,7 @@ const VariantsInfo = forwardRef((props, ref) => {
                     },
                     'brands': item_information?.brand,
                     'max_quantity': item_information?.quantity,
-                    'variants': product_variants?.variants,
+                    'variants': HELPER.isNotEmpty(product_variants?.variants) ? product_variants?.variants : variants,
                     "images": photo_and_description?.images,
                     "shipment": {
                         "country": shipment_and_location?.country?.id,
@@ -208,15 +228,19 @@ const VariantsInfo = forwardRef((props, ref) => {
                                                 <Col lg="6" md="6" sm="6" xs="6">
                                                     <div className="account-setting">
                                                         <h6><b>Description</b></h6>
-                                                        <Textarea
-                                                            minRows={4}
-                                                            name="Outlined"
-                                                            value={variantDescription[key] ?? description}
-                                                            variant="outlined"
-                                                            type="text"
-                                                            placeholder="Enter variant description"
-                                                            onChange={(event) => setVariantDescription({...variantDescription, [key]: event.target.value})}
-                                                        />
+                                                        {<CKEditor
+                                                            editor={ClassicEditor}
+                                                            data={variantDescription[key] ?? ''}
+                                                            config={CONSTANTS.CKEDITOR_CONFIG}
+                                                            onReady={editor => {
+                                                                // You can store the "editor" and use when it is needed.
+                                                                console.log('Editor is ready to use!', editor);
+                                                            }}
+                                                            onChange={(event, editor) => {
+                                                                const data = editor.getData()
+                                                                setVariantDescription({...variantDescription, [key]: event.target.value});
+                                                            }}
+                                                        /> }
                                                     </div>
                                                 </Col>
                                             </Row>

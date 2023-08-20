@@ -64,13 +64,13 @@ function ADD_NEW_PRODUCT(requestData) {
 				const responseStatus = response?.data?.status
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
-					dispatch(success(data))
+					dispatch(success(data, CONSTANTS.ERROR_TYPE.TOAST))
 				}
 			})
 			.catch((error) => {
 				const { error_message } = HELPER.formatFailureApiResponse(error)
 				dispatch(failure(error_message?.message))
-				dispatch(ALERT_ACTIONS.error(error_message?.message))
+				dispatch(ALERT_ACTIONS.error(error_message?.message, CONSTANTS.ERROR_TYPE.TOAST))
 			})
 	}
 

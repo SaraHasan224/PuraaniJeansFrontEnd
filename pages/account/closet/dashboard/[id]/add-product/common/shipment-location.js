@@ -55,7 +55,7 @@ const ShipmentLocation = forwardRef((props, ref) => {
                     error = true;
                     errorDescription = "Location is required."
                 }
-                if (HELPER.isEmpty(shippingPrice)) {
+                if (!freeShipping && HELPER.isEmpty(shippingPrice)) {
                     error = true;
                     errorDescription = "Shipping Price field is required."
                 }
@@ -137,6 +137,7 @@ const ShipmentLocation = forwardRef((props, ref) => {
                                                 value={shippingPrice}
                                                 variant="outlined"
                                                 type="number"
+                                                disabled={freeShipping}
                                                 placeholder="Enter Shipping Price"
                                                 onChange={(event) => {
                                                     const newValue = Number(event.target.value);
@@ -149,6 +150,7 @@ const ShipmentLocation = forwardRef((props, ref) => {
                                             <FormControlLabel
                                                 control={
                                                     <Checkbox
+                                                        disabled={freeShipping}
                                                         checked={worldWideShipping}
                                                         onChange={handleChangeWorldWideShipping}
                                                         inputProps={{ 'aria-label': 'controlled' }}

@@ -1,4 +1,4 @@
-import { CLOSET_CONSTANTS } from '../actionTypes'
+import { CLOSET_CONSTANTS, PRODUCTS_CONSTANTS } from '../actionTypes'
 
 
 const initialState = {
@@ -14,6 +14,8 @@ const initialState = {
 
 const closetReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLOSET_CONSTANTS.RESET_DETAILS:
+      return initialState;
     case CLOSET_CONSTANTS.CREATE.REQUEST:
       return {
         ...state,
@@ -122,6 +124,20 @@ const closetReducer = (state = initialState, action) => {
         closetAllProductsData: action?.response?.all_products?.products?.data,
         closetAllProducts: action?.response?.all_products
       }
+      
+		case PRODUCTS_CONSTANTS.ADD_NEW_PRODUCT.REQUEST:
+			return {
+				...state,
+			}
+		case PRODUCTS_CONSTANTS.ADD_NEW_PRODUCT.SUCCESS:
+			return {
+				...state,
+        closetAllProductsData: action?.response?.all_products?.products?.data,
+			}
+		case PRODUCTS_CONSTANTS.ADD_NEW_PRODUCT.FAILURE:
+			return {
+				...state,
+			}
     case CLOSET_CONSTANTS.SHOW_DETAILS.FAILURE:
       return {
         ...state,

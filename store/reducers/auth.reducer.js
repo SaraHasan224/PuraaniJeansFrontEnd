@@ -17,6 +17,8 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case AUTH_CONSTANTS.RESET_DETAILS:
+      return initialState;
     case CUSTOMER_CONSTANTS.META.REQUEST:
       return {
         ...state,

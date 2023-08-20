@@ -105,7 +105,7 @@ const ProductsTab = () => {
                             <div className="top-sec">
                                 <h3>All products</h3>
                                 <ALink href={`/account/closet/dashboard/${closetRef}/add-product`} className="btn btn-sm btn-solid">
-                                add product
+                                    add product
                                 </ALink>
                             </div>
                             <ProductCatalogList />

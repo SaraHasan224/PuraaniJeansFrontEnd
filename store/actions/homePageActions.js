@@ -1,7 +1,6 @@
 import { apiService } from '../middlewares/apiservice';
 import { HOME_CONSTANTS } from '../actionTypes';
-import { API_ENDPOINTS, CONSTANTS, COOKIE_STORAGE_SERVICE, HELPER } from '../../utils';
-import { ALERT_ACTIONS } from './alertActions';
+import { CONSTANTS, HELPER } from '../../utils';
 
 
 export const HOMEPAGE_ACTIONS = {
@@ -38,7 +37,7 @@ function FETCH_HOMEPAGE_APP_METADATA() {
 			.catch((error) => {
 				const { error_message } = HELPER.formatFailureApiResponse(error)
 				dispatch(failure(error_message?.message))
-				dispatch(ALERT_ACTIONS.error(error_message?.message))
+				// dispatch(ALERT_ACTIONS.error(error_message?.message))
 			})
 	}
 	function request() {
@@ -70,7 +69,7 @@ function GET_HOMEPAGE_CONTENTS() {
 			.catch((error) => {
 				const { error_message } = HELPER.formatFailureApiResponse(error)
 				dispatch(failure(error_message?.message))
-				dispatch(ALERT_ACTIONS.error(error_message?.message))
+				// dispatch(ALERT_ACTIONS.error(error_message?.message))
 			})
 	}
 
@@ -103,7 +102,7 @@ function GET_MEGA_MENU_CONTENTS() {
 			.catch((error) => {
 				const { error_message } = HELPER.formatFailureApiResponse(error)
 				dispatch(failure(error_message?.message))
-				dispatch(ALERT_ACTIONS.error(error_message?.message))
+				// dispatch(ALERT_ACTIONS.error(error_message?.message))
 			})
 	}
 
@@ -137,7 +136,7 @@ function GET_FEATURED_ITEMS() {
 			.catch((error) => {
 				const { error_message } = HELPER.formatFailureApiResponse(error)
 				dispatch(failure(error_message?.message))
-				dispatch(ALERT_ACTIONS.error(error_message?.message))
+				// dispatch(ALERT_ACTIONS.error(error_message?.message))
 			})
 	}
 

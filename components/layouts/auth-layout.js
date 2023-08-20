@@ -19,6 +19,7 @@ const AuthBanner = ({ img, classes }) => {
 
 const AuthLayout = ({ children}) => {
   const { meta, authBanners } = useSelector((state) => state.metadata);
+
   return (
     <>
       {/*

@@ -13,9 +13,10 @@ import {
     TabPane,
 } from "reactstrap";
 import Resizer from "react-image-file-resizer";
-import { HELPER } from '../../../../../utils';
+import { COOKIE_STORAGE_SERVICE, HELPER } from '../../../../../utils';
 import { CLOSET_ACTIONS } from '../../../../../store/actions';
 import AlertComponent from '../../../../../components/common/alert';
+import { AUTH_CONSTANTS, CLOSET_CONSTANTS } from '../../../../../store/actionTypes';
 
 
 
@@ -38,6 +39,7 @@ function resizeFile(file, maxWidth, maxHeight, width, height = 0) {
 
 const SettingsTab = () => {
     const dispatch = useDispatch()
+    const router = useRouter(); 
 
     const { closet } = useSelector((state) => state.closet);
     const { closetRef } = useSelector((state) => state.auth);
@@ -97,12 +99,28 @@ const SettingsTab = () => {
         }
     };
 
+    const signOutOfMyAccount = () => {
+        COOKIE_STORAGE_SERVICE._removeAccessToken();
+        dispatch({type: AUTH_CONSTANTS.RESET_DETAILS })
+        dispatch({type: CLOSET_CONSTANTS.RESET_DETAILS })
+        router.push(`/`, undefined, { shallow: true });
+    };
+    
     return (
         <TabPane tabId="5">
             <Row>
                 <Col sm="12">
                     <Card className="mt-0">
                         <CardBody>
+                        <Card className="dashboard-table mt-0">
+                        <CardBody>
+                            <div className="top-sec">
+                                <button onClick={() => signOutOfMyAccount()} className="btn btn-sm btn-solid">
+                                    Sign out
+                                </button>
+                            </div>
+                        </CardBody>
+                    </Card>
                             <div className="dashboard-box">
                                 <div className="dashboard-title">
                                     <h4>Settings</h4>
