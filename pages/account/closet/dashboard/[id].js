@@ -20,6 +20,7 @@ import OrdersTab from "./common/orders";
 import SettingsTab from "./common/settings";
 import { CLOSET_ACTIONS } from '../../../../store/actions';
 import { HELPER } from '../../../../utils';
+import Loader from '../../../../features/loader';
 
 const Dashboard = () => {
   const dispatch = useDispatch()
@@ -34,7 +35,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <CommonLayout parent="home" title={HELPER.isNotEmpty(closet?.name) ? closet?.name : `Closet dashboard`} showBreadcrumb={true}>
+    HELPER.isEmpty(closet?.name) ? <Loader/> : <CommonLayout parent="home" title={HELPER.isNotEmpty(closet?.name) ? closet?.name : `Closet dashboard`} showBreadcrumb={true}>
       <section className="dashboard-section section-b-space">
         <Container>
           <Row>

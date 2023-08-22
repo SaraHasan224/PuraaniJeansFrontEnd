@@ -14,7 +14,7 @@ import AlertComponent from '../../../components/common/alert';
 
 const SignIn = () => {
     const dispatch = useDispatch()
-    const { meta, authBanners } = useSelector((state) => state.metadata);
+    const { meta, authBanners, metaCountryList } = useSelector((state) => state.metadata);
     const { isLoggedIn, isLoggedInCustomerScreen, authLoading } = useSelector((state) => state.auth);
 
     const router = useRouter();
@@ -37,7 +37,9 @@ const SignIn = () => {
             document.documentElement.style.setProperty("--gradient2", "#FA4729");
             dispatch(HOMEPAGE_ACTIONS.FETCH_HOMEPAGE_APP_METADATA())
         }
-        dispatch(META_ACTIONS.COUNTRIES_LIST()); // For demo purposes.
+        if (HELPER.isEmpty(metaCountryList)) {
+            dispatch(META_ACTIONS.COUNTRIES_LIST());
+        }
 
         return () => { };
     }, []);

@@ -117,11 +117,21 @@ const ItemInfo = forwardRef((props, ref)  => {
             setCategory(addedProduct?.item_information?.category)
             setSubCategory(addedProduct?.item_information?.subCategory)
             setBrand(addedProduct?.item_information?.brand)
-            setCondition(addedProduct?.item_information?.condition)
-            setSizeChart(addedProduct?.item_information?.size)
+            // setCondition(addedProduct?.item_information?.condition)
+            // setSizeChart(addedProduct?.item_information?.size)
             setQuantity(addedProduct?.item_information?.quantity)
-            setStandardSize(addedProduct?.item_information?.standard)
-            setColor(addedProduct?.item_information?.color)
+            // setStandardSize(addedProduct?.item_information?.standard)
+            // setColor(addedProduct?.item_information?.color)
+            console.log({
+                category,
+                subCategory,
+                brand,
+                condition: addedProduct?.item_information?.condition,
+                size: addedProduct?.item_information?.size,
+                quantity,
+                standard: addedProduct?.item_information?.standard,
+                color: addedProduct?.item_information?.color,
+            })
         }
     }, [addedProduct?.item_information]);
   

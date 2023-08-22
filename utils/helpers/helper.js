@@ -4,6 +4,7 @@ import Resizer from "react-image-file-resizer";
 function isEmpty(x) {
 	return (
 		typeof x === 'undefined' ||
+		typeof x === undefined ||
 		x === null ||
 		x === 'null' ||
 		x === 'undefined' ||

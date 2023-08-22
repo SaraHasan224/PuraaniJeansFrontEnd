@@ -18,11 +18,11 @@ const Price = () => {
     if (value) {
       setSelectedPrice({ min: value[0], max: value[1] })
       setValues(value)
-      router.push(
-        `${url}?title=${context.categoryTitle}&parent=${context.parentCategoryTitle}&child=${context.subCategoryTitle}&slug=${context.slug}&brand=${context.selectedBrands}&color=${context.selectedColor}&size=${context.selectedSize}&minPrice=${context.selectedPrice?.min}&maxPrice=${context.selectedPrice?.max}`,
-        undefined,
-        { shallow: true }
-      );
+      // router.push(
+      //   `${url}?title=${context.categoryTitle}&parent=${context.parentCategoryTitle}&child=${context.subCategoryTitle}&slug=${context.slug}&brand=${context.selectedBrands}&color=${context.selectedColor}&size=${context.selectedSize}&minPrice=${context.selectedPrice?.min}&maxPrice=${context.selectedPrice?.max}`,
+      //   undefined,
+      //   { shallow: true }
+      // );
     }
   }
   return (
@@ -59,7 +59,7 @@ const Price = () => {
                       height: "5px",
                       width: "100%",
                       borderRadius: "4px",
-                      background: getTrackBackground({
+                      backgrounds: getTrackBackground({
                         values,
                         colors: ["#ccc", "#f84c3c", "#ccc"],
                         min: price.min,
@@ -67,6 +67,7 @@ const Price = () => {
                       }),
                       alignSelf: "center"
                     }}
+                    className="__me"
                   >
                     {children}
                   </div>

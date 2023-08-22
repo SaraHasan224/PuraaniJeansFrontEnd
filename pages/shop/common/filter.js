@@ -5,6 +5,8 @@ import Brand from './brand'
 import Color from './color'
 import Size from './size'
 import Price from './price';
+import Condition from './condition';
+import Standard from './standard';
 
 const FilterPage = ({sm,sidebarView,closeSidebar}) => {
     return (
@@ -18,11 +20,13 @@ const FilterPage = ({sm,sidebarView,closeSidebar}) => {
                             <i className="fa fa-angle-left" aria-hidden="true"></i> back
                         </span>
                     </div>
+                    <Price />
                     <Category />
                     <Brand/>
-                    <Color/>
                     <Size/>
-                    <Price />
+                    <Condition/>
+                    <Standard/>
+                    <Color/>
                 </div>
             </Col>
         </>

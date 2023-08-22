@@ -7,6 +7,7 @@ const initialState = {
   brands: [],
   authBanners: [],
   homeContent: [],
+  appLoading: false,
 
   mainMenuCategories: [],
   metaLoading: false,
@@ -16,7 +17,10 @@ const initialState = {
 const metaDataReducer = (state = initialState, action) => {
 	switch (action.type) {
     case HOME_CONSTANTS.HOMEPAGE_META.REQUEST:
-      return state
+      return {
+        ...state,
+        appLoading: true,
+      }
     case HOME_CONSTANTS.HOMEPAGE_META.SUCCESS:
       return {
         ...state,
@@ -27,20 +31,31 @@ const metaDataReducer = (state = initialState, action) => {
         brands: action?.response?.brands,
         subscription: action?.response?.subscription,
         cities: action?.response?.cities,
-        sellersWatchList: action?.response?.sellers_watch?.list
+        sellersWatchList: action?.response?.sellers_watch?.list,
+        appLoading: false,
       }
     case HOME_CONSTANTS.HOMEPAGE_META.FAILURE:
-      return state
+      return {
+        ...state,
+        appLoading: false,
+      }
       
     case HOME_CONSTANTS.MEGA_MENU.REQUEST:
-      return state
+      return {
+        ...state,
+        appLoading: true,
+      }
     case HOME_CONSTANTS.MEGA_MENU.SUCCESS:
       return {
         ...state,
+        appLoading: false,
         mainMenuCategories: action?.response?.menu,
       }
     case HOME_CONSTANTS.MEGA_MENU.FAILURE:
-      return state
+      return {
+        ...state,
+        appLoading: false,
+      }
 
 
     case META_CONSTANTS.COUNTRY_META.REQUEST:

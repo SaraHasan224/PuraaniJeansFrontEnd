@@ -57,7 +57,7 @@ const Category = () => {
   const dispatch = useDispatch()
   const router = useRouter();
   const reference = router.query.id;
-  const { category, categoryDataLoading, products, loading, parentCategory, subCategories } = useSelector((state) => state.category);
+  const { category, categoryDataLoading, products, loading, parentCategory, subCategories } = useSelector((state) => state.products);
   const { data } = products
 
   useEffect(() => {

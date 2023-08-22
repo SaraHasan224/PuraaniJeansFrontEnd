@@ -8687,8 +8687,22 @@ footer {
             cursor: pointer;
             padding-bottom: 10px;
             text-transform: capitalize;
+            width: 850%;
           }
-
+          .optionAction {
+            width: 15%;
+            text-align: start;
+            i {
+              font: normal normal normal 12px/1 FontAwesome;
+            }
+          }
+          .subOptionAction {
+            width: 10%;
+            text-align: end;
+            i {
+              font: normal normal normal 10px/1 FontAwesome;
+            }
+          }
           &:last-child {
             a {
               padding-bottom: 0;
@@ -14235,6 +14249,9 @@ table {
 .ml-3 {
   margin-left: 3% !important;
 }
+.ml-6 {
+  margin-left: 6% !important;
+}
 .mt-2 {
   margin-bottom: 2% !important;
 }
@@ -14259,7 +14276,14 @@ table {
 .text-white {
   color: $white !important;
 }
-
+.ptCatFilOpt {
+  color: rgb(248, 76, 60) !important;
+  font-weight: 500;
+}
+.chCatFilOpt {
+  color: #d4766d !important;
+  font-weight: 400;
+}
 
 
 .gfg {

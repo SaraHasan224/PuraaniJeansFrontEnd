@@ -37,8 +37,10 @@ const Signup = () => {
             document.documentElement.style.setProperty("--gradient2", "#FA4729");
             dispatch(HOMEPAGE_ACTIONS.FETCH_HOMEPAGE_APP_METADATA())
         }
-        dispatch(META_ACTIONS.COUNTRIES_LIST()); // For demo purposes.
-
+        if (HELPER.isEmpty(metaCountryList)) {
+            dispatch(META_ACTIONS.COUNTRIES_LIST());
+        }
+        
         if (isVerificationAttempt || retryOtp) {
             router.push(`/auth/otp`);
         } else if (isLoggedIn) {

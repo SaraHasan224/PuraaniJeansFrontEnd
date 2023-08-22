@@ -17,11 +17,8 @@ import NotFound from "../../../components/common/NotFound";
 const ProductList = ({ colClass, layoutList, openSidebar }) => {
   const dispatch = useDispatch()
 
-  const { menu } = useSelector((state) => state.menu);
-
-  const { loading, products, fetchMore, type, slug, filters } = useSelector((state) => state.category);
-  var { current_page, last_page, data, per_page, total } = products
-  var { sort_by, price_range, colors, brands, categories } = filters
+  const { loading, products, standard, sort_by, price_range, colors, brands, size, condition } = useSelector((state) => state.products);
+  var { data, per_page, total } = products
 
   const cartContext = useContext(CartContext);
   const quantity = cartContext.quantity;
@@ -30,104 +27,37 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
   const curContext = useContext(CurrencyContext);
   const symbol = curContext.state.symbol;
   const filterContext = useContext(FilterContext);
-  
-  const [selectedCategories, setSelectedCategories] = useState(categories);
-  const [selectedBrands, setSelectedBrands] = useState(brands);
-  const [selectedColor, setSelectedColor] = useState(colors);
-  const [selectedPrice, setSelectedPrice] = useState(menu.price);
-  const [categoryTitle, setCategoryTitle] = useState(menu.title);
-  const [categorySlug, setCategorySlug] = useState(menu.slug);
-  const [parentCategoryTitle, setParentCategoryTitle] = useState(menu.parent);
-  const [subCategoryTitle, setSubCategoryTitle] = useState(menu.child);
-  const [selectedSize, setSelectedSize] = useState(menu.size);
-  const [sortBy, setSortBy] = useState("newest_arrival");
-  const [perPageRecord, setPerPageRecord] = useState(10);
-  
+  const {
+    selectedCategories,
+    setSelectedCategories,
+    categoryTitle,
+    setCategoryTitle,
+    parentCategoryTitle,
+    setParentCategoryTitle,
+    subCategoryTitle,
+    setSubCategoryTitle,
+    selectedSize,
+    setSelectedSize,
+    selectedColor,
+    setSelectedColor,
+    selectedBrands,
+    setSelectedBrands,
+    selectedPrice,
+    setSelectedPrice,
+    selectedStandard,
+    setSelectedStandard,
+    selectedCondition,
+    setSelectedCondition,
+    sortBy,
+    setSortBy,
+    perPageRecord,
+    setPerPageRecord
+  } = filterContext
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [layout, setLayout] = useState(layoutList);
-  const [url, setUrl] = useState();
-  
-  useEffect(() => {
-    if(HELPER.isNotEmpty(categorySlug)) {
-      dispatch(CATEGORY_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
-    }else if(HELPER.isEmpty(categoryTitle)) {
-      dispatch(PRODUCT_ACTIONS.GET_ALL_PRODUCT_LIST())
-    }
-  }, []);
-
-  useEffect(() => {
-    if(HELPER.isNotEmpty(menu.title)) {
-      setSelectedBrands(menu.brands);
-      setSelectedColor(menu.color);
-      setSelectedPrice(menu.price);
-      setCategorySlug(menu.slug);
-      setCategoryTitle(menu.title);
-      setParentCategoryTitle(menu.parent);
-      setSubCategoryTitle(menu.child);
-      setSelectedSize(menu.size);
-    }
-  }, [menu]);
-
-
-  useEffect(() => {
-    if(HELPER.isNotEmpty(menu.title)) {
-      setSelectedBrands(menu.brands);
-      setSelectedColor(menu.color);
-      setSelectedPrice(menu.price);
-      setCategorySlug(menu.slug);
-      setCategoryTitle(menu.title);
-      setParentCategoryTitle(menu.parent);
-      setSubCategoryTitle(menu.child);
-      setSelectedSize(menu.size);
-    }
-  }, [menu]);
-
-  // useEffect(() => {
-  //   if(HELPER.isNotEmpty(categoryTitle) && HELPER.isNotEmpty(menu) && categoryTitle !== menu.title) {
-  //     router.push({
-  //           pathname: "shop",
-  //           query: {
-  //             title: menu.title,
-  //             parent: menu.parent_title,
-  //             child: menu.child_title,
-  //             slug: menu.path,
-  //             brand: menu.brand,
-  //             color: menu.color,
-  //             size: menu.size,
-  //             minPrice: menu.minPrice,
-  //             maxPrice: menu.maxPrice,
-  //           },
-  //     })
-  //   }
-  // }, [menu.title]);
-
-
-  useEffect(() => {
-    if(HELPER.isNotEmpty(categorySlug)) {
-      dispatch(CATEGORY_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
-    }
-  }, [categorySlug]);
-
-
-  // useEffect(() => {
-  //   const pathname = window.location.pathname;
-  //   setUrl(pathname);
-  //   router.push(
-  //     `${pathname}?title=${categoryTitle}&parent=${parentCategoryTitle}&child=${subCategoryTitle}&brand=${brands}&color=${selectedColor}&size=${selectedSize}&minPrice=${selectedPrice.min}&maxPrice=${selectedPrice.max}`, undefined, { shallow: true }
-  //   );
-  // }, [
-  //   categoryTitle,
-  //   parentCategoryTitle,
-  //   subCategoryTitle,
-  //   brands,
-  //   selectedColor,
-  //   selectedSize,
-  //   selectedPrice
-  // ]);
+  console.log("selectedCondition: ", selectedCondition)
 
   const handlePagination = () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     // setTimeout(
     //   () =>
     //     fetchMore({
@@ -157,19 +87,30 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
   const removeBrand = (val) => {
     const temp = [...selectedBrands];
     temp.splice(selectedBrands.indexOf(val), 1);
-    filterContext.setSelectedBrands(temp);
+    setSelectedBrands(temp);
   };
 
   const removeSize = (val) => {
     const temp = [...selectedSize];
     temp.splice(selectedSize.indexOf(val), 1);
-    filterContext.setSelectedSize(temp);
+    setSelectedSize(temp);
+  };
+
+  const removeCondition = (val) => {
+    const temp = [...selectedCondition];
+    temp.splice(selectedCondition.indexOf(val), 1);
+    setSelectedCondition(temp);
+  };
+
+  const removeStandard = (val) => {
+    const temp = [...selectedStandard];
+    temp.splice(selectedStandard.indexOf(val), 1);
+    setSelectedStandard(temp);
   };
 
   const removeColor = () => {
-    filterContext.setSelectedColor("");
+    setSelectedColor("");
   };
-
   return (
     <Col className="collection-content">
       <div className="page-main-content">
@@ -179,7 +120,7 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
           </Col>
           <Col sm="12">
             <Row className="toolbox noTopMargin noBtmMargin">
-              <div className="top-banner-wrapper  small-section noBtmPadding toolbox-left col-6">
+              <div className="top-banner-wrapper noBtmPadding toolbox-left col-6">
                 <div className="top-banner-content">
                   <h4>{categoryTitle ?? "Shop"}</h4>
                   <h5>
@@ -243,42 +184,87 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
             <Row>
               <Col xs="12">
                 <ul className="product-filter-tags">
-                  {HELPER.isNotEmpty(selectedBrands) && selectedBrands.map((brand, i) => (
-                    <li key={i}>
-                      <a href={null} className="filter_tag">
-                        {brand?.name}
-                        <i
-                          className="fa fa-close"
-                          onClick={() => removeBrand(brand)}
-                        ></i>
-                      </a>
-                    </li>
-                  ))}
-                  {HELPER.isNotEmpty(selectedColor) && selectedColor ? (
+                  {HELPER.isNotEmpty(brands) && brands.map((brand, i) => {
+                    if(selectedBrands.includes(brand?.value)){
+                      return(
+                        <li key={i}>
+                        <a href={null} className="filter_tag">
+                          <b>Brand:</b> {brand?.label}
+                          <i
+                            className="fa fa-close"
+                            onClick={() => removeBrand(brand?.value)}
+                          ></i>
+                        </a>
+                      </li>
+                      )  
+                    }
+                  })}
+                  {HELPER.isNotEmpty(colors) && colors ? (
                     <li>
                       <a href={null} className="filter_tag">
-                        {selectedColor}
+                        {colors}
                         <i className="fa fa-close" onClick={removeColor}></i>
                       </a>
                     </li>
                   ) : (
                     ""
                   )}
-                  {HELPER.isNotEmpty(selectedSize) && selectedSize.map((size, i) => (
-                    <li key={i}>
-                      <a href={null} className="filter_tag">
-                        {size}
-                        <i
-                          className="fa fa-close"
-                          onClick={() => removeSize(size)}
-                        ></i>
-                      </a>
-                    </li>
-                  ))}
-                  {selectedPrice?.max > 0 ??
+                  
+                  {HELPER.isNotEmpty(selectedSize) && size.map((sizeVal, i) => {
+                      if (selectedSize.includes(sizeVal?.option_id)) {
+                        return (
+
+                          <li key={i}>
+                            <a href={null} className="filter_tag">
+                              <b>Size:</b> {sizeVal.label}
+                              <i
+                                className="fa fa-close"
+                                onClick={() => removeSize(sizeVal?.value)}
+                              ></i>
+                            </a>
+                          </li>
+                        )
+                      }
+                    }
+                  )}
+                  {HELPER.isNotEmpty(selectedCondition) && condition.map((conditionVal, i) => {
+                      if (selectedCondition.includes(conditionVal?.value)) {
+                        return (
+
+                          <li key={i}>
+                            <a href={null} className="filter_tag">
+                              <b>Condition:</b> {conditionVal.label}
+                              <i
+                                className="fa fa-close"
+                                onClick={() => removeCondition(conditionVal?.value)}
+                              ></i>
+                            </a>
+                          </li>
+                        )
+                      }
+                    }
+                  )}
+                  {HELPER.isNotEmpty(selectedStandard) && standard.map((standardVal, i) => {
+                      if (selectedStandard.includes(standardVal?.value)) {
+                        return (
+
+                          <li key={i}>
+                            <a href={null} className="filter_tag">
+                              <b>Standard:</b> {standardVal.label}
+                              <i
+                                className="fa fa-close"
+                                onClick={() => removeStandard(standardVal?.value)}
+                              ></i>
+                            </a>
+                          </li>
+                        )
+                      }
+                    }
+                  )}
+                  {price_range.selectedPrice?.max > 0 ??
                     <li>
                       <a href={null} className="filter_tag">
-                        price: {selectedPrice.min}- {selectedPrice.max}
+                        price: {price_range.selectedPrice.min}- {price_range.selectedPrice.max}
                       </a>
                     </li>
                   }
@@ -286,7 +272,7 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
               </Col>
             </Row>
             <div className="collection-product-wrapper">
-              <div className={`product-wrapper-grid ${layout}`}>
+              <div className={`product-wrapper-grid ${layoutList}`}>
                 <Row>
                   {/* Product Box */}
                   {!data ||
@@ -341,7 +327,7 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
                     <Col xl="12" md="12" sm="12">
                       {data && data.products && data.products.hasMore && (
                         <Button className="load-more" onClick={() => handlePagination()}>
-                          {isLoading && (
+                          {loading && (
                             <Spinner animation="border" variant="light" />
                           )}
                           Load More

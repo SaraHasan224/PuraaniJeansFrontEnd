@@ -1,14 +1,18 @@
 import React, { useState, useContext } from "react";
-import Link from "next/link";
+import { useDispatch } from "react-redux";
+
+import { toast } from "react-toastify";
 import parse  from 'html-react-parser'
-import sizeChart from "../../../public/assets/images/size-chart.jpg";
 import { Modal, ModalBody, ModalHeader, Media, Input } from "reactstrap";
+
+import Link from "next/link";
+
+import { CONSTANTS, HELPER } from "../../../utils";
+import sizeChart from "../../../public/assets/images/size-chart.jpg";
 import { CurrencyContext } from "../../../context/Currency/CurrencyContext";
 import CartContext from "../../../context/cart";
-// import CountdownComponent from "../../../components/common/widgets/countdownComponent";
 import MasterSocial from "./master_social";
-import { CONSTANTS, HELPER } from "../../../utils";
-import { toast } from "react-toastify";
+// import CountdownComponent from "../../../components/common/widgets/countdownComponent";
 // import {AccordionHeader, AccordionContent} from "@mui/material/AccordionDetails";
 
 
@@ -85,7 +89,7 @@ const ProductOptions = ({ product, attribute, selectedOption }) => {
         if (
           product?.available_options?.includes(option.id) ||
           product?.variant_ref.find(
-            e => e.attribute_id === selectedOption.id && e.options === 0
+            e => e.attribute_id === selectedOption?.id && e.options === 0
           )
         ) {
           isDisabled = false;
@@ -123,7 +127,7 @@ const ProductAtrributes = ({
     <div className="prodSelectVar">
       <div
         className={`name-attr-scroll ${
-          cart_item.quantity ? "qty-inc-padding" : ""
+          cart_item?.quantity ? "qty-inc-padding" : ""
         }`}
       >
         <div className="img-name-price">
@@ -145,7 +149,7 @@ const ProductAtrributes = ({
               <span className="pricing">
                 {selectedVariant?.discounted_price}
               </span>
-              {/* {!!cart_item.quantity && <span> x {cart_item.quantity}</span>} */}
+              {/* {!!cart_item?.quantity && <span> x {cart_item?.quantity}</span>} */}
             </div>
           </div>
         </div>
@@ -188,7 +192,7 @@ const ProductAtrributes = ({
           <div className="quantity-cart-btns mb-1">
             <div className="update-qty">
               <div className="qty-heading">
-                {!!cart_item.quantity && <span>Quantity</span>}
+                {!!cart_item?.quantity && <span>Quantity</span>}
               </div>
 
               <div className="cart-actions">
@@ -200,7 +204,7 @@ const ProductAtrributes = ({
               </div>
             </div>
             <div className="buttons">
-              {!cart_item.quantity && (
+              {!cart_item?.quantity && (
                 <Button
                   type="outlined"
                   className={`addedinCartBtn ${
@@ -279,7 +283,7 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
           {symbol}
           {selected_variant?.discounted_price}
         </h3>
-        <ProductAtrributes product={product} />
+        <ProductAtrributes product={product}  />
         {product.variants.map((vari) => {
           var findItem = uniqueColor.find((x) => x.color === vari.color);
           if (!findItem) uniqueColor.push(vari);

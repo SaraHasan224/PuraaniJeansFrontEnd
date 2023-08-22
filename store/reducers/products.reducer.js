@@ -2,13 +2,50 @@ import { CONSTANTS, HELPER } from "../../utils"
 import { PRODUCTS_CONSTANTS } from "../actionTypes"
 
 const initialState = {
+	sort_by: [],
+	price_range: {
+		"max": null,
+		"min": null
+	},
+	stores: "",
+	categories: [],
+	brands: [],
+	condition: [],
+	size: [],
+	standard: [],
+	color: [],
+
+	slug: "",
+	type: "",
+	products: {
+		"current_page": 1,
+		"data": [],
+		"first_page_url": "",
+		"from": null,
+		"last_page": 1,
+		"last_page_url": "",
+		"links": [],
+		"next_page_url": null,
+		"path": "",
+		"per_page": 10,
+		"prev_page_url": null,
+		"to": null,
+		"total": 0
+	},
+	loading: false,
+	fetchMore: false,
+
+	category: [],
+	parentCategory: [],
+	subCategories: [],
+	categoryDataLoading: false,
 	brands: [],
 	categories: [],
 	color: [],
 	condition: [],
 	size: [],
 	standard: [],
-	
+
 	productAdded: CONSTANTS.NO,
 	addedProduct: {
 		photo_and_description: {
@@ -37,13 +74,13 @@ const initialState = {
 			{
 				price: '',
 				discounted_price: '',
-				qty:  '',
-				description:  '',
-				variation:  '',
+				qty: '',
+				description: '',
+				variation: '',
 			}
 		]
 	},
-	
+
 	product: [],
 	recentlyViewed: {
 		products: []
@@ -57,11 +94,62 @@ const productsReducer = (state = initialState, action) => {
 				...state,
 				addedProduct: initialState?.addedProduct
 			}
+
+		case PRODUCTS_CONSTANTS.PRODUCT_LISTING.REQUEST:
+			return {
+				...state,
+				loading: true,
+			}
+		case PRODUCTS_CONSTANTS.PRODUCT_LISTING.SUCCESS:
+			return {
+				...state,
+				loading: false,
+				products: action?.response?.products,
+				sort_by: action?.response?.filters?.sort_by,
+				price_range: {
+					max: action?.response?.filters?.price_range?.max,
+					min: action?.response?.filters?.price_range?.min
+				},
+				stores: action?.response?.filters?.stores,
+				categories: action?.response?.filters?.categories,
+				brands: action?.response?.filters?.brands,
+				condition: action?.response?.filters?.condition,
+				size: action?.response?.filters?.size,
+				standard: action?.response?.filters?.standard,
+				color: action?.response?.filters?.color,
+				slug: action?.response?.slug,
+				type: action?.response?.type,
+			}
+		case PRODUCTS_CONSTANTS.PRODUCT_LISTING.FAILURE:
+			return {
+				...state,
+				loading: false,
+			}
+
+		case PRODUCTS_CONSTANTS.SHOW_DETAILS.REQUEST:
+			return {
+				...state,
+				categoryDataLoading: true,
+				category: [],
+			}
+		case PRODUCTS_CONSTANTS.SHOW_DETAILS.SUCCESS:
+			return {
+				...state,
+				categoryDataLoading: false,
+				category: action?.response?.category,
+				parentCategory: action?.response?.parent_category,
+				subCategories: action?.response?.sub_categories,
+			}
+		case PRODUCTS_CONSTANTS.SHOW_DETAILS.FAILURE:
+			return {
+				...state,
+				categoryDataLoading: false,
+			}
 		case PRODUCTS_CONSTANTS.PRODUCT_DATA_ADDED:
 			return {
 				...state,
 				addedProduct: {
-					...state.addedProduct, 
+					...state.addedProduct,
 					step: action?.activeStep,
 					[action?.action]: action?.response
 				}
@@ -80,7 +168,7 @@ const productsReducer = (state = initialState, action) => {
 			}
 		case PRODUCTS_CONSTANTS.PRODUCT_METADATA.FAILURE:
 			return state;
-			
+
 		case PRODUCTS_CONSTANTS.ADD_NEW_PRODUCT.REQUEST:
 			return {
 				...state,
@@ -136,7 +224,7 @@ const productsReducer = (state = initialState, action) => {
 						shippingPrice: _data?.shipping_price,
 					},
 					_variants: _data?.variants
-				}: state.addedProduct
+				} : state.addedProduct
 			}
 		case PRODUCTS_CONSTANTS.PRODUCT_DETAIL.FAILURE:
 			return {

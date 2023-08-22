@@ -15,7 +15,7 @@ const CommonLayout = ({ children, title, parent, subTitle, showBreadcrumb }) => 
   const { meta } = useSelector((state) => state.metadata);
 
   useEffect(() => {
-    if(HELPER.isNotEmpty(meta?.app_title)) {
+    if(HELPER.isEmpty(meta?.app_title)) {
       dispatch(HOMEPAGE_ACTIONS.FETCH_HOMEPAGE_APP_METADATA())
     }
   }, []);

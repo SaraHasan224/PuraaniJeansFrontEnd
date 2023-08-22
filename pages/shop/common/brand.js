@@ -2,20 +2,19 @@ import React, { useState, useContext } from "react";
 import { Collapse, Input } from "reactstrap";
 import FilterContext from "../../../context/filter/FilterContext";
 import { useSelector } from "react-redux";
+import { HELPER } from "../../../utils";
 
 
 const Brand = () => {
   const context = useContext(FilterContext);
-  const isChecked = context.isChecked;
-  const filterChecked = context.filterChecked;
+  const {isChecked, selectedBrands, handleBrands } = context;
+
   const [isOpen, setIsOpen] = useState(false);
   const toggleBrand = () => setIsOpen(!isOpen);
 
-  const { filters } = useSelector((state) => state.category);
-  var { brands } = filters
+  const { brands } = useSelector((state) => state.products);
 
   var loading = '';
-  var data = '';
   // var { loading, data } = useQuery(GET_BRAND, {
   //   variables: {
   //     type: context.state,
@@ -38,16 +37,16 @@ const Brand = () => {
                     key={index}
                   >
                     <Input
-                      checked={context.selectedBrands.includes(brand)}
+                      checked={HELPER.isNotEmpty(selectedBrands) && selectedBrands.includes(brand?.value) ? true : false}
                       onChange={() => {
-                        context.handleBrands(brand, isChecked);
+                        handleBrands(brand?.value, isChecked);
                       }}
                       type="checkbox"
                       className="custom-control-input"
-                      id={brand}
+                      id={brand?.value}
                     />
                     <label className="custom-control-label" htmlFor={brand}>
-                      {brand?.name}
+                      {brand?.label}
                     </label>
                   </div>
                 ))}

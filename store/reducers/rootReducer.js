@@ -9,11 +9,19 @@ import menuReducer from './menu.reducer';
 import authReducer from './auth.reducer';
 import alertReducer from './alert.reducer';
 import closetReducer from './closet.reducer';
-import categoryReducer from './category.reducer';
 
 const metaConfig = {
   key: 'meta',
   storage,
+  whitelist: [
+    'meta',
+    'banners',
+    'brands',
+    'authBanners',
+    'homeContent',
+    'mainMenuCategories',
+    'metaCountryList'
+  ]
 }
 
 const homeConfig = {
@@ -64,7 +72,6 @@ const productsConfig = {
 const rootReducer = combineReducers({
   alert: alertReducer,
   auth: persistReducer(authConfig, authReducer),
-  category: persistReducer(categoryConfig, categoryReducer),
   closet: persistReducer(closetConfig, closetReducer),
   menu: persistReducer(menuConfig, menuReducer),
   metadata: persistReducer(metaConfig, metadataReducer),

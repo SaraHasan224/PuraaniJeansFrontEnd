@@ -11,12 +11,14 @@ export default function Featured(){
   const { featuredProducts } = useSelector((state) => state.home);
 
   useEffect(() => {
-    dispatch(HOMEPAGE_ACTIONS.GET_FEATURED_ITEMS());
+    if(HELPER.isEmpty(featuredProducts[0]?.data)) {
+      dispatch(HOMEPAGE_ACTIONS.GET_FEATURED_ITEMS());
+    }
   }, []);
 
   return (
     <Fragment>
-      { HELPER.isNotEmpty(featuredProducts) ? <section className="home-featured-section">
+      { HELPER.isNotEmpty(featuredProducts[0]?.data) ? <section className="home-featured-section">
         <Container className="featured-container">
           <Row className="multiple-slider mb-3">
             <Col xl="12" lg="12" md="12">

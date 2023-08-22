@@ -49,13 +49,6 @@ async function getApplicationMetaData() {
 		false,
 	)()
 }
-async function loadApplicationMetaData() {
-	return API_REQUEST(
-		'get',
-		`${baseURL}${API_ENDPOINTS.GET_APP_METADATA}`,
-		false,
-	)()
-}
 
 async function getCustomerMetaData() {
 	return API_REQUEST(

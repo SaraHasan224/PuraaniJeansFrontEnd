@@ -13,7 +13,7 @@ import Footer from "../components/layouts/footers/Footer";
 import Featured from "../components/common/Featured/featured-list";
 import TrendingSellers from "../components/common/TrendingSellers/trending-sellers";
 
-import ALink from '../features/alink';
+import Loader from '../features/loader';
 import InternetConnection from "../features/internet-connection";
 
 import { HOMEPAGE_ACTIONS } from "../store/actions";
@@ -21,8 +21,9 @@ import { HOME_CONSTANTS } from "../store/actionTypes";
 import { API_ENDPOINTS, HELPER } from "../utils";
 
 export default function Home(props){
-  const { meta, brands } = useSelector((state) => state.metadata);
+  const { meta, brands, appLoading } = useSelector((state) => state.metadata);
   const dispatch = useDispatch()
+  
   useEffect(() => {
     document.documentElement.style.setProperty("--gradient1", "#ff4c3b");
     document.documentElement.style.setProperty("--gradient2", "#FA4729");
@@ -35,7 +36,7 @@ export default function Home(props){
   }, []);
 
   return (
-    <>
+    appLoading ? <Loader/> : <>
         <Helmet>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" type="image/x-icon" href={ meta?.favicon } />
@@ -51,10 +52,8 @@ export default function Home(props){
         {/* Search By Tags */}
         <SearchByTags />
         {/* RecommendedItems We Offer */}
-        <RecommendedItems/>
-        <Featured
-          // cartClass="cart-info cart-wrap"
-        />
+        <RecommendedItems />
+        <Featured />
         <TrendingSellers featured={props?.featured_by}/>
         <BrandsFooter
           title={brands?.title}
@@ -77,7 +76,6 @@ export default function Home(props){
 };
 
 export async function getStaticProps() {
-  // const metaApiResponse = await HOMEPAGE_ACTIONS.GET_HOMEPAGE_APP_METADATA();
   const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${API_ENDPOINTS.GET_APP_METADATA}`);
   const metaApiResponse = await apiResponse.json();
     

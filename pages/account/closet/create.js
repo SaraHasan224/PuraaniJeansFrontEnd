@@ -97,7 +97,6 @@ const CreateCloset = () => {
         }
         const reader = new FileReader();
         reader.onload = () => {
-            console.log("reader.resultL ", reader.result)
             setLogo(reader.result);
         };
         reader.readAsDataURL(files[0]);

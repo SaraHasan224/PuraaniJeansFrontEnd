@@ -32,7 +32,9 @@ const ShipmentLocation = forwardRef((props, ref) => {
     const [shippingPrice, setShippingPrice] = useState(addedProduct?.shipment_and_location?.shippingPrice);
 
     useEffect(() => {
-        dispatch(META_ACTIONS.COUNTRIES_LIST()); // For demo purposes.
+        if (HELPER.isEmpty(metaCountryList)) {
+            dispatch(META_ACTIONS.COUNTRIES_LIST());
+        }
         return () => { };
     }, []);
 

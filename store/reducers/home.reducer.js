@@ -4,6 +4,7 @@ import { HOME_CONSTANTS } from '../actionTypes'
 const initialState = {
   recommended: [],
   brands: [],
+  sellers: [],
 
   featuredProducts: [],
   featuredProductsLoaded: false
