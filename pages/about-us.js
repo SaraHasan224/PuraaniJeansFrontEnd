@@ -1,8 +1,10 @@
 import React from "react";
-import CommonLayout from "../../components/layouts/common-layout";
-import { Container, Row, Col, Media } from "reactstrap";
-import aboutus from "../../public/assets/images/about/about-us.jpg";
+
 import Slider from "react-slick";
+import { Container, Row, Col, Media } from "reactstrap";
+
+import CommonLayout from "../components/layouts/common-layout";
+// import aboutus from "../public/assets/images/about/about-us.jpg";
 
 const Slider2 = {
   infinite: true,
@@ -90,11 +92,11 @@ const AboutUs = () => {
             <Row>
               <Col lg="12">
                 <div className="banner-section">
-                  <Media
+                  {/* <Media
                     src={aboutus.src}
                     className="img-fluid blur-up lazyload"
                     alt=""
-                  />
+                  /> */}
                 </div>
               </Col>
               <Col sm="12">

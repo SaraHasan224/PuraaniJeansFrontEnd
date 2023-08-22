@@ -405,7 +405,7 @@ const DetailsWithPrice = ({ item, stickyClass, changeColorVar }) => {
           >
             add to cart
           </a>
-          <Link href={`/page/account/checkout`}>
+          <Link href={`/checkout`}>
             <a className="btn btn-solid">buy now</a>
           </Link>
         </div>

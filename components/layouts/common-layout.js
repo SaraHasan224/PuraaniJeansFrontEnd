@@ -12,11 +12,14 @@ import { HOMEPAGE_ACTIONS } from "../../store/actions";
 const CommonLayout = ({ children, title, parent, subTitle, showBreadcrumb }) => {
   const dispatch = useDispatch();
 
-  const { meta } = useSelector((state) => state.metadata);
+  const { meta, mainMenuCategories } = useSelector((state) => state.metadata);
 
   useEffect(() => {
     if(HELPER.isEmpty(meta?.app_title)) {
       dispatch(HOMEPAGE_ACTIONS.FETCH_HOMEPAGE_APP_METADATA())
+    }
+    if(HELPER.isEmpty(mainMenuCategories)) {
+      dispatch(HOMEPAGE_ACTIONS.GET_MEGA_MENU_CONTENTS());
     }
   }, []);
 

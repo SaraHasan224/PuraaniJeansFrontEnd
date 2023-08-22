@@ -190,22 +190,22 @@ const Footer = ({
                       <div className="footer-contant">
                         <ul>
                           <li>
-                            <ALink href={`/page/about-us`}>About Us</ALink>
+                            <ALink href={`/about-us`}>About Us</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/review`}>Reviews</ALink>
+                            <ALink href={`/review`}>Reviews</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/terms`}>Terms & Conditions</ALink>
+                            <ALink href={`/terms`}>Terms & Conditions</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/privacy`}>Privacy Policy</ALink>
+                            <ALink href={`/privacy`}>Privacy Policy</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/faq`}>FAQs</ALink>
+                            <ALink href={`/faq`}>FAQs</ALink>
                           </li>
                           <li>
-                            <ALink href={`/page/account/contact312`}>Contact Us</ALink>
+                            <ALink href={`/contact`}>Contact Us</ALink>
                           </li>
                         </ul>
                       </div>

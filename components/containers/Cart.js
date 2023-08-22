@@ -92,7 +92,7 @@ const CartComponent = ({ icon, layout }) => {
                   <Link href="/cart">
                     <a className="btn btn-solid btn-xs view-cart">view cart</a>
                   </Link>
-                  <Link href="/page/account/checkout">
+                  <Link href="/checkout">
                     <a className="btn btn-solid btn-xs checkout">checkout</a>
                   </Link>
                 </div>

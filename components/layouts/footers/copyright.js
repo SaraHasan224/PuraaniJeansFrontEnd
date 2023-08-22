@@ -23,13 +23,13 @@ const CopyRight = ({ layout, fluid }) => {
                                         <ALink href="#">Portfolios</ALink>
                                     </li>
                                     <li>
-                                        <ALink href={`/page/account/contact`}>Contact Us</ALink>
+                                        <ALink href={`/contact`}>Contact Us</ALink>
                                     </li>
                                     <li>
-                                        <ALink href={`/page/about-us`}>About Us</ALink>
+                                        <ALink href={`/about-us`}>About Us</ALink>
                                     </li>
                                     <li>
-                                        <ALink href={`/page/faq`}>FAQs</ALink>
+                                        <ALink href={`/faq`}>FAQs</ALink>
                                     </li>
                                 </ul>
                             </div>

@@ -1,8 +1,8 @@
 import React from "react";
-import CommonLayout from "../../components/layouts/common-layout";
-import two from "../../public/assets/images/2.jpg";
-import avtar from "../../public/assets/images/avtar.jpg";
-import twenty from "../../public/assets/images/20.jpg";
+import CommonLayout from "../components/layouts/common-layout";
+import two from "../public/assets/images/2.jpg";
+import avtar from "../public/assets/images/avtar.jpg";
+import twenty from "../public/assets/images/20.jpg";
 import { Container, Row, Col, Media } from "reactstrap";
 
 const ReviewContent = [

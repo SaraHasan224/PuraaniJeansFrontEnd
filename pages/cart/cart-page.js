@@ -182,7 +182,7 @@ const CartPage = () => {
                 </Link>
               </Col>
               <Col xs="6">
-                <Link href={`/page/account/checkout`}>
+                <Link href={`/checkout`}>
                   <a className="btn btn-solid">check out</a>
                 </Link>
               </Col>

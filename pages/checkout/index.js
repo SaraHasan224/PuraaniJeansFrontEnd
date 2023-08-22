@@ -25,7 +25,7 @@ const CheckoutPage = () => {
     if (data !== "") {
       alert("You submitted the form and stuff!");
       router.push({
-        pathname: "/page/order-success",
+        pathname: "/order-success",
         state: { items: cartItems, orderTotal: cartTotal, symbol: symbol },
       });
     } else {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CommonLayout from "../../components/layouts/common-layout";
+import CommonLayout from "../components/layouts/common-layout";
 import {
   Collapse,
   Card,
@@ -7,9 +7,10 @@ import {
   Container,
   Row,
   Col,
+  Button,
 } from "reactstrap";
 
-const termsData = [
+const faqData = [
   {
     qus: "How can I downgrade to an earlier version of Dummy Content?",
     ans:
@@ -42,7 +43,7 @@ const termsData = [
   },
 ];
 
-const TermsList = ({ terms }) => {
+const FaqList = ({ faq }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -57,7 +58,7 @@ const TermsList = ({ terms }) => {
             aria-expanded="true"
             aria-controls="collapseOne"
           >
-            {terms.qus}
+            {faq.qus}
           </button>
         </h5>
       </CardHeader>
@@ -69,17 +70,17 @@ const TermsList = ({ terms }) => {
         data-parent="#accordionExample"
       >
         <div className="card-body">
-          <p>{terms.ans}</p>
+          <p>{faq.ans}</p>
         </div>
       </Collapse>
     </Card>
   );
 };
 
-const TermsPage = () => {
+const FaqPage = () => {
   return (
     <>
-      <CommonLayout parent="home" title="Terms & Conditions">
+      <CommonLayout parent="home" title="faq">
         <section className="faq-section section-b-space">
           <Container>
             <Row>
@@ -88,8 +89,8 @@ const TermsPage = () => {
                   className="accordion theme-accordion"
                   id="accordionExample"
                 >
-                  {termsData.map((terms, i) => (
-                    <TermsList terms={terms} key={i} />
+                  {faqData.map((faq, i) => (
+                    <FaqList faq={faq} key={i} />
                   ))}
                 </div>
               </Col>
@@ -101,4 +102,4 @@ const TermsPage = () => {
   );
 };
 
-export default TermsPage;
+export default FaqPage;
