@@ -44,11 +44,11 @@ function GET_CATEGORY_DETAILS(handle) {
 }
 
 
-function GET_CATEGORY_PRODUCT_ITEMS(slug) {
+function GET_CATEGORY_PRODUCT_ITEMS(slug, requestData = {}) {
 	return (dispatch, getState) => {
 		dispatch(request())
 		apiService
-			.getCategoryItems(slug)
+			.getCategoryItems(slug, requestData)
 			.then((response) => {
 				const responseStatus = response?.data?.status
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {

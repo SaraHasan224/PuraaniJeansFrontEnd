@@ -112,9 +112,30 @@ const FilterProvider = (props) => {
     }
   };
 
+  const getFilters = () => {
+    return {
+      "filters": {
+        "records_range": { "show_count": perPageRecord},
+        "price_range": { "min": selectedPrice?.min, "max": selectedPrice?.max },
+        "sort_by": {
+          "newest_arrival": sortBy === "newest_arrival" ? 1 : 0,
+          "featured": sortBy === "featured" ? 1 : 0,
+          "price_high_to_low": sortBy === "price_high_to_low" ? 1 : 0,
+          "price_low_to_high": sortBy === "price_low_to_high" ? 1 : 0
+        },
+        "categories": categorySlug,
+        "brands": selectedBrands,
+        "condition": selectedCondition,
+        "size": selectedSize,
+        "standard": selectedStandard,
+        "color": selectedColor
+      }
+    };
+  }
+
   useEffect(() => {
     if(HELPER.isNotEmpty(categorySlug)) {
-      dispatch(CATEGORY_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
+      dispatch(CATEGORY_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug, getFilters()))
     }else if(HELPER.isEmpty(categoryTitle)) {
       dispatch(PRODUCT_ACTIONS.GET_ALL_PRODUCT_LIST())
     }
@@ -122,7 +143,7 @@ const FilterProvider = (props) => {
 
   useEffect(() => {
     if(HELPER.isNotEmpty(categorySlug)) {
-      dispatch(CATEGORY_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug))
+      dispatch(CATEGORY_ACTIONS.GET_CATEGORY_PRODUCT_ITEMS(categorySlug, getFilters()))
     }
   }, [categorySlug]);
 

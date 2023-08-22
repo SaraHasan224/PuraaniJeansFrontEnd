@@ -161,12 +161,12 @@ async function getCategory(handle) {
 	)()
 }
 
-async function getCategoryItems(handle) {
+async function getCategoryItems(handle, data) {
 	return await API_REQUEST(
-		'get',
+		'post',
 		`${baseURL}${API_ENDPOINTS.GET_CATEGORY}/${handle}/products`,
 		false,
-	)()
+	)(data)
 }
 
 async function getAllItems() {
