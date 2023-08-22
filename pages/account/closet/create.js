@@ -58,10 +58,10 @@ const CreateCloset = () => {
     const [closetName, setClosetName] = useState("");
     const [closetAbout, setClosetAbout] = useState("");
     const [logo, setLogo] = useState(null);
-    const [logoDataUrl, setLogoDataUrl] = useState(null);
-    const [bannerDataUrl, setBannerDataUrl] = useState(null);
-    const logoCropperRef = createRef();
     const [banner, setBanner] = useState(null);
+    // const [logoDataUrl, setLogoDataUrl] = useState(null);
+    // const [bannerDataUrl, setBannerDataUrl] = useState(null);
+    const logoCropperRef = createRef();
     const bannerCropperRef = createRef();
 
     useEffect(() => {
@@ -71,7 +71,13 @@ const CreateCloset = () => {
     }, [closetLoggedIn]);
 
     const onClosetCreation = () => {
-        console.log("logo: ", logo)
+        if (typeof logoCropperRef.current?.cropper !== "undefined") {
+            setLogo(logoCropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+        }
+        if (typeof bannerCropperRef.current?.cropper !== "undefined") {
+            setBanner(bannerCropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+        }
+
         dispatch(CLOSET_ACTIONS.CREATE_CLOSET({
             name: closetName,
             logo,
@@ -313,7 +319,7 @@ const CreateCloset = () => {
                                             cropBoxMovable={false}
                                             autoCropArea={1}
                                             aspectRatio={1.4}
-                                            checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                                            checkOrientation={false} 
                                             guides={false}
                                             toggleDragModeOnDblclick={false}
                                         />
@@ -338,7 +344,7 @@ const CreateCloset = () => {
                                             cropBoxMovable={false}
                                             autoCropArea={1}
                                             aspectRatio={2.5}
-                                            checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                                            checkOrientation={false} 
                                             guides={false}
                                             toggleDragModeOnDblclick={false}
                                         />

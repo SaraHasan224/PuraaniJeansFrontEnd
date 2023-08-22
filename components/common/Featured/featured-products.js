@@ -82,10 +82,10 @@ const ProductItem = ({
             alt=""
           />
         </div>
-        {product.images1 === "undefined" ? (
+        {product.default === "undefined" ? (
           <div className="back" onClick={clickProductDetail}>
             <Media
-              src={`${image ? image : product.images1.src}`}
+              src={`${image ? image : product.default.src}`}
               className="img-fluid"
               alt=""
             />

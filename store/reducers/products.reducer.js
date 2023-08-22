@@ -1,4 +1,4 @@
-import { CONSTANTS } from "../../utils"
+import { CONSTANTS, HELPER } from "../../utils"
 import { PRODUCTS_CONSTANTS } from "../actionTypes"
 
 const initialState = {
@@ -16,7 +16,32 @@ const initialState = {
 			sku: "",
 			files: [],
 			description: "",
-		}
+		},
+		item_information: {
+			category: [],
+			subCategory: [],
+			brand: [],
+			condition: [],
+			size: [],
+			quantity: [],
+			standard: [],
+			color: [],
+		},
+		shipment_and_location: {
+			country: [],
+			freeShipping: "",
+			worldWideShipping: "",
+			shippingPrice: "",
+		},
+		variants: [
+			{
+				price: '',
+				discounted_price: '',
+				qty:  '',
+				description:  '',
+				variation:  '',
+			}
+		]
 	},
 	
 	product: [],
@@ -27,6 +52,11 @@ const initialState = {
 
 const productsReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case PRODUCTS_CONSTANTS.PRODUCT_DATA_RESET:
+			return {
+				...state,
+				addedProduct: initialState?.addedProduct
+			}
 		case PRODUCTS_CONSTANTS.PRODUCT_DATA_ADDED:
 			return {
 				...state,
@@ -37,9 +67,7 @@ const productsReducer = (state = initialState, action) => {
 				}
 			}
 		case PRODUCTS_CONSTANTS.PRODUCT_METADATA.REQUEST:
-			return {
-				...state,
-			}
+			return state;
 		case PRODUCTS_CONSTANTS.PRODUCT_METADATA.SUCCESS:
 			return {
 				...state,
@@ -51,10 +79,7 @@ const productsReducer = (state = initialState, action) => {
 				standard: action?.response?.standard,
 			}
 		case PRODUCTS_CONSTANTS.PRODUCT_METADATA.FAILURE:
-			return {
-				...state,
-			}
-
+			return state;
 			
 		case PRODUCTS_CONSTANTS.ADD_NEW_PRODUCT.REQUEST:
 			return {
@@ -79,10 +104,39 @@ const productsReducer = (state = initialState, action) => {
 				loading: true,
 			}
 		case PRODUCTS_CONSTANTS.PRODUCT_DETAIL.SUCCESS:
+			let _data = action?.response;
 			return {
 				...state,
 				loading: false,
-				product: action?.response,
+				product: _data,
+				addedProduct: action?.action === "edit" ? {
+					...state.addedProduct,
+					photo_and_description: {
+						name: _data?.name,
+						sku: _data?.handle,
+						images: HELPER.formatProductDetailImage(_data?.images),
+						price: _data?.price,
+						discountedPrice: _data?.discounted_price,
+						description: _data?.short_description,
+					},
+					item_information: {
+						category: _data?.item_information?.category,
+						subCategory: _data?.item_information?.subCategory,
+						brand: _data?.item_information?.brand,
+						condition: _data?.item_information?.condition,
+						size: _data?.item_information?.size,
+						quantity: _data?.max_quantity,
+						standard: _data?.item_information?.standard,
+						color: _data?.item_information?.color,
+					},
+					shipment_and_location: {
+						country: _data?.shipment_country,
+						freeShipping: _data?.free_shipment,
+						worldWideShipping: _data?.enable_world_wide_shipping,
+						shippingPrice: _data?.shipping_price,
+					},
+					_variants: _data?.variants
+				}: state.addedProduct
 			}
 		case PRODUCTS_CONSTANTS.PRODUCT_DETAIL.FAILURE:
 			return {

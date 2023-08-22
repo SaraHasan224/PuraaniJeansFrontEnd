@@ -13,12 +13,11 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import { Input } from '@mui/joy';
-
 import {
     CONSTANTS,
     HELPER
-} from "../../../../../../../utils";
-import { PRODUCT_ACTIONS } from '../../../../../../../store/actions';
+} from "../../../../../../utils";
+import { PRODUCT_ACTIONS } from '../../../../../../store/actions';
 
 const thumbsContainer = {
     display: 'flex',
@@ -157,7 +156,7 @@ const PhotoAndDescription = forwardRef((props, ref) => {
         <div style={thumb} key={file.name}>
             <div style={thumbInner}>
                 <img
-                    src={file.preview}
+                    src={HELPER.isNotEmpty(file?.preview) ? file.preview : file?.image}
                     style={img}
                 />
             </div>

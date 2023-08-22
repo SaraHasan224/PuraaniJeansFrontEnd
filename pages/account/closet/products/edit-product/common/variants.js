@@ -9,8 +9,8 @@ import {
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
-import { CONSTANTS, HELPER } from '../../../../../../../utils';
-import { PRODUCT_ACTIONS } from '../../../../../../../store/actions';
+import { CONSTANTS, HELPER } from '../../../../../../utils';
+import { PRODUCT_ACTIONS } from '../../../../../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 

@@ -5,7 +5,6 @@ import { Media } from "reactstrap";
 
 const CartHeader = ({ item, symbol }) => {
   const context = useContext(CartContext);
-  console.log("item ", item)
   return (
     <Fragment>
       <li>

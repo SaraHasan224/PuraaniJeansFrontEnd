@@ -18,11 +18,9 @@ const Header = (props) => {
   } = props;
   const dispatch = useDispatch()
 
+  const { closet } = useSelector((state) => state.closet);
   const { closetRef, customerMetaRequested, isLoggedIn } = useSelector((state) => state.auth);
 
-  /*=====================
-         Pre loader
-    ==========================*/
   useEffect(() => {
     setTimeout(function () {
       document.querySelectorAll(".loader-wrapper").style = "display: none";

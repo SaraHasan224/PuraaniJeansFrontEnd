@@ -41,9 +41,7 @@ const Dashboard = () => {
             <Col className="collection-content">
               <div className="page-main-content">
                 <div className="top-banner-wrapper">
-                  <a href={null}> 
-                    <Media src={closet?.banner} className="img-fluid blur-up lazyload" alt="" />
-                  </a>
+                  <Media src={closet?.banner} className="img-fluid blur-up lazyload" alt="" />
                   <div className="top-banner-content small-section pb-0">
                     <h4>About {HELPER.isNotEmpty(closet?.name) ? closet?.name : `Closet`}</h4>
                     <p>{closet?.description}</p>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
     Media,
@@ -7,11 +7,22 @@ import {
     NavLink,
     Nav,
   } from "reactstrap";
-  import seventeen from "../../../../../public/assets/images/logos/17.png";
+import { COOKIE_STORAGE_SERVICE } from '../../../../../utils';
+import { AUTH_CONSTANTS, CLOSET_CONSTANTS } from '../../../../../store/actionTypes';
+import { useRouter } from 'next/router';
 
 const DashboardNavigation = ({ active, setActive }) => {
+    const dispatch = useDispatch()
+    const router = useRouter(); 
+
     const {  closet  } = useSelector((state) => state.closet);
 
+    const signOutOfMyAccount = () => {
+        COOKIE_STORAGE_SERVICE._removeAccessToken();
+        dispatch({type: AUTH_CONSTANTS.RESET_DETAILS })
+        dispatch({type: CLOSET_CONSTANTS.RESET_DETAILS })
+        router.push(`/`, undefined, { shallow: true });
+    };
 
     return (
         <div className="dashboard-sidebar">
@@ -59,6 +70,14 @@ const DashboardNavigation = ({ active, setActive }) => {
                         </NavLink>
                     </NavItem>
                 </Nav>
+                <div className='signout'>
+                    <button
+                        onClick={() => signOutOfMyAccount()}
+                        className="btn btn-sm signout-solid"
+                    >
+                        Sign out
+                    </button>
+                </div>
             </div>
         </div>
     )

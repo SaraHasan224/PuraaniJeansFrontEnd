@@ -14,21 +14,30 @@ import Pagination from "react-js-pagination";
 import { CLOSET_ACTIONS } from '../../../../../store/actions';
 import { HELPER } from '../../../../../utils';
 import ALink from '../../../../../features/alink';
+import { useRouter } from 'next/router';
 
 const ProductCatalog = ({ product }) => {
+    const router = useRouter();
     return (
         <tr>
             <th scope="row">
                 <Media src={product?.image} className="blur-up lazyloaded" />
             </th>
-            <td>{product?.name}</td>
-            <td>{product?.category_name}</td>
+            <td className='text-left'>
+                <pre>{product?.handle}</pre>
+            </td>
+            <td className='text-left'>
+                {product?.name}
+            </td>
+            <td>{product?.category}</td>
             <td>{product?.price}</td>
             <td>{product?.discounted_price}</td>
             <td>{product?.max_quantity}</td>
             <td>
-                <i className="fa fa-pencil-square-o me-1" aria-hidden="true"></i>
-                <i className="fa fa-trash-o ms-1" aria-hidden="true"></i>
+                    <i className="fa fa-pencil-square-o me-1" aria-hidden="true" onClick={() => router.push(`/account/closet/products/edit-product/${product.handle}`, undefined, { shallow: true })} ></i>
+                <ALink href={`/account/closet/products/edit-product/${product.handle}`} tabIndex="0">
+                    <i className="fa fa-trash-o ms-1" aria-hidden="true"></i>
+                </ALink>
             </td>
         </tr>
     );
@@ -54,6 +63,7 @@ const ProductCatalogList = () => {
                 <thead>
                     <tr>
                         <th scope="col">image</th>
+                        <th scope="col">product sku</th>
                         <th scope="col">product name</th>
                         <th scope="col">category</th>
                         <th scope="col">price</th>
@@ -66,7 +76,7 @@ const ProductCatalogList = () => {
                     {
                         HELPER.isEmpty(closetAllProductsData) ?
                             <tr>
-                                <td colSpan={7}> No products found</td>
+                                <td colSpan={8} className='text-center'> No products found</td>
                             </tr> :
                             closetAllProductsData.map((data, i) => {
                                 return (
@@ -100,7 +110,7 @@ const ProductsTab = () => {
         <TabPane tabId="2">
             <Row>
                 <Col sm="12">
-                    <Card className="dashboard-table mt-0">
+                    <Card className="products/edit-product-table mt-0">
                         <CardBody>
                             <div className="top-sec">
                                 <h3>All products</h3>

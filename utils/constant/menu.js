@@ -20,11 +20,18 @@ export const CONSTANTS = {
       VARIANTS: "product_variants",
    },
 	CKEDITOR_CONFIG: {
+      fontFamily: {
+        options: [
+          'default',
+          'Ubuntu, Arial, sans-serif',
+          'Ubuntu Mono, Courier New, Courier, monospace'
+        ]
+      },
       toolbar: [ 
           'alignment',
           '|', 'heading',
-          '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
-          '|', 'bold', 'italic','strikethrough', 'subscript', 'superscript', 'code',, 'blockQuote', 'codeBlock',
+          '|', 'fontsize', 'fontColor', 'fontBackgroundColor',
+          '|', 'bold', 'italic', 'Underline', 'strikethrough', 'subscript', 'superscript', 'code', 'blockQuote', 'codeBlock',
           '|', 'link',
           '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent',
           'insertTable',

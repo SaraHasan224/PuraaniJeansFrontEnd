@@ -91,9 +91,7 @@ const Category = () => {
                         <Col className="collection-content">
                           <div className="page-main-content">
                             <div className="top-banner-wrapper">
-                              <a href={null}>
-                                <Media src={category?.banner} className="img-fluid blur-up lazyload" alt="" />
-                              </a>
+                              <Media src={category?.banner} className="img-fluid blur-up lazyload" alt="" />
                               <div className="top-banner-content small-section pb-0">
 
                                 {HELPER.isNotEmpty(parentCategory?.name) ?

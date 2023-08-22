@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -17,110 +17,146 @@ import { COOKIE_STORAGE_SERVICE, HELPER } from '../../../../../utils';
 import { CLOSET_ACTIONS } from '../../../../../store/actions';
 import AlertComponent from '../../../../../components/common/alert';
 import { AUTH_CONSTANTS, CLOSET_CONSTANTS } from '../../../../../store/actionTypes';
-
-
+import Cropper, { ReactCropperElement } from "react-cropper";
+import "cropperjs/dist/cropper.css";
 
 function resizeFile(file, maxWidth, maxHeight, width, height = 0) {
-	new Promise((resolve) => {
-		Resizer.imageFileResizer(
-			file,
-			maxWidth,
-			maxHeight,
-			"PNG",
-			width,
-			height,
-			(uri) => {
-				resolve(uri);
-			},
-			"base64"
-		);
-	});
+    new Promise((resolve) => {
+        Resizer.imageFileResizer(
+            file,
+            maxWidth,
+            maxHeight,
+            "PNG",
+            width,
+            height,
+            (uri) => {
+                resolve(uri);
+            },
+            "base64"
+        );
+    });
 }
 
 const SettingsTab = () => {
     const dispatch = useDispatch()
-    const router = useRouter(); 
+    const router = useRouter();
 
     const { closet } = useSelector((state) => state.closet);
     const { closetRef } = useSelector((state) => state.auth);
 
     const [closetName, setClosetName] = useState(closet?.name);
     const [closetAbout, setClosetAbout] = useState(closet?.description ?? "");
-    const [logo, setLogo] = useState(closet?.logo);
-    const [logoDataUrl, setLogoDataUrl] = useState("");
-    const [banner, setBanner] = useState(closet?.banner);
-    const [bannerDataUrl, setBannerDataUrl] = useState("");
+    const [logo, setLogo] = useState('');
+    const [banner, setBanner] = useState('');
+    // const [logoDataUrl, setLogoDataUrl] = useState("");
+    // const [bannerDataUrl, setBannerDataUrl] = useState("");
+    const logoCropperRef = createRef();
+    const bannerCropperRef = createRef();
 
     const onSettingsUpdate = () => {
+        if (typeof logoCropperRef.current?.cropper !== "undefined") {
+            setLogo(logoCropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+        }
+        if (typeof bannerCropperRef.current?.cropper !== "undefined") {
+            setBanner(bannerCropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+        }
+        
         dispatch(CLOSET_ACTIONS.CLOSET_UPDATE_SETTINGS({
             name: closetName,
-            logo: logoDataUrl,
-            banner: bannerDataUrl,
+            logo: HELPER.isNotEmpty(logo) ? logo : closet?.logo,
+            banner: HELPER.isNotEmpty(banner) ? banner : closet?.banner,
+            // logo: logoDataUrl,
+            // banner: bannerDataUrl,
             about: closetAbout
         }, closetRef));
     }
 
-    const handleLogoUpload = async(file) => {
+    const handleLogoUpload = async (e) => {
+        // const handleLogoUpload = async(file) => {
         try {
-            const image = await resizeFile(file, 300, 300, 300, 0);
-            setLogo(file);
-            setLogoDataUrl(image)
+            e.preventDefault();
+            let files;
+            if (e.dataTransfer) {
+                files = e.dataTransfer.files;
+            } else if (e.target) {
+                files = e.target.files;
+            }
+            const reader = new FileReader();
+            reader.onload = () => {
+                console.log("reader.resultL ", reader.result)
+                setLogo(reader.result);
+            };
+            reader.readAsDataURL(files[0]);
+
+            // const image = await resizeFile(file, 300, 300, 300, 0);
+            // setLogo(file);
+            // setLogoDataUrl(image)
         } catch (err) {
             console.log(err);
         }
         // setLogo(files);
         // HELPER.blobToDataURL(files, function (dataurl) {
-        //     setLogoDataUrl(dataurl)
+        // setLogoDataUrl(dataurl)
         // });
 
     };
 
-    const handleBannerUpload = async (file) => {
+    const handleBannerUpload = async (e) => {
+        // const handleBannerUpload = async (file) => {
         try {
-            const image = await resizeFile(file, 1100, 400, 1100, 0);
-            setBanner(file);
-            setBannerDataUrl(image)
+            e.preventDefault();
+            let files;
+            if (e.dataTransfer) {
+                files = e.dataTransfer.files;
+            } else if (e.target) {
+                files = e.target.files;
+            }
+            const reader = new FileReader();
+            reader.onload = () => {
+                setBanner(reader.result);
+            };
+            reader.readAsDataURL(files[0]);
+
+            // const image = await resizeFile(file, 1100, 400, 1100, 0);
+            // setBanner(file);
+            // setBannerDataUrl(image)
         } catch (err) {
             console.log(err);
         }
-        // setBanner(file);
-        // HELPER.blobToDataURL(file, function (dataurl) {
-        //     setBannerDataUrl(dataurl)
-        // });
     };
 
     const resetImage = (type) => {
         if (type == "banner") {
             setBanner(null)
-            setBannerDataUrl(null)
+            // setBannerDataUrl(null)
         } else {
             setLogo(null)
-            setLogoDataUrl(null)
+            // setLogoDataUrl(null)
         }
     };
 
     const signOutOfMyAccount = () => {
         COOKIE_STORAGE_SERVICE._removeAccessToken();
-        dispatch({type: AUTH_CONSTANTS.RESET_DETAILS })
-        dispatch({type: CLOSET_CONSTANTS.RESET_DETAILS })
+        dispatch({ type: AUTH_CONSTANTS.RESET_DETAILS })
+        dispatch({ type: CLOSET_CONSTANTS.RESET_DETAILS })
         router.push(`/`, undefined, { shallow: true });
     };
-    
+
     return (
         <TabPane tabId="5">
             <Row>
                 <Col sm="12">
                     <Card className="mt-0">
                         <CardBody>
-                        <Card className="dashboard-table mt-0">
-                        <CardBody>
-                            <div className="top-sec">
-                                <button onClick={() => signOutOfMyAccount()} className="btn btn-sm btn-solid">
-                                    Sign out
-                                </button>
-                            </div>
-                        </CardBody>
-                    </Card>
+                            <Card className="dashboard-table mt-0">
+                                <CardBody>
+                                    <div className="top-sec">
+                                        <button onClick={() => signOutOfMyAccount()} className="btn btn-sm btn-solid">
+                                            Sign out
+                                        </button>
+                                    </div>
+                                </CardBody>
+                            </Card>
                             <div className="dashboard-box">
                                 <div className="dashboard-title">
                                     <h4>Settings</h4>
@@ -163,29 +199,56 @@ const SettingsTab = () => {
                                                     <input
                                                         type="file"
                                                         name="myImage"
-                                                        accept="image/png, image/pneg, image/gif, image/jpg, image/jpeg, image/webp"
+                                                        accept="image/png, image/pneg, image/gif, image/jpg, image/jpeg"
                                                         onChange={(event) => {
-                                                            handleLogoUpload(event.target.files[0])
+                                                            handleLogoUpload(event)
+                                                            // handleLogoUpload(event.target.files[0])
                                                         }}
                                                     />
                                                 </Tooltip>
                                             </Col>
                                             <Col lg="6" md="6" sm="12">
-                                                {logo && (
+                                                {closet?.logo && (
                                                     <div>
                                                         <img
                                                             alt="not found"
                                                             width={"250px"}
-                                                            src={HELPER.isEmpty(logoDataUrl) ? logo : logoDataUrl}
+                                                            src={closet?.logo}
                                                         />
                                                         <br />
-                                                        <button onClick={() => resetImage("logo")} className="btn btn-primary mt-2">
+                                                        {logo && <button onClick={() => resetImage("logo")} className="btn btn-primary mt-2">
                                                             Remove Icon
-                                                        </button>
+                                                        </button> }
                                                     </div>
                                                 )}
                                             </Col>
                                         </Row>
+                                        { logo ? <Row>
+                                            <Col lg="12" md="12" sm="12">
+                                                <Cropper
+                                                    ref={logoCropperRef}
+                                                    style={{ height: 100, width: "100%" }}
+                                                    zoomTo={-0.000001}
+                                                    initialAspectRatio={1}
+                                                    preview=".img-preview"
+                                                    src={logo}
+                                                    viewMode={1}
+                                                    minCropBoxHeight={130}
+                                                    minCropBoxWidth={130}
+                                                    minCanvasHeight={130}
+                                                    minCanvasWidth={130}
+                                                    background={false}
+                                                    responsive={true}
+                                                    cropBoxResizable={false}
+                                                    cropBoxMovable={false}
+                                                    autoCropArea={1}
+                                                    aspectRatio={1.4}
+                                                    checkOrientation={false} 
+                                                    guides={false}
+                                                    toggleDragModeOnDblclick={false}
+                                                />
+                                            </Col>
+                                        </Row> : "" }
                                         <Row className='mt-4'>
                                             <Col lg="6" md="6" sm="12">
                                                 <h5><b>Closet Banner</b></h5>
@@ -193,29 +256,56 @@ const SettingsTab = () => {
                                                     <input
                                                         type="file"
                                                         name="myImage"
-                                                        accept="image/png, image/pneg, image/gif, image/jpg, image/jpeg, image/webp"
+                                                        accept="image/png, image/pneg, image/gif, image/jpg, image/jpeg"
                                                         onChange={(event) => {
-                                                            handleBannerUpload(event.target.files[0])
+                                                            handleBannerUpload(event)
+                                                            // handleBannerUpload(event.target.files[0])
                                                         }}
                                                     />
                                                 </Tooltip>
                                             </Col>
                                             <Col lg="6" md="6" sm="12">
-                                                {banner && (
+                                                {closet?.banner && (
                                                     <div>
                                                         <img
                                                             alt="not found"
                                                             width={"250px"}
-                                                            src={HELPER.isEmpty(bannerDataUrl) ? banner : bannerDataUrl}
+                                                            src={closet?.banner}
                                                         />
                                                         <br />
-                                                        <button onClick={() => resetImage("banner")} className="btn btn-primary mt-2">
+                                                        {banner && <button onClick={() => resetImage("banner")} className="btn btn-primary mt-2">
                                                             Remove Banner
-                                                        </button>
+                                                        </button> }
                                                     </div>
                                                 )}
                                             </Col>
                                         </Row>
+                                        { banner ? <Row>
+                                            <Col lg="12" md="12" sm="12">
+                                                <Cropper
+                                                    ref={bannerCropperRef}
+                                                    style={{ height: 100, width: "100%" }}
+                                                    zoomTo={-0.000001}
+                                                    initialAspectRatio={1}
+                                                    preview=".img-preview"
+                                                    src={banner}
+                                                    viewMode={1}
+                                                    minCropBoxHeight={230}
+                                                    minCropBoxWidth={230}
+                                                    minCanvasHeight={130}
+                                                    minCanvasWidth={130}
+                                                    background={false}
+                                                    responsive={true}
+                                                    cropBoxResizable={false}
+                                                    cropBoxMovable={false}
+                                                    autoCropArea={1}
+                                                    aspectRatio={2.5}
+                                                    checkOrientation={false} 
+                                                    guides={false}
+                                                    toggleDragModeOnDblclick={false}
+                                                />
+                                            </Col>
+                                        </Row> : "" }
                                         <Row>
                                             <Col sm="12">
                                                 <button onClick={(e) => onSettingsUpdate(e)} className="btn btn-solid btn-green btn-sm">

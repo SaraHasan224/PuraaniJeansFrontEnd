@@ -23,7 +23,6 @@ function SIGNUP_YOUR_ACCOUNT(requestData) {
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
 					COOKIE_STORAGE_SERVICE._updateAccessToken(response?.data?.body?.token);
-					LOCAL_STORAGE_SERVICE._saveToLocalStorage("user_info", data?.customer);
 					dispatch(success(data))
 				}
 			})
@@ -63,7 +62,6 @@ function SIGNIN_YOUR_ACCOUNT(data) {
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
 					COOKIE_STORAGE_SERVICE._updateAccessToken(data?.token);
-					LOCAL_STORAGE_SERVICE._saveToLocalStorage("user_info", data?.customer);
 					dispatch(success(data))
 				}
 			})
@@ -142,7 +140,6 @@ function VERIFY_PHONE_OTP(data) {
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
 					COOKIE_STORAGE_SERVICE._updateAccessToken(data?.token);
-					LOCAL_STORAGE_SERVICE._saveToLocalStorage("access_token_verified", CONSTANTS.YES);
 					dispatch(success(data))
 				}
 			})

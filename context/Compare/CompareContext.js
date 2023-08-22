@@ -9,7 +9,8 @@ export const Context = createContext({
 
 const getLocalCompareItems = () => {
   try {
-    const list = localStorage.getItem("compare");
+    const list = null;
+    // const list = localStorage.getItem("compare");
     if (list === null) {
       return [];
     } else {
@@ -23,9 +24,9 @@ const getLocalCompareItems = () => {
 export const Provider = (props) => {
   const [compareItems, setcompareItems] = useState(getLocalCompareItems());
 
-  useEffect(() => {
-    localStorage.setItem("compare", JSON.stringify(compareItems));
-  }, [compareItems]);
+  // useEffect(() => {
+  //   localStorage.setItem("compare", JSON.stringify(compareItems));
+  // }, [compareItems]);
 
   // Add Product To Wishlist
   const addToCompare = (item) => {

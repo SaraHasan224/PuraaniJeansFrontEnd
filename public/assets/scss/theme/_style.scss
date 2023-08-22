@@ -12753,13 +12753,16 @@ table {
 
       .profile-image {
         position: relative;
+        width: 220px;
+        height: 68px;
+        margin: 0 auto;
 
         img {
-          width: 130px;
+          // width: 130px;
           margin: 0 auto;
           display: block;
-          border-radius: 100%;
-          background: #000;
+          // border-radius: 100%;
+          // background: #000;
         }
 
         .profile-edit {
@@ -13096,6 +13099,16 @@ table {
           transition: all 0.5s ease;
         }
       }
+    }
+  }
+  .signout {
+    .signout-solid {
+      width: 100%;
+      margin: 10% auto;
+      align-items: center;
+      font-weight: 700;
+      background: #ff4c3b40;
+      color: var(--theme-deafult);
     }
   }
 }

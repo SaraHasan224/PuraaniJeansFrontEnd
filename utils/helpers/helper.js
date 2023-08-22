@@ -350,20 +350,21 @@ function getSelectedVariant(product) {
 	}
 	return product;
 }
-function toDataURL(src, callback) {
-	var image = new Image();
-	image.crossOrigin = 'Anonymous';
-	image.onload = function () {
-		var canvas = document.createElement('canvas');
-		var context = canvas.getContext('2d');
-		canvas.height = this.naturalHeight;
-		canvas.width = this.naturalWidth;
-		context.drawImage(this, 0, 0);
-		var dataURL = canvas.toDataURL('image/jpeg');
-		callback(dataURL);
-	};
-	image.src = src;
-}
+
+// function toDataURL(src, callback) {
+// 	var image = new Image();
+// 	image.crossOrigin = 'Anonymous';
+// 	image.onload = function () {
+// 		var canvas = document.createElement('canvas');
+// 		var context = canvas.getContext('2d');
+// 		canvas.height = this.naturalHeight;
+// 		canvas.width = this.naturalWidth;
+// 		context.drawImage(this, 0, 0);
+// 		var dataURL = canvas.toDataURL('image/jpeg');
+// 		callback(dataURL);
+// 	};
+// 	image.src = src;
+// }
 
 function resizeFile(file, maxWidth, maxHeight, width, height = 0) {
 	new Promise((resolve) => {
@@ -381,6 +382,35 @@ function resizeFile(file, maxWidth, maxHeight, width, height = 0) {
 		);
 	});
 }
+
+function toDataURL(src, callback, outputFormat) {
+	var img = new Image();
+	img.crossOrigin = 'Anonymous';
+	img.onload = function () {
+		var canvas = document.createElement('CANVAS');
+		var ctx = canvas.getContext('2d');
+		var dataURL;
+		canvas.height = this.naturalHeight;
+		canvas.width = this.naturalWidth;
+		ctx.drawImage(this, 0, 0);
+		dataURL = canvas.toDataURL(outputFormat);
+		callback(dataURL);
+	};
+	img.src = src;
+	if (img.complete || img.complete === undefined) {
+		img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+		img.src = src;
+	}
+}
+
+function formatProductDetailImage(images) {
+	let _images = [];
+	images.forEach((imagepath, key) => {
+		_images[key] = {image: imagepath?.url}
+	});
+	return _images;
+}
+
 const HELPER = {
 	stringToBoolean,
 	firstLetterCapitalize,
@@ -395,6 +425,7 @@ const HELPER = {
 	getSelectedVariant,
 	blobToDataURL,
 	toDataURL,
-	resizeFile
+	resizeFile,
+	formatProductDetailImage
 }
 export default HELPER

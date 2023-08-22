@@ -2,6 +2,8 @@
 import {
 	API_REQUEST,
 	API_ENDPOINTS,
+	HELPER,
+	COOKIE_STORAGE_SERVICE,
 } from '../../utils'
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
@@ -90,10 +92,11 @@ async function getFeaturedItems() {
 }
 
 async function getProductDetail(handle) {
+	let access_token = COOKIE_STORAGE_SERVICE._getAccessToken()
 	return await API_REQUEST(
 		'post',
-		`${baseURL}${API_ENDPOINTS.GET_PRODUCT_DETAIL}/${handle}`,
-		true,
+		HELPER.isNotEmpty(access_token) ? `${baseURL}${API_ENDPOINTS.GET_CUSTOMER_PRODUCT_DETAIL}/${handle}` : `${baseURL}${API_ENDPOINTS.GET_PRODUCT_DETAIL}/${handle}`,
+		HELPER.isNotEmpty(access_token),
 	)()
 }
 

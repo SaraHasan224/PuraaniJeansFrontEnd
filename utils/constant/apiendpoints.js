@@ -15,6 +15,7 @@ export const API_ENDPOINTS = {
   GET_CATEGORY: "api/categories",
 
   GET_PRODUCT_DETAIL: "api/product",
+  GET_CUSTOMER_PRODUCT_DETAIL: "api/customer/product",
   GET_ALL_PRODUCTS: "api/products",
   GET_METADATA_PRODUCTS: "api/meta-data/product", 
   ADD_PRODUCT: "api/add/product", 

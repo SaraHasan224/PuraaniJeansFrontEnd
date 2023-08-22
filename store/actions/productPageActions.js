@@ -121,7 +121,7 @@ function GET_ALL_PRODUCT_LIST() {
 	}
 }
 
-function GET_PRODUCT_DETAIL(handle) {
+function GET_PRODUCT_DETAIL(handle, action = "") {
 	return (dispatch, getState) => {
 		dispatch(request())
 		apiService
@@ -130,10 +130,11 @@ function GET_PRODUCT_DETAIL(handle) {
 				const responseStatus = response?.data?.status
 				if (!HELPER.isEmpty(responseStatus) && responseStatus === CONSTANTS.HTTP_RESPONSE.SUCCESS) {
 					const data = response?.data?.body
-					dispatch(success(data))
+					dispatch(success(data, action))
 				}
 			})
 			.catch((error) => {
+				console.log("error: ", error)
 				const { error_message } = HELPER.formatFailureApiResponse(error)
 				dispatch(failure(error_message?.message))
 				dispatch(ALERT_ACTIONS.error(error_message?.message))
@@ -143,10 +144,11 @@ function GET_PRODUCT_DETAIL(handle) {
 	function request() {
 		return { type: PRODUCTS_CONSTANTS.PRODUCT_DETAIL.REQUEST }
 	}
-	function success(response) {
+	function success(response, action) {
 		return {
 			type: PRODUCTS_CONSTANTS.PRODUCT_DETAIL.SUCCESS,
-			response
+			response,
+			action
 		}
 	}
 	function failure() {
