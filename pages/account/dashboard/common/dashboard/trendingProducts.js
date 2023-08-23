@@ -5,8 +5,8 @@ import {
     Media
 } from "reactstrap";
 
-import { CurrencyContext } from "../../../../../../context/Currency/CurrencyContext";
-import { HELPER } from '../../../../../../utils';
+import { CurrencyContext } from "../../../../../context/Currency/CurrencyContext";
+import { HELPER } from '../../../../../utils';
 
 const DetailView = ({ img, productName, price, sales }) => {
     return (

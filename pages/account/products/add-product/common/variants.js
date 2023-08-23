@@ -9,8 +9,8 @@ import {
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
-import { CONSTANTS, HELPER } from '../../../../../../../utils';
-import { PRODUCT_ACTIONS } from '../../../../../../../store/actions';
+import { CONSTANTS, HELPER } from '../../../../../utils';
+import { PRODUCT_ACTIONS } from '../../../../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
@@ -58,10 +58,6 @@ function objectToArr(oldObj, keyName) {
     return Object.entries(oldObj).map(([name, obj]) => ({ name: keyName, ...obj }))
 }
 
-function filter(data, keyName) {
-    return data.filter((i, key) => i[key] === keyName);
-}
-
 
 const VariantsInfo = forwardRef((props, ref) => {
     const dispatch = useDispatch()
@@ -77,6 +73,7 @@ const VariantsInfo = forwardRef((props, ref) => {
 
     const editorRef = useRef()
     const { CKEditor, ClassicEditor} = editorRef.current || {}
+    const [ editorLoaded, setEditorLoaded ] = useState( false )
     const [variantDescription, setVariantDescription] = useState('');
     const [variantQty, setVariantQty] = useState('');
     const [variantPrice, setVariantPrice] = useState('');
@@ -89,16 +86,25 @@ const VariantsInfo = forwardRef((props, ref) => {
         var result = getAllCombinations(arr, 0);
         let _variants = formatVariantOptions(result, quantity, description, discountedPrice, price);
         setVariants(_variants);
-        
-        editorRef.current = {
-            CKEditor: require( '@ckeditor/ckeditor5-react' ).CKEditor, //Added .CKEditor
-            ClassicEditor: require( '@ckeditor/ckeditor5-build-classic' ),
-          }
+
+        setTimeout(() => {
+            try {
+                editorRef.current = {
+                    CKEditor: require('@ckeditor/ckeditor5-react').CKEditor, //Added .CKEditor
+                    ClassicEditor: require('@ckeditor/ckeditor5-build-classic'),
+                }
+                setEditorLoaded(true)
+            }
+            catch (err) {
+                //window reload
+                router.push(`/account/products/add-product`, undefined, { shallow: true });
+            }
+        }, 2000);
     }, []);
 
     useEffect(() => {
         if(productAdded) {
-            router.push(`/account/closet/dashboard/${closetRef}`, undefined, { shallow: true });
+            router.push(`/account/dashboard/${closetRef}`, undefined, { shallow: true });
         }
     }, [productAdded]);
     
@@ -227,7 +233,7 @@ const VariantsInfo = forwardRef((props, ref) => {
                                                 <Col lg="6" md="6" sm="6" xs="6">
                                                     <div className="account-setting">
                                                         <h6><b>Description</b></h6>
-                                                        {<CKEditor
+                                                        {editorLoaded ? <CKEditor
                                                             editor={ClassicEditor}
                                                             data={variantDescription[key] ?? ''}
                                                             config={CONSTANTS.CKEDITOR_CONFIG}
@@ -239,7 +245,7 @@ const VariantsInfo = forwardRef((props, ref) => {
                                                                 const data = editor.getData()
                                                                 setVariantDescription({...variantDescription, [key]: data});
                                                             }}
-                                                        /> }
+                                                        /> : "" }
                                                     </div>
                                                 </Col>
                                             </Row>

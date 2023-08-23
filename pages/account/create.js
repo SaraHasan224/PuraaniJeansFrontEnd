@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Row, Col, Input, Form } from "reactstrap";
 
-import CommonLayout from '../../../components/layouts/common-layout';
+import CommonLayout from '../../components/layouts/common-layout';
 
-import vendor from "../../../public/my-assets/images/backgrounds/main-banner/create-closet.png";
-import withPrivateRoute from '../../../hoc/auth/withPrivateRoute';
-import { CLOSET_ACTIONS } from '../../../store/actions';
+import vendor from "../../public/my-assets/images/backgrounds/main-banner/create-closet.png";
+import withPrivateRoute from '../../hoc/auth/withPrivateRoute';
+import { CLOSET_ACTIONS } from '../../store/actions';
 import { Textarea, Tooltip } from '@mui/joy';
-import { HELPER } from '../../../utils';
+import { HELPER } from '../../utils';
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 
@@ -66,7 +66,7 @@ const CreateCloset = () => {
 
     useEffect(() => {
         if (closetLoggedIn) {
-            router.push(`/account/closet/dashboard/${closetRef}`, undefined, { shallow: true });
+            router.push(`/account/dashboard/${closetRef}`, undefined, { shallow: true });
         }
     }, [closetLoggedIn]);
 

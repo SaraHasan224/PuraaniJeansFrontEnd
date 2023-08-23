@@ -35,18 +35,22 @@ const CartProvider = (props) => {
     const index = cartItems.findIndex((itm) => itm.id === item.id);
 
     if (index !== -1) {
+      console.log("item: ", item)
       cartItems[index] = {
         ...item,
         qty: quantity,
-        total: (item.discounted_price) * quantity,
+        total: ((item.discounted_price) * quantity)+parseInt(HELPER.isNotEmpty(item?.shipping_cost) ? item?.shipping_cost : 0),
       };
+      console.log("cartItems: ", cartItems[index])
       setCartItems([...cartItems]);
     } else {
+      console.log("item: ", item)
       const product = {
         ...item,
         qty: quantity,
-        total: item.discounted_price,
+        total: ((item.discounted_price) * quantity)+parseInt(HELPER.isNotEmpty(item?.shipping_cost) ? item?.shipping_cost : 0),
       };
+      console.log("cartItems: ", product)
       setCartItems([...cartItems, product]);
     }
   };

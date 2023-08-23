@@ -1,4 +1,4 @@
-import { AUTH_CONSTANTS, CLOSET_CONSTANTS, CUSTOMER_CONSTANTS } from '../actionTypes'
+import { AUTH_CONSTANTS, CLOSET_CONSTANTS, CUSTOMER_CONSTANTS, RESET_DETAILS } from '../actionTypes'
 
 
 const initialState = {
@@ -17,7 +17,7 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case AUTH_CONSTANTS.RESET_DETAILS:
+    case RESET_DETAILS:
       return initialState;
     case CUSTOMER_CONSTANTS.META.REQUEST:
       return {

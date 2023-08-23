@@ -22,7 +22,6 @@ const Condition = () => {
         <div className="collection-collapse-block-content">
           <div className="collection-condition-filter">
             {HELPER.isNotEmpty(condition) && Object.keys(condition).map((val, key) => {
-              console.log("condition val: ", val)
               return(
                 <div key={`sizechart-${key}`}
                   className="form-check custom-checkbox collection-filter-checkbox"

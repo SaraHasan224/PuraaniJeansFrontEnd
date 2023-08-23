@@ -1,4 +1,4 @@
-import { CLOSET_CONSTANTS, PRODUCTS_CONSTANTS } from '../actionTypes'
+import { CLOSET_CONSTANTS, PRODUCTS_CONSTANTS, RESET_DETAILS } from '../actionTypes'
 
 
 const initialState = {
@@ -14,7 +14,7 @@ const initialState = {
 
 const closetReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CLOSET_CONSTANTS.RESET_DETAILS:
+    case RESET_DETAILS:
       return initialState;
     case CLOSET_CONSTANTS.CREATE.REQUEST:
       return {

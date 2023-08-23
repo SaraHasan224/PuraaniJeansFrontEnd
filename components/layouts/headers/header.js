@@ -87,7 +87,7 @@ const Header = (props) => {
                         {/*Header Cart Component */}
                         <CartContainer icon={cart.src} />
                         <li className="onhover-div create-closet">
-                          <ALink href={HELPER.isNotEmpty(closetRef) ? `/account/closet/dashboard/${closetRef}` : `/account/closet/create`} className="btn btn-solid black-btn " tabIndex="0">
+                          <ALink href={HELPER.isNotEmpty(closetRef) ? `/account/dashboard/${closetRef}` : `/account/create`} className="btn btn-solid black-btn " tabIndex="0">
                             {HELPER.isNotEmpty(closetRef) ? "My Closet" : "Create Closet"}
                           </ALink>
                         </li>

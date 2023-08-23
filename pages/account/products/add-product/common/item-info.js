@@ -18,8 +18,8 @@ import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantity
 import SettingsInputSvideoIcon from '@mui/icons-material/SettingsInputSvideo';
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '@mui/joy';
-import { CONSTANTS, HELPER } from '../../../../../../utils';
-import { PRODUCT_ACTIONS } from '../../../../../../store/actions';
+import { CONSTANTS, HELPER } from '../../../../../utils';
+import { PRODUCT_ACTIONS } from '../../../../../store/actions';
 
 const ItemInfo = forwardRef((props, ref)  => {
     const dispatch = useDispatch()
@@ -27,7 +27,7 @@ const ItemInfo = forwardRef((props, ref)  => {
     const { activeStep } = props;
     const { color, brands, categories, condition, size, standard , addedProduct } = useSelector((state) => state.products);
 
-    let value = "";
+    const [value, setValue] = useState([]);
 
     const [category, setCategory] = useState(addedProduct?.item_information?.category);
     const [categoryHasSubCategory, setCategoryHasSubCategory] = useState(true);
@@ -41,7 +41,6 @@ const ItemInfo = forwardRef((props, ref)  => {
     const [quantity, setQuantity] = useState(addedProduct?.item_information?.quantity);
     const [standardSize, setStandardSize] = useState(addedProduct?.item_information?.standard);
     const [productColor, setColor] = useState(addedProduct?.item_information?.color);
-    
     useImperativeHandle(
         ref,
         () => ({
@@ -111,29 +110,6 @@ const ItemInfo = forwardRef((props, ref)  => {
             // setColor()
         }
       }, []);
-  
-    useEffect(() => {
-        if (HELPER.isNotEmpty(addedProduct?.item_information)) {
-            setCategory(addedProduct?.item_information?.category)
-            setSubCategory(addedProduct?.item_information?.subCategory)
-            setBrand(addedProduct?.item_information?.brand)
-            // setCondition(addedProduct?.item_information?.condition)
-            // setSizeChart(addedProduct?.item_information?.size)
-            setQuantity(addedProduct?.item_information?.quantity)
-            // setStandardSize(addedProduct?.item_information?.standard)
-            // setColor(addedProduct?.item_information?.color)
-            console.log({
-                category,
-                subCategory,
-                brand,
-                condition: addedProduct?.item_information?.condition,
-                size: addedProduct?.item_information?.size,
-                quantity,
-                standard: addedProduct?.item_information?.standard,
-                color: addedProduct?.item_information?.color,
-            })
-        }
-    }, [addedProduct?.item_information]);
   
     useEffect(() => {
         if(HELPER.isNotEmpty(category)) {

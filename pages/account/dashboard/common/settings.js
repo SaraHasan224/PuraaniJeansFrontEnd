@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect, createRef } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,10 +15,10 @@ import {
     TabPane,
 } from "reactstrap";
 import Resizer from "react-image-file-resizer";
-import { COOKIE_STORAGE_SERVICE, HELPER } from '../../../../../utils';
-import { CLOSET_ACTIONS } from '../../../../../store/actions';
-import AlertComponent from '../../../../../components/common/alert';
-import { AUTH_CONSTANTS, CLOSET_CONSTANTS } from '../../../../../store/actionTypes';
+import { COOKIE_STORAGE_SERVICE, HELPER } from '../../../../utils';
+import { CLOSET_ACTIONS } from '../../../../store/actions';
+import AlertComponent from '../../../../components/common/alert';
+import { AUTH_CONSTANTS, CLOSET_CONSTANTS, RESET_DETAILS } from '../../../../store/actionTypes';
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 
@@ -54,19 +56,22 @@ const SettingsTab = () => {
     const bannerCropperRef = createRef();
 
     const onSettingsUpdate = () => {
-        if (typeof logoCropperRef.current?.cropper !== "undefined") {
-            setLogo(logoCropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+        let logoFile = HELPER.isNotEmpty(logo) ? logo : closet?.logo;
+        let bannerFile = HELPER.isNotEmpty(banner) ? banner : closet?.banner;
+
+        if (HELPER.isNotEmpty(logo) && typeof logoCropperRef.current?.cropper !== "undefined") {
+            logoFile = logoCropperRef.current?.cropper.getCroppedCanvas().toDataURL(); 
+            setLogo(logoFile);
         }
-        if (typeof bannerCropperRef.current?.cropper !== "undefined") {
-            setBanner(bannerCropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+        if (HELPER.isNotEmpty(banner) && typeof bannerCropperRef.current?.cropper !== "undefined") {
+            bannerFile = bannerCropperRef.current?.cropper.getCroppedCanvas().toDataURL(); 
+            setBanner(bannerFile);
         }
         
         dispatch(CLOSET_ACTIONS.CLOSET_UPDATE_SETTINGS({
             name: closetName,
-            logo: HELPER.isNotEmpty(logo) ? logo : closet?.logo,
-            banner: HELPER.isNotEmpty(banner) ? banner : closet?.banner,
-            // logo: logoDataUrl,
-            // banner: bannerDataUrl,
+            logo: logoFile,
+            banner: bannerFile,
             about: closetAbout
         }, closetRef));
     }
@@ -136,8 +141,7 @@ const SettingsTab = () => {
 
     const signOutOfMyAccount = () => {
         COOKIE_STORAGE_SERVICE._removeAccessToken();
-        dispatch({ type: AUTH_CONSTANTS.RESET_DETAILS })
-        dispatch({ type: CLOSET_CONSTANTS.RESET_DETAILS })
+        dispatch({ type: RESET_DETAILS })
         router.push(`/`, undefined, { shallow: true });
     };
 

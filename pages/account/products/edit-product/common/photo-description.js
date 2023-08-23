@@ -13,12 +13,11 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import { Input } from '@mui/joy';
-
 import {
     CONSTANTS,
     HELPER
-} from "../../../../../../../utils";
-import { PRODUCT_ACTIONS } from '../../../../../../../store/actions';
+} from "../../../../utils";
+import { PRODUCT_ACTIONS } from '../../../../store/actions';
 
 const thumbsContainer = {
     display: 'flex',
@@ -73,11 +72,19 @@ const PhotoAndDescription = forwardRef((props, ref) => {
     const { CKEditor, ClassicEditor} = editorRef.current || {}
 
     useEffect( () => {
-        editorRef.current = {
-          CKEditor: require( '@ckeditor/ckeditor5-react' ).CKEditor, //Added .CKEditor
-          ClassicEditor: require( '@ckeditor/ckeditor5-build-classic' ),
-        }
-        setEditorLoaded( true )
+        setTimeout(() => {
+            try {
+                editorRef.current = {
+                    CKEditor: require('@ckeditor/ckeditor5-react').CKEditor, //Added .CKEditor
+                    ClassicEditor: require('@ckeditor/ckeditor5-build-classic'),
+                }
+                setEditorLoaded(true)
+            }
+            catch (err) {
+                //window reload
+                router.push(`/account/products/edit-product/${photo_and_description?.sku}`, undefined, { shallow: true });
+            }
+        }, 2000);
     }, [] );
     
     useImperativeHandle(
@@ -157,7 +164,7 @@ const PhotoAndDescription = forwardRef((props, ref) => {
         <div style={thumb} key={file.name}>
             <div style={thumbInner}>
                 <img
-                    src={file.preview}
+                    src={HELPER.isNotEmpty(file?.preview) ? file.preview : file?.image}
                     style={img}
                 />
             </div>

@@ -1,5 +1,5 @@
 import { CONSTANTS, HELPER } from "../../utils"
-import { PRODUCTS_CONSTANTS } from "../actionTypes"
+import { PRODUCTS_CONSTANTS, RESET_DETAILS } from "../actionTypes"
 
 const initialState = {
 	sort_by: [],
@@ -89,6 +89,8 @@ const initialState = {
 
 const productsReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case RESET_DETAILS:
+			return initialState;
 		case PRODUCTS_CONSTANTS.PRODUCT_DATA_RESET:
 			return {
 				...state,

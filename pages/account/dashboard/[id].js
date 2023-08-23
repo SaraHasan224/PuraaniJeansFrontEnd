@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
 
-import CommonLayout from '../../../../components/layouts/common-layout';
-import withPrivateRoute from '../../../../hoc/auth/withPrivateRoute';
+import CommonLayout from '../../../components/layouts/common-layout';
+import withPrivateRoute from '../../../hoc/auth/withPrivateRoute';
 
 import {
   Container,
@@ -18,9 +18,9 @@ import DashboardTab from "./common/dashboard/index";
 import ProductsTab from "./common/products";
 import OrdersTab from "./common/orders";
 import SettingsTab from "./common/settings";
-import { CLOSET_ACTIONS } from '../../../../store/actions';
-import { HELPER } from '../../../../utils';
-import Loader from '../../../../features/loader';
+import { CLOSET_ACTIONS } from '../../../store/actions';
+import { HELPER } from '../../../utils';
+import Loader from '../../../features/loader';
 
 const Dashboard = () => {
   const dispatch = useDispatch()

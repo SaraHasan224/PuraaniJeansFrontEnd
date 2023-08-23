@@ -76,7 +76,7 @@ const SignIn = () => {
                     </div>
                     <h4 className="mb-0">
                         <span className="d-block mb-2">
-                            <b>
+                            <b> 
                                 Log In to your account
                             </b>
                         </span>

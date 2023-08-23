@@ -148,20 +148,20 @@ const ProductItem = ({
         </div>
         {product.images ? (
           <ul className="product-thumb-list">
-            {product.images.map((img, i) => (
-              <li
+            {product.images.map((img, i) => {
+              return(<li
                 className={`grid_thumb_img ${img.url === image ? "active" : ""}`}
                 key={i}
               >
                 <a href={null} title="Add to Wishlist">
                   <Media
-                    src={`${img.url}`}
+                    src={img.url}
                     alt="wishlist"
                     onClick={() => onClickHandle(img.url)}
                   />
                 </a>
-              </li>
-            ))}
+              </li>)  
+            })}
           </ul>
         ) : (
           ""

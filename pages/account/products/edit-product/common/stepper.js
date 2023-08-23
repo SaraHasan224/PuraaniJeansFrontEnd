@@ -20,8 +20,8 @@ import PhotoDescription from './photo-description';
 import ShipmentLocation from './shipment-location';
 import VariantsInfo from './variants';
 import { useRouter } from 'next/router';
-import { HELPER } from '../../../../../../utils';
-import { META_ACTIONS, PRODUCT_ACTIONS } from '../../../../../../store/actions';
+import { HELPER } from '../../../../utils';
+import { META_ACTIONS, PRODUCT_ACTIONS } from '../../../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ProductStepper() {

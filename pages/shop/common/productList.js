@@ -54,8 +54,6 @@ const ProductList = ({ colClass, layoutList, openSidebar }) => {
     setPerPageRecord
   } = filterContext
 
-  console.log("selectedCondition: ", selectedCondition)
-
   const handlePagination = () => {
     // setIsLoading(true);
     // setTimeout(

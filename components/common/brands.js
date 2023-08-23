@@ -16,7 +16,7 @@ const Brands = ({ designClass }) => {
                   <Col md="4" sm="6" key={i}>
                     <div className="logo-block">
                       <a href={null}>
-                        <Media src={imgSrc?.image} alt={imgSrc?.index} />
+                        <Media src={imgSrc?.icon} alt={imgSrc?.index} />
                       </a>
                     </div>
                   </Col>

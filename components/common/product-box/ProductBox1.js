@@ -28,7 +28,7 @@ const ProductItem = ({
   const quantity = cartContext.quantity;
   const setQuantity = cartContext.setQuantity;
 
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(product?.image);
   const [modal, setModal] = useState(false);
   const [modalCompare, setModalCompare] = useState(false);
   const toggleCompare = () => setModalCompare(!modalCompare);
@@ -64,7 +64,7 @@ const ProductItem = ({
         </div>
         <div className="front" onClick={clickProductDetail}>
           <Media
-            src={product?.image}
+            src={image}
             className="img-fluid"
             alt=""
           />
@@ -143,15 +143,15 @@ const ProductItem = ({
             {product.images.map((img, i) => (
               <li
                 className={`grid_thumb_img ${
-                  img.src === image ? "active" : ""
+                  img.url === image ? "active" : ""
                 }`}
                 key={i}
               >
                 <a href={null} title="Add to Wishlist">
                   <Media
-                    src={`${img.src}`}
+                    src={`${img.url}`}
                     alt="wishlist"
-                    onClick={() => onClickHandle(img.src)}
+                    onClick={() => onClickHandle(img.url)}
                   />
                 </a>
               </li>

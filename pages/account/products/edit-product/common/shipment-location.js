@@ -1,3 +1,4 @@
+
 import React, { useImperativeHandle, useState, forwardRef, useEffect } from 'react';
 
 import {
@@ -16,8 +17,8 @@ import {
     Checkbox,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { META_ACTIONS, PRODUCT_ACTIONS } from '../../../../../../../store/actions';
-import { CONSTANTS, HELPER } from '../../../../../../../utils';
+import { META_ACTIONS, PRODUCT_ACTIONS } from '../../../../store/actions';
+import { CONSTANTS, HELPER } from '../../../../utils';
 
 const ShipmentLocation = forwardRef((props, ref) => {
     const dispatch = useDispatch()

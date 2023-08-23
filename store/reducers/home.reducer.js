@@ -1,4 +1,4 @@
-import { HOME_CONSTANTS } from '../actionTypes'
+import { HOME_CONSTANTS, RESET_DETAILS } from '../actionTypes'
 
 
 const initialState = {
@@ -12,6 +12,8 @@ const initialState = {
 
 const homeReducer = (state = initialState, action) => {
 	switch (action.type) {
+    case RESET_DETAILS:
+      return initialState;
     case HOME_CONSTANTS.HOMEPAGE.REQUEST:
       return state
     case HOME_CONSTANTS.HOMEPAGE.SUCCESS:

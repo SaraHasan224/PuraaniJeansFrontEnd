@@ -1,29 +1,33 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CommonLayout from '../../../../../../components/layouts/common-layout';
-import withPrivateRoute from '../../../../../../hoc/auth/withPrivateRoute';
+import CommonLayout from '../../../../components/layouts/common-layout';
+import withPrivateRoute from '../../../../hoc/auth/withPrivateRoute';
 
 import {
   Container,
   Row,
   Col,
 } from "reactstrap";
-import { HELPER } from '../../../../../../utils';
+import { HELPER } from '../../../../utils';
 import ProductStepper from './common/stepper';
-import { PRODUCT_ACTIONS } from '../../../../../../store/actions';
-import { PRODUCTS_CONSTANTS } from '../../../../../../store/actionTypes';
+import { PRODUCT_ACTIONS } from '../../../../store/actions';
+import { useRouter } from 'next/router';
+import { PRODUCTS_CONSTANTS } from '../../../../store/actionTypes';
 
 
 
-const AddClosetProducts = () => {
+const EditClosetProducts = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const id = router.query.id;
 
   const { closet } = useSelector((state) => state.closet);
-
+  
   useEffect(() => {
-    dispatch({ type: PRODUCTS_CONSTANTS.PRODUCT_DATA_RESET });
+    dispatch({type: PRODUCTS_CONSTANTS.PRODUCT_DATA_RESET});
     dispatch(PRODUCT_ACTIONS.ADD_NEW_PRODUCT_META());
+    dispatch(PRODUCT_ACTIONS.GET_PRODUCT_DETAIL(id, "edit"));
   }, []);
 
 
@@ -59,4 +63,5 @@ const AddClosetProducts = () => {
   )
 }
 
-export default AddClosetProducts;
+export default EditClosetProducts;
+// export default withPrivateRoute(EditClosetProducts);

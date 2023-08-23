@@ -1,4 +1,4 @@
-import { ALERT_CONSTANTS } from "../../store/actionTypes";
+import { ALERT_CONSTANTS, RESET_DETAILS } from "../../store/actionTypes";
 import { CONSTANTS } from "../../utils";
 
 const initState = {
@@ -12,6 +12,8 @@ const initState = {
 
 const alertReducer = (state = initState, action) => {
   switch (action.type) {
+    case RESET_DETAILS:
+      return initialState;
     case ALERT_CONSTANTS.SUCCESS:
       return {
         ...state,

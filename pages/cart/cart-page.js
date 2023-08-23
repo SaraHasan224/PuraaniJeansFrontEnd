@@ -5,8 +5,11 @@ import { Container, Row, Col, Media, Input } from "reactstrap";
 import { CurrencyContext } from "../../context/Currency/CurrencyContext";
 import ALink from "../../features/alink";
 import cart from "../../public/assets/images/icon-empty-cart.png";
+import { useRouter } from "next/router";
 
 const CartPage = () => {
+  const router = useRouter();
+
   const context = useContext(CartContext);
   const cartItems = context.state;
   const curContext = useContext(CurrencyContext);
@@ -59,6 +62,7 @@ const CartPage = () => {
                       <th scope="col">product name</th>
                       <th scope="col">price</th>
                       <th scope="col">quantity</th>
+                      <th scope="col">shipping cost</th>
                       <th scope="col">action</th>
                       <th scope="col">total</th>
                     </tr>
@@ -78,9 +82,11 @@ const CartPage = () => {
                             </ALink>
                           </td>
                           <td>
-                            <ALink href={`/product-details/` + item.handle}>
-                              <a>{item.title}</a>
+                            <span><b>SKU:</b> {item?.handle}</span>  <br/>
+                          <ALink href={`/product-details/` + item.handle} className={"text-left"}>
+                              <a>{item.name}</a>
                             </ALink>
+                            <br/>
                             <div className="mobile-cart-content row">
                               <div className="col-xs-3">
                                 <div className="qty-box">
@@ -143,6 +149,12 @@ const CartPage = () => {
                               </div>
                             </div>
                             {item.qty >= item.stock ? "out of Stock" : ""}
+                          </td>
+                          <td>
+                            <h4>
+                              {symbol}
+                              {item.shipping_cost}
+                            </h4>
                           </td>
                           <td>
                             <i
@@ -208,6 +220,11 @@ const CartPage = () => {
                   </div>
                 </div>
               </Col>
+                  <Col md="12" className="title-center mt-5" onClick={() => router.push(`/shop?slug=all&child=&brand=&condition=&standard=&color=&size=&minPrice=&maxPrice=`, undefined, { shallow: true })}>
+                    <button className="btn btn-solid" type="submit">
+                      Keep shopping
+                    </button>
+                  </Col>
             </Row>
           </Container>
         </section>

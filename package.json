@@ -33,6 +33,7 @@
     "html-react-parser": "^4.0.0",
     "i18next": "^21.8.10",
     "i18next-browser-languagedetector": "^6.1.4",
+    "imtool": "^1.2.1",
     "isomorphic-unfetch": "^3.1.0",
     "jimp": "^0.16.1",
     "libphonenumber-js": "^1.10.37",

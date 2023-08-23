@@ -143,15 +143,15 @@ const ProductItem = ({
             {product.images.map((img, i) => (
               <li
                 className={`grid_thumb_img ${
-                  img.src === image ? "active" : ""
+                  img.url === image ? "active" : ""
                 }`}
                 key={i}
               >
                 <a href={null} title="Add to Wishlist">
                   <Media
-                    src={`${img.src}`}
+                    src={`${img.url}`}
                     alt="wishlist"
-                    onClick={() => onClickHandle(img.src)}
+                    onClick={() => onClickHandle(img.url)}
                   />
                 </a>
               </li>

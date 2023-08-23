@@ -7,8 +7,8 @@ import {
     NavLink,
     Nav,
   } from "reactstrap";
-import { COOKIE_STORAGE_SERVICE } from '../../../../../utils';
-import { AUTH_CONSTANTS, CLOSET_CONSTANTS } from '../../../../../store/actionTypes';
+import { COOKIE_STORAGE_SERVICE } from '../../../../utils';
+import { AUTH_CONSTANTS, CLOSET_CONSTANTS, RESET_DETAILS } from '../../../../store/actionTypes';
 import { useRouter } from 'next/router';
 
 const DashboardNavigation = ({ active, setActive }) => {
@@ -19,8 +19,7 @@ const DashboardNavigation = ({ active, setActive }) => {
 
     const signOutOfMyAccount = () => {
         COOKIE_STORAGE_SERVICE._removeAccessToken();
-        dispatch({type: AUTH_CONSTANTS.RESET_DETAILS })
-        dispatch({type: CLOSET_CONSTANTS.RESET_DETAILS })
+        dispatch({type: RESET_DETAILS })
         router.push(`/`, undefined, { shallow: true });
     };
 

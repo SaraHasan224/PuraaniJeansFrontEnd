@@ -968,6 +968,9 @@ button {
 /*=====================
     1.2.Title CSS start
     ==========================*/
+.title-center {
+  text-align: center;
+}
 .title2 {
   text-align: center;
 
@@ -11047,7 +11050,7 @@ footer {
 
     span {
       position: relative;
-      width: 35%;
+      width: 60% !important;
       float: right;
       line-height: 1.2em;
     }
@@ -12768,7 +12771,7 @@ table {
       .profile-image {
         position: relative;
         width: 220px;
-        height: 68px;
+        height: 157px;
         margin: 0 auto;
 
         img {
@@ -14469,4 +14472,7 @@ table {
 }
 .img-preview {
   overflow: hidden;
+}
+.i-100 {
+  width: 100px;
 }

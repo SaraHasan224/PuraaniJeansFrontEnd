@@ -13,11 +13,13 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import { Input } from '@mui/joy';
+
 import {
     CONSTANTS,
     HELPER
-} from "../../../../../../utils";
-import { PRODUCT_ACTIONS } from '../../../../../../store/actions';
+} from "../../../../../utils";
+import { PRODUCT_ACTIONS } from '../../../../../store/actions';
+import { useRouter } from 'next/router';
 
 const thumbsContainer = {
     display: 'flex',
@@ -55,6 +57,7 @@ const img = {
 
 const PhotoAndDescription = forwardRef((props, ref) => {
     const dispatch = useDispatch()
+    const router = useRouter();
 
     const { activeStep } = props;
 
@@ -72,11 +75,19 @@ const PhotoAndDescription = forwardRef((props, ref) => {
     const { CKEditor, ClassicEditor} = editorRef.current || {}
 
     useEffect( () => {
-        editorRef.current = {
-          CKEditor: require( '@ckeditor/ckeditor5-react' ).CKEditor, //Added .CKEditor
-          ClassicEditor: require( '@ckeditor/ckeditor5-build-classic' ),
-        }
-        setEditorLoaded( true )
+        setTimeout(() => {
+            try {
+                editorRef.current = {
+                    CKEditor: require('@ckeditor/ckeditor5-react').CKEditor, //Added .CKEditor
+                    ClassicEditor: require('@ckeditor/ckeditor5-build-classic'),
+                }
+                setEditorLoaded(true)
+            }
+            catch (err) {
+                //window reload
+                router.push(`/account/products/add-product`, undefined, { shallow: true });
+            }
+        }, 2000);
     }, [] );
     
     useImperativeHandle(
@@ -156,7 +167,7 @@ const PhotoAndDescription = forwardRef((props, ref) => {
         <div style={thumb} key={file.name}>
             <div style={thumbInner}>
                 <img
-                    src={HELPER.isNotEmpty(file?.preview) ? file.preview : file?.image}
+                    src={file.preview}
                     style={img}
                 />
             </div>

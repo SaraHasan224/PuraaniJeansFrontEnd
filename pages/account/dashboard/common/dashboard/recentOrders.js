@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 
-import { CurrencyContext } from "../../../../../../context/Currency/CurrencyContext";
-import { HELPER } from '../../../../../../utils';
+import { CurrencyContext } from "../../../../../context/Currency/CurrencyContext";
+import { HELPER } from '../../../../../utils';
 
 const DetailView = ({ id, productDetails, status }) => {
     return (

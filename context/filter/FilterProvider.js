@@ -86,7 +86,6 @@ const FilterProvider = (props) => {
     }
   };
   const handleSelectedCondition = (condition, checked) => {
-    console.log("selected condition: ", condition, checked)
     var index = selectedCondition.indexOf(condition);
     if (index > -1) {
       setIsChecked(!isChecked);
@@ -99,7 +98,6 @@ const FilterProvider = (props) => {
     }
   };
   const handleSelectedColor = (color, checked) => {
-    console.log("selected color: ", color, checked)
     var index = selectedColor.indexOf(color);
     if (index > -1) {
       setIsChecked(!isChecked);
